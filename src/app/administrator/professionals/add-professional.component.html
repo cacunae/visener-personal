@@ -1,4 +1,4 @@
-<app-header title="Profesionales" [backLink]="'/administrator/professionals'" [event]="true" (rightEvent)="postProfessional()" [rightText]="'Guardar'"></app-header>
+<app-header title="Profesionales" [backLink]="'/administrator/professionals'" [event]="true" (rightEvent)="publicar()" [rightText]="'Guardar'"></app-header>
 <div class="content" role="main">
     <mat-card>
         <mat-card-title *ngIf="!id">Ingresar Profesional</mat-card-title>
@@ -11,17 +11,19 @@
             <p style="color:red;font-size:11px">* campos requeridos</p><br>
             <mat-form-field class="mat-form">
                 <mat-label>Ingresar Nombre y Apellido</mat-label>
-                <input matInput name="name" formControlName="name" placeholder="Pedro Pérez" [(ngModel)]="name"
-                    required>
+                <input matInput name="name" formControlName="name" placeholder="Pedro Pérez" [(ngModel)]="professional.name" required>
             </mat-form-field><br>
             <mat-form-field class="mat-form">
                 <mat-label>Correo Electrónico</mat-label>
-                <input matInput formControlName="email" placeholder="paciente@example.com" [(ngModel)]="email" required>
+                <input matInput formControlName="username" placeholder="profesional@example.com" [(ngModel)]="professional.username" required>
+            </mat-form-field><br>
+            <mat-form-field class="mat-form">
+                <mat-label>Especialidad</mat-label>
+                <input matInput name="role" formControlName="role" [(ngModel)]="professional.role" required>
             </mat-form-field><br>
             <mat-form-field class="mat-form">
                 <mat-label>Contraseña</mat-label>
-                <input matInput [type]="hide ? 'password' : 'text'" name="password" formControlName="password"
-                    [(ngModel)]="password" required>
+                <input matInput [type]="hide ? 'password' : 'text'" name="password" formControlName="password" [(ngModel)]="professional.password">
                 <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
                     [attr.aria-pressed]="hide">
                     <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
@@ -29,7 +31,7 @@
             </mat-form-field><br>
             <mat-form-field class="mat-form">
                 <mat-label>Confirmar Contraseña</mat-label>
-                <input matInput [type]="hide ? 'password' : 'text'" name="password" formControlName="password" [(ngModel)]="passwordConfirm" required>
+                <input matInput [type]="hide ? 'password' : 'text'" name="password" formControlName="password" [(ngModel)]="passwordConfirm">
                 <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                     <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </button>
@@ -38,7 +40,7 @@
     </mat-card>
     <div class="desktopbuttons">
         <button mat-raised-button routerLink="/administrator/professionals" routerLinkActive="false">Cancelar</button>&nbsp;&nbsp;&nbsp;
-        <button *ngIf="!id" mat-raised-button type="submit" color="primary" (click)="postProfessional()">Crear Profesional</button>
-        <button *ngIf="id" mat-raised-button type="submit" color="primary" (click)="postProfessional()">Actualizar Profesional</button>
+        <button *ngIf="!id" mat-raised-button type="submit" color="primary" (click)="publicar()">Crear Profesional</button>
+        <button *ngIf="id" mat-raised-button type="submit" color="primary" (click)="publicar()">Actualizar Profesional</button>
     </div>
 </div>

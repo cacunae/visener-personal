@@ -1,25 +1,26 @@
-<app-header title="Pacientes" [backLink]="'/administrator/patients'" [event]="true" (rightEvent)="postPatient()" [rightText]="'Guardar'"></app-header>
+<app-header title="Pacientes" [backLink]="'/administrator/patients'" [event]="true" (rightEvent)="publicar()" [rightText]="'Guardar'"></app-header>
 <div class="content" role="main">
     <mat-card>
-        <mat-card-title>Ingresar Paciente</mat-card-title>
-        <mat-card-subtitle style="margin-bottom: 0px;">Aquí podrás agregar pacientes</mat-card-subtitle>
+        <mat-card-title *ngIf="!id">Ingresar Paciente</mat-card-title>
+        <mat-card-title *ngIf="id">Actualizar Paciente</mat-card-title>
+        <mat-card-subtitle *ngIf="!id" style="margin-bottom: 0px;">Aquí podrás agregar paciente</mat-card-subtitle>
+        <mat-card-subtitle *ngIf="id" style="margin-bottom: 0px;">Aquí podrás actualizar un paciente</mat-card-subtitle>
         <br>
         <mat-divider></mat-divider><br>
         <form [formGroup]="angForm" novalidate>
             <p style="color:red;font-size:11px">* campos requeridos</p><br>
             <mat-form-field class="mat-form">
                 <mat-label>Ingresar Nombre y Apellido</mat-label>
-                <input matInput name="name" formControlName="name" placeholder="Pedro Pérez" [(ngModel)]="name"
-                    required>
+                <input matInput name="name" formControlName="name" placeholder="Pedro Pérez" [(ngModel)]="patient.name" required>
             </mat-form-field><br>
             <mat-form-field class="mat-form">
                 <mat-label>Correo Electrónico</mat-label>
-                <input matInput formControlName="email" placeholder="paciente@example.com" [(ngModel)]="email" required>
+                <input matInput formControlName="username" placeholder="paciente@example.com" [(ngModel)]="patient.username" required>
             </mat-form-field><br>
             <mat-form-field class="mat-form">
                 <mat-label>Contraseña</mat-label>
                 <input matInput [type]="hide ? 'password' : 'text'" name="password" formControlName="password"
-                    [(ngModel)]="password" required>
+                    [(ngModel)]="patient.password" >
                 <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
                     [attr.aria-pressed]="hide">
                     <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
@@ -27,7 +28,7 @@
             </mat-form-field><br>
             <mat-form-field class="mat-form">
                 <mat-label>Confirmar Contraseña</mat-label>
-                <input matInput [type]="hide ? 'password' : 'text'" name="password" formControlName="password" [(ngModel)]="passwordConfirm" required>
+                <input matInput [type]="hide ? 'password' : 'text'" name="password" formControlName="password" [(ngModel)]="passwordConfirm">
                 <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                     <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </button>
@@ -36,6 +37,7 @@
     </mat-card>
     <div class="desktopbuttons">
         <button mat-raised-button routerLink="/administrator/patients" routerLinkActive="false">Cancelar</button>&nbsp;&nbsp;&nbsp;
-        <button mat-raised-button type="submit" color="primary" (click)="postPatient()">Crear Paciente</button>
+        <button mat-raised-button *ngIf="!id" type="submit" color="primary" (click)="publicar()">Crear Paciente</button>
+        <button mat-raised-button *ngIf="id" type="submit" color="primary" (click)="publicar()">Actualizar Paciente</button>
     </div>
 </div>

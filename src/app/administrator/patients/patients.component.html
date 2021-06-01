@@ -29,6 +29,9 @@
         <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
         <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="example-element-row example-element-row-border"></tr>
     </table>
+    <mat-spinner *ngIf="loading"></mat-spinner>
+    <div class="noitems" *ngIf="!loading && patients.length == 0">No hay pacientes aún.</div>
+
     <div class="desktopbuttons">
         <button class="desktop buttontop" mat-raised-button type="submit" color="primary" routerLink="/administrator/add-patient" routerLinkActive="false">Añadir Paciente</button>
     </div>

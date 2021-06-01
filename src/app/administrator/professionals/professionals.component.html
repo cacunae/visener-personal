@@ -69,7 +69,8 @@
             [class.example-expanded-row]="expElem === element"></tr>
         <tr mat-row *matRowDef="let row; columns: ['expandedDetail'];" class="example-detail-row"></tr>
     </table>
-    <div style="width: 800px; padding-top:20px;" *ngIf="professionals.length == 0">No hay profesionales aún.</div>
+    <mat-spinner *ngIf="loading"></mat-spinner>
+    <div class="noitems" *ngIf="!loading && professionals.length == 0">No hay profesionales aún.</div>
     <div class="desktopbuttons">
         <button mat-raised-button type="submit" color="primary" routerLink="/administrator/add-professional" routerLinkActive="false">Añadir Profesional</button>
     </div>

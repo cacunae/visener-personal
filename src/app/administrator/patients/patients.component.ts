@@ -10,6 +10,7 @@ export class PatientsComponent implements OnInit {
   public professionals: any[] = [];
   public patients: any[] = [];
   public columnsToDisplay: string[] = ['id', 'name', 'username', 'actions'];
+  public loading:boolean = true;
 
   constructor(public snackBar: MatSnackBar, private dataService: DataService) { }
 
@@ -18,8 +19,10 @@ export class PatientsComponent implements OnInit {
   }
 
   getPatients(){
+    this.loading = true;
     this.dataService.getData("/_design/view/_view/patients").then((patients: any) => {
       this.patients = patients.rows.sort((a, b) => { return a.value.name.localeCompare(b.value.name) });
+      this.loading = false;
     }); 
   }
 

@@ -20,6 +20,7 @@ import { ActivatedRoute } from '@angular/router';
 export class ProfessionalsComponent implements OnInit {
   public professionals: any[] = [];
   public columnsToDisplay: string[] = ['id', 'name', 'username', 'rol', 'actions'];
+  public loading:boolean = true;
 
   constructor(public route: ActivatedRoute, public snackBar: MatSnackBar, private dataService: DataService, public dialog: MatDialog) {}
 
@@ -28,8 +29,10 @@ export class ProfessionalsComponent implements OnInit {
   }
 
   getProfessionals(){
+    this.loading = true;
     this.dataService.getData("/_design/view/_view/professionals").then((professionals: any) => {
       this.professionals = professionals.rows.sort((a:any, b:any) => { return a.value.name.localeCompare(b.value.name) });
+      this.loading = false;
       for (let professional of this.professionals) {
         this.dataService.getData("/_design/view/_view/relations-by-professional?key=\""+professional.value._id+"\"&include_docs=true").then((patients: any) => {
           professional.patients = patients.rows;
