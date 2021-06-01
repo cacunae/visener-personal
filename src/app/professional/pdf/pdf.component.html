@@ -1,0 +1,32 @@
+<div class="col-md-12" id="htmlData">
+    <br>
+    <table class="table table-bordered" style="width:100%">
+        <h1 style="margin-bottom:0%;text-align:center;"><strong>Descargar Programas</strong></h1>
+        <h4 style="margin-bottom:0%;text-align:center;">Aquí podrás descargar en PDF el registro de programas</h4>
+        <br><br>
+        <mat-card>
+            <h2><strong style="color:#3D4FB0">Programa: </strong></h2>
+                <h3><strong>Nombre de Programa: </strong>{{arreglo.value.doc.title}}</h3>
+                <h3><strong>Paciente: </strong>
+                    <span *ngIf="arreglo.doc">{{arreglo.doc.name}}</span>&nbsp;&nbsp;&nbsp;
+                    <span *ngIf="!arreglo.doc">{{arreglo.doc.name}}</span>
+                </h3>
+                <h4><strong>Objetivo: </strong>{{arreglo.value.doc.objective}}</h4>
+                <h4><strong>Detalles del Programa: </strong>{{arreglo.value.doc.detail}}</h4><br>
+                <h2><strong style="color:#3D4FB0">Tareas:</strong></h2>
+            <div *ngFor="let interaction of arreglo.value.doc.interactions">
+                <h3><strong>Nombre de Tarea: </strong>{{interaction.title}}</h3>
+                <h3><strong>Subtitulo: </strong>{{interaction.subtitle}}</h3>
+                <h4><strong>Nº de Series: </strong> {{interaction.series}}</h4>
+                <h4><strong>Nº de Repeticiones: </strong> {{interaction.repetitions}}</h4>
+                <h4><strong>Tiempo de Descanso: </strong> {{interaction.rest}}</h4>
+                <h4><strong>Comentarios extras: </strong> {{interaction.comment}}</h4>
+          </div>
+          </mat-card>
+          <br>
+    </table>
+</div>
+<div class="col-md-4 text-right">
+    <button mat-raised-button (click)="onNoClick()">Cancelar</button>&nbsp;&nbsp;&nbsp;
+    <button mat-raised-button color="primary" class="btn btn-success btn-block" (click)="openPDF()">Download PDF</button>
+</div>

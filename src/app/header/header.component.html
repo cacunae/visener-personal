@@ -1,0 +1,23 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row style="padding: 0px;">
+        <button class="desktop" mat-button (click)="popup()"><mat-icon>menu</mat-icon></button>
+        <button class="cellphone" *ngIf="!backLink" mat-button (click)="popup()"><mat-icon>menu</mat-icon></button>
+        <button class="cellphone" *ngIf="backLink" mat-button [routerLink]="backLink" routerLinkActive="false"><mat-icon>arrow_back_ios_new</mat-icon></button>
+        <div class="col-md-4 text-right"></div>
+        <span>{{title}}</span>
+        <!--<span class="desktop">&nbsp;
+            <a href="/administrator" style="color:white; text-decoration: none;">Administrador</a> {{'user'}}
+        </span>-->
+        <span class="spacer"></span>
+        <button class="cellphone" *ngIf="rightLink" mat-button [routerLink]="rightLink" routerLinkActive="false">
+            <mat-icon *ngIf="rightIcon">{{rightIcon}} <span *ngIf="rightText">{{rightText}}</span></mat-icon>
+        </button>
+        <button class="cellphone" mat-button *ngIf="event" (click)="clickEvent()">
+            <mat-icon *ngIf="rightIcon">{{rightIcon}}</mat-icon> <span *ngIf="rightText">{{rightText}}</span>
+        </button>
+        <div class="desktop" style="font-size:14px; margin-right: 30px; text-align: right; line-height: 18px;">
+            <b>{{user}}</b><br>
+            {{role}}
+        </div>
+    </mat-toolbar-row>
+</mat-toolbar>

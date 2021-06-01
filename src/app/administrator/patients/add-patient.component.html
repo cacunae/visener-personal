@@ -1,0 +1,41 @@
+<app-header title="Pacientes" [backLink]="'/administrator/patients'" [event]="true" (rightEvent)="postPatient()" [rightText]="'Guardar'"></app-header>
+<div class="content" role="main">
+    <mat-card>
+        <mat-card-title>Ingresar Paciente</mat-card-title>
+        <mat-card-subtitle style="margin-bottom: 0px;">Aquí podrás agregar pacientes</mat-card-subtitle>
+        <br>
+        <mat-divider></mat-divider><br>
+        <form [formGroup]="angForm" novalidate>
+            <p style="color:red;font-size:11px">* campos requeridos</p><br>
+            <mat-form-field class="mat-form">
+                <mat-label>Ingresar Nombre y Apellido</mat-label>
+                <input matInput name="name" formControlName="name" placeholder="Pedro Pérez" [(ngModel)]="name"
+                    required>
+            </mat-form-field><br>
+            <mat-form-field class="mat-form">
+                <mat-label>Correo Electrónico</mat-label>
+                <input matInput formControlName="email" placeholder="paciente@example.com" [(ngModel)]="email" required>
+            </mat-form-field><br>
+            <mat-form-field class="mat-form">
+                <mat-label>Contraseña</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'" name="password" formControlName="password"
+                    [(ngModel)]="password" required>
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+            </mat-form-field><br>
+            <mat-form-field class="mat-form">
+                <mat-label>Confirmar Contraseña</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'" name="password" formControlName="password" [(ngModel)]="passwordConfirm" required>
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+            </mat-form-field><br>
+        </form>
+    </mat-card>
+    <div class="desktopbuttons">
+        <button mat-raised-button routerLink="/administrator/patients" routerLinkActive="false">Cancelar</button>&nbsp;&nbsp;&nbsp;
+        <button mat-raised-button type="submit" color="primary" (click)="postPatient()">Crear Paciente</button>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+<h1 mat-dialog-title style="margin-bottom: 5px;">Seleccione una imagen o video</h1>
+<input type="text" [(ngModel)]="search" placeholder="Ingrese los tags para filtrar resultados" style="font-size: 14px; width: 100%; background-color: #fdfdfd; border: 1px solid #ccc; padding: 5px 10px; outline: none; border-radius: 15px; margin-bottom: 5px;" />
+<div mat-dialog-content text-align-center >
+    <div *ngFor="let attachment of attachments">
+      <div *ngIf="({tags:attachment.value.tags, search:search} | tagFilter) " [className]="attachment.value._id==param.selection ? 'thumbnail selected' : 'thumbnail'" (click)="select(attachment)">
+        <img   *ngIf="attachment.value.entity=='image'" style="width: 100%;" src="http://18.229.98.43:5984/visener/{{attachment.value._id}}/image" />
+        <video *ngIf="attachment.value.entity=='video' && !data.filter" style="width: 100%;"><source src="http://18.229.98.43:5984/visener/{{attachment.value._id}}/video"></video>
+      </div>
+    </div>   
+</div>
+<div mat-dialog-actions>
+  <button mat-stroked-button (click)="onNoClick()">Cancelar</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="param" cdkFocusInitial>Seleccionar</button>
+</div>

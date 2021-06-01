@@ -1,0 +1,63 @@
+<mat-card>
+    <mat-card-subtitle *ngIf="post.value.subtitle" style="float:right; color:#a0a0a0; font-size: 12px;">
+        {{post.value.datetime | fechaFormateada}}</mat-card-subtitle>
+    <mat-card-title *ngIf="post.value.title">{{post.value.title}}</mat-card-title>
+    <mat-card-subtitle *ngIf="post.value.subtitle">{{post.value.subtitle}}</mat-card-subtitle>
+    <img mat-card-image *ngIf="post.value.image" src="http://18.229.98.43:5984/visener/{{post.value.image}}/image" />
+    <video mat-card-image controls autoplay *ngIf="post.value.video">
+        <source src="http://18.229.98.43:5984/visener/{{post.value.video}}/video" />
+    </video>
+    <mat-card-content *ngIf="post.value.content">{{post.value.content}}</mat-card-content>
+    <div *ngIf="post.value.poll">
+        <div *ngFor="let question of post.value.poll">
+            <mat-card-subtitle *ngIf="question.question">{{question.question}}
+            </mat-card-subtitle>
+            <input matInput *ngIf="question.type=='text'" type="text" [(ngModel)]="question.response"
+                placeholder="Escriba su respuesta...">
+            <mat-radio-group *ngIf="question.type=='selection'" [(ngModel)]="question.response">
+                <mat-radio-button *ngFor="let option of question.options" [value]="option.description">
+                    {{option.description}}</mat-radio-button>
+            </mat-radio-group>
+            <mat-radio-group *ngIf="question.type=='multiple'" [(ngModel)]="question.response">
+                <mat-checkbox *ngFor="let option of question.options" [value]="option.description">
+                    {{option.description}}</mat-checkbox>
+            </mat-radio-group>
+        </div>
+        <div style="text-align: center;" *ngIf="!demo">
+            <button mat-raised-button (click)="responsePost(post)">
+                <mat-icon>done</mat-icon> Responder encuesta
+            </button>
+        </div>
+    </div>
+    <br>
+    <div *ngIf="!demo">
+        <button *ngIf="post.liked=='true'" mat-raised-button style="font-size: 12px;" color="primary" (click)="like(post)">
+            <mat-icon style="margin-top:7px; font-size: 14px;">thumb_up</mat-icon> Me gusta
+        </button>
+        <button *ngIf="post.liked=='false'" mat-raised-button style="font-size: 12px;" (click)="like(post)">
+            <mat-icon style="margin-top:7px; font-size: 14px;">thumb_up</mat-icon> Me gusta
+        </button>
+        <button mat-stroked-button style="margin-left: 10px; font-size: 12px;" (click)="openComment(post)">
+            <mat-icon style="margin-top:7px; font-size: 14px;">comment</mat-icon> Comentar
+        </button>
+        <div style="float: right; margin-top: 10px; margin-left: 20px;" *ngIf="!post.comments || post.comments.length == 0">Sin comentarios.</div>
+        <div style="float: right; margin-top: 10px; margin-left: 20px;" *ngIf="post.comments && post.comments.length == 1">{{post.comments.length}} comentario.</div>
+        <div style="float: right; margin-top: 10px; margin-left: 20px;" *ngIf="post.comments && post.comments.length > 1">{{post.comments.length}} comentarios.</div>
+        
+        <div style="float: right; margin-top: 10px;" *ngIf="post.likes && post.likes == 1">{{post.likes}} like. </div>
+        <div style="float: right; margin-top: 10px;" *ngIf="post.likes && post.likes > 1">{{post.likes}} likes.</div>
+        
+        <div *ngIf="post.comments && post.comments.length>0">
+            <mat-divider style="margin-top:10px;"></mat-divider><br>
+            <div *ngFor="let comment of post.comments" class="comment">
+                <mat-card-content style="margin-bottom: 0px;"><span style="font-weight: 500;">{{comment.name}}:
+                    </span>{{comment.text}}</mat-card-content>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="demo || demo2" style="text-align: center;">
+        <button *ngIf="demo"  mat-raised-button color="primary" [mat-dialog-close]="post">Seleccionar Post</button>
+        <button *ngIf="demo2" mat-raised-button color="primary" (click)="selectPost(post)">Seleccionar Post</button>
+    </div>
+    <button *ngIf="demo3" mat-raised-button color="primary" (click)="selectPost(post)">Seleccionar Post</button>
+</mat-card>

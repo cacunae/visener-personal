@@ -1,0 +1,10 @@
+textarea{
+    width: 100%;
+    font-size: 14px;
+    margin: 0px 0px 20px -10px;
+    padding: 7px;
+    border: 1px solid #e1e1e1;
+    background-color: #fafafa;
+    border-radius: 10px;
+    outline: none;
+}

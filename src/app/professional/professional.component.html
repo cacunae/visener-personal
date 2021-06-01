@@ -1,0 +1,19 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <button mat-button (click)="popup()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <div class="col-md-4 text-right">
+    </div>
+    <span>&nbsp;Visener</span>
+    <span class="desktop">&nbsp; <a href="/professional" style="color:white; text-decoration: none;">Profesional</a> {{user}}</span>
+    <span class="spacer"></span>
+    <button class="cellphone" mat-button routerLink="/professional/treatments" routerLinkActive="false">
+      <mat-icon>home</mat-icon>
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>
+<mat-menu #menu="matMenu"></mat-menu>
+<div class="content" role="main">
+  <router-outlet></router-outlet>
+</div>

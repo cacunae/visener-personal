@@ -1,0 +1,30 @@
+<app-header title="Imágenes/Videos" [backLink]="'/administrator/patients'" [event]="false"></app-header>
+<div class="content" role="main">
+    <mat-card>
+        <mat-card-title>Seleccione una imagen o video:</mat-card-title>
+        <br>
+        <mat-card-content>
+            <input #fileInput type="file" [multiple]="false" class="upload__input" />
+            <img *ngIf="attachment.entity=='attachment' && attachment._id" style="width: 100%;" src="{{attachment._id | image}}" />
+            <video *ngIf="attachment.entity=='video' && attachment._id" style="width: 100%;"><source src="{{attachment._id | video}}"></video>
+            <br><br>
+            <mat-form-field>
+                <mat-label>Tipo de archivo</mat-label>
+                <mat-select class="form-control" name="daytimes" [(ngModel)]="attachment.entity">
+                    <mat-option value="image">Imagen</mat-option>
+                    <mat-option value="video">Video</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="mat-form" style="width: 100%; max-width: 100%;">
+                <mat-label>Escriba sus tags separados por coma:</mat-label>
+                <input matInput name="tags" placeholder="" [(ngModel)]="attachment.tags">
+            </mat-form-field><br>
+        </mat-card-content>
+    </mat-card>
+    <div class="desktopbuttons">
+        <button mat-raised-button *ngIf="!uploading" routerLink="/administrator/attachments" routerLinkActive="false">Cancelar</button>&nbsp;&nbsp;&nbsp;
+        <button mat-raised-button *ngIf="!uploading && attachment.entity=='image'" color="primary" (click)="uploadFile(fileInput.files);">Subir Imagen</button>
+        <button mat-raised-button *ngIf="!uploading && attachment.entity=='video'" color="primary" (click)="uploadFile(fileInput.files);">Subir Video</button>
+    </div>
+    <mat-spinner *ngIf="uploading"></mat-spinner>
+</div>

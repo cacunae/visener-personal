@@ -1,0 +1,35 @@
+<app-header title="Pacientes" [rightLink]="'/administrator/add-patient'" [rightIcon]="'add'"></app-header>
+<div class="content" role="main">
+    <table mat-table [dataSource]="patients" matSort multiTemplateDataRows class="mat-elevation-z8">
+        <div>
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Nº</th>
+                <td mat-cell *matCellDef="let row; let i = dataIndex;">{{i+1}}</td>
+            </ng-container>
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef>Nombre del Paciente</th>
+                <td mat-cell *matCellDef="let patient">{{patient.value.name}}</td>
+            </ng-container>
+            <ng-container matColumnDef="username">
+                <th mat-header-cell *matHeaderCellDef class="desktop">Correo Electrónico</th>
+                <td mat-cell *matCellDef="let patient" class="desktop">{{patient.value.username}}</td>
+            </ng-container>
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef>Acciones</th>
+                <td mat-cell *matCellDef="let element">
+                    <button mat-icon-button routerLink="/administrator/upd-patient/{{element.value._id}}" routerLinkActive="false">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-icon-button (click)="delPatient(element)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+        </div>
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="example-element-row example-element-row-border"></tr>
+    </table>
+    <div class="desktopbuttons">
+        <button class="desktop buttontop" mat-raised-button type="submit" color="primary" routerLink="/administrator/add-patient" routerLinkActive="false">Añadir Paciente</button>
+    </div>
+</div>

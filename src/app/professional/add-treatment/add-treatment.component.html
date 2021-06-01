@@ -1,0 +1,218 @@
+<mat-card>
+    <mat-card-title *ngIf="!id">Crear Programa</mat-card-title>
+    <mat-card-title *ngIf="id">Actualizar Programa</mat-card-title>
+    <mat-card-subtitle *ngIf="!id">Aquí podrás agregar un programa para tu paciente:</mat-card-subtitle>
+    <mat-card-subtitle *ngIf="id">Aquí podrás modificar un programa para tu paciente:</mat-card-subtitle>
+    <mat-form-field>
+        <mat-label>Elegir Paciente</mat-label>
+        <mat-select class="form-control" name="tipo" [(ngModel)]="treatment.patient">
+            <mat-option [value]="patient.value._id" *ngFor="let patient of patients">{{patient.value.name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="bigtextarea">
+        <mat-label>Nombre del Programa:</mat-label>
+        <input matInput placeholder="" [(ngModel)]="treatment.title">
+    </mat-form-field>
+    <mat-form-field class="bigtextarea">
+        <mat-label>Detalle del Programa:</mat-label>
+        <textarea matInput placeholder="" [(ngModel)]="treatment.content"></textarea>
+    </mat-form-field>
+    <mat-form-field class="bigtextarea">
+        <mat-label>Objetivo:</mat-label>
+        <textarea matInput placeholder="" [(ngModel)]="treatment.objective"></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Duración del Programa</mat-label>
+        <mat-date-range-input [rangePicker]="picker">
+            <input matStartDate [(ngModel)]="treatment.startDate" placeholder="Start date">
+            <input matEndDate [(ngModel)]="treatment.endDate" placeholder="End date">
+        </mat-date-range-input>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field><br>
+        <button mat-stroked-button (click)="openPost()" *ngIf="!treatment.post">
+            <mat-icon>post_add</mat-icon> Asociar Post
+        </button><br>
+        <button mat-stroked-button (click)="treatment.post=null" *ngIf="treatment.post">
+            <mat-icon>remove_circle_outline</mat-icon> Borrar post "{{postName}}"
+        </button><br>
+    <br>
+    <mat-divider></mat-divider><br>
+    <div cdkDropList (cdkDropListDropped)="drop($event)">
+        <div cdkDrag *ngFor="let interaction of treatment.interactions; let i = index;"
+            style="display: inline-flex; width: calc(100% - 20px); border: 1px solid #cccccc; background-color: #fdfdfd; border-radius: 5px; padding: 10px; margin: 5px 10px;">
+            <button *ngIf="!interaction.interaction" mat-stroked-button (click)="openDialogInteraction(interaction)"
+                style="margin: auto; margin-top: 15px; margin-bottom: 15px;">
+                <mat-icon>directions_run</mat-icon> Elegir Tarea
+            </button>
+            <mat-tab-group mat-align-tabs="center" *ngIf="interaction.interaction" style="width: 100%;"
+                animationDuration="0ms">
+                <mat-tab label="Datos generales">
+                    <mat-card-subtitle><b>Tarea {{i+1}}</b></mat-card-subtitle>
+                    <img *ngIf="interaction.image" style="margin-left: 10px; width: 60px; margin-bottom: -10px;"
+                        src="http://18.229.98.43:5984/visener/{{interaction.image}}/image" />
+                    <br>
+                    <br>
+                    <div *ngIf="interaction.poll && interaction.poll.type=='slider'">
+                        <div *ngIf="interaction.interaction">
+                            <mat-card-subtitle>Título: {{interaction.title}}</mat-card-subtitle>
+                            <mat-card-subtitle>Subtítulo: {{interaction.subtitle}}</mat-card-subtitle>
+                            <mat-form-field style="width: 100px !important; margin-right: 20px; float: left;">
+                                <mat-label>Nº de Repeticiones:</mat-label>
+                                <input matInput placeholder="Ej: 20 Repeticiones" type="number"
+                                    [(ngModel)]="interaction.repetitions">
+                            </mat-form-field>
+                            <mat-form-field style="width: 100px !important; margin-right: 20px; float: left;">
+                                <mat-label>Nº de Series:</mat-label>
+                                <input matInput placeholder="Ej: 4 Series" type="number"
+                                    [(ngModel)]="interaction.series">
+                            </mat-form-field>
+                            <mat-form-field style="width: 100px !important; margin-right: 20px; float: left;">
+                                <mat-label>Descanso:</mat-label>
+                                <input matInput placeholder="Ej: 30 segundos por pausa" type="number"
+                                    [(ngModel)]="interaction.rest">
+                            </mat-form-field>
+                            <mat-form-field style="width: 100px !important; float: left;">
+                                <mat-label>Iteraciones diarias</mat-label>
+                                <mat-select class="form-control" name="daytimes" [(ngModel)]="interaction.iterations">
+                                    <mat-option value="1">1</mat-option>
+                                    <mat-option value="2">2</mat-option>
+                                    <mat-option value="4">4</mat-option>
+                                    <mat-option value="8">8</mat-option>
+                                </mat-select>
+                            </mat-form-field><br><br><br>
+                            <div>
+                            </div>
+                        </div>
+                    </div>
+                            <mat-label>Días de la semana:</mat-label><br>
+                            <mat-radio-group>
+                                <mat-checkbox style="margin-right: 10px;"
+                                    [checked]='{arr:interaction.weekdays, day:day} | weekDays' *ngFor="let day of week"
+                                    (click)="setDays(interaction, day)">{{day}}</mat-checkbox>
+                            </mat-radio-group>
+                        <br>
+                </mat-tab>
+                <mat-tab label="Feedback">
+                    <br>
+                    <mat-card-subtitle style="margin:0%"><strong>Tipo de feedback:</strong> {{interaction.poll.type}}
+                    </mat-card-subtitle>
+                    <mat-card-subtitle><strong>Asociado a: </strong>{{interaction.poll.relation}}</mat-card-subtitle>
+                    <div *ngIf="interaction.poll.type == 'slider'">
+                        <mat-card-subtitle>{{interaction.subtitle}} ({{interaction.responses}}/{{interaction.series}})
+                        </mat-card-subtitle>
+                        <img style="width:60px; height:60px;" *ngIf="interaction.image"
+                            src="http://18.229.98.43:5984/visener/{{interaction.image}}/image" /><br>
+                        <mat-slider></mat-slider>
+                        <mat-card-subtitle style="margin:0%"><strong>Series: </strong>{{interaction.series}}
+                        </mat-card-subtitle>
+                        <mat-card-subtitle style="margin:0%"><strong>Repeticiones: </strong>{{interaction.repetitions}}
+                        </mat-card-subtitle>
+                        <mat-card-subtitle style="margin:0%"><strong>Descanso: </strong>{{interaction.rest}}
+                        </mat-card-subtitle>
+                    </div>
+                    <div [(ngModel)]="interaction.poll.state"
+                        *ngIf="interaction.poll && interaction.poll.type=='state'">
+                        <img style="width:60px; height:60px;" *ngIf="interaction.interaction"
+                            src="http://18.229.98.43:5984/visener/{{interaction.image}}/image" /><br>
+                        <!--  <mat-card-subtitle style="margin:0%"><strong>Series: </strong>{{interaction.series}}
+                        </mat-card-subtitle>
+                        <mat-card-subtitle style="margin:0%"><strong>Repeticiones: </strong>{{interaction.repetitions}}
+                        </mat-card-subtitle>
+                        <mat-card-subtitle style="margin:0%"><strong>Descanso: </strong>{{interaction.rest}}
+                        </mat-card-subtitle> -->
+                        <mat-button-toggle value="good">
+                            <mat-icon>sentiment_satisfied</mat-icon>
+                        </mat-button-toggle>
+                        <mat-button-toggle value="neutral">
+                            <mat-icon>sentiment_neutral</mat-icon>
+                        </mat-button-toggle>
+                        <mat-button-toggle value="bad">
+                            <mat-icon>sentiment_dissatisfied</mat-icon>
+                        </mat-button-toggle>
+                    </div>
+                    <div [(ngModel)]="interaction.poll.yesno"
+                        *ngIf="interaction.poll && interaction.poll.type=='yesno'">
+                        <img style="width:60px; height:60px;" *ngIf="interaction.interaction"
+                            src="http://18.229.98.43:5984/visener/{{interaction.image}}/image" /><br>
+                        <!--   <mat-card-subtitle style="margin:0%"><strong>Series: </strong>{{interaction.series}}
+                        </mat-card-subtitle>
+                        <mat-card-subtitle style="margin:0%"><strong>Repeticiones: </strong>{{interaction.repetitions}}
+                        </mat-card-subtitle>
+                        <mat-card-subtitle style="margin:0%"><strong>Descanso: </strong>{{interaction.rest}}
+                        </mat-card-subtitle>-->
+                        <mat-button-toggle value="good">
+                            <mat-icon>thumb_up</mat-icon>
+                        </mat-button-toggle>
+                        <mat-button-toggle value="neutral">
+                            <mat-icon>thumb_down</mat-icon>
+                        </mat-button-toggle>
+                    </div>
+                    <br>
+                </mat-tab>
+                <mat-tab label="Información del Post">
+                    <mat-card style="max-width: 600px; margin:auto; margin-top: 10px; margin-bottom: 10px;">
+                        <mat-card-title *ngIf="interaction.post.title">{{interaction.post.title}}</mat-card-title>
+                        <mat-card-subtitle *ngIf="interaction.post.subtitle">{{interaction.post.subtitle}}
+                        </mat-card-subtitle>
+                        <img mat-card-image *ngIf="interaction.post.image"
+                            src="http://18.229.98.43:5984/visener/{{interaction.post.image}}/image" />
+                        <video mat-card-image controls autoplay *ngIf="interaction.post.video">
+                            <source src="http://18.229.98.43:5984/visener/{{interaction.post.video}}/video" />
+                        </video>
+                        <mat-card-content *ngIf="interaction.post.content">{{interaction.post.content}}
+                        </mat-card-content>
+                        <div *ngIf="interaction.post.poll">
+                            <div *ngFor="let question of interaction.post.poll">
+                                <mat-card-subtitle *ngIf="question.question">{{question.question}}
+                                </mat-card-subtitle>
+                                <input matInput *ngIf="question.type=='text'" type="text"
+                                    [(ngModel)]="question.response" placeholder="Escriba su respuesta...">
+                                <mat-radio-group *ngIf="question.type=='selection'" [(ngModel)]="question.response">
+                                    <mat-radio-button *ngFor="let option of question.options"
+                                        [value]="option.description">
+                                        {{option.description}}</mat-radio-button>
+                                </mat-radio-group>
+                                <mat-radio-group *ngIf="question.type=='multiple'" [(ngModel)]="question.response">
+                                    <mat-checkbox *ngFor="let option of question.options" [value]="option.description">
+                                        {{option.description}}</mat-checkbox>
+                                </mat-radio-group>
+                            </div>
+                            <div style="text-align: center;">
+                                <button mat-raised-button>
+                                    <mat-icon>done</mat-icon> Responder encuesta
+                                </button>
+                            </div>
+                        </div>
+                        <div *ngIf="!interaction.post">
+                           <h2> No hay post asociado a esta tarea</h2>
+                        </div>
+                        <br>
+                        <button mat-raised-button style="font-size: 12px;" color="primary">
+                            <mat-icon style="margin-top:7px; font-size: 14px;">thumb_up</mat-icon> Me gusta
+                        </button>
+                        <button mat-stroked-button style="margin-left: 10px; font-size: 12px;">
+                            <mat-icon style="margin-top:7px; font-size: 14px;">comment</mat-icon> Comentar
+                        </button>
+                    </mat-card>
+                </mat-tab>
+                <mat-tab disabled class="fill">
+                    <ng-template mat-tab-label>
+                        <button mat-raised-button (click)="delInteraction(i)">
+                            <mat-icon>delete_forever</mat-icon> Eliminar
+                        </button>
+                    </ng-template>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+    </div>
+    <br>
+    <!--div class="desktopbuttons"-->
+        <button mat-raised-button routerLink="/professional/treatments"routerLinkActive="false">Cancelar</button>
+        <button mat-raised-button color="accent" (click)="addInteraction()">Agregar Tarea</button>&nbsp;&nbsp;&nbsp;
+        <button mat-raised-button color="primary" (click)=" publicar()">Publicar</button>
+    <!--/div-->
+</mat-card>

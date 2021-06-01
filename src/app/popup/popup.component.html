@@ -1,0 +1,20 @@
+<!--<button mat-menu-item><mat-icon>notifications_off</mat-icon><span>Disable alerts</span></button>-->
+<div *ngIf="role=='administrator'">
+  <button mat-menu-item routerLink="administrator/patients" routerLinkActive="false" (click)="popUpRef.close();"><mat-icon>person</mat-icon><span>Pacientes</span></button>
+  <button mat-menu-item routerLink="administrator/professionals" routerLinkActive="false" (click)="popUpRef.close();"><mat-icon>healing</mat-icon><span>Profesionales</span></button>
+  <button mat-menu-item routerLink="administrator/interactions" routerLinkActive="false" (click)="popUpRef.close();"><mat-icon>shuffle</mat-icon><span>Tareas</span></button>
+  <button mat-menu-item routerLink="administrator/attachments" routerLinkActive="false" (click)="popUpRef.close();"><mat-icon>image</mat-icon><span>Imágenes/Videos</span></button>
+  <button mat-menu-item routerLink="administrator/posts" routerLinkActive="false" (click)="popUpRef.close();"><mat-icon>post_add</mat-icon><span>Posts</span></button>
+</div>
+<div *ngIf="role=='professional'">
+  <button mat-menu-item routerLink="professional/view-posts" routerLinkActive="false" (click)="popUpRef.close();"><mat-icon>share</mat-icon><span>Relacionar Post</span></button>
+  <button mat-menu-item routerLink="professional/add-treatment" routerLinkActive="false" (click)="popUpRef.close();"><mat-icon>description</mat-icon><span>Añadir Programa</span></button>
+  <button mat-menu-item routerLink="professional/treatments" routerLinkActive="false" (click)="popUpRef.close();"><mat-icon>description</mat-icon><span>Ver Programas</span></button>
+</div>
+<div *ngIf="role=='patient'">
+  <button mat-menu-item (click)="viewWeblog()"><mat-icon>history</mat-icon><span>Mi actividad</span></button>
+</div>
+<button mat-menu-item (click)="cambiarPassword()"><mat-icon>lock</mat-icon> Cambiar Password</button>
+<button mat-menu-item (click)="cerrarSesion()"><mat-icon>do_not_disturb_on</mat-icon> Cerrar sesión</button>
+<mat-divider></mat-divider><br>
+<button mat-stroked-button (click)="onNoClick()" style="float:right" color="primary"><mat-icon>done</mat-icon><span>Cancelar</span></button>

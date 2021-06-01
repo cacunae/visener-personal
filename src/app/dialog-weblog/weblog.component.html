@@ -1,0 +1,19 @@
+<div *ngFor="let log of logs">
+    <mat-card-subtitle *ngIf="log.value.subtitle" style="float:right; color:#a0a0a0; font-size: 12px;">{{log.value.datetime | fechaFormateada}}</mat-card-subtitle>
+    <mat-card-content *ngIf="log.value.entity == 'poll' && log.value.post">
+        <mat-card-subtitle>({{log.value.datetime | fechaFormateada}}) Respondiste un post:</mat-card-subtitle>
+        <mat-card-subtitle *ngFor="let response of log.value.responses">{{response.id}}. {{response.question}}<br>{{response.response}}</mat-card-subtitle>
+    </mat-card-content>
+    <mat-card-content *ngIf="log.value.entity == 'poll' && log.value.interaction">
+        <mat-card-subtitle>({{log.value.datetime | fechaFormateada}}) Respondiste una tarea:</mat-card-subtitle>
+        <mat-card-subtitle >{{log.value.question}}<br>{{log.value.slider}}{{log.value.state}}{{log.value.yesno}}</mat-card-subtitle>
+    </mat-card-content>
+    <mat-card-content *ngIf="log.value.entity == 'comment'">
+        <mat-card-subtitle>({{log.value.datetime | fechaFormateada}}) Comentaste un post:</mat-card-subtitle>
+        <mat-card-subtitle >{{log.value.comment}}{{log.value.text}}</mat-card-subtitle>
+    </mat-card-content>
+    <mat-card-content *ngIf="log.value.entity == 'like'">
+        <mat-card-subtitle>({{log.value.datetime | fechaFormateada}}) Te gustó un post.</mat-card-subtitle>
+    </mat-card-content>
+    <mat-divider></mat-divider><br>
+</div>

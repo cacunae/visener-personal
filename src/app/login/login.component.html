@@ -1,0 +1,54 @@
+<div class="content" role="main" style="text-align: center;">
+  <mat-card class="treatments" style="max-width: 500px; width: 100%; margin: auto; margin-top:100px;">
+    <mat-card-title>Visener</mat-card-title>
+    <mat-card-subtitle>Ingresa tus Datos</mat-card-subtitle>
+    <mat-card-content>
+      <form class="example-form">
+        <mat-form-field class="example-full-width">
+          <mat-label>Correo electrónico</mat-label>
+          <input matInput type="email" [(ngModel)]="email" name="email" placeholder="Correo Electrónico" required="required">
+        </mat-form-field>
+        <br>
+        <mat-form-field class="example-full-width">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" [(ngModel)]="password" name="password" placeholder="Contraseña" required="required">
+        </mat-form-field>
+        <br>
+        <div *ngIf="error" class="error">Usuario o clave incorrecta.</div>
+        <button mat-raised-button color="primary" (click)="validaUsuario()">Iniciar Sesion</button>
+      </form>
+    </mat-card-content>
+    <br>
+    ¿Eres nuevo en este sitio? <a href="#"style="color:#DEB716">Regístrate</a><br>
+    <a href="#"style="color:#DEB716">Haz clic aquí</a> si olvidaste tu password.
+  </mat-card>
+</div>
+<!--
+<div class="login">
+<form class="custom-form" method="post">
+  <h1 style="font-size:48px;text-align:center">Iniciar Sesión</h1>
+  <h3 style="font-size:18px;text-align:center">¿Eres nuevo en este sitio? <a href="/registro"style="color:#DEB716">Regístrate</a></h3>
+  <input 
+    type="email"
+    [(ngModel)]="email"
+    name="email"
+    placeholder="Correo Electrónico"
+    required="required"
+  />
+  <input
+    type="password"
+    [(ngModel)]="password"
+    name="password"
+    placeholder="Contraseña"
+    required="required"
+  />
+  <a href="#">¿Olvidaste tu contraseña?</a>
+  <br>
+  <br>
+    
+  
+</form>
+
+</div>
+
+-->
