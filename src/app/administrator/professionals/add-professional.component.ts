@@ -44,21 +44,23 @@ export class AddProfessionalComponent implements OnInit {
   }
 
   publicar() {
-    if((this.professional.password==this.passwordConfirm && this.professional.password != "") ){
-      this.professional.password = Md5.hashStr(this.professional.password);
-      this.professional.datetime = this.professional.datetime = moment().format("YYYYMMDDHHmm");
-      this.dataService.postData(this.professional).then((result:any)=>{
-        this.snackBar.open('Profesional actualizado correctamente', 'OK', { duration: 3000 });
-        this.router.navigateByUrl("/administrator/professionals");
-      });
-    }else if(this.professional.password==this.passwordConfirm && this.professional._id){
-      this.professional.password = this.passwordTemp;
-      this.dataService.postData(this.professional).then((result:any)=>{
-        this.snackBar.open('Profesional actualizado correctamente', 'OK', { duration: 3000 });
-        this.router.navigateByUrl("/administrator/professionals");
-      });
-    }else{
-      this.snackBar.open('Las contraseñas no coinciden', 'ERROR', { duration: 3000 });
+    if(this.angForm.valid){
+      if((this.professional.password==this.passwordConfirm && this.professional.password != "") ){
+        this.professional.password = Md5.hashStr(this.professional.password);
+        this.professional.datetime = this.professional.datetime = moment().format("YYYYMMDDHHmm");
+        this.dataService.postData(this.professional).then((result:any)=>{
+          this.snackBar.open('Profesional actualizado correctamente', 'OK', { duration: 3000 });
+          this.router.navigateByUrl("/administrator/professionals");
+        });
+      }else if(this.professional.password==this.passwordConfirm && this.professional._id){
+        this.professional.password = this.passwordTemp;
+        this.dataService.postData(this.professional).then((result:any)=>{
+          this.snackBar.open('Profesional actualizado correctamente', 'OK', { duration: 3000 });
+          this.router.navigateByUrl("/administrator/professionals");
+        });
+      }else{
+        this.snackBar.open('Las contraseñas no coinciden', 'ERROR', { duration: 3000 });
+      }
     }
   }
 

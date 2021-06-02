@@ -9,8 +9,13 @@
             </ng-container>
             <ng-container matColumnDef="name">
                 <th mat-header-cell *matHeaderCellDef>Nombre del Profesional</th>
-                <td mat-cell *matCellDef="let professional"
-                    (click)="expElem = expElem === professional ? null : professional;">{{professional.value.name}}
+                <td mat-cell *matCellDef="let professional" (click)="expElem = expElem === professional ? null : professional;">
+                    <span *ngIf="professional.patients && professional.patients.length>0" matBadge="{{professional.patients.length}}" matBadgeOverlap="false" matBadgeColor="warn">
+                        {{professional.value.name}}
+                    </span>
+                    <span *ngIf="!professional.patients || professional.patients.length==0">
+                        {{professional.value.name}}
+                    </span>
                 </td>
             </ng-container>
             <ng-container matColumnDef="username">

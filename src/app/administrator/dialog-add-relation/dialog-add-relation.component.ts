@@ -30,9 +30,12 @@ export class DialogAddRelationComponent implements OnInit {
   save() {
     for (let patient of this.patients) {
       if (patient.selected) {
-        this.dataService.postData({ entity: "relation", patient: patient.value._id, professional: this.idProfessional, datetime: moment().format('YYYYMMDDHHmmss') }).then((result: any) => {
-          alert("Asociación realizada correctamente.");
-          this.dialogRef.close();
+        this.dataService.postData({ entity: "relation", patient: patient.value._id, professional: this.idProfessional, datetime: moment().format('YYYYMMDDHHmmss') }).then((result:any) => {
+          if(result.ok){
+            this.dialogRef.close("ok");
+          }else{
+            this.dialogRef.close("err");
+          }
         })
       }
     }

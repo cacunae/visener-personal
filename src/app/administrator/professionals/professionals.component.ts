@@ -44,7 +44,7 @@ export class ProfessionalsComponent implements OnInit {
   delProfessional(element: any) {
     if(confirm("¿Estás seguro de eliminar al profesional " + element.value.name + "?\nEsta acción no podrá deshacerse.")) {
       this.dataService.deleteById(element.value._id + "?rev=" + element.value._rev).then(() => {
-        this.snackBar.open('Profesional Eliminado correctamente', 'OK', {duration: 5000});
+        this.snackBar.open('Profesional Eliminado correctamente.', 'OK', {duration: 5000});
         this.getProfessionals();
       });
     }
@@ -56,8 +56,13 @@ export class ProfessionalsComponent implements OnInit {
       data: { professional: element.value._id }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      this.getProfessionals();
+    dialogRef.afterClosed().subscribe((result) => {
+      if(result==="ok"){
+        this.snackBar.open('Asociación realizada correctamente.', 'OK', {duration: 5000});
+        this.getProfessionals();
+      }else if(result==="err"){
+        this.snackBar.open('Se produjo un error al asociar.', 'ERR', {duration: 5000});
+      }
     });
   }
 

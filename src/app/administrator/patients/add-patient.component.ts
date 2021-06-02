@@ -43,21 +43,23 @@ export class AddPatientComponent implements OnInit {
   }
 
   publicar(){
-    if((this.patient.password==this.passwordConfirm && this.patient.password != "") ){
-      this.patient.password = Md5.hashStr(this.patient.password);
-      this.patient.datetime = this.patient.datetime = moment().format("YYYYMMDDHHmm");
-      this.dataService.postData(this.patient).then((result:any)=>{
-        this.snackBar.open('Paciente actualizado correctamente', 'OK', { duration: 3000 });
-        this.router.navigateByUrl("/administrator/patients");
-      });
-    }else if(this.patient.password==this.passwordConfirm && this.patient._id){
-      this.patient.password = this.passwordTemp;
-      this.dataService.postData(this.patient).then((result:any)=>{
-        this.snackBar.open('Paciente actualizado correctamente', 'OK', { duration: 3000 });
-        this.router.navigateByUrl("/administrator/patients");
-      });
-    }else{
-      this.snackBar.open('Las contraseñas no coinciden', 'ERROR', { duration: 3000 });
+    if(this.angForm.valid){
+      if((this.patient.password==this.passwordConfirm && this.patient.password != "") ){
+        this.patient.password = Md5.hashStr(this.patient.password);
+        this.patient.datetime = this.patient.datetime = moment().format("YYYYMMDDHHmm");
+        this.dataService.postData(this.patient).then((result:any)=>{
+          this.snackBar.open('Paciente actualizado correctamente', 'OK', { duration: 3000 });
+          this.router.navigateByUrl("/administrator/patients");
+        });
+      }else if(this.patient.password==this.passwordConfirm && this.patient._id){
+        this.patient.password = this.passwordTemp;
+        this.dataService.postData(this.patient).then((result:any)=>{
+          this.snackBar.open('Paciente actualizado correctamente', 'OK', { duration: 3000 });
+          this.router.navigateByUrl("/administrator/patients");
+        });
+      }else{
+        this.snackBar.open('Las contraseñas no coinciden', 'ERROR', { duration: 3000 });
+      }
     }
   }
 }

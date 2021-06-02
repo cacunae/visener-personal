@@ -40,6 +40,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatChipsModule } from '@angular/material/chips'; 
 import { ChecklistModule } from 'angular-checklist';
 import { MatListModule } from '@angular/material/list';
+import { MatBadgeModule } from '@angular/material/badge'; 
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CommentComponent } from './dialog-comment/comment.component';
 import { PasswordComponent } from './dialog-password/password.component';
@@ -137,6 +138,7 @@ import { AssociateComponent } from './professional/view-posts/associate.componen
     MatListModule,
     MatChipsModule,
     MatProgressSpinnerModule,
+    MatBadgeModule,
     DragDropModule,
     ChartsModule
   ],
