@@ -1,7 +1,7 @@
 <h1 mat-dialog-title>Seleccione sus tareas</h1>
 <div mat-dialog-content text-align-center>
     <div *ngFor="let interaction of interactions" (click)="select(interaction)" class="thumbnailcontainer">
-      <img *ngIf="interaction.value && interaction.value.image"  style="width: 100%;" src="http://18.229.98.43:5984/visener/{{interaction.value.image}}/image" />
+      <img *ngIf="interaction.value && interaction.value.image"  style="width: 100%;" src="{{interaction.value.image | image}}" />
       <div style="margin-top: -5px;" [className]="interaction.value._id==data.selection ? 'thumbnail selected' : 'thumbnail'">{{interaction.value.subtitle}} </div>
     </div>   
 </div>

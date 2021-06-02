@@ -9,7 +9,7 @@
             <button mat-stroked-button (click)="openAttachment()">
                 <mat-icon>image</mat-icon> Elegir imagen para la tarea
             </button>
-            <img *ngIf="interaction.image" style="margin-left: 10px; width: 60px; margin-bottom: -10px;" src="http://18.229.98.43:5984/visener/{{interaction.image}}/image" />
+            <img *ngIf="interaction.image" style="margin-left: 10px; width: 60px; margin-bottom: -10px;" src="{{interaction.image.selection | image}}" />
         </div><br>
         <mat-form-field>
             <mat-label>Título:</mat-label>
@@ -89,7 +89,7 @@
                 <div *ngIf="interaction.post">
                     <br>
                     <img *ngIf="postImage" style="margin-left: 10px; width: 100px; margin-bottom: -10px;"
-                        src="http://18.229.98.43:5984/visener/{{postImage}}/image" />
+                        src="{{postImage | image}}" />
                     <br><br>
                     <mat-form-field>
                         <mat-label><strong>Título:</strong></mat-label>

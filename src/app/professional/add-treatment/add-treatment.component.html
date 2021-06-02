@@ -53,7 +53,7 @@
                 <mat-tab label="Datos generales">
                     <mat-card-subtitle><b>Tarea {{i+1}}</b></mat-card-subtitle>
                     <img *ngIf="interaction.image" style="margin-left: 10px; width: 60px; margin-bottom: -10px;"
-                        src="http://18.229.98.43:5984/visener/{{interaction.image}}/image" />
+                        src="{{interaction.image | image}}" />
                     <br>
                     <br>
                     <div *ngIf="interaction.poll && interaction.poll.type=='slider'">
@@ -105,7 +105,7 @@
                         <mat-card-subtitle>{{interaction.subtitle}} ({{interaction.responses}}/{{interaction.series}})
                         </mat-card-subtitle>
                         <img style="width:60px; height:60px;" *ngIf="interaction.image"
-                            src="http://18.229.98.43:5984/visener/{{interaction.image}}/image" /><br>
+                            src="{{interaction.image | image}}" /><br>
                         <mat-slider></mat-slider>
                         <mat-card-subtitle style="margin:0%"><strong>Series: </strong>{{interaction.series}}
                         </mat-card-subtitle>
@@ -117,7 +117,7 @@
                     <div [(ngModel)]="interaction.poll.state"
                         *ngIf="interaction.poll && interaction.poll.type=='state'">
                         <img style="width:60px; height:60px;" *ngIf="interaction.interaction"
-                            src="http://18.229.98.43:5984/visener/{{interaction.image}}/image" /><br>
+                            src="{{interaction.image | image}}" /><br>
                         <!--  <mat-card-subtitle style="margin:0%"><strong>Series: </strong>{{interaction.series}}
                         </mat-card-subtitle>
                         <mat-card-subtitle style="margin:0%"><strong>Repeticiones: </strong>{{interaction.repetitions}}
@@ -137,7 +137,7 @@
                     <div [(ngModel)]="interaction.poll.yesno"
                         *ngIf="interaction.poll && interaction.poll.type=='yesno'">
                         <img style="width:60px; height:60px;" *ngIf="interaction.interaction"
-                            src="http://18.229.98.43:5984/visener/{{interaction.image}}/image" /><br>
+                            src="{{interaction.image | image}}" /><br>
                         <!--   <mat-card-subtitle style="margin:0%"><strong>Series: </strong>{{interaction.series}}
                         </mat-card-subtitle>
                         <mat-card-subtitle style="margin:0%"><strong>Repeticiones: </strong>{{interaction.repetitions}}
@@ -159,9 +159,9 @@
                         <mat-card-subtitle *ngIf="interaction.post.subtitle">{{interaction.post.subtitle}}
                         </mat-card-subtitle>
                         <img mat-card-image *ngIf="interaction.post.image"
-                            src="http://18.229.98.43:5984/visener/{{interaction.post.image}}/image" />
+                            src="{{interaction.post.image | image}}" />
                         <video mat-card-image controls autoplay *ngIf="interaction.post.video">
-                            <source src="http://18.229.98.43:5984/visener/{{interaction.post.video}}/video" />
+                            <source src="{{interaction.post.video | video}}" />
                         </video>
                         <mat-card-content *ngIf="interaction.post.content">{{interaction.post.content}}
                         </mat-card-content>

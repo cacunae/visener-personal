@@ -84,7 +84,8 @@ export class AddInteractionComponent implements OnInit {
 
   openAttachment() {
     const dialogRef = this.dialog.open(DialogAttachmentComponent, {
-      width: '520px'
+      width: '520px',
+      data: {filter: true}
     });
     dialogRef.afterClosed().subscribe((result) => {
       this.interaction.image = result;
@@ -96,21 +97,23 @@ export class AddInteractionComponent implements OnInit {
       width: '520px',
       data: {text:'add-interaction'}
     });
-    dialogRef.afterClosed().subscribe((result) => {
-      this.interaction.post = result.value._id;
-      this.postName = result.value.title;
-      this.postSubtitle = result.value.subtitle;
-      this.postContent = result.value.content;
-      this.postPoll = result.value.poll;
-      for(let poll of result.value.poll){
-        this.postPollType = poll.type;
-        this.postPollQuestion = poll.question;
-        this.postPollOptions = poll.options;
-        for(let option of poll.options){
-          this.postPollOptionsDescription = option.description;
+    dialogRef.afterClosed().subscribe((result:any) => {
+      if(result){
+        this.interaction.post = result.value._id;
+        this.postName = result.value.title;
+        this.postSubtitle = result.value.subtitle;
+        this.postContent = result.value.content;
+        this.postPoll = result.value.poll;
+        for(let poll of result.value.poll){
+          this.postPollType = poll.type;
+          this.postPollQuestion = poll.question;
+          this.postPollOptions = poll.options;
+          for(let option of poll.options){
+            this.postPollOptionsDescription = option.description;
+          }
         }
+        this.postImage = result.value.image;
       }
-      this.postImage = result.value.image;
     });
   }
 

@@ -47,10 +47,10 @@
                         <div>
                             <img *ngIf="interaction.value._attachments"
                                 style="margin-left: 10px; width: 100px; margin-bottom: -10px;"
-                                src="http://18.229.98.43:5984/visener/{{interaction.value._id}}/image" /><br><br>
+                                src="{{interaction.value._id | image}}" /><br><br>
                             <img *ngIf="interaction.value.image"
                                 style="margin-left: 10px; width: 100px; margin-bottom: -10px;"
-                                src="http://18.229.98.43:5984/visener/{{interaction.value.image}}/image" /><br><br>
+                                src="{{interaction.value.image | image}}/" /><br><br>
                         </div><br>
                         <mat-form-field>
                             <mat-label style="margin:0%">Texto de despliegue:</mat-label>
@@ -114,7 +114,7 @@
                                             <div>
                                                 <img *ngIf="posts.value.image"
                                                     style="margin-left: 10px; width: 100px; margin-bottom: -10px;"
-                                                    src="http://18.229.98.43:5984/visener/{{posts.value.image}}/image" /><br><br>
+                                                    src="{{posts.value.image | image}}" /><br><br>
                                             </div><br>
                                             <mat-card-subtitle><strong>Titulo:</strong></mat-card-subtitle>
                                             <input matInput value="{{posts.value.title}}" readonly="readonly"><br><br>

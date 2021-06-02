@@ -3,9 +3,9 @@
         {{post.value.datetime | fechaFormateada}}</mat-card-subtitle>
     <mat-card-title *ngIf="post.value.title">{{post.value.title}}</mat-card-title>
     <mat-card-subtitle *ngIf="post.value.subtitle">{{post.value.subtitle}}</mat-card-subtitle>
-    <img mat-card-image *ngIf="post.value.image" src="http://18.229.98.43:5984/visener/{{post.value.image}}/image" />
+    <img mat-card-image *ngIf="post.value.image" src="{{post.value.image | image}}" />
     <video mat-card-image controls autoplay *ngIf="post.value.video">
-        <source src="http://18.229.98.43:5984/visener/{{post.value.video}}/video" />
+        <source src="{{post.value.video | video}}" />
     </video>
     <mat-card-content *ngIf="post.value.content">{{post.value.content}}</mat-card-content>
     <div *ngIf="post.value.poll">

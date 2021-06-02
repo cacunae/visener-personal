@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-add-post',
@@ -40,6 +41,10 @@ export class AddPostComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.post.poll, event.previousIndex, event.currentIndex);
+  }
+
   openAttachment() {
     const dialogRef = this.dialog.open(DialogAttachmentComponent, {
       width: '520px'
@@ -61,6 +66,14 @@ export class AddPostComponent implements OnInit {
 
   eliminaEncuesta() {
     this.post.poll = null;
+  }
+
+  delPregunta(index:number){
+    this.post.poll.splice(index);
+  }
+
+  delOption(question:number, index:number){
+    this.post.poll[question].options.splice(index);
   }
 
   inicializaEncuesta() {
