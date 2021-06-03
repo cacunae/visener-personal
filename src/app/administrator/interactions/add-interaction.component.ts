@@ -88,7 +88,7 @@ export class AddInteractionComponent implements OnInit {
       data: {filter: true}
     });
     dialogRef.afterClosed().subscribe((result) => {
-      this.interaction.image = result;
+      this.interaction.image = result.selection;
     });
   }
 

@@ -1,5 +1,4 @@
-<app-header title="Posts" [backLink]="'/administrator/posts'" [event]="true" (rightEvent)="publicar()"
-    [rightText]="'Guardar'"></app-header>
+<app-header title="Posts" [backLink]="'/administrator/posts'" [event]="true" (rightEvent)="publicar()" [rightText]="'Guardar'"></app-header>
 <div class="content" role="main">
     <mat-card>
         <mat-card-title *ngIf="!id">Ingresar Post</mat-card-title>

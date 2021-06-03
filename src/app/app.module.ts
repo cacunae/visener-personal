@@ -46,6 +46,7 @@ import { CommentComponent } from './dialog-comment/comment.component';
 import { PasswordComponent } from './dialog-password/password.component';
 import { fechaFormateada, weekDays, tagFilter, image, video } from './services/data.service';
 import { PostComponent } from './post/post.component';
+import { ViewTreatmentsComponent } from './professional/view-treatments/view-treatments.component';
 
 import { AdministratorComponent } from './administrator/administrator.component';
   import { PatientsComponent } from './administrator/patients/patients.component';
@@ -58,10 +59,11 @@ import { AdministratorComponent } from './administrator/administrator.component'
   import { AddAttachmentComponent } from './administrator/attachments/add-attachment.component';
   import { PostsComponent } from './administrator/posts/posts.component';
   import { AddPostComponent } from './administrator/posts/add-post.component';
+  import { TreatmentsComponent } from './administrator/treatments/treatments.component';
+  import { AddTreatmentComponent } from './administrator/treatments/add-treatment.component'
+
 
 import { ProfessionalComponent } from './professional/professional.component';
-  import { TreatmentsComponent } from './professional/treatments/treatments.component';
-  import { AddTreatmentComponent } from './professional/add-treatment/add-treatment.component';
   import { PdfComponent } from './professional/pdf/pdf.component';
 
 import { DialogAddRelationComponent } from './administrator/dialog-add-relation/dialog-add-relation.component';
@@ -105,6 +107,7 @@ import { AssociateComponent } from './professional/view-posts/associate.componen
     PostsComponent,
     AssociateComponent,
     ViewPostsAssociateComponent,
+    ViewTreatmentsComponent
   ],
   imports: [
     BrowserModule,

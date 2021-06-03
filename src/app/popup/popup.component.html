@@ -2,8 +2,9 @@
 <div *ngIf="role=='administrator'">
   <button mat-menu-item routerLink="administrator/patients" routerLinkActive="false" (click)="popUpRef.close();"><mat-icon>person</mat-icon><span>Pacientes</span></button>
   <button mat-menu-item routerLink="administrator/professionals" routerLinkActive="false" (click)="popUpRef.close();"><mat-icon>healing</mat-icon><span>Profesionales</span></button>
-  <button mat-menu-item routerLink="administrator/interactions" routerLinkActive="false" (click)="popUpRef.close();"><mat-icon>shuffle</mat-icon><span>Tareas</span></button>
   <button mat-menu-item routerLink="administrator/attachments" routerLinkActive="false" (click)="popUpRef.close();"><mat-icon>image</mat-icon><span>Imágenes/Videos</span></button>
+  <button mat-menu-item routerLink="administrator/interactions" routerLinkActive="false" (click)="popUpRef.close();"><mat-icon>shuffle</mat-icon><span>Tareas</span></button>
+  <button mat-menu-item routerLink="administrator/treatments" routerLinkActive="false" (click)="popUpRef.close();"><mat-icon>assignment</mat-icon><span>Programas</span></button>
   <button mat-menu-item routerLink="administrator/posts" routerLinkActive="false" (click)="popUpRef.close();"><mat-icon>post_add</mat-icon><span>Posts</span></button>
 </div>
 <div *ngIf="role=='professional'">

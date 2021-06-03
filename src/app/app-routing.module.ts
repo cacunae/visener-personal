@@ -4,8 +4,6 @@ import { LoginComponent } from "./login/login.component";
 import { PatientComponent } from './patient/patient.component';
 import { ProfessionalComponent } from './professional/professional.component';
 import { AdministratorComponent } from './administrator/administrator.component';
-import { AddTreatmentComponent } from './professional/add-treatment/add-treatment.component';
-import { TreatmentsComponent } from './professional/treatments/treatments.component';
 import { ViewPostsComponent } from './professional/view-posts/view-posts.component';
 import { PatientsComponent } from './administrator/patients/patients.component';
 import { AddPatientComponent } from './administrator/patients/add-patient.component';
@@ -18,6 +16,9 @@ import { AddAttachmentComponent } from './administrator/attachments/add-attachme
 import { PostsComponent } from './administrator/posts/posts.component';
 import { AddPostComponent } from './administrator/posts/add-post.component';
 import { ViewPostsAssociateComponent } from './professional/view-posts/view-posts-associate.component';
+import { TreatmentsComponent } from './administrator/treatments/treatments.component';
+import { AddTreatmentComponent } from './administrator/treatments/add-treatment.component';
+import { ViewTreatmentsComponent } from './professional/view-treatments/view-treatments.component';
 
 const routes: Routes = [
   { path: "", component: LoginComponent, pathMatch: "full" },
@@ -40,17 +41,16 @@ const routes: Routes = [
       { path: "upd-attachment/:id", component: AddAttachmentComponent},
       { path: "posts", component: PostsComponent},
       { path: "add-post", component: AddPostComponent},
-      { path: "upd-post/:id", component: AddPostComponent}
+      { path: "upd-post/:id", component: AddPostComponent},
+      { path: "treatments", component: TreatmentsComponent},
+      { path: "add-treatments", component: AddTreatmentComponent},
+      { path: "upd-treatments/:id", component: AddTreatmentComponent}
     ]
   },
   { path: "professional", component: ProfessionalComponent, children: 
     [
       { path: "view-posts", component: ViewPostsAssociateComponent},
-      { path: "add-treatment", component: AddTreatmentComponent},
-      { path: "upd-treatment/:id", component: AddTreatmentComponent},
-      { path: "treatments", component: TreatmentsComponent},
-      { path: "posts", component: PostsComponent},
-      { path: "add-post", component: AddPostComponent},
+      { path: "view-treatments", component: ViewTreatmentsComponent},
     ]
   },
   { path: "patient", component: PatientComponent, pathMatch: "full" },

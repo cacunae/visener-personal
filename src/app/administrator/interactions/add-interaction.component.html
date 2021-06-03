@@ -9,7 +9,7 @@
             <button mat-stroked-button (click)="openAttachment()">
                 <mat-icon>image</mat-icon> Elegir imagen para la tarea
             </button>
-            <img *ngIf="interaction.image" style="margin-left: 10px; width: 60px; margin-bottom: -10px;" src="{{interaction.image.selection | image}}" />
+            <img *ngIf="interaction.image" style="margin-left: 10px; width: 60px; margin-bottom: -10px;" src="{{interaction.image | image}}" />
         </div><br>
         <mat-form-field>
             <mat-label>Título:</mat-label>
