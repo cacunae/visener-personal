@@ -62,7 +62,7 @@
                     <mat-tab label="Datos generales">
                         <mat-card-subtitle><b>Tarea {{interaction.id}}</b></mat-card-subtitle>
                         <img *ngIf="interaction.image" style="margin-left: 10px; width: 60px; margin-bottom: -10px;"
-                            src="{{interaction.image | image}}" />
+                            src="{{interaction.image.selection | image}}" />
                         <br>
                         <br>
                         <div *ngIf="interaction.interaction">
@@ -120,7 +120,7 @@
                                 ({{interaction.responses}}/{{interaction.series}})
                             </mat-card-subtitle>
                             <img style="width:60px; height:60px;" *ngIf="interaction.image"
-                                src="{{interaction.image | image}}" /><br>
+                                src="{{interaction.image.selection | image}}" /><br>
                             <mat-slider></mat-slider>
                             <mat-card-subtitle style="margin:0%"><strong>Series: </strong>{{interaction.series}}
                             </mat-card-subtitle>
@@ -133,7 +133,7 @@
                         <div [(ngModel)]="interaction.poll.state"
                             *ngIf="interaction.poll && interaction.poll.type=='state'">
                             <img style="width:60px; height:60px;" *ngIf="interaction.interaction"
-                                src="{{interaction.image | image}}" /><br>
+                                src="{{interaction.image.selection | image}}" /><br>
                             <!--  <mat-card-subtitle style="margin:0%"><strong>Series: </strong>{{interaction.series}}
                         </mat-card-subtitle>
                         <mat-card-subtitle style="margin:0%"><strong>Repeticiones: </strong>{{interaction.repetitions}}
@@ -153,7 +153,7 @@
                         <div [(ngModel)]="interaction.poll.yesno"
                             *ngIf="interaction.poll && interaction.poll.type=='yesno'">
                             <img style="width:60px; height:60px;" *ngIf="interaction.interaction"
-                                src="{{interaction.image | image}}" /><br>
+                                src="{{interaction.image.selection | image}}" /><br>
                             <!--   <mat-card-subtitle style="margin:0%"><strong>Series: </strong>{{interaction.series}}
                         </mat-card-subtitle>
                         <mat-card-subtitle style="margin:0%"><strong>Repeticiones: </strong>{{interaction.repetitions}}
@@ -175,7 +175,7 @@
                             <mat-card-subtitle *ngIf="interaction.post.subtitle">{{interaction.post.subtitle}}
                             </mat-card-subtitle>
                             <img mat-card-image *ngIf="interaction.post.image"
-                                src="{{interaction.post.image | image}}" />
+                                src="{{interaction.post.image.selection | image}}" />
                             <video mat-card-image controls autoplay *ngIf="interaction.post.video">
                                 <source
                                     src="{{interaction.post.video | video}}" />

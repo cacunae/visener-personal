@@ -59,7 +59,7 @@
                     <mat-card style="width: 90%; border: 1px solid #aaaaaa; border-radius: 10px;"
                         *ngFor="let interaction of treatment.value.doc.interactions">
                         <img style="float: right; width:60px; height:60px;" *ngIf="interaction.interaction"
-                            src="{{interaction.image | image}}" /><br>
+                            src="{{interaction.image.selection | image}}" /><br>
                         Título: {{interaction.title}}<br>
                         Nombre corto: {{interaction.title}}<br>
                         Repeticiones: {{interaction.repetitions}}, series: {{interaction.series}}, descanso:
@@ -80,7 +80,9 @@
 </table>
 <div style="width: 800px; padding-top:20px;" *ngIf="treatments.length == 0">No has asignado programas aún.</div>
 <div class="desktopbuttons" style="text-align:center">
-    <button mat-raised-button type="submit" color="primary" routerLink="/professional/add-treatment"
-        routerLinkActive="false">Añadir Programa</button>
+   <!-- <button mat-raised-button type="submit" color="primary" routerLink="/professional/add-treatment"
+        routerLinkActive="false">Añadir Programa</button>-->
+    <button mat-raised-button type="submit" color="accent" routerLink="/professional/view-treatments"
+        routerLinkActive="false">Asociar Programa</button>
 </div>
 <!--mat-paginator class="mat-elevation-z8" style="width: 800px;" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator-->
