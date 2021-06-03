@@ -8,7 +8,7 @@
         <br>
         <mat-divider></mat-divider><br>
         <form [formGroup]="angForm" novalidate>
-            <p style="color:red;font-size:11px">* campos requeridos</p><br>
+            <p style="color:red;font-size:11px">*campos requeridos</p><br>
             <mat-form-field class="mat-form">
                 <mat-label>Ingresar Nombre y Apellido</mat-label>
                 <input matInput name="name" formControlName="name" placeholder="Pedro Pérez" [(ngModel)]="professional.name" required>
