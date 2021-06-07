@@ -1,0 +1,88 @@
+<table mat-table [dataSource]="treatments" matSort multiTemplateDataRows class="mat-elevation-z8">
+    <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nº</th>
+        <td mat-cell *matCellDef="let row; let i = dataIndex;"
+            (click)="expandedElement = expandedElement === treatment ? null : treatment">{{i+1}} </td>
+    </ng-container>
+    <ng-container matColumnDef="treatment">
+        <th mat-header-cell *matHeaderCellDef>Programa</th>
+        <td mat-cell *matCellDef="let treatment"
+            (click)="expandedElement = expandedElement === treatment ? null : treatment">{{treatment.value.doc.title}}
+        </td>
+    </ng-container>
+    <ng-container matColumnDef="patient">
+        <th mat-header-cell *matHeaderCellDef>Paciente</th>
+        <td mat-cell *matCellDef="let treatment"
+            (click)="expandedElement = expandedElement === treatment ? null : treatment">
+            <span *ngIf="treatment.doc">{{treatment.doc.name}}</span>
+            <span *ngIf="!treatment.doc"><i>Error, paciente no existe</i>></span>
+        </td>
+    </ng-container>
+    <ng-container matColumnDef="interactions">
+        <th mat-header-cell *matHeaderCellDef>Tareas</th>
+        <td mat-cell *matCellDef="let treatment"
+            (click)="expandedElement = expandedElement === treatment ? null : treatment">
+            {{treatment.value.doc.interactions.length}}</td>
+    </ng-container>
+    <ng-container matColumnDef="datetime">
+        <th mat-header-cell *matHeaderCellDef>Fecha / Hora</th>
+        <td mat-cell *matCellDef="let treatment"
+            (click)="expandedElement = expandedElement === treatment ? null : treatment">{{treatment.value.doc.datetime
+            | fechaFormateada}}</td>
+    </ng-container>
+    <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Acciones</th>
+        <td mat-cell *matCellDef="let element">
+            <button mat-icon-button routerLink="/professional/upd-treatment/{{element.id}}" routerLinkActive="false">
+                <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button (click)="delTreatment(element)">
+                <mat-icon>delete</mat-icon>
+            </button>
+            <button mat-stroked-button (click)="getPDF(element)">
+                <mat-icon>picture_as_pdf</mat-icon>
+            </button>
+        </td>
+    </ng-container>
+
+    <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+    <ng-container matColumnDef="expandedDetail">
+        <td style="width:90%" mat-cell *matCellDef="let treatment" [attr.colspan]="columnsToDisplay.length">
+            <div class="example-element-detail"
+                [@detailExpand]="treatment == expandedElement ? 'expanded' : 'collapsed'">
+                <div class="example-element-description">
+                    Nombre del programa: {{treatment.value.doc.title}}<br>
+                    Objetivo: {{treatment.value.doc.objective}}<br>
+                    Descripción: {{treatment.value.doc.description}}<br>
+                    Días de ejercicio: {{treatment.value.doc.weekdays}}<br>
+                    Tareas:<br>
+                    <mat-card style="width: 90%; border: 1px solid #aaaaaa; border-radius: 10px;"
+                        *ngFor="let interaction of treatment.value.doc.interactions">
+                        <img style="float: right; width:60px; height:60px;" *ngIf="interaction.interaction"
+                            src="{{interaction.image.selection | image}}" /><br>
+                        Título: {{interaction.title}}<br>
+                        Nombre corto: {{interaction.title}}<br>
+                        Repeticiones: {{interaction.repetitions}}, series: {{interaction.series}}, descanso:
+                        {{interaction.rest}}
+                            <a><strong>Promedio Última Semana</strong></a>
+                            <app-chart [treatment]="treatment.value.doc._id" [interaction]="interaction.interaction">
+                            </app-chart>
+                    </mat-card><br>
+                </div>
+            </div>
+        </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="example-element-row"
+        [class.example-expanded-row]="expandedElement === element"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['expandedDetail'];" class="example-detail-row"></tr>
+</table>
+<div style="width: 800px; padding-top:20px;" *ngIf="treatments.length == 0">No has asignado programas aún.</div>
+<div class="desktopbuttons" style="text-align:center">
+   <!-- <button mat-raised-button type="submit" color="primary" routerLink="/professional/add-treatment"
+        routerLinkActive="false">Añadir Programa</button>-->
+    <button mat-raised-button type="submit" color="accent" routerLink="/professional/view-treatments"
+        routerLinkActive="false">Asociar Programa</button>
+</div>
+<!--mat-paginator class="mat-elevation-z8" style="width: 800px;" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator-->
