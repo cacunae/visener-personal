@@ -2,9 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DialogAttachmentComponent } from './administrator/dialog-attachment/dialog-attachment.component'; 
-import { DialogInteractionComponent } from './dialog-interaction/dialog-interaction.component'; 
-import { WeblogComponent } from './dialog-weblog/weblog.component'; 
 import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -25,7 +22,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'; 
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { CookieService } from 'ngx-cookie-service';
-import { ChartComponent } from './chart/chart.component';
+import { ChartComponent } from './pages/chart/chart.component';
 import { ChartsModule } from 'ng2-charts';
 import { PatientComponent } from './patient/patient.component';
 import { PopupComponent } from './popup/popup.component';
@@ -40,37 +37,43 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatChipsModule } from '@angular/material/chips'; 
 import { ChecklistModule } from 'angular-checklist';
 import { MatListModule } from '@angular/material/list';
-import { MatBadgeModule } from '@angular/material/badge'; 
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { CommentComponent } from './dialog-comment/comment.component';
-import { PasswordComponent } from './dialog-password/password.component';
-import { fechaFormateada, weekDays, tagFilter, image, video } from './services/data.service';
+import { fechaFormateada, weekDays, tagFilter, image, video, featuresPipe, postnamePipe, interactionnamePipe } from './services/data.service';
 import { PostComponent } from './post/post.component';
-import { ViewTreatmentsComponent } from './professional/view-treatments/view-treatments.component';
+import { ViewTreatmentsComponent } from './old-professional/view-treatments/view-treatments.component';
 
-import { AdministratorComponent } from './administrator/administrator.component';
-  import { PatientsComponent } from './administrator/patients/patients.component';
-  import { AddPatientComponent } from './administrator/patients/add-patient.component';
-  import { ProfessionalsComponent } from './administrator/professionals/professionals.component';
-  import { AddProfessionalComponent } from './administrator/professionals/add-professional.component';
-  import { InteractionsComponent } from './administrator/interactions/interactions.component';
-  import { AddInteractionComponent } from './administrator/interactions/add-interaction.component';
-  import { AttachmentsComponent } from './administrator/attachments/attachments.component';
-  import { AddAttachmentComponent } from './administrator/attachments/add-attachment.component';
-  import { PostsComponent } from './administrator/posts/posts.component';
-  import { AddPostComponent } from './administrator/posts/add-post.component';
-  import { TreatmentsComponent } from './administrator/treatments/treatments.component';
-  import { AddTreatmentComponent } from './administrator/treatments/add-treatment.component'
+import { PatientsComponent } from './pages/patients/patients.component';
+import { AddPatientComponent } from './pages/patients/add-patient.component';
+import { ProfessionalsComponent } from './pages/professionals/professionals.component';
+import { AddProfessionalComponent } from './pages/professionals/add-professional.component';
+import { InteractionsComponent } from './pages/interactions/interactions.component';
+import { AddInteractionComponent } from './pages/interactions/add-interaction.component';
+import { AttachmentsComponent } from './pages/attachments/attachments.component';
+import { AddAttachmentComponent } from './pages/attachments/add-attachment.component';
+import { PostsComponent } from './pages/posts/posts.component';
+import { AddPostComponent } from './pages/posts/add-post.component';
+import { TreatmentsComponent } from './pages/treatments/treatments.component';
+import { AddTreatmentComponent } from './pages/treatments/add-treatment.component'
+import { RolesComponent } from './pages/roles/roles.component';
+import { AddRoleComponent } from './pages/roles/add-role.component'
+import { DialogAddRelationComponent } from './pages/dialog-add-relation/dialog-add-relation.component';
+import { DialogAttachmentComponent } from './pages/dialog-attachment/dialog-attachment.component'; 
+import { DialogInteractionComponent } from './pages/dialog-interaction/dialog-interaction.component';
+import { CommentComponent } from './pages/dialog-comment/comment.component';
+import { PasswordComponent } from './pages/dialog-password/password.component';
+import { WeblogComponent } from './pages/dialog-weblog/weblog.component';
 
 
 import { ProfessionalComponent } from './professional/professional.component';
-  import { PdfComponent } from './professional/pdf/pdf.component';
+import { PdfComponent } from './old-professional/pdf/pdf.component';
 
-import { DialogAddRelationComponent } from './administrator/dialog-add-relation/dialog-add-relation.component';
-import { ViewPostsComponent } from './professional/view-posts/view-posts.component';
-import { ViewPostsAssociateComponent } from './professional/view-posts/view-posts-associate.component';
+import { ViewPostsComponent } from './old-professional/view-posts/view-posts.component';
+import { ViewPostsAssociateComponent } from './old-professional/view-posts/view-posts-associate.component';
 import { HeaderComponent } from './header/header.component';
-import { AssociateComponent } from './professional/view-posts/associate.component';
+import { AssociateComponent } from './old-professional/view-posts/associate.component';
+import { PatientTreatmentComponent } from './old-professional/patient-treatment/patient-treatment.component';
 
 @NgModule({
   declarations: [
@@ -84,14 +87,15 @@ import { AssociateComponent } from './professional/view-posts/associate.componen
     AddPostComponent,
     PatientComponent,
     ProfessionalComponent,
-    AdministratorComponent,
     AddPatientComponent,
     ProfessionalsComponent,
     AddProfessionalComponent,
     InteractionsComponent,
     AddInteractionComponent,
+    RolesComponent,
+    AddRoleComponent,
     fechaFormateada,
-    weekDays, tagFilter, image, video,
+    weekDays, tagFilter, image, video, featuresPipe, postnamePipe, interactionnamePipe,
     PopupComponent,
     AddTreatmentComponent,
     PdfComponent,
@@ -107,7 +111,8 @@ import { AssociateComponent } from './professional/view-posts/associate.componen
     PostsComponent,
     AssociateComponent,
     ViewPostsAssociateComponent,
-    ViewTreatmentsComponent
+    ViewTreatmentsComponent,
+    PatientTreatmentComponent
   ],
   imports: [
     BrowserModule,
@@ -140,6 +145,7 @@ import { AssociateComponent } from './professional/view-posts/associate.componen
     ChecklistModule,
     MatListModule,
     MatChipsModule,
+    MatSlideToggleModule,
     MatProgressSpinnerModule,
     MatBadgeModule,
     DragDropModule,

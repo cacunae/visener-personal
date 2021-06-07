@@ -1,0 +1,67 @@
+<app-header title="Profesionales" [backLink]="'/professional/professionals'" [event]="true" (rightEvent)="publicar()" [rightText]="'Guardar'"></app-header>
+<div class="content" role="main">
+    <mat-card>
+        <mat-card-title *ngIf="!id">Ingresar Profesional</mat-card-title>
+        <mat-card-title *ngIf="id">Actualizar Profesional</mat-card-title>
+        <mat-card-subtitle  *ngIf="!id" style="margin-bottom: 0px;">Aquí podrás agregar un profesional</mat-card-subtitle>
+        <mat-card-subtitle  *ngIf="id" style="margin-bottom: 0px;">Aquí podrás actualizar el profesional</mat-card-subtitle>
+        <mat-divider></mat-divider>
+        <form *ngIf="!loading" [formGroup]="angForm" novalidate>
+            <p style="color:red;font-size:11px">*campos requeridos</p><br>
+            <mat-form-field class="mat-form" appearance="outline">
+                <mat-label>Ingresar Nombre y Apellido</mat-label>
+                <input matInput name="name" formControlName="name" placeholder="Pedro Pérez" [(ngModel)]="professional.name" required>
+            </mat-form-field><br>
+            <mat-form-field class="mat-form" appearance="outline">
+                <mat-label>Correo Electrónico</mat-label>
+                <input matInput formControlName="username" placeholder="profesional@example.com" [(ngModel)]="professional.username" required>
+            </mat-form-field><br>
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Empresa</mat-label>
+                <mat-select formControlName="company" [(ngModel)]="professional.company">
+                    <mat-option *ngFor="let company of companies" [value]="company.name">
+                        <span>{{company.name}}</span>
+                    </mat-option>
+                </mat-select> 
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Perfil</mat-label>
+                <mat-select formControlName="role" [(ngModel)]="professional.role">
+                    <mat-option *ngFor="let role of roles" [value]="role.value._id">
+                        <span>{{role.value.name}}</span>
+                    </mat-option>
+                </mat-select> 
+            </mat-form-field>
+            <mat-form-field class="mat-form" appearance="outline">
+                <mat-label>Especialidad</mat-label>
+                <input matInput name="position" formControlName="position" [(ngModel)]="professional.position" required>
+            </mat-form-field><br>
+            <mat-slide-toggle formControlName="professional" [(ngModel)]="professional.professional">¿Trabaja con pacientes?</mat-slide-toggle><br>
+            
+            <mat-divider></mat-divider><br>
+            <span style="color: #777777;">(*) Sólo ingrese datos en las contraseñas si quiere cambiarlas explícitamente.</span>
+            <mat-form-field class="mat-form" appearance="outline">
+                <mat-label>Contraseña</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'" name="password" formControlName="password" [(ngModel)]="professional.password">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+            </mat-form-field><br>
+            <mat-form-field class="mat-form" appearance="outline">
+                <mat-label>Confirmar Contraseña</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'" name="password" formControlName="password" [(ngModel)]="passwordConfirm">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+            </mat-form-field><br>
+        </form>
+    </mat-card>
+    <div *ngIf="!loading" class="desktopbuttons">
+        <button mat-raised-button routerLink="/professional/professionals" routerLinkActive="false">Cancelar</button>&nbsp;&nbsp;&nbsp;
+        <button *ngIf="!id" mat-raised-button type="submit" color="primary" (click)="publicar()">Crear Profesional</button>
+        <button *ngIf="id" mat-raised-button  type="submit" color="primary" (click)="publicar()">Actualizar Profesional</button>
+    </div>
+    <mat-spinner *ngIf="loading"></mat-spinner>
+
+</div>

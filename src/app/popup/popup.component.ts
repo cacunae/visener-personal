@@ -3,8 +3,8 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DataService } from '../services/data.service';
-import { WeblogComponent } from '../dialog-weblog/weblog.component';
-import { PasswordComponent } from '../dialog-password/password.component';
+import { WeblogComponent } from '../pages/dialog-weblog/weblog.component';
+import { PasswordComponent } from '../pages/dialog-password/password.component';
 
 @Component({
   selector: 'app-popup',
@@ -12,19 +12,14 @@ import { PasswordComponent } from '../dialog-password/password.component';
   styleUrls: ['./popup.component.css']
 })
 export class PopupComponent implements OnInit {
+  public features:any[] = [];
   public data:any;
-  email: string;
-  password: string;
-  public comment:string = "";
-  public user: any;
-  public role: any;
-  public paciente: any;
 
-  constructor(public popUpRef: MatDialogRef<PopupComponent>, private dataService : DataService, private router : Router, public dialog: MatDialog,public post: MatDialog) {
-    this.role = localStorage.getItem("role");
-   }
+  constructor(public popUpRef: MatDialogRef<PopupComponent>, public dataService: DataService, public router : Router, public dialog: MatDialog,public post: MatDialog) {
+  }
 
   ngOnInit(): void {
+    this.features = this.dataService.user.features;
   }
 
   cerrarSesion(){
@@ -40,7 +35,6 @@ export class PopupComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.comment = result;
     });
     this.popUpRef.close();
   }
@@ -52,11 +46,10 @@ export class PopupComponent implements OnInit {
   viewWeblog(){
     const dialogRef = this.dialog.open(WeblogComponent, {
       width: '400px',
-      data: {comment: this.comment}
+      data: {}
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.comment = result;
     });
     this.popUpRef.close();
   }

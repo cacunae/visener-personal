@@ -5,9 +5,6 @@
         <button class="cellphone" *ngIf="backLink" mat-button [routerLink]="backLink" routerLinkActive="false"><mat-icon>arrow_back_ios_new</mat-icon></button>
         <div class="col-md-4 text-right"></div>
         <span>{{title}}</span>
-        <!--<span class="desktop">&nbsp;
-            <a href="/administrator" style="color:white; text-decoration: none;">Administrador</a> {{'user'}}
-        </span>-->
         <span class="spacer"></span>
         <button class="cellphone" *ngIf="rightLink" mat-button [routerLink]="rightLink" routerLinkActive="false">
             <mat-icon *ngIf="rightIcon">{{rightIcon}} <span *ngIf="rightText">{{rightText}}</span></mat-icon>
@@ -16,8 +13,8 @@
             <mat-icon *ngIf="rightIcon">{{rightIcon}}</mat-icon> <span *ngIf="rightText">{{rightText}}</span>
         </button>
         <div class="desktop" style="font-size:14px; margin-right: 30px; text-align: right; line-height: 18px;">
-            <b>{{user}}</b><br>
-            {{role}}
+            <b>{{user.name}}</b><br>
+            <span *ngIf="user.position">{{user.position}}</span>
         </div>
     </mat-toolbar-row>
 </mat-toolbar>

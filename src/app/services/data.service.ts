@@ -9,14 +9,21 @@ import { environment } from 'src/environments/environment';
 })
 export class DataService {
   public databaseAPI = environment.databaseAPI;
-  headers: any;
+  public headers:any;
+  public user:User;
 
   constructor(public http: HttpClient) { 
     this.headers = new HttpHeaders().set('Content-Type', 'application/json');
+    this.user = JSON.parse(localStorage.getItem("user"));
   }
 
   login(user:string,pass:string){
     return this.http.get(this.databaseAPI + '/_design/view/_view/login?key=["'+user+'","'+pass+'"]',{ headers: this.headers}).toPromise()
+  }
+
+  setUser(user:any){
+    this.user = user;
+    localStorage.setItem("user", JSON.stringify(user));
   }
 
   listById(id:any){
@@ -41,6 +48,18 @@ export class DataService {
     return this.http.post(this.databaseAPI, body, { headers: this.headers}).toPromise()
   }
 
+}
+
+export class User{
+  _id:string = "";
+  _rev:string = "";
+  entity:string = "";
+  name:string = "";
+  username:string = "";
+  password:string = "";
+  role:string = "";
+  lastAccess:string = "";
+  features:any[] = [];
 }
 
 @Pipe({name: 'fechaFormateada'})
@@ -74,7 +93,6 @@ export class tagFilter implements PipeTransform {
   }
 }
 
-
 @Pipe({name: 'image'})
 export class image implements PipeTransform {
   transform(img:any):string {
@@ -86,5 +104,38 @@ export class image implements PipeTransform {
 export class video implements PipeTransform {
   transform(img:any):string {
       return environment.databaseAPI + "/" + img + "/video";
+  }
+}
+
+@Pipe({name: 'featuresPipe'})
+export class featuresPipe implements PipeTransform {
+  transform(obj:any):boolean {
+    if(obj.features.findIndex((feature:any) => feature.name === obj.feature) < 0){
+      return false;
+    }else{
+      return obj.features[obj.features.findIndex((feature:any) => feature.name === obj.feature)].actions.findIndex((action:string) => action === obj.action) < 0 ? false:true;
+    }
+  }
+}
+
+@Pipe({name: 'postnamePipe'})
+export class postnamePipe implements PipeTransform {
+  transform(obj:any):string {
+    if(obj.posts.findIndex((post:any) => post._id === obj.post) < 0){
+      return "";
+    }else{
+      return obj.posts[obj.posts.findIndex((post:any) => post._id === obj.post)].title;
+    }
+  }
+}
+
+@Pipe({name: 'interactionnamePipe'})
+export class interactionnamePipe implements PipeTransform {
+  transform(obj:any):string {
+    if(obj.interactions.findIndex((interaction:any) => interaction._id === obj.interaction) < 0){
+      return "";
+    }else{
+      return obj.interactions[obj.interactions.findIndex((interaction:any) => interaction._id === obj.interaction)].title;
+    }
   }
 }

@@ -1,0 +1,14 @@
+<h1 mat-dialog-title>Pacientes</h1>
+<div mat-dialog-content>
+    <div *ngFor="let patient of patients">
+        <mat-checkbox name="patient" [(ngModel)]="patient.selected"
+            [value]="patient.value._id" ngDefaultControl style="display: block;" [disabled]="patient.disabled">
+            {{patient.value.name}}
+        </mat-checkbox>
+    </div>
+    <mat-spinner *ngIf="loading"></mat-spinner>
+</div>
+<div mat-dialog-actions>
+    <button mat-stroked-button (click)="onNoClick()">Cancelar</button>
+    <button mat-raised-button color="primary" (click)="save()">Guardar</button>
+</div>

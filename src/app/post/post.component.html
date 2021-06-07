@@ -48,7 +48,7 @@
         <div style="float: right; margin-top: 10px;" *ngIf="post.likes && post.likes > 1">{{post.likes}} likes.</div>
         
         <div *ngIf="post.comments && post.comments.length>0">
-            <mat-divider style="margin-top:10px;"></mat-divider><br>
+            <mat-divider></mat-divider>
             <div *ngFor="let comment of post.comments" class="comment">
                 <mat-card-content style="margin-bottom: 0px;"><span style="font-weight: 500;">{{comment.name}}:
                     </span>{{comment.text}}</mat-card-content>

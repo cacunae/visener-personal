@@ -1,0 +1,42 @@
+<app-header title="Perfil" [backLink]="'/professional/roles'" [event]="true" (rightEvent)="publicar()" [rightText]="'Guardar'"></app-header>
+<div class="content" role="main">
+    <mat-card>
+        <mat-card-title *ngIf="!id">Ingresar Perfil</mat-card-title>
+        <mat-card-title *ngIf="id">Actualizar Perfil</mat-card-title>
+        <mat-card-subtitle *ngIf="!id" style="margin-bottom: 0px;">Aquí podrás agregar un perfil</mat-card-subtitle>
+        <mat-card-subtitle *ngIf="id" style="margin-bottom: 0px;">Aquí podrás actualizar un perfil</mat-card-subtitle>
+        <mat-divider></mat-divider>
+        <form [formGroup]="angForm" novalidate *ngIf="!loading">
+            <p style="color:red;font-size:11px">* campos requeridos</p>
+            <mat-form-field class="mat-form" appearance="outline">
+                <mat-label>Ingresar Nombre del perfil</mat-label>
+                <input matInput name="name" formControlName="name" placeholder="Operador" [(ngModel)]="role.name" required>
+            </mat-form-field><br>
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Empresa</mat-label>
+                <mat-select formControlName="company" [(ngModel)]="role.company">
+                    <mat-option *ngFor="let company of companies" [value]="company.name">
+                        <span>{{company.name}}</span>
+                    </mat-option>
+                </mat-select> 
+            </mat-form-field><br>
+            <mat-label>Funcionalidades</mat-label>
+            <div *ngFor="let feature of features;let i = index;">
+                <mat-icon>{{feature.icon}}</mat-icon>{{feature.title}}:
+                <mat-radio-group style="display: flex; flex-direction: column; margin-left:30px;">
+                    <mat-checkbox style="margin-right: 10px;" *ngFor="let action of feature.actions" [checked]="{features:role.features, feature: feature.name, action: action.code} | featuresPipe" (change)="updFeature(feature.name, feature.order, action.code, $event.checked)">
+                        {{action.description}}
+                    </mat-checkbox>
+                </mat-radio-group>
+                <br>
+            </div>
+            <br>
+        </form>
+    </mat-card>
+    <mat-spinner *ngIf="loading"></mat-spinner>
+    <div class="desktopbuttons">
+        <button mat-raised-button routerLink="/professional/roles" routerLinkActive="false">Cancelar</button>&nbsp;&nbsp;&nbsp;
+        <button mat-raised-button *ngIf="!id" type="submit" color="primary" (click)="publicar()">Crear Perfil</button>
+        <button mat-raised-button *ngIf="id" type="submit" color="primary" (click)="publicar()">Actualizar Perfil</button>
+    </div>
+</div>
