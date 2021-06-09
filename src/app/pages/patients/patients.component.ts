@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { DataService } from 'src/app/services/data.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { DataService, patientsTable } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-patients',
@@ -10,7 +12,10 @@ export class PatientsComponent implements OnInit {
   public professionals: any[] = [];
   public patients: any[] = [];
   public columnsToDisplay: string[] = ['id', 'name', 'username', 'company', 'actions'];
+  public dataSource;
   public loading:boolean = true;
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(public snackBar: MatSnackBar, private dataService: DataService) { }
 
@@ -22,6 +27,8 @@ export class PatientsComponent implements OnInit {
     this.loading = true;
     this.dataService.getData("/_design/view/_view/patients").then((patients: any) => {
       this.patients = patients.rows.sort((a, b) => { return a.value.name.localeCompare(b.value.name) });
+      this.dataSource = new MatTableDataSource<patientsTable>(this.patients);
+      this.dataSource.paginator = this.paginator;
       this.loading = false;
     }); 
   }
@@ -43,10 +50,7 @@ export class PatientsComponent implements OnInit {
     });
   }
 
-  addPatient(element: any) {
+  buscar(){
+    alert("buscando" );
   }
-
-  updPatient(element: any) {
-  }
-
 }

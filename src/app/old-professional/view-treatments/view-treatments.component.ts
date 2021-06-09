@@ -28,7 +28,7 @@ export class ViewTreatmentsComponent implements OnInit {
       this.treatments = treatments.rows.sort((a:any, b:any) => { return Number(b.value.datetime) - Number(a.value.datetime) });
       console.log(this.treatments)
     });
-    this.dataService.getData("/_design/view/_view/relations-by-professional?key=\"" + localStorage.getItem("id") + "\"&include_docs=true").then((patient:any) => {
+    this.dataService.getData("/_design/view/_view/relations-by-professional?key=\"" + this.dataService.user._id + "\"&include_docs=true").then((patient:any) => {
       this.patients = patient.rows.sort((a:any, b:any) => { return Number(b.value.datetime) - Number(a.value.datetime) });
       console.log(this.patients)
     });

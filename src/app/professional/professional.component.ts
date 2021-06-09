@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { PopupComponent } from '../popup/popup.component';
 import { DataService } from '../services/data.service';
 
 @Component({
@@ -23,7 +22,7 @@ export class ProfessionalComponent implements OnInit {
           this.roleName = roleFeatures.name;
           for (let feature of roleFeatures.features) {
             let index = features.features.findIndex((item: any) => item.name === feature.name);
-            if (index > -1) {
+            if (index>-1 && features.features.length>0 && feature.actions.length>0) {
               feature.title = features.features[index].title;
               feature.icon = features.features[index].icon;
               this.features.push(feature);
@@ -32,7 +31,12 @@ export class ProfessionalComponent implements OnInit {
 
           if (this.features.length > 0) {
             this.dataService.user.features = this.features;
-            this.router.navigateByUrl("/professional/" + this.features[0].name);
+            for(let feature of this.features){
+              if(feature.actions.length>0){
+                this.router.navigateByUrl(feature.actions[0]);
+                break;
+              }
+            }
           } else {
             this.message = "No tiene funcionalidades para operar.";
           }

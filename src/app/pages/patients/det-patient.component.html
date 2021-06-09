@@ -1,0 +1,24 @@
+<app-header title="Detalle de paciente" [backLink]="'/professional/asc-patients'"></app-header>
+<div class="content" role="main">
+    <mat-card>
+        <mat-card-title *ngIf="!loading">{{patient.name}}</mat-card-title>
+        <mat-card-subtitle *ngIf="!loading" style="margin-bottom: 0px;">{{patient.username}}</mat-card-subtitle>
+        <mat-divider></mat-divider>
+        <form *ngIf="!loading" [formGroup]="angForm" novalidate autocomplete="off">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Empresa: {{patient.company}}</mat-label>
+            </mat-form-field>
+            <mat-divider></mat-divider><br>
+            <div *ngFor="let post of posts">
+                {{post}}
+            </div>
+            <div *ngFor="let interaction of interactions">
+                {{interaction}}
+            </div>
+        </form>
+    </mat-card>
+    <mat-spinner *ngIf="loading"></mat-spinner>
+    <div class="desktopbuttons">
+        <button mat-raised-button routerLink="/professional/asc-patients" routerLinkActive="false">Cancelar</button>&nbsp;&nbsp;&nbsp;
+    </div>
+</div>

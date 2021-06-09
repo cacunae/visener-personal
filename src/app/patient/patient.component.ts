@@ -26,18 +26,19 @@ export class PatientComponent implements OnInit {
   day: any;
 
   constructor(public http: HttpClient, public post: MatDialog, public dialog: MatDialog, public router: Router, public dataService: DataService) {
-    this.usuario = localStorage.getItem("user");
-    if (!localStorage.getItem("user")) {
+    if (!this.dataService.user?._id) {
       this.router.navigateByUrl("/login");
-    }
-    switch (new Date().getDay()) {
-      case 1: this.day = "Lunes"; break;
-      case 2: this.day = "Martes"; break;
-      case 3: this.day = "Miércoles"; break;
-      case 4: this.day = "Jueves"; break;
-      case 5: this.day = "Viernes"; break;
-      case 6: this.day = "Sabado"; break;
-      case 7: this.day = "Domingo";
+    } else {
+      this.usuario = this.dataService.user;
+      switch (new Date().getDay()) {
+        case 1: this.day = "Lunes"; break;
+        case 2: this.day = "Martes"; break;
+        case 3: this.day = "Miércoles"; break;
+        case 4: this.day = "Jueves"; break;
+        case 5: this.day = "Viernes"; break;
+        case 6: this.day = "Sabado"; break;
+        case 7: this.day = "Domingo";
+      }
     }
   }
 
@@ -58,12 +59,14 @@ export class PatientComponent implements OnInit {
   }
 
   cerrarSesion() {
+    this.dataService.user = null;
     localStorage.clear();
   }
 
   getPosts() {
-    this.dataService.getData("/_design/view/_view/posts-by-user?key=\"" + localStorage.getItem("id") + "\"&include_docs=true").then((posts: any) => {
-      this.posts = posts.rows.sort((a:any, b:any) => { return Number(b.value.datetime) - Number(a.value.datetime) });
+    this.dataService.getData("/_design/view/_view/publications-by-patient?key=\"" + this.dataService.user._id + "\"&include_docs=true").then((posts: any) => {
+      this.posts = posts.rows.sort((a:any, b:any) => { return Number(b.doc.datetime) - Number(a.doc.datetime) });
+      console.log("posts", posts);
       for (let index in this.posts) {
         this.posts[index].value = this.posts[index].doc;
         this.dataService.getData("/_design/view/_view/like-by-post?key=\"" + this.posts[index].value._id + "\"").then((likes: any) => {
@@ -71,7 +74,7 @@ export class PatientComponent implements OnInit {
           this.posts[index].liked = 'false';
           if (likes.rows.length > 0) {
             for(let like of likes.rows){
-              if(like.value.patient == localStorage.getItem("id")){
+              if(like.value.patient == this.dataService.user._id){
                 this.posts[index].liked = 'true';
                 this.posts[index].like = { _id: like.value._id, _rev: like.value._rev };
               }
@@ -91,7 +94,7 @@ export class PatientComponent implements OnInit {
 
   async getTreatments() {
     let tmpTreatments: any[];
-    await this.dataService.getData("/_design/view/_view/treatments-by-user?key=\"" + localStorage.getItem("id") + "\"").then((treatments: any) => {
+    await this.dataService.getData("/_design/view/_view/treatments-by-user?key=\"" + this.dataService.user._id + "\"").then((treatments: any) => {
       tmpTreatments = treatments.rows.sort((a, b) => { return Number(b.value.datetime) - Number(a.value.datetime) });
     });
     /* Validate by date and weekday */
@@ -121,7 +124,7 @@ export class PatientComponent implements OnInit {
       entity: "poll", 
       treatment: treatment.value._id, 
       interaction: interaction.interaction, 
-      patient: localStorage.getItem("id"), 
+      patient: this.dataService.user._id,
       question: interaction.poll.question, 
       slider: interaction.poll.slider, 
       sliderend: interaction.poll.sliderend,

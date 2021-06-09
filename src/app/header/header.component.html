@@ -12,6 +12,12 @@
         <button class="cellphone" mat-button *ngIf="event" (click)="clickEvent()">
             <mat-icon *ngIf="rightIcon">{{rightIcon}}</mat-icon> <span *ngIf="rightText">{{rightText}}</span>
         </button>
+        <!--mat-form-field appearance="outline" class="mat-form">
+            <input matInput [(ngModel)]="buscar">
+            <button mat-icon-button matSuffix>
+                <mat-icon>search</mat-icon>
+            </button>
+        </mat-form-field-->
         <div class="desktop" style="font-size:14px; margin-right: 30px; text-align: right; line-height: 18px;">
             <b>{{user.name}}</b><br>
             <span *ngIf="user.position">{{user.position}}</span>

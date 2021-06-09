@@ -20,7 +20,7 @@ export class AssociateComponent implements OnInit {
   constructor(public router: Router, public dataService: DataService, public dialogRef: MatDialogRef<AssociateComponent>, @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
 
   ngOnInit(): void {
-    this.idProfessional = localStorage.getItem("id");
+    this.idProfessional = this.dataService.user._id;
     this.dataService.getData("/_design/view/_view/relations-by-professional?key=\""+this.idProfessional+"\"&include_docs=true").then((patients: any) => {
       this.patients = patients.rows;
     }); 

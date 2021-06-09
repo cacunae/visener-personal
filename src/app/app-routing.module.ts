@@ -5,6 +5,8 @@ import { PatientComponent } from './patient/patient.component';
 import { ViewPostsComponent } from './old-professional/view-posts/view-posts.component';
 import { PatientsComponent } from './pages/patients/patients.component';
 import { AddPatientComponent } from './pages/patients/add-patient.component';
+import { AssociatedPatientsComponent } from './pages/patients/asc-patients.component';
+import { DetPatientComponent } from './pages/patients/det-patient.component';
 import { ProfessionalsComponent } from './pages/professionals/professionals.component';
 import { AddProfessionalComponent } from './pages/professionals/add-professional.component';
 import { InteractionsComponent } from './pages/interactions/interactions.component';
@@ -32,6 +34,8 @@ const routes: Routes = [
       { path: "patients", component: PatientsComponent, canActivate: [RoleGuard]},
       { path: "add-patient", component: AddPatientComponent, canActivate: [RoleGuard]},
       { path: "upd-patient/:id", component: AddPatientComponent, canActivate: [RoleGuard]},
+      { path: "asc-patients", component: AssociatedPatientsComponent, canActivate: [RoleGuard]},
+      { path: "det-patient/:id", component: DetPatientComponent, canActivate: [RoleGuard]},
       { path: "professionals", component: ProfessionalsComponent, canActivate: [RoleGuard]},
       { path: "add-professional", component: AddProfessionalComponent, canActivate: [RoleGuard]},
       { path: "upd-professional/:id", component: AddProfessionalComponent, canActivate: [RoleGuard]},

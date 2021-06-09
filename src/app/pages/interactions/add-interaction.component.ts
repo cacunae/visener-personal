@@ -32,7 +32,7 @@ export class AddInteractionComponent implements OnInit {
   postPost: any;
 
   constructor(public route: ActivatedRoute, public snackBar: MatSnackBar, public router: Router, private _formBuilder: FormBuilder, private _fb: FormBuilder, public dataService: DataService, public dialog: MatDialog) {
-    this.interaction.professional = localStorage.getItem("id");
+    this.interaction.professional = this.dataService.user._id;
     this.id = route.snapshot.paramMap.get('id');
     if (this.id) {
       this.dataService.getData("/" + this.id).then((result: any) => {

@@ -290,3 +290,7 @@ mat-spinner, mat-spinner>svg {
   padding-top:20px; 
   text-align: center;
 }
+
+.mat-paginator-page-size-select{
+  width: 50px !important;
+}

@@ -14,10 +14,10 @@ export class ProfessionalComponent implements OnInit {
   public user: any;
 
   constructor(public http:HttpClient, public dialog: MatDialog, public post: MatDialog, public router: Router) {
-    if (!localStorage.getItem("user")) {
+    if (!this.dataService.user._id) {
       this.router.navigateByUrl("/login");
     }else{
-      localStorage.getItem("user")
+      this.dataService.user._id
       this.router.navigateByUrl("/professional/treatments");
     }
    }

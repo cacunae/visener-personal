@@ -29,14 +29,11 @@
             <div *ngIf="treatment.posts && treatment.posts.length>0">
                 <mat-card-subtitle style="margin:0%"><strong>Post Asociados:</strong></mat-card-subtitle>
                 <div cdkDropList (cdkDropListDropped)="drop2($event)">
-                    <div cdkDrag *ngFor="let post of treatment.posts; let i = index;" style="width: calc(100% - 20px); border: 1px solid #cccccc; background-color: #fdfdfd; border-radius: 5px; padding: 10px; margin: 5px 10px;">
-                        {{ {posts: posts, post:post} | postnamePipe}}
-                        <button mat-icon-button (click)="delPost(i)" style="float: right; margin-top: -10px;">
+                    <div cdkDrag *ngFor="let post of treatment.posts; let i = index;">
+                        <button mat-icon-button (click)="delPost(i)" style="float:right; z-index:999;">
                             <mat-icon>delete</mat-icon>
                         </button>
-                        <button mat-icon-button (click)="viewPost(post)" style="float: right; margin-top: -10px;">
-                            <mat-icon>visibility</mat-icon>
-                        </button>
+                        <app-post [post]="post" origin="add-treatment"></app-post>
                     </div>
                 </div>
             </div>
@@ -47,13 +44,10 @@
                 <mat-card-subtitle style="margin:0%"><strong>Tareas Asociadas:</strong></mat-card-subtitle>
                 <div cdkDropList (cdkDropListDropped)="drop($event)">
                     <div cdkDrag *ngFor="let interaction of treatment.interactions; let i = index;" style="width: calc(100% - 20px); border: 1px solid #cccccc; background-color: #fdfdfd; border-radius: 5px; padding: 10px; margin: 5px 10px;">
-                        {{ {interactions: interactions, interaction:interaction} | interactionnamePipe}}
-                        <button mat-icon-button (click)="delInteraction(i)" style="float: right; margin-top: -10px;">
+                        <button mat-icon-button (click)="delInteraction(i)" style="float:right; z-index:999;">
                             <mat-icon>delete</mat-icon>
                         </button>
-                        <button mat-icon-button (click)="viewInteraction(interaction)" style="float: right; margin-top: -10px;">
-                            <mat-icon>visibility</mat-icon>
-                        </button>
+                        <app-interaction [interaction]="interaction" origin="add-treatment"></app-interaction>
                     </div>
                 </div>
             </div>

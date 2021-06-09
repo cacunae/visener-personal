@@ -1,15 +1,15 @@
 <div class="content" role="main" style="text-align: center;">
-  <mat-card class="treatments" style="max-width: 500px; width: 100%; margin: auto; margin-top:100px;">
+  <mat-card class="treatments" style="max-width: 400px; width: 100%; margin: auto; margin-top:100px;">
     <mat-card-title>Visener</mat-card-title>
     <mat-card-subtitle>Ingresa tus Datos</mat-card-subtitle>
     <mat-card-content>
       <form class="example-form">
-        <mat-form-field class="example-full-width">
+        <mat-form-field class="example-full-width" appearance="outline">
           <mat-label>Correo electrónico</mat-label>
           <input matInput type="email" [(ngModel)]="email" name="email" placeholder="Correo Electrónico" required="required">
         </mat-form-field>
         <br>
-        <mat-form-field class="example-full-width">
+        <mat-form-field class="example-full-width" appearance="outline">
           <mat-label>Password</mat-label>
           <input matInput type="password" [(ngModel)]="password" name="password" placeholder="Contraseña" required="required">
         </mat-form-field>

@@ -4,11 +4,11 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { DialogInteractionComponent } from '../dialog-interaction/dialog-interaction.component';
 import { ViewPostsComponent } from 'src/app/old-professional/view-posts/view-posts.component';
 import { DataService } from 'src/app/services/data.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-add-treatments',
@@ -35,7 +35,7 @@ export class AddTreatmentComponent implements OnInit {
   }
 
   async createForm(){
-    this.treatment.professional = localStorage.getItem("id");
+    this.treatment.professional = this.dataService.user._id;
     this.id = this.route.snapshot.paramMap.get('id');
     if (this.id) {
       await this.dataService.getData("/" + this.id).then((result: any) => {
@@ -54,7 +54,6 @@ export class AddTreatmentComponent implements OnInit {
         })
       }
     }
-    console.log("fin:", this.treatment, this.posts, this.interactions);
     this.loading = false;
   }
 

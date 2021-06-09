@@ -36,7 +36,7 @@ export class PatientTreatmentComponent implements OnInit {
 
   getTreatments(){
     this.loading = true;
-    this.dataService.getData("/_design/view/_view/treatments-by-professional?key=\"" + localStorage.getItem("id") + "\"&include_docs=true").then((treatments: any) => {
+    this.dataService.getData("/_design/view/_view/treatments-by-professional?key=\"" + this.dataService.user._id + "\"&include_docs=true").then((treatments: any) => {
       this.treatments = treatments.rows.sort((a:any, b:any) => { return Number(b.value.datetime) - Number(a.value.datetime) });
       this.loading = false;
     });

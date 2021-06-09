@@ -16,11 +16,17 @@ export class PostComponent implements OnInit {
   @Input() demo: any = false;
   @Input() demo2: any = false;
   @Input() demo3: any = false;
+  @Input() origin:string;
 
   constructor(public dialog: MatDialog, public http: HttpClient, public dataService: DataService) {
   }
 
   ngOnInit(): void {
+    if(this.origin == 'add-treatment'){
+      this.dataService.getData("/" + this.post).then((post) => {
+        this.post = {value: post};
+      });
+    }
   }
 
   openComment(post: any) {
@@ -30,18 +36,18 @@ export class PostComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((text) => {
-      let comment = { entity: "comment", datetime: moment().format('YYYYMMDDHHmmss'), post: post.value._id, patient: localStorage.getItem("id"), name: localStorage.getItem("user"), text: text };
+      let comment = { entity: "comment", datetime: moment().format('YYYYMMDDHHmmss'), post: post.value._id, patient: this.dataService.user._id, name: this.dataService.user.name, text: text };
       this.dataService.postData(comment).then((result:any) => {
         if (result.ok) {}
       });
       if (!post.comments) { post.comments = []; }
-      post.comments.push({ name: localStorage.getItem("user"), text: text });
+      post.comments.push({ name: this.dataService.user.name , text: text });
     });
   }
 
   like(post: any) {
     if (post.liked == 'false') {
-      let like = { entity: "like", post: post.value._id, patient: localStorage.getItem("id"), datetime: moment().format('YYYYMMDDHHmmss') };
+      let like = { entity: "like", post: post.value._id, patient: this.dataService.user._id, datetime: moment().format('YYYYMMDDHHmmss') };
       this.dataService.postData(like).then((result:any) => {
         if (result.ok) {
           this.dataService.getData("/_design/view/_view/like-by-post?key=\"" + this.post.value._id + "\"").then((likes: any) => {
@@ -49,7 +55,7 @@ export class PostComponent implements OnInit {
             this.post.liked = 'false';
             if (likes.rows.length > 0) {
               for(let like of likes.rows){
-                if(like.value.patient == localStorage.getItem("id")){
+                if(like.value.patient == this.dataService.user._id){
                   this.post.liked = 'true';
                   this.post.like = { _id: like.value._id, _rev: like.value._rev };
                 }
@@ -65,7 +71,7 @@ export class PostComponent implements OnInit {
           this.post.likes = likes.rows.length;
           if (likes.rows.length > 0) {
             for(let like of likes.rows){
-              if(like.value.patient == localStorage.getItem("id")){
+              if(like.value.patient == this.dataService.user._id){
                 this.post.liked = 'true';
                 this.post.like = { _id: like.value._id, _rev: like.value._rev };
               }
@@ -80,7 +86,7 @@ export class PostComponent implements OnInit {
 
   responsePost(post: any) {
     let responses: any[] = []; 
-    let poll = { entity: "poll", post: post.value._id, patient: localStorage.getItem("id"), datetime: moment().format('YYYYMMDDHHmmss'), responses: responses };
+    let poll = { entity: "poll", post: post.value._id, patient: this.dataService.user._id, datetime: moment().format('YYYYMMDDHHmmss'), responses: responses };
     for (let question of post.value.poll) {
       if (question.response) {
         responses.push({ id: question.id, question: question.question, response: question.response })

@@ -50,6 +50,7 @@
                         <div *ngFor="let interaction of treatment.value.interactions">
                             <strong>Días de ejercicio:</strong> {{interaction.weekdays}}<br>
                         </div>
+                        <app-post *ngIf="let post of treatment.value.posts" [post]="post" origin="add-treatment"></app-post>
                         <strong>Tareas:</strong><br>
                         <mat-card style="width: 90%; border: 1px solid #aaaaaa; border-radius: 10px;"
                             *ngFor="let interaction of treatment.value.interactions">

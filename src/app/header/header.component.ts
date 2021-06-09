@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { PopupComponent } from '../popup/popup.component';
 import { DataService } from '../services/data.service';
@@ -16,9 +17,12 @@ export class HeaderComponent {
   @Input() rightText:string;
   @Input() event:boolean = false;
   @Output() rightEvent = new EventEmitter<string>();
+  @Input() search:boolean = false;
+  @Output() searchEvent = new EventEmitter<string>();
 
   public user:any = "";
-
+  public buscar:string = "";
+  
   constructor(public dialog:MatDialog, public dataService:DataService) {
     this.user = this.dataService.user;
   }

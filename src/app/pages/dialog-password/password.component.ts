@@ -40,7 +40,7 @@ export class PasswordComponent implements OnInit {
 
   async cambiarPassword(){
     if (this.angForm.valid) {
-      await this.dataService.login(localStorage.getItem("email"), this.passwordActual).then((result:any) => {
+      await this.dataService.login(this.dataService.user.username, this.passwordActual).then((result:any) => {
         if(result.rows && result.rows[0] && result.rows[0].value){
           let user = result.rows[0].value;
           user.password = Md5.hashStr(this.passwordNueva);
@@ -48,6 +48,7 @@ export class PasswordComponent implements OnInit {
             if(resultPost.ok){
               alert('Password actualizada.\nAhora será redirigido al login para que utilice su nueva clave.');
               localStorage.clear();
+              this.dataService.user = null;
               this.dialogRef.close();
               this.router.navigateByUrl("/login");
             }else{

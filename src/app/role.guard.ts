@@ -15,8 +15,8 @@ export class RoleGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     let permission:boolean = false;
     //console.log("canActivate::" + "/professional/" + route.routeConfig.path );
-    if(localStorage.getItem("user") && JSON.parse(localStorage.getItem("user")).features ){
-      for(let feature of JSON.parse(localStorage.getItem("user")).features){
+    if(this.dataService.user && this.dataService.user.features ){
+      for(let feature of this.dataService.user.features){
         if(feature.actions.findIndex((action:string) => action === "/professional/" + route.routeConfig.path) > -1){
           permission = true;
         }
@@ -24,6 +24,7 @@ export class RoleGuard implements CanActivate {
       
       if(!permission){
         this.snackBar.open('No tiene permisos para esta funcionalidad.', 'ERR', { duration: 3000 });
+        console.log("canActivate::No access::" + "/professional/" + route.routeConfig.path );
       }
     }else{
       this.router.navigateByUrl("/login");

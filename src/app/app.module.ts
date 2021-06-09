@@ -42,10 +42,13 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { fechaFormateada, weekDays, tagFilter, image, video, featuresPipe, postnamePipe, interactionnamePipe } from './services/data.service';
 import { PostComponent } from './post/post.component';
+import { InteractionComponent } from './interaction/interaction.component';
 import { ViewTreatmentsComponent } from './old-professional/view-treatments/view-treatments.component';
 
 import { PatientsComponent } from './pages/patients/patients.component';
 import { AddPatientComponent } from './pages/patients/add-patient.component';
+import { AssociatedPatientsComponent } from './pages/patients/asc-patients.component';
+import { DetPatientComponent } from './pages/patients/det-patient.component';
 import { ProfessionalsComponent } from './pages/professionals/professionals.component';
 import { AddProfessionalComponent } from './pages/professionals/add-professional.component';
 import { InteractionsComponent } from './pages/interactions/interactions.component';
@@ -87,7 +90,10 @@ import { PatientTreatmentComponent } from './old-professional/patient-treatment/
     AddPostComponent,
     PatientComponent,
     ProfessionalComponent,
+    PatientsComponent,
     AddPatientComponent,
+    DetPatientComponent,
+    AssociatedPatientsComponent,
     ProfessionalsComponent,
     AddProfessionalComponent,
     InteractionsComponent,
@@ -101,12 +107,12 @@ import { PatientTreatmentComponent } from './old-professional/patient-treatment/
     PdfComponent,
     ChartComponent,
     PostComponent,
+    InteractionComponent,
     AttachmentsComponent,
     AddAttachmentComponent,
     DialogAddRelationComponent,
     TreatmentsComponent,
     ViewPostsComponent,
-    PatientsComponent,
     HeaderComponent,
     PostsComponent,
     AssociateComponent,

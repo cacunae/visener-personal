@@ -50,6 +50,17 @@ export class DataService {
 
 }
 
+
+export interface patientsTable {
+  id: number;
+  name: string;
+  username: string;
+  company: string;
+  actions: string;
+}
+
+
+
 export class User{
   _id:string = "";
   _rev:string = "";
