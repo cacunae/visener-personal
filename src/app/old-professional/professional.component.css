@@ -44,16 +44,6 @@ mat-radio-button {
   margin: 5px;
 }
 
-.treatments{
-  position: fixed;
-  top: 100px;
-  width: 235px;
-  /*
-  border-radius: 10px;
-  background-color: #e6ebf1;
-  padding: 0px 10px;*/
-}
-
 :host {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     font-size: 14px;

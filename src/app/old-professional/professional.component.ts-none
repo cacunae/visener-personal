@@ -18,7 +18,7 @@ export class ProfessionalComponent implements OnInit {
       this.router.navigateByUrl("/login");
     }else{
       this.dataService.user._id
-      this.router.navigateByUrl("/professional/treatments");
+      this.router.navigateByUrl("/professional/programs");
     }
    }
 

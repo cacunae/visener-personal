@@ -40,6 +40,11 @@ export class AssociatedPatientsComponent implements OnInit {
         patient.posts = posts.rows.length;
       });
     }
+    for(let patient of this.patients){
+      this.dataService.getData("/_design/view/_view/treatments-by-patient?key=\"" + patient.doc._id + "\"").then((treatments:any) => {
+        patient.treatments = treatments.rows.length;
+      });
+    }
   }
 
   asociarPost(patient:any) {

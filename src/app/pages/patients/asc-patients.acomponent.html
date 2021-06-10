@@ -36,12 +36,9 @@
         <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
         <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="example-element-row example-element-row-border"></tr>
     </table>
-    <mat-paginator class="mat-elevation-z8" style="width: 100%;" [pageSizeOptions]="[1, 5, 10, 25, 100]"></mat-paginator>
+    <mat-paginator class="mat-elevation-z8" style="width: 100%;" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
 
     <mat-spinner *ngIf="loading"></mat-spinner>
-    <div class="noitems" *ngIf="!loading && patients.length == 0">No hay pacientes aún.</div>
+    <div class="noitems" *ngIf="!loading && patients.length == 0">Aún no tienes pacientes asignados.</div>
 
-    <div class="desktopbuttons">
-        <button class="desktop buttontop" mat-raised-button type="submit" color="primary" routerLink="/professional/add-patient" routerLinkActive="false">Añadir Paciente</button>
-    </div>
 </div>

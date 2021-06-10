@@ -5,14 +5,14 @@ import { DataService } from '../services/data.service';
 import * as moment from 'moment';
 
 @Component({
-  selector: 'app-interaction',
-  templateUrl: './interaction.component.html',
-  styleUrls: ['./interaction.component.css']
+  selector: 'app-treatment',
+  templateUrl: './treatment.component.html'
 })
-export class InteractionComponent implements OnInit {
-  @Input() interaction:any;
+export class TreatmentComponent implements OnInit {
+  @Input() treatment:any;
   @Input() origin:string;
   public interact:boolean = true;
+  public loading:boolean = true;
 
   constructor(public dialog: MatDialog, public http: HttpClient, public dataService: DataService) {
   }
@@ -20,8 +20,9 @@ export class InteractionComponent implements OnInit {
   ngOnInit(): void {
     if(this.origin == 'add-program'){
       this.interact = false;
-      this.dataService.getData("/" + this.interaction).then((interaction) => {
-        this.interaction = interaction;
+      this.dataService.getData("/" + this.treatment).then((treatment) => {
+        this.treatment = treatment;
+        this.loading = false;
       });
     }
   }

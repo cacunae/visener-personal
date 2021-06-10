@@ -43,7 +43,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { fechaFormateada, weekDays, tagFilter, image, video, featuresPipe, postnamePipe, interactionnamePipe } from './services/data.service';
 import { PostComponent } from './post/post.component';
 import { InteractionComponent } from './interaction/interaction.component';
-import { ViewTreatmentsComponent } from './old-professional/view-treatments/view-treatments.component';
+import { TreatmentComponent } from './treatment/treatment.component';
 
 import { PatientsComponent } from './pages/patients/patients.component';
 import { AddPatientComponent } from './pages/patients/add-patient.component';
@@ -57,8 +57,8 @@ import { AttachmentsComponent } from './pages/attachments/attachments.component'
 import { AddAttachmentComponent } from './pages/attachments/add-attachment.component';
 import { PostsComponent } from './pages/posts/posts.component';
 import { AddPostComponent } from './pages/posts/add-post.component';
-import { TreatmentsComponent } from './pages/treatments/treatments.component';
-import { AddTreatmentComponent } from './pages/treatments/add-treatment.component'
+import { ProgramsComponent } from './pages/programs/programs.component';
+import { AddProgramComponent } from './pages/programs/add-program.component'
 import { RolesComponent } from './pages/roles/roles.component';
 import { AddRoleComponent } from './pages/roles/add-role.component'
 import { DialogAddRelationComponent } from './pages/dialog-add-relation/dialog-add-relation.component';
@@ -103,21 +103,21 @@ import { PatientTreatmentComponent } from './old-professional/patient-treatment/
     fechaFormateada,
     weekDays, tagFilter, image, video, featuresPipe, postnamePipe, interactionnamePipe,
     PopupComponent,
-    AddTreatmentComponent,
+    AddProgramComponent,
     PdfComponent,
     ChartComponent,
     PostComponent,
     InteractionComponent,
+    TreatmentComponent,
     AttachmentsComponent,
     AddAttachmentComponent,
     DialogAddRelationComponent,
-    TreatmentsComponent,
+    ProgramsComponent,
     ViewPostsComponent,
     HeaderComponent,
     PostsComponent,
     AssociateComponent,
     ViewPostsAssociateComponent,
-    ViewTreatmentsComponent,
     PatientTreatmentComponent
   ],
   imports: [

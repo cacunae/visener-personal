@@ -21,7 +21,7 @@ import { Router } from '@angular/router';
   ]
 })
 export class PatientTreatmentComponent implements OnInit {
-  public treatments: any[] = [];
+  public programs: any[] = [];
   public columnsToDisplay: string[] = ['id', 'treatment', 'patient', 'interactions', 'datetime', 'actions'];
   public loading:boolean = true;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -31,13 +31,13 @@ export class PatientTreatmentComponent implements OnInit {
   constructor(public router: Router, public snackBar: MatSnackBar, private dataService: DataService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.getTreatments();  
+    this.getPrograms();  
   }
 
-  getTreatments(){
+  getPrograms(){
     this.loading = true;
-    this.dataService.getData("/_design/view/_view/treatments-by-professional?key=\"" + this.dataService.user._id + "\"&include_docs=true").then((treatments: any) => {
-      this.treatments = treatments.rows.sort((a:any, b:any) => { return Number(b.value.datetime) - Number(a.value.datetime) });
+    this.dataService.getData("/_design/view/_view/programs-by-professional?key=\"" + this.dataService.user._id + "\"&include_docs=true").then((programs: any) => {
+      this.programs = programs.rows.sort((a:any, b:any) => { return Number(b.value.datetime) - Number(a.value.datetime) });
       this.loading = false;
     });
   }
@@ -53,7 +53,7 @@ export class PatientTreatmentComponent implements OnInit {
     if (confirm("¿Estás seguro de eliminar la Tarea " + element.value.title + "?\nEsta acción no podrá deshacerse.")) {
       this.dataService.deleteById(element.value.doc._id + "?rev=" + element.value.doc._rev).then(() => {
         this.snackBar.open('Programa eliminado correctamente', 'OK', { duration: 5000 });
-        this.router.navigateByUrl("/professional/treatments");
+        this.router.navigateByUrl("/professional/programs");
       });
     }
   }

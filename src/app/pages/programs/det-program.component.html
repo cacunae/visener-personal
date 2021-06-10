@@ -11,14 +11,14 @@
             </div>
             <br>
             <mat-tab-group mat-align-tabs="center">
-                <mat-tab label="Programas">
-                    <div *ngFor="let treatment of treatments">
-                        <app-treatment style="margin-left: 10px;" [treatment]="treatment.value.doc.program" origin="add-program"></app-treatment>
+                <mat-tab label="Tareas">
+                    <div *ngFor="let interaction of interactions">
+                        {{interaction | json}}
                     </div>
                 </mat-tab>
                 <mat-tab label="Posts">
-                    <div *ngFor="let post of posts" style="padding: 5px;">
-                        <app-post style="margin-left: 10px;" [post]="post.value.doc.post" origin="add-program"></app-post>
+                    <div *ngFor="let post of posts" style="text-align: center; padding: 10px;">
+                        <app-post style="margin-left: 10px;" [post]="post.value.doc.post" origin="add-treatment"></app-post>
                     </div>
                 </mat-tab>
             </mat-tab-group>

@@ -1,0 +1,8 @@
+<mat-card>
+    <div *ngIf="treatment && !loading">
+        <mat-card-title>{{treatment.title}}</mat-card-title>
+        <mat-card-subtitle style="margin-bottom: 0px;">{{treatment.content}}</mat-card-subtitle>
+        <mat-card-subtitle style="margin-bottom: 0px;">{{treatment.objective}}</mat-card-subtitle>
+        <app-post [post]="post" *ngFor="let post of treatment.posts" origin="add-program"></app-post>
+    </div>
+</mat-card>

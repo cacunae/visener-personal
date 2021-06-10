@@ -94,7 +94,7 @@ export class PatientComponent implements OnInit {
 
   async getTreatments() {
     let tmpTreatments: any[];
-    await this.dataService.getData("/_design/view/_view/treatments-by-user?key=\"" + this.dataService.user._id + "\"").then((treatments: any) => {
+    await this.dataService.getData("/_design/view/_view/treatments-by-patient?key=\"" + this.dataService.user._id + "\"").then((treatments: any) => {
       tmpTreatments = treatments.rows.sort((a, b) => { return Number(b.value.datetime) - Number(a.value.datetime) });
     });
     /* Validate by date and weekday */

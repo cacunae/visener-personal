@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from "./login/login.component";
 import { PatientComponent } from './patient/patient.component';
-import { ViewPostsComponent } from './old-professional/view-posts/view-posts.component';
 import { PatientsComponent } from './pages/patients/patients.component';
 import { AddPatientComponent } from './pages/patients/add-patient.component';
 import { AssociatedPatientsComponent } from './pages/patients/asc-patients.component';
@@ -15,11 +14,8 @@ import { AttachmentsComponent } from './pages/attachments/attachments.component'
 import { AddAttachmentComponent } from './pages/attachments/add-attachment.component';
 import { PostsComponent } from './pages/posts/posts.component';
 import { AddPostComponent } from './pages/posts/add-post.component';
-import { ViewPostsAssociateComponent } from './old-professional/view-posts/view-posts-associate.component';
-import { TreatmentsComponent } from './pages/treatments/treatments.component';
-import { AddTreatmentComponent } from './pages/treatments/add-treatment.component';
-import { ViewTreatmentsComponent } from './old-professional/view-treatments/view-treatments.component';
-import { PatientTreatmentComponent } from './old-professional/patient-treatment/patient-treatment.component';
+import { ProgramsComponent } from './pages/programs/programs.component';
+import { AddProgramComponent } from './pages/programs/add-program.component';
 import { ProfessionalComponent } from './professional/professional.component';
 import { RolesComponent } from './pages/roles/roles.component';
 import { AddRoleComponent } from './pages/roles/add-role.component';
@@ -48,20 +44,12 @@ const routes: Routes = [
       { path: "posts", component: PostsComponent, canActivate: [RoleGuard]},
       { path: "add-post", component: AddPostComponent, canActivate: [RoleGuard]},
       { path: "upd-post/:id", component: AddPostComponent, canActivate: [RoleGuard]},
-      { path: "treatments", component: TreatmentsComponent, canActivate: [RoleGuard]},
-      { path: "add-treatment", component: AddTreatmentComponent, canActivate: [RoleGuard]},
-      { path: "upd-treatment/:id", component: AddTreatmentComponent, canActivate: [RoleGuard]},
+      { path: "programs", component: ProgramsComponent, canActivate: [RoleGuard]},
+      { path: "add-program", component: AddProgramComponent, canActivate: [RoleGuard]},
+      { path: "upd-program/:id", component: AddProgramComponent, canActivate: [RoleGuard]},
       { path: "roles", component: RolesComponent, canActivate: [RoleGuard]},
       { path: "add-role", component: AddRoleComponent, canActivate: [RoleGuard]},
       { path: "upd-role/:id", component: AddRoleComponent, canActivate: [RoleGuard]}
-    ]
-  },
-  { path: "old-professional", component: ProfessionalComponent, children: 
-    [
-      { path: "patients", component: PatientsComponent},
-      { path: "posts", component: ViewPostsAssociateComponent},
-      { path: "treatments", component: PatientTreatmentComponent},
-      { path: "add-treatments", component: ViewTreatmentsComponent},
     ]
   },
   { path: "patient", component: PatientComponent, pathMatch: "full" },

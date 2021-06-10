@@ -86,46 +86,7 @@
                 <button mat-stroked-button (click)="interaction.post=null" *ngIf="interaction.post">
                     <mat-icon>remove_circle_outline</mat-icon> Borrar post "{{postName}}"
                 </button>
-                <div *ngIf="interaction.post">
-                    <br>
-                    <img *ngIf="postImage" style="margin-left: 10px; width: 100px; margin-bottom: -10px;"
-                        src="{{postImage | image}}" />
-                    <br><br>
-                    <mat-form-field>
-                        <mat-label><strong>Título:</strong></mat-label>
-                        <input matInput type="text" readonly="readonly" value="{{postName}}">
-                    </mat-form-field>
-                    <mat-form-field>
-                        <mat-label><strong>Subtitulo:</strong></mat-label>
-                        <input matInput type="text" readonly="readonly" value="{{postSubtitle}}">
-                    </mat-form-field>
-                    <mat-form-field>
-                        <mat-label><strong>Contenido:</strong></mat-label>
-                        <input matInput type="text" readonly="readonly" value="{{postContent}}">
-                    </mat-form-field><br>
-                    <div>
-                        <h4 style="margin:0%"><strong>Encuesta</strong></h4>
-                        <mat-input-field>
-                            <input matInput type="text" readonly="readonly" value="{{postPollQuestion}}"><br>
-                        </mat-input-field>
-                        <div *ngIf="postPollType=='selection'">
-                            <h6 style="margin:0%"><strong>Opciones:</strong></h6>
-                            <div *ngFor="let option of postPollOptions">
-                                <mat-radio-button>
-                                    <a>{{option.description}}</a>
-                                </mat-radio-button>
-                            </div>
-                        </div>
-                        <div *ngIf="postPollType=='multiple'">
-                            <h6 style="margin:0%"><strong>Opciones:</strong></h6>
-                            <div *ngFor="let option of postPollOptions">
-                                <mat-checkbox>
-                                    <a>{{option.description}}</a>
-                                </mat-checkbox>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <app-post *ngIf="interaction.post" [post]="interaction.post" origin="add-program"></app-post>
             </mat-tab>
         </mat-tab-group>
     </mat-card>

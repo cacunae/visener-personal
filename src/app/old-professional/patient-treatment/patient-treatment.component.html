@@ -1,6 +1,6 @@
-<app-header title="Programas" [rightLink]="'/professional/add-treatments'" [rightIcon]="'add'"></app-header>
+<app-header title="Programas" [rightLink]="'/professional/add-programs'" [rightIcon]="'add'"></app-header>
 <div class="content" role="main">
-    <table mat-table [dataSource]="treatments" matSort multiTemplateDataRows class="mat-elevation-z8">
+    <table mat-table [dataSource]="programs" matSort multiTemplateDataRows class="mat-elevation-z8">
         <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Nº</th>
             <td mat-cell *matCellDef="let row; let i = dataIndex;"
@@ -84,9 +84,9 @@
         <tr mat-row *matRowDef="let row; columns: ['expandedDetail'];" class="example-detail-row"></tr>
     </table>
     <mat-spinner *ngIf="loading"></mat-spinner>
-    <div class="noitems" *ngIf="!loading && treatments.length == 0">No has asignado programas aún.</div>
+    <div class="noitems" *ngIf="!loading && programs.length == 0">No has asignado programas aún.</div>
     <div class="desktopbuttons" style="text-align:center">
-        <button mat-raised-button type="submit" color="accent" routerLink="/professional/add-treatments"
+        <button mat-raised-button type="submit" color="accent" routerLink="/professional/add-programs"
             routerLinkActive="false">Asociar Programa</button>
     </div>
 </div>

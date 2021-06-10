@@ -7,11 +7,11 @@ import { DataService } from 'src/app/services/data.service';
 import { ViewPostsComponent } from '../view-posts/view-posts.component';
 
 @Component({
-  selector: 'app-view-treatments',
-  templateUrl: './view-treatments.component.html'
+  selector: 'app-view-programs',
+  templateUrl: './view-programs.component.html'
 })
 export class ViewTreatmentsComponent implements OnInit {
-  public treatments: any[] = [];
+  public programs: any[] = [];
   public treat: any = {};
   public patients: any[] = [];
   public selectedValue: string;
@@ -24,9 +24,9 @@ export class ViewTreatmentsComponent implements OnInit {
 
   ngOnInit(): void {
     this.posts = [];
-    this.dataService.getData("/_design/view/_view/treatments").then((treatments:any) => {
-      this.treatments = treatments.rows.sort((a:any, b:any) => { return Number(b.value.datetime) - Number(a.value.datetime) });
-      console.log(this.treatments)
+    this.dataService.getData("/_design/view/_view/programs").then((programs:any) => {
+      this.programs = programs.rows.sort((a:any, b:any) => { return Number(b.value.datetime) - Number(a.value.datetime) });
+      console.log(this.programs)
     });
     this.dataService.getData("/_design/view/_view/relations-by-professional?key=\"" + this.dataService.user._id + "\"&include_docs=true").then((patient:any) => {
       this.patients = patient.rows.sort((a:any, b:any) => { return Number(b.value.datetime) - Number(a.value.datetime) });
@@ -89,7 +89,7 @@ export class ViewTreatmentsComponent implements OnInit {
       console.log("Result", this.treat)
       this.dataService.postData(result);
         this.snackBar.open('Programa Asociado correctamente', 'OK', { duration: 3000 });
-        this.router.navigateByUrl("/professional/treatments");
+        this.router.navigateByUrl("/professional/programs");
     })
   }
 

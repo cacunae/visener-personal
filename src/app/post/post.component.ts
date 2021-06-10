@@ -22,7 +22,7 @@ export class PostComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(this.origin == 'add-treatment'){
+    if(this.origin == 'add-program'){
       this.dataService.getData("/" + this.post).then((post) => {
         this.post = {value: post};
       });

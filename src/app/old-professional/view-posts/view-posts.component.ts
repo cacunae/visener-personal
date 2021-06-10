@@ -14,7 +14,7 @@ export class ViewPostsComponent implements OnInit {
   public demo2:boolean = false;
 
   constructor(public dataService: DataService, @Inject(MAT_DIALOG_DATA) public data: DialogData) {
-    if(data && (data.text==="add-interaction" || data.text==="add-treatment")){
+    if(data && (data.text==="add-interaction" || data.text==="add-program")){
       this.demo = true;
     }
   }

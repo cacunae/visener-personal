@@ -11,12 +11,12 @@ import { DataService } from 'src/app/services/data.service';
 import * as moment from 'moment';
 
 @Component({
-  selector: 'app-add-treatments',
-  templateUrl: './add-treatment.component.html',
+  selector: 'app-add-programs',
+  templateUrl: './add-program.component.html',
 })
-export class AddTreatmentComponent implements OnInit {
+export class AddProgramComponent implements OnInit {
   todayDate: Date = new Date();
-  public treatment: any = { entity: "treatment", patient: "", professional: "", title: "", content: "",posts: [], objective: "", detail: "", weekdays: [], interactions: [], duration: 1 };
+  public program: any = { entity: "program", patient: "", professional: "", title: "", content: "",posts: [], objective: "", detail: "", weekdays: [], interactions: [], duration: 1 };
   public posts:any[] = [];
   public interactions:any[] = [];
   public myForm: FormGroup;
@@ -35,20 +35,20 @@ export class AddTreatmentComponent implements OnInit {
   }
 
   async createForm(){
-    this.treatment.professional = this.dataService.user._id;
+    this.program.professional = this.dataService.user._id;
     this.id = this.route.snapshot.paramMap.get('id');
     if (this.id) {
       await this.dataService.getData("/" + this.id).then((result: any) => {
-        this.treatment = result;
+        this.program = result;
       });
-      if (this.treatment.posts) {
-        for(let post of this.treatment.posts)
+      if (this.program.posts) {
+        for(let post of this.program.posts)
         await this.dataService.getData("/" + post).then((postDetail: any) => {
           this.posts.push(postDetail);
         })
       }
-      if (this.treatment.interactions) {
-        for(let interaction of this.treatment.interactions)
+      if (this.program.interactions) {
+        for(let interaction of this.program.interactions)
         await this.dataService.getData("/" + interaction).then((interactionDetail: any) => {
           this.interactions.push(interactionDetail);
         })
@@ -68,34 +68,33 @@ export class AddTreatmentComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.treatment.interactions, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.program.interactions, event.previousIndex, event.currentIndex);
   }
 
   drop2(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.treatment.posts, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.program.posts, event.previousIndex, event.currentIndex);
   }
 
   delInteraction(index: any) {
-    this.treatment.interactions.splice(index, 1);
+    this.program.interactions.splice(index, 1);
     this.interactions.splice(index, 1);
   }
 
   delPost(index: any) {
-    this.treatment.posts.splice(index, 1);
+    this.program.posts.splice(index, 1);
     this.posts.splice(index, 1);
   }
 
   publicar() {
-    if(this.treatment.posts.length>0 && this.treatment.interactions.length>0) {
-      console.log("treatment", this.treatment)
-      this.treatment.datetime = moment().format('YYYYMMDDHHmmss')
-      this.dataService.postData(this.treatment).then((result: any) => {
+    if(this.program.posts.length>0 && this.program.interactions.length>0) {
+      this.program.datetime = moment().format('YYYYMMDDHHmmss')
+      this.dataService.postData(this.program).then((result: any) => {
         if(this.id){
           this.snackBar.open('Programa actualizado correctamente.', 'OK', { duration: 3000 });
         }else{
           this.snackBar.open('Programa creado correctamente.', 'OK', { duration: 3000 });
         }
-        this.router.navigateByUrl("/professional/treatments"); 
+        this.router.navigateByUrl("/professional/programs"); 
       });
     } else {
       this.snackBar.open('Debes agregar al menos una tarea y un post.', 'ERR', { duration: 3000 });
@@ -105,12 +104,12 @@ export class AddTreatmentComponent implements OnInit {
   newPost() {
     const dialogRef = this.dialog.open(ViewPostsComponent, {
       width: '520px',
-      data: {text:'add-treatment'}
+      data: {text:'add-program'}
     });
     dialogRef.afterClosed().subscribe((result) => {
       if(result){
-        if(this.treatment.posts.findIndex((post:any) => post === result.value._id) < 0){
-          this.treatment.posts.push(result.value._id);
+        if(this.program.posts.findIndex((post:any) => post === result.value._id) < 0){
+          this.program.posts.push(result.value._id);
           this.posts.push(result.value);
         }else{
           alert("El post seleccionado ya fue agregado anteriormente.")
@@ -125,8 +124,8 @@ export class AddTreatmentComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        if(this.treatment.interactions.findIndex((interaction:any) => interaction === result.value._id) < 0){
-          this.treatment.interactions.push(result.value._id);
+        if(this.program.interactions.findIndex((interaction:any) => interaction === result.value._id) < 0){
+          this.program.interactions.push(result.value._id);
           this.interactions.push(result.value);
         }else{
           alert("La tarea seleccionada ya fue agregada anteriormente.")

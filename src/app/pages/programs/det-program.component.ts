@@ -7,10 +7,10 @@ import { DataService } from '../../services/data.service';
 import * as moment from 'moment';
 
 @Component({
-  selector: 'app-det-patient',
-  templateUrl: './det-patient.component.html'
+  selector: 'app-det-program',
+  templateUrl: './det-program.component.html'
 })
-export class DetPatientComponent implements OnInit {
+export class DetProgramComponent implements OnInit {
   public patient:any = { entity: "patient", name: "", username: "", password: "" };
   public companies:any[] = [];
   public hide = true;
