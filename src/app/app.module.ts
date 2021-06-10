@@ -67,6 +67,7 @@ import { DialogInteractionComponent } from './pages/dialog-interaction/dialog-in
 import { CommentComponent } from './pages/dialog-comment/comment.component';
 import { PasswordComponent } from './pages/dialog-password/password.component';
 import { WeblogComponent } from './pages/dialog-weblog/weblog.component';
+import { GraphicsComponent } from './pages/graphics/graphics.component';
 
 
 import { ProfessionalComponent } from './professional/professional.component';
@@ -118,7 +119,8 @@ import { PatientTreatmentComponent } from './old-professional/patient-treatment/
     PostsComponent,
     AssociateComponent,
     ViewPostsAssociateComponent,
-    PatientTreatmentComponent
+    PatientTreatmentComponent,
+    GraphicsComponent
   ],
   imports: [
     BrowserModule,
