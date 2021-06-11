@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { DataService } from '../services/data.service';
+import { DataService } from '../../services/data.service';
 import * as moment from 'moment';
 
 @Component({
