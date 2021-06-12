@@ -43,7 +43,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { fechaFormateada, weekDays, tagFilter, image, video, featuresPipe, postnamePipe, interactionnamePipe } from './services/data.service';
 import { PostComponent } from './pages/posts/post.component';
 import { InteractionComponent } from './pages/interactions/interaction.component';
-import { TreatmentComponent } from './treatment/treatment.component';
+import { TreatmentComponent } from './pages/treatment/treatment.component';
 
 import { PatientsComponent } from './pages/patients/patients.component';
 import { AddPatientComponent } from './pages/patients/add-patient.component';
@@ -58,7 +58,9 @@ import { AddAttachmentComponent } from './pages/attachments/add-attachment.compo
 import { PostsComponent } from './pages/posts/posts.component';
 import { AddPostComponent } from './pages/posts/add-post.component';
 import { ProgramsComponent } from './pages/programs/programs.component';
-import { AddProgramComponent } from './pages/programs/add-program.component'
+import { AddProgramComponent } from './pages/programs/add-program.component';
+import { AscProgramComponent } from './pages/programs/asc-program.component';
+import { DialogProgramComponent} from './pages/programs/dialog-program.component';
 import { RolesComponent } from './pages/roles/roles.component';
 import { AddRoleComponent } from './pages/roles/add-role.component'
 import { DialogAddRelationComponent } from './pages/dialog-add-relation/dialog-add-relation.component';
@@ -105,6 +107,8 @@ import { PatientTreatmentComponent } from './old-professional/patient-treatment/
     weekDays, tagFilter, image, video, featuresPipe, postnamePipe, interactionnamePipe,
     PopupComponent,
     AddProgramComponent,
+    AscProgramComponent,
+    DialogProgramComponent,
     PdfComponent,
     ChartComponent,
     PostComponent,

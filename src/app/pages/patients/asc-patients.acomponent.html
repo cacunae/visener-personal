@@ -24,7 +24,7 @@
                     <button mat-icon-button (click)="asociarPost(element)">
                         <mat-icon>post_add</mat-icon>
                     </button>
-                    <button mat-icon-button (click)="asociarTarea(element)">
+                    <button mat-icon-button routerLink="/professional/asc-program/{{element.doc._id}}" routerLinkActive="false">
                         <mat-icon>assignment</mat-icon>
                     </button>
                     <button mat-icon-button (click)="verPaciente(element)">

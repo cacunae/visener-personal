@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { DataService } from '../services/data.service';
+import { DataService } from '../../services/data.service';
 import * as moment from 'moment';
 
 @Component({
@@ -18,7 +18,7 @@ export class TreatmentComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(this.origin == 'add-program'){
+    if(this.origin == 'asc-program'){
       this.interact = false;
       this.dataService.getData("/" + this.treatment).then((treatment) => {
         this.treatment = treatment;

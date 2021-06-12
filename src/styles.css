@@ -115,6 +115,10 @@ h1 {
   }
 }
 
+.cdk-overlay-pane{
+  max-height: 90%;
+}
+
 .buttontop{
   margin-top: 25px !important;
 }

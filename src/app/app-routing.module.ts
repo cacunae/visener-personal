@@ -21,6 +21,7 @@ import { RolesComponent } from './pages/roles/roles.component';
 import { AddRoleComponent } from './pages/roles/add-role.component';
 import { RoleGuard } from './role.guard';
 import { GraphicsComponent } from './pages/graphics/graphics.component';
+import { AscProgramComponent } from './pages/programs/asc-program.component';
 
 const routes: Routes = [
   { path: "", component: LoginComponent, pathMatch: "full" },
@@ -48,6 +49,8 @@ const routes: Routes = [
       { path: "programs", component: ProgramsComponent, canActivate: [RoleGuard]},
       { path: "add-program", component: AddProgramComponent, canActivate: [RoleGuard]},
       { path: "upd-program/:id", component: AddProgramComponent, canActivate: [RoleGuard]},
+      { path: "asc-program/:patient", component: AscProgramComponent, canActivate: [RoleGuard]},
+      { path: "asc-program/:patient/:id", component: AscProgramComponent, canActivate: [RoleGuard]},
       { path: "roles", component: RolesComponent, canActivate: [RoleGuard]},
       { path: "add-role", component: AddRoleComponent, canActivate: [RoleGuard]},
       { path: "upd-role/:id", component: AddRoleComponent, canActivate: [RoleGuard]},
