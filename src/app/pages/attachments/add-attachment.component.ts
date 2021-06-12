@@ -27,10 +27,11 @@ export class AddAttachmentComponent implements OnInit {
   }
 
   public async uploadFile( files: File[] ){
-    this.uploading = true;
+    this.uploading = true; 
     if(files[0] && this.attachment.tags){
       let file:File = files[0];
       this.attachment.datetime = moment().format('YYYYMMDDHHmmss');
+      this.attachment.tags = this.attachment.tags + ",  " + files[0].name.split(".")[0];
       this.dataService.postData(this.attachment).then((result: any) => {
         let headers = new HttpHeaders().set("If-Match", result.rev);
         this.http.put(this.dataService.databaseAPI + "/" + result.id + "/" + this.attachment.entity, file, { headers: headers}).subscribe((result2) => {
@@ -42,7 +43,25 @@ export class AddAttachmentComponent implements OnInit {
           this.uploading = false;
           this.router.navigateByUrl("/professional/attachments");
         });
-      }); 
+      });
+    }else if(files.length>0){
+      let file:File;
+      this.attachment.datetime = moment().format('YYYYMMDDHHmmss');
+      for(let file of files){
+        this.attachment.tags = file.name.split(".")[0];
+        this.dataService.postData(this.attachment).then((result: any) => {
+          let headers = new HttpHeaders().set("If-Match", result.rev);
+          this.http.put(this.dataService.databaseAPI + "/" + result.id + "/" + this.attachment.entity, file, { headers: headers}).subscribe((result2) => {
+            if(this.attachment == "image"){
+              this.snackBar.open('Imagen publicada correctamente', 'OK', {duration: 3000});
+            }else{
+              this.snackBar.open('Video publicado correctamente', 'OK', {duration: 3000});
+            }
+            this.uploading = false;
+            this.router.navigateByUrl("/professional/attachments");
+          });
+        });
+      }
     }else if(this.attachment._id){
       this.dataService.postData(this.attachment).then((result: any) => {
         if(this.attachment == "image"){
@@ -59,7 +78,7 @@ export class AddAttachmentComponent implements OnInit {
     }else{
       this.uploading = false;
       this.snackBar.open('Debe ingresar algún tag', 'OK', {duration: 3000});
-    }
+    } 
 	}
 
 }

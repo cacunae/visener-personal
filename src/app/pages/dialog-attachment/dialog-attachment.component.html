@@ -3,7 +3,7 @@
 <div mat-dialog-content text-align-center >
     <div *ngFor="let attachment of attachments">
       <div *ngIf="({tags:attachment.value.tags, search:search} | tagFilter) && (attachment.value.entity=='image' || (attachment.value.entity=='video' && !data.filter))" [className]="attachment.value._id==param.selection ? 'thumbnail selected' : 'thumbnail'" (click)="select(attachment)">
-        <img   *ngIf="attachment.value.entity=='image'" style="width: 100%;" src="{{attachment.value._id | image}}" />
+        <img *ngIf="attachment.value.entity=='image'" style="width: 100%;" src="{{attachment.value._id | image}}"/>
         <video *ngIf="attachment.value.entity=='video'" style="width: 100%;"><source src="{{attachment.value._id | video}}"></video>
       </div>
     </div>   
