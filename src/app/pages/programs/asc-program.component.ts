@@ -77,8 +77,8 @@ export class AscProgramComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if(result){
         console.log("result", result);
-          this.program = result.selection;
-          this.treatment.program = result.selection._id;
+        this.program = result.selection;
+        this.treatment.program = result.selection._id;
       }
     });
   }
