@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { DataService } from '../services/data.service';
-import { WeblogComponent } from '../pages/dialog-weblog/weblog.component';
-import { PasswordComponent } from '../pages/dialog-password/password.component';
+import { DataService } from '../../services/data.service';
+import { WeblogComponent } from '../dialog-weblog/weblog.component';
+import { PasswordComponent } from '../dialog-password/password.component';
 
 @Component({
   selector: 'app-popup',

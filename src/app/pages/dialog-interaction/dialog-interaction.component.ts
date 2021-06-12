@@ -22,7 +22,7 @@ export class DialogInteractionComponent implements OnInit {
   }
 
   select(interaction:any){
-    if(this.data.selection == interaction.value._id){
+    if(this.data.selection == interaction){
       this.data.selection = null;
     }else{
       this.data.selection = interaction;

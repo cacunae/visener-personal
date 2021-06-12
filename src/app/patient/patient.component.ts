@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
-import { PopupComponent } from '../popup/popup.component';
+import { PopupComponent } from '../pages/popup/popup.component';
 import { DataService } from '../services/data.service';
 import { Router } from '@angular/router';
 import * as moment from 'moment';

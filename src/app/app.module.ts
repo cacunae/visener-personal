@@ -25,7 +25,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { ChartComponent } from './pages/chart/chart.component';
 import { ChartsModule } from 'ng2-charts';
 import { PatientComponent } from './patient/patient.component';
-import { PopupComponent } from './popup/popup.component';
+import { PopupComponent } from './pages/popup/popup.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
@@ -41,9 +41,9 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { fechaFormateada, weekDays, tagFilter, image, video, featuresPipe, postnamePipe, interactionnamePipe } from './services/data.service';
-import { PostComponent } from './post/post.component';
-import { InteractionComponent } from './interaction/interaction.component';
-import { TreatmentComponent } from './treatment/treatment.component';
+import { PostComponent } from './pages/posts/post.component';
+import { InteractionComponent } from './pages/interactions/interaction.component';
+import { TreatmentComponent } from './pages/treatment/treatment.component';
 
 import { PatientsComponent } from './pages/patients/patients.component';
 import { AddPatientComponent } from './pages/patients/add-patient.component';
@@ -58,7 +58,9 @@ import { AddAttachmentComponent } from './pages/attachments/add-attachment.compo
 import { PostsComponent } from './pages/posts/posts.component';
 import { AddPostComponent } from './pages/posts/add-post.component';
 import { ProgramsComponent } from './pages/programs/programs.component';
-import { AddProgramComponent } from './pages/programs/add-program.component'
+import { AddProgramComponent } from './pages/programs/add-program.component';
+import { AscProgramComponent } from './pages/programs/asc-program.component';
+import { DialogProgramComponent} from './pages/programs/dialog-program.component';
 import { RolesComponent } from './pages/roles/roles.component';
 import { AddRoleComponent } from './pages/roles/add-role.component'
 import { DialogAddRelationComponent } from './pages/dialog-add-relation/dialog-add-relation.component';
@@ -105,6 +107,8 @@ import { PatientTreatmentComponent } from './old-professional/patient-treatment/
     weekDays, tagFilter, image, video, featuresPipe, postnamePipe, interactionnamePipe,
     PopupComponent,
     AddProgramComponent,
+    AscProgramComponent,
+    DialogProgramComponent,
     PdfComponent,
     ChartComponent,
     PostComponent,

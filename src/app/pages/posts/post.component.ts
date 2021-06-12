@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { CommentComponent } from '../pages/dialog-comment/comment.component';
-import { DataService } from '../services/data.service';
-import { AssociateComponent } from '../old-professional/view-posts/associate.component';
+import { CommentComponent } from '../dialog-comment/comment.component';
+import { DataService } from '../../services/data.service';
+import { AssociateComponent } from '../../old-professional/view-posts/associate.component';
 import * as moment from 'moment';
 
 @Component({

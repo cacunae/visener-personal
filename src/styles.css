@@ -115,11 +115,15 @@ h1 {
   }
 }
 
+.cdk-overlay-pane{
+  max-height: 90%;
+}
+
 .buttontop{
   margin-top: 25px !important;
 }
 
-app-patients, app-add-patient, app-professionals, app-add-professional, app-interactions, app-add-interaction, 
+app-patients, app-graphics, app-add-patient, app-professionals, app-add-professional, app-interactions, app-add-interaction, 
 app-add-attachment, app-programs, app-add-post, app-add-program {
   width: 100%;
 }
