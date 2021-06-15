@@ -80,8 +80,8 @@ import { ViewPostsAssociateComponent } from './old-professional/view-posts/view-
 import { HeaderComponent } from './header/header.component';
 import { AssociateComponent } from './old-professional/view-posts/associate.component';
 import { PatientTreatmentComponent } from './old-professional/patient-treatment/patient-treatment.component';
-import { CompanyComponent } from './pages/company/company.component';
-import { AddCompanyComponent } from './pages/company/addcompany.component';
+import { CompaniesComponent } from './pages/companies/companies.component';
+import { AddCompanyComponent } from './pages/companies/add-company.component';
 
 @NgModule({
   declarations: [
@@ -127,7 +127,7 @@ import { AddCompanyComponent } from './pages/company/addcompany.component';
     ViewPostsAssociateComponent,
     PatientTreatmentComponent,
     GraphicsComponent,
-    CompanyComponent,
+    CompaniesComponent,
     AddCompanyComponent
   ],
   imports: [

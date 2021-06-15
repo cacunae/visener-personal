@@ -39,8 +39,8 @@ export class AddPatientComponent implements OnInit {
         this.patient.password = "";
       });
     }
-    await this.dataService.getData("/companies").then((companies: any) => {
-      this.companies = companies.companies.sort((a:any, b:any) => { return a.name.localeCompare(b.name) });
+    await this.dataService.getData("/_design/view/_view/companies").then((companies:any) =>{
+      this.companies = companies.rows.sort((a:any, b:any) => { return a.value.name.localeCompare(b.value.name) });
     });
 
     this.angForm = this._fb.group({

@@ -15,8 +15,8 @@
             <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Empresa</mat-label>
                 <mat-select formControlName="company" [(ngModel)]="role.company">
-                    <mat-option *ngFor="let company of companies" [value]="company.name">
-                        <span>{{company.name}}</span>
+                    <mat-option *ngFor="let company of companies" [value]="company.value.name">
+                        <span>{{company.value.name}}</span>
                     </mat-option>
                 </mat-select> 
             </mat-form-field><br>

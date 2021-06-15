@@ -22,8 +22,8 @@ import { AddRoleComponent } from './pages/roles/add-role.component';
 import { RoleGuard } from './role.guard';
 import { GraphicsComponent } from './pages/graphics/graphics.component';
 import { AscProgramComponent } from './pages/programs/asc-program.component';
-import { CompanyComponent } from './pages/company/company.component';
-import { AddCompanyComponent } from './pages/company/addcompany.component';
+import { CompaniesComponent } from './pages/companies/companies.component';
+import { AddCompanyComponent } from './pages/companies/add-company.component';
 
 const routes: Routes = [
   { path: "", component: LoginComponent, pathMatch: "full" },
@@ -57,7 +57,7 @@ const routes: Routes = [
       { path: "add-role", component: AddRoleComponent, canActivate: [RoleGuard]},
       { path: "upd-role/:id", component: AddRoleComponent, canActivate: [RoleGuard]},
       { path: "graphics", component: GraphicsComponent},
-      { path: "company", component: CompanyComponent},
+      { path: "companies", component: CompaniesComponent},
       { path: "add-company", component: AddCompanyComponent},
       { path: "upd-company/:id", component: AddCompanyComponent},
     ]

@@ -5,16 +5,15 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import * as moment from 'moment';
 import { DataService } from 'src/app/services/data.service';
+import * as moment from 'moment';
 
 @Component({
-  selector: 'app-addcompany',
-  templateUrl: './addcompany.component.html'
+  selector: 'app-add-company',
+  templateUrl: './add-company.component.html'
 })
 export class AddCompanyComponent implements OnInit {
-  public companies: any[] = [];
-  public company: any = { entity: "companies", name: "", rut: "", razon: "", rubro: "" };
+  public company: any = { entity: "company", name: "", rut: "", razon: "", rubro: "" };
   public loading: boolean = true;
   public id: string = "";
   public attachment: any = { entity: "image" };

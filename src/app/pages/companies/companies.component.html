@@ -1,6 +1,6 @@
 <app-header title="Empresas"></app-header>
 <div class="content" role="main">
-    <table mat-table [dataSource]="company" matSort multiTemplateDataRows class="mat-elevation-z8">
+    <table mat-table [dataSource]="companies" matSort multiTemplateDataRows class="mat-elevation-z8">
         <div>
             <ng-container matColumnDef="id">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Nº</th>
@@ -11,8 +11,8 @@
                 <td mat-cell *matCellDef="let company"><img width="40px" src="{{company.value._id | image}}" /></td>
             </ng-container>
             <ng-container matColumnDef="company">
-                <th mat-header-cell *matHeaderCellDef class="desktop">Nombre de Empresa</th>
-                <td mat-cell *matCellDef="let company" class="desktop">{{company.value.name}}</td>
+                <th mat-header-cell *matHeaderCellDef>Nombre de Empresa</th>
+                <td mat-cell *matCellDef="let company">{{company.value.name}}</td>
             </ng-container>
             <ng-container matColumnDef="rut">
                 <th mat-header-cell *matHeaderCellDef class="desktop">Rut</th>
@@ -44,7 +44,7 @@
     <mat-paginator class="mat-elevation-z8" style="width: 100%;" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
 
     <mat-spinner *ngIf="loading"></mat-spinner>
-    <div class="noitems" *ngIf="!loading && company.length == 0">No hay empresas creadas aún.</div>
+    <div class="noitems" *ngIf="!loading && companies.length == 0">No hay empresas creadas aún.</div>
 
     <div class="desktopbuttons">
         <button class="desktop buttontop" mat-raised-button type="submit" color="primary" routerLink="/professional/add-company" routerLinkActive="false">Añadir Empresa</button>&nbsp;&nbsp;&nbsp;
