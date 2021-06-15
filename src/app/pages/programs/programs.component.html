@@ -48,7 +48,7 @@
                             <div>Objetivo:</div>
                             <div>{{program.value.objective}}</div>
                         </div>
-                        <div class="inputImitation" *ngFor="let post of program.postsDetail">
+                        <div class="inputImitation" *ngIF="let post of program.postsDetail">
                             <div>Descripción:</div>
                             <div>{{program.value.content}}</div>
                         </div>

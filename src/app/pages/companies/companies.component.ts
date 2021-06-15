@@ -7,11 +7,11 @@ import * as moment from 'moment';
 import { DataService } from 'src/app/services/data.service';
 
 @Component({
-  selector: 'app-company',
-  templateUrl: './company.component.html'
+  selector: 'app-companies',
+  templateUrl: './companies.component.html'
 })
-export class CompanyComponent implements OnInit {
-  public company: any[] = [];
+export class CompaniesComponent implements OnInit {
+  public companies: any[] = [];
   public columnsToDisplay: string[] = ['id', 'logo', 'company', 'rut', 'razonsocial', 'rubro', 'actions'];
   public dataSource;
   public loading:boolean = true;
@@ -31,7 +31,7 @@ export class CompanyComponent implements OnInit {
   getCompanies(){
     this.loading = true;
     this.dataService.getData("/_design/view/_view/companies").then((companies:any) =>{
-      this.company = companies.rows;
+      this.companies = companies.rows.sort((a:any, b:any) => { return a.value.name.localeCompare(b.value.name) });;
     })
     this.loading = false;
   }
