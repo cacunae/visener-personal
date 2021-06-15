@@ -37,7 +37,7 @@ export class PostComponent implements OnInit {
     dialogRef.afterClosed().subscribe((text) => {
       let comment = { entity: "comment", datetime: moment().format('YYYYMMDDHHmmss'), post: post.value._id, patient: this.dataService.user._id, name: this.dataService.user.name, text: text };
       this.dataService.postData(comment).then((result:any) => {
-        if (text != null) {
+        if (text != null && text.trim()) {
           post.comments.push({ name: this.dataService.user.name , text: text });
         }
       });
