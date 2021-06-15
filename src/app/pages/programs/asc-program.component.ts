@@ -37,6 +37,7 @@ export class AscProgramComponent implements OnInit {
     this.id = this.route.snapshot.paramMap.get('id');
     await this.dataService.getData("/" + this.route.snapshot.paramMap.get('patient')).then((patient: any) => {
       this.patient = patient;
+      this.treatment.patient = this.patient._id;
     });
     if (this.id) {
       await this.dataService.getData("/" + this.id).then((result: any) => {
@@ -54,7 +55,7 @@ export class AscProgramComponent implements OnInit {
   }
 
   publicar() {
-    if(this.treatment.treatment) {
+    if(this.treatment.program) {
       this.treatment.datetime = moment().format('YYYYMMDDHHmmss')
       this.dataService.postData(this.treatment).then((result:any) => {
         if(this.id){
