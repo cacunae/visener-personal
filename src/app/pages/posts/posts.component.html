@@ -9,25 +9,30 @@
         <ng-container matColumnDef="image">
             <th mat-header-cell *matHeaderCellDef>Imagen</th>
             <td mat-cell *matCellDef="let post">
-                <img   *ngIf="post.value.image" style="margin-right: 5px; margin-top: 3px; object-fit: cover; width:64px; height:64px;" src="{{post.value.image | image}}" />
-                <video *ngIf="post.value.video" style="margin-right: 5px; margin-top: 3px; object-fit: cover; width:64px; height:64px;"><source src="{{post.value.video | video}}"></video>
+                <img *ngIf="post.value.image"
+                    style="margin-right: 5px; margin-top: 3px; object-fit: cover; width:64px; height:64px;"
+                    src="{{post.value.image | image}}" />
+                <video *ngIf="post.value.video"
+                    style="margin-right: 5px; margin-top: 3px; object-fit: cover; width:64px; height:64px;">
+                    <source src="{{post.value.video | video}}">
+                </video>
             </td>
         </ng-container>
         <ng-container matColumnDef="titulo">
             <th mat-header-cell *matHeaderCellDef>Titulo</th>
-            <td mat-cell *matCellDef="let post"
-                (click)="expandedElement = expandedElement === post ? null : post">{{post.value.title}}
+            <td mat-cell *matCellDef="let post" (click)="expandedElement = expandedElement === post ? null : post">
+                {{post.value.title}}
             </td>
         </ng-container>
         <ng-container matColumnDef="datetime">
             <th mat-header-cell *matHeaderCellDef class="desktop">Fecha / Hora</th>
-            <td mat-cell *matCellDef="let post"
-                (click)="expandedElement = expandedElement === post ? null : post" class="desktop">{{post.value.datetime
+            <td mat-cell *matCellDef="let post" (click)="expandedElement = expandedElement === post ? null : post"
+                class="desktop">{{post.value.datetime
                 | fechaFormateada}}</td>
         </ng-container>
         <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef>Acciones</th>
-        <td mat-cell *matCellDef="let element">
+            <td mat-cell *matCellDef="let element">
                 <button mat-icon-button routerLink="/professional/upd-post/{{element.id}}" routerLinkActive="false">
                     <mat-icon>edit</mat-icon>
                 </button>
@@ -40,32 +45,35 @@
         <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
         <ng-container matColumnDef="expandedDetail">
             <td style="width:90%" mat-cell *matCellDef="let post" [attr.colspan]="columnsToDisplay.length">
-                <div class="example-element-detail" [@detailExpand]="post == expandedElement ? 'expanded' : 'collapsed'">
+                <div class="example-element-detail"
+                    [@detailExpand]="post == expandedElement ? 'expanded' : 'collapsed'">
                     <div class="example-element-description">
-                    <strong>Subtitulo:</strong><br> 
-                    <a>{{post.value.subtitle}}</a><br><br>
-                    <strong>Detalles:</strong><br> 
+                        <strong>Subtitulo:</strong><br>
+                        <a>{{post.value.subtitle}}</a><br><br>
+                        <strong>Detalles:</strong><br>
                         <a>{{post.value.content}}</a><br><br>
-                        <strong>Pregunta:</strong><br>
-                        <div *ngFor="let poll of post.value.poll">
-                            <a><strong>- {{poll.question}}</strong></a>
-                            <div *ngIf="poll.type=='selection'">
-                                <div *ngFor="let option of poll.options">
-                                    <mat-radio-button>
-                                        <a>{{option.description}}</a>
-                                    </mat-radio-button>
+                        <div *ngIf="post.value.poll">
+                            <strong>Pregunta:</strong><br>
+                            <div *ngFor="let poll of post.value.poll">
+                                <a><strong>- {{poll.question}}</strong></a>
+                                <div *ngIf="poll.type=='selection'">
+                                    <div *ngFor="let option of poll.options">
+                                        <mat-radio-button>
+                                            <a>{{option.description}}</a>
+                                        </mat-radio-button>
+                                    </div>
                                 </div>
-                            </div>
-                            <div *ngIf="poll.type=='multiple'">
-                                <div *ngFor="let option of poll.options">
-                                    <mat-checkbox>
+                                <div *ngIf="poll.type=='multiple'">
+                                    <div *ngFor="let option of poll.options">
+                                        <mat-checkbox>
+                                            <a>{{option.description}}</a>
+                                        </mat-checkbox>
+                                    </div>
+                                </div><br>
+                                <div *ngIf="poll.type=='text'">
+                                    <div *ngFor="let option of poll.options">
                                         <a>{{option.description}}</a>
-                                    </mat-checkbox>
-                                </div>
-                            </div><br>
-                            <div *ngIf="poll.type=='text'">
-                                <div *ngFor="let option of poll.options">
-                                    <a>{{option.description}}</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -81,8 +89,9 @@
     </table>
     <mat-spinner *ngIf="loading"></mat-spinner>
     <div class="noitems" *ngIf="!loading && posts.length == 0">No hay posts aún.</div>
-    
+
     <div class="desktopbuttons">
-        <button mat-raised-button type="submit" color="primary" routerLink="/professional/add-post" routerLinkActive="false">Añadir Post</button>
+        <button mat-raised-button type="submit" color="primary" routerLink="/professional/add-post"
+            routerLinkActive="false">Añadir Post</button>
     </div>
 </div>

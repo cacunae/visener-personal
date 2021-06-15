@@ -36,12 +36,14 @@ export class PostComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((text) => {
       let comment = { entity: "comment", datetime: moment().format('YYYYMMDDHHmmss'), post: post.value._id, patient: this.dataService.user._id, name: this.dataService.user.name, text: text };
-      this.dataService.postData(comment).then((result:any) => {
-        if (text != null && text.trim()) {
+      if (text != null && text.trim() != "") {
+      this.dataService.postData(comment).then((result:any) => {    
+          console.log("TEXT::", text)
           post.comments.push({ name: this.dataService.user.name , text: text });
-        }
+       /*else if (!post.comments) { post.comments = []; }*/    
       });
-      if (!post.comments) { post.comments = []; }
+    }
+     /* if (!post.comments) { post.comments = []; } */
     });
   }
 

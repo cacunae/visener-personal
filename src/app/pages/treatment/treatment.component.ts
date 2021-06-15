@@ -18,13 +18,11 @@ export class TreatmentComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(this.origin == 'asc-program'){
       this.interact = false;
       this.dataService.getData("/" + this.treatment).then((treatment) => {
         this.treatment = treatment;
         this.loading = false;
       });
-    }
   }
 
 }
