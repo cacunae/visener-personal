@@ -86,7 +86,8 @@ export class AddProgramComponent implements OnInit {
   }
 
   publicar() {
-    if(this.program.posts.length>0 && this.program.interactions.length>0) {
+    //if(this.program.posts.length>0 && this.program.interactions.length>0) {
+    if(this.program.interactions.length>0) {
       this.program.datetime = moment().format('YYYYMMDDHHmmss')
       this.dataService.postData(this.program).then((result: any) => {
         if(this.id){

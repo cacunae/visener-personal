@@ -70,8 +70,10 @@ export class AddInteractionComponent implements OnInit {
   publicar() {
     if (this.interaction.series <= 0 || this.interaction.repetitions <= 0 || this.interaction.rest < 0 || this.interaction.iterations <= 0){
       this.snackBar.open('Revise los valores, no pueden ser negativos', 'OK', { duration: 3000 });
-    }else if (this.interaction.post && this.interaction.poll.question && this.interaction.title && this.interaction.subtitle && this.interaction.image && this.interaction.content
-      && this.interaction.series > 0 && this.interaction.repetitions > 0 && this.interaction.rest >= 0 && this.interaction.iterations > 0) {
+    }else if (
+      this.interaction.post && this.interaction.poll.question && this.interaction.title && this.interaction.iterations > 0 &&
+      this.interaction.subtitle && this.interaction.image && //this.interaction.content && 
+      this.interaction.series > 0 && this.interaction.repetitions > 0 && this.interaction.rest >= 0) {
       this.interaction.datetime = moment().format('YYYYMMDDHHmmss') //Date.now();
       this.dataService.postData(this.interaction).then((result: any) => {
         this.snackBar.open('Tarea creada correctamente', 'OK', { duration: 3000 });
