@@ -1,0 +1,52 @@
+<app-header title="Empresas"></app-header>
+<div class="content" role="main">
+    <table mat-table [dataSource]="company" matSort multiTemplateDataRows class="mat-elevation-z8">
+        <div>
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Nº</th>
+                <td mat-cell *matCellDef="let row; let i = dataIndex;">{{i+1}}</td>
+            </ng-container>
+            <ng-container matColumnDef="logo">
+                <th mat-header-cell *matHeaderCellDef>Logo</th>
+                <td mat-cell *matCellDef="let company"><img width="40px" src="{{company.value._id | image}}" /></td>
+            </ng-container>
+            <ng-container matColumnDef="company">
+                <th mat-header-cell *matHeaderCellDef class="desktop">Nombre de Empresa</th>
+                <td mat-cell *matCellDef="let company" class="desktop">{{company.value.name}}</td>
+            </ng-container>
+            <ng-container matColumnDef="rut">
+                <th mat-header-cell *matHeaderCellDef class="desktop">Rut</th>
+                <td mat-cell *matCellDef="let company" class="desktop">{{company.value.rut}}</td>
+            </ng-container>
+            <ng-container matColumnDef="razonsocial">
+                <th mat-header-cell *matHeaderCellDef class="desktop">Razón Social</th>
+                <td mat-cell *matCellDef="let company" class="desktop">{{company.value.razon}}</td>
+            </ng-container>
+            <ng-container matColumnDef="rubro">
+                <th mat-header-cell *matHeaderCellDef class="desktop">Rubro</th>
+                <td mat-cell *matCellDef="let company" class="desktop">{{company.value.rubro}}</td>
+            </ng-container>
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef>Acciones</th>
+                <td mat-cell *matCellDef="let element">
+                    <button mat-icon-button routerLink="/professional/upd-company/{{element.value._id}}" routerLinkActive="false">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-icon-button (click)="delPatient(element)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+        </div>
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="example-element-row example-element-row-border"></tr>
+    </table>
+    <mat-paginator class="mat-elevation-z8" style="width: 100%;" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+
+    <mat-spinner *ngIf="loading"></mat-spinner>
+    <div class="noitems" *ngIf="!loading && company.length == 0">No hay empresas creadas aún.</div>
+
+    <div class="desktopbuttons">
+        <button class="desktop buttontop" mat-raised-button type="submit" color="primary" routerLink="/professional/add-company" routerLinkActive="false">Añadir Empresa</button>&nbsp;&nbsp;&nbsp;
+    </div>
+</div>

@@ -34,14 +34,14 @@ export class PostComponent implements OnInit {
       width: '400px',
       data: { text: '' }
     });
-
     dialogRef.afterClosed().subscribe((text) => {
       let comment = { entity: "comment", datetime: moment().format('YYYYMMDDHHmmss'), post: post.value._id, patient: this.dataService.user._id, name: this.dataService.user.name, text: text };
       this.dataService.postData(comment).then((result:any) => {
-        if (result.ok) {}
+        if (text != null) {
+          post.comments.push({ name: this.dataService.user.name , text: text });
+        }
       });
       if (!post.comments) { post.comments = []; }
-      post.comments.push({ name: this.dataService.user.name , text: text });
     });
   }
 
