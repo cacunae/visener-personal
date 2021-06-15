@@ -33,8 +33,8 @@ export class AddProfessionalComponent implements OnInit {
     await this.dataService.getData("/_design/view/_view/roles").then((roles: any) => {
       this.roles = roles.rows.sort((a:any, b:any) => { return a.value.name.localeCompare(b.value.name) });
     });
-    await this.dataService.getData("/companies").then((companies: any) => {
-      this.companies = companies.companies.sort((a:any, b:any) => { return a.name.localeCompare(b.name) });
+    await this.dataService.getData("/_design/view/_view/companies").then((companies:any) =>{
+      this.companies = companies.rows.sort((a:any, b:any) => { return a.value.name.localeCompare(b.value.name) });
     });
     this.id = this.route.snapshot.paramMap.get('id');
     if(this.id) {

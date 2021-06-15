@@ -1,4 +1,4 @@
-<app-header title="Empresas" [backLink]="'/professional/company'"></app-header>
+<app-header title="Empresas" [backLink]="'/professional/companies'"></app-header>
 <div class="content" role="main">
     <mat-card>
         <mat-card-title *ngIf="!id">Ingresar Empresa</mat-card-title>
@@ -27,7 +27,7 @@
         <mat-divider></mat-divider>
     </mat-card>
     <div class="desktopbuttons">
-        <button mat-raised-button routerLink="/professional/company" routerLinkActive="false">Cancelar</button>&nbsp;&nbsp;&nbsp;
+        <button mat-raised-button routerLink="/professional/companies" routerLinkActive="false">Cancelar</button>&nbsp;&nbsp;&nbsp;
         <button *ngIf="!id" mat-raised-button type="submit" color="primary" (click)="publicar(fileInput.files)">Crear Empresa</button>
         <button *ngIf="id" mat-raised-button type="submit" color="primary" (click)="publicar(fileInput.files)">Actualizar Empresa</button>
     </div>

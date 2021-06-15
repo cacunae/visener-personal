@@ -35,8 +35,8 @@ export class AddRoleComponent implements OnInit {
       this.features = result.features.sort((a:any, b:any)=>{ return Number(a.order) - Number(b.order)});
     });
 
-    await this.dataService.getData("/companies").then((result:any) => {
-      this.companies = result.companies;
+    await this.dataService.getData("/_design/view/_view/companies").then((companies:any) =>{
+      this.companies = companies.rows.sort((a:any, b:any) => { return a.value.name.localeCompare(b.value.name) });
     });
 
     if(this.id) {
