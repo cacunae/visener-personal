@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { DataService } from 'src/app/services/data.service';
+import { DataService, programsTable } from 'src/app/services/data.service';
 import { animate, state, style, transition, trigger} from '@angular/animations';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-programs',
@@ -24,6 +26,9 @@ export class ProgramsComponent implements OnInit {
   public patient:any;
   public columnsToDisplay: string[] = ['id', 'program', 'interactions', 'datetime', 'actions'];
   public loading:boolean = true;
+  public dataSource;
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(public snackBar: MatSnackBar, private dataService : DataService, public dialog: MatDialog) { }
 
@@ -55,6 +60,8 @@ export class ProgramsComponent implements OnInit {
       program.interactionDetail = tmpInteractions;
     }
     this.programs = tmpPrograms;
+    this.dataSource = new MatTableDataSource<programsTable>(this.programs);
+      this.dataSource.paginator = this.paginator;
     this.loading = false;
   }
 

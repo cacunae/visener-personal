@@ -12,7 +12,7 @@ export class PatientsComponent implements OnInit {
   public professionals: any[] = [];
   public patients: any[] = [];
   public columnsToDisplay: string[] = ['id', 'name', 'username', 'company', 'actions'];
-  public dataSource;
+  public dataSource:any;
   public loading:boolean = true;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -26,7 +26,7 @@ export class PatientsComponent implements OnInit {
   getPatients(){
     this.loading = true;
     this.dataService.getData("/_design/view/_view/patients").then((patients: any) => {
-      this.patients = patients.rows.sort((a, b) => { return a.value.name.localeCompare(b.value.name) });
+      this.patients = patients.rows.sort((a:any, b:any) => { return a.value.name.localeCompare(b.value.name) });
       this.dataSource = new MatTableDataSource<patientsTable>(this.patients);
       this.dataSource.paginator = this.paginator;
       this.loading = false;

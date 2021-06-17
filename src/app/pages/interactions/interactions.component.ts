@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { DataService } from 'src/app/services/data.service';
+import { DataService, interactionsTable } from 'src/app/services/data.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddRelationComponent } from '../dialog-add-relation/dialog-add-relation.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ThemeService } from 'ng2-charts';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-interactions',
@@ -38,6 +40,9 @@ export class InteractionsComponent implements OnInit {
   type: any;
   relation: any;
   public loading:boolean = true;
+  public dataSource;
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(public snackBar: MatSnackBar, private dataService: DataService, public dialog: MatDialog) { }
 
@@ -48,7 +53,9 @@ export class InteractionsComponent implements OnInit {
   getInteractions(){
     this.loading = true;
     this.dataService.getData("/_design/view/_view/interactions").then((interactions: any) => {
-      this.interactions = interactions.rows;
+      this.interactions = interactions.rows.sort((a, b) => { return a.value.title.localeCompare(b.value.title) });
+      this.dataSource = new MatTableDataSource<interactionsTable>(this.interactions);
+      this.dataSource.paginator = this.paginator;
       this.loading = false;
     });
   }

@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { DataService } from 'src/app/services/data.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { attachmentsTable, DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-attachments',
@@ -9,7 +11,11 @@ import { DataService } from 'src/app/services/data.service';
 export class AttachmentsComponent implements OnInit {
   public attachments: any[] = [];
   public columnsToDisplay: string[] = ['id', 'image', 'tags', 'actions'];
+  public dataSource;
   public loading:boolean = true;
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
   constructor(public snackBar: MatSnackBar, private dataService: DataService) { }
 
   ngOnInit(): void {
@@ -20,7 +26,9 @@ export class AttachmentsComponent implements OnInit {
     this.loading = true;
     this.dataService.getData("/_design/view/_view/attachments").then((patients: any) => {
       this.attachments = patients.rows.sort((a:any, b:any) => { return a.value.datetime < b.value.datetime });
-      this.loading = false;
+      this.dataSource = new MatTableDataSource<attachmentsTable>(this.attachments);
+      this.dataSource.paginator = this.paginator;
+    this.loading = false;
     }); 
   }
 

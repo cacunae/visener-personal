@@ -59,7 +59,61 @@ export interface patientsTable {
   actions: string;
 }
 
+export interface professionalsTable {
+  id: number;
+  name: string;
+  company: string;
+  role: string;
+  actions: string;
+}
 
+export interface attachmentsTable {
+  id: number;
+  image: string;
+  tags: string;
+  actions: string;
+}
+
+export interface companiesTable {
+  id: number;
+  logo: string;
+  company: string;
+  rut: string;
+  razonsocial: string;
+  rubro: string;
+  actions: string;
+}
+
+export interface interactionsTable {
+  id: number;
+  image: string;
+  name: string;
+  actions: string;
+}
+
+export interface postsTable {
+  id: number;
+  image: string;
+  title: string;
+  datetime: string;
+  actions: string;
+}
+
+export interface programsTable {
+  id: number;
+  program: string;
+  interactions: string;
+  datetime: string;
+  actions: string;
+}
+
+export interface rolesTable {
+  id: number;
+  name: string;
+  company: string;
+  datetime: string;
+  actions: string;
+}
 
 export class User{
   _id:string = "";

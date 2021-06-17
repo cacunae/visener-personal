@@ -1,6 +1,6 @@
 <app-header title="Tareas" [rightLink]="'/professional/add-interaction'" [rightIcon]="'add'"></app-header>
 <div class="content" role="main">
-    <table mat-table [dataSource]="interactions" matSort multiTemplateDataRows class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort multiTemplateDataRows class="mat-elevation-z8">
         <div>
             <ng-container matColumnDef="id">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Nº</th>
@@ -11,10 +11,6 @@
                 <th mat-header-cell *matHeaderCellDef></th>
                 <td mat-cell *matCellDef="let interaction"
                     (click)="expandedElement = expandedElement === interaction ? null : interaction;">
-                    <!--
-                    <img *ngIf="interaction.value._attachments" style="margin-left: 0px; width: 30px; margin-top: 15px;"
-                        src="{{interaction.value._id | image}}" /><br>
-                    -->
                     <img *ngIf="interaction.value.image" style="margin-left: 0px; width: 30px; margin-bottom: 10px;"
                         src="{{interaction.value.image | image}}" /><br>
                 </td>
@@ -165,6 +161,8 @@
             [class.example-expanded-row]="expandedElement === element"></tr>
         <tr mat-row *matRowDef="let row; columns: ['expandedDetail'];" class="example-detail-row"></tr>
     </table>
+    <mat-paginator class="mat-elevation-z8" style="width: 100%;" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+
     <mat-spinner *ngIf="loading"></mat-spinner>
     <div class="noitems" *ngIf="!loading && interactions.length == 0">No hay tareas aún.</div>
     <div class="desktopbuttons">

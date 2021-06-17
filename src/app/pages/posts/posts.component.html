@@ -1,6 +1,6 @@
 <app-header title="Posts" [rightLink]="'/professional/add-post'" [rightIcon]="'add'"></app-header>
 <div class="content" role="main">
-    <table mat-table [dataSource]="posts" matSort multiTemplateDataRows class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort multiTemplateDataRows class="mat-elevation-z8">
         <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Nº</th>
             <td mat-cell *matCellDef="let row; let i = dataIndex;"
@@ -87,6 +87,8 @@
             [class.example-expanded-row]="expandedElement === element"></tr>
         <tr mat-row *matRowDef="let row; columns: ['expandedDetail'];" class="example-detail-row"></tr>
     </table>
+    <mat-paginator class="mat-elevation-z8" style="width: 100%;" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+
     <mat-spinner *ngIf="loading"></mat-spinner>
     <div class="noitems" *ngIf="!loading && posts.length == 0">No hay posts aún.</div>
 

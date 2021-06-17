@@ -5,7 +5,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import * as moment from 'moment';
-import { DataService } from 'src/app/services/data.service';
+import { companiesTable, DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-companies',
@@ -31,7 +31,9 @@ export class CompaniesComponent implements OnInit {
   getCompanies(){
     this.loading = true;
     this.dataService.getData("/_design/view/_view/companies").then((companies:any) =>{
-      this.companies = companies.rows.sort((a:any, b:any) => { return a.value.name.localeCompare(b.value.name) });;
+      this.companies = companies.rows.sort((a:any, b:any) => { return a.value.name.localeCompare(b.value.name) });
+      this.dataSource = new MatTableDataSource<companiesTable>(this.companies);
+      this.dataSource.paginator = this.paginator;
       this.loading = false;
     })
   }

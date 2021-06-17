@@ -1,6 +1,6 @@
 <app-header title="Empresas"></app-header>
 <div class="content" role="main">
-    <table mat-table [dataSource]="companies" matSort multiTemplateDataRows class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort multiTemplateDataRows class="mat-elevation-z8">
         <div>
             <ng-container matColumnDef="id">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Nº</th>

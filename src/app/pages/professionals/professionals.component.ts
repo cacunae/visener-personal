@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { DataService } from 'src/app/services/data.service';
+import { DataService, professionalsTable } from 'src/app/services/data.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddRelationComponent } from '../dialog-add-relation/dialog-add-relation.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-professionals',
@@ -19,8 +21,11 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ProfessionalsComponent implements OnInit {
   public professionals: any[] = [];
-  public columnsToDisplay: string[] = ['id', 'name', 'company', 'rol', 'actions'];
+  public columnsToDisplay: string[] = ['id', 'name', 'company', 'role', 'actions'];
   public loading:boolean = true;
+  public dataSource;
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(public route: ActivatedRoute, public snackBar: MatSnackBar, private dataService: DataService, public dialog: MatDialog) {}
 
@@ -32,6 +37,8 @@ export class ProfessionalsComponent implements OnInit {
     this.loading = true;
     await this.dataService.getData("/_design/view/_view/professionals?include_docs=true").then((professionals: any) => {
       this.professionals = professionals.rows.sort((a:any, b:any) => { return a.value.doc.name.localeCompare(b.value.doc.name) });
+      this.dataSource = new MatTableDataSource<professionalsTable>(this.professionals);
+      this.dataSource.paginator = this.paginator;
     });
     for (let professional of this.professionals) {
       await this.dataService.getData("/_design/view/_view/relations-by-professional?key=\""+professional.value.doc._id+"\"&include_docs=true").then((patients: any) => {
