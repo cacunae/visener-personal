@@ -12,22 +12,26 @@ import * as moment from 'moment';
   styleUrls: ['./post.component.css']
 })
 export class PostComponent implements OnInit {
-  @Input() post: any;
-  @Input() demo: any = false;
-  @Input() demo2: any = false;
-  @Input() demo3: any = false;
-  @Input() origin:string;
-  public search:string="";
+  @Input() post:any;
+  @Input() postId:string;
+  @Input() resizable:boolean;
+  @Input() selectable:boolean;
+  @Input() multiple:boolean;
+  @Input() feedback:boolean;
+  public compressed:any = false;
 
   constructor(public dialog: MatDialog, public http: HttpClient, public dataService: DataService) {
   }
 
   ngOnInit(): void {
-    if(this.origin == 'add-program'){
-      this.dataService.getData("/" + this.post).then((post) => {
+    if(this.postId){
+      this.dataService.getData("/" + this.postId).then((post) => {
         this.post = {value: post};
         console.log("THIS.POST", this.post,{value: post} )
       });
+    }
+    if(this.resizable){
+      this.compressed = true;
     }
   }
 
