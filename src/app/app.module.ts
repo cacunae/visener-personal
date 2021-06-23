@@ -131,6 +131,8 @@ import { ChartPatientProgramsComponent } from './pages/patients/chart-patient-pr
     GraphicsComponent,
     CompaniesComponent,
     AddCompanyComponent,
+    AddTreatmentComponent,
+    ChartPatientProgramsComponent
   ],
   imports: [
     BrowserModule,
