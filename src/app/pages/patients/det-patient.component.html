@@ -15,9 +15,13 @@
                     <br>
                     <div *ngFor="let treatment of treatments" style="padding-left: 5px;">
                         <app-treatment [treatment]="treatment.value.doc._id" origin="add-program"></app-treatment>
+                        <app-chart-patient-programs [treatment]="treatment.value.doc.program"></app-chart-patient-programs>
                     </div>
                 </mat-tab>
                 <mat-tab label="Posts">
+                    <br>
+                    <div *ngFor="let post of posts" style="padding-left: 5px;">
+                        <app-post [postId]="post.value.doc.post" [resizable]="true"></app-post>
                     </div>
                 </mat-tab>
             </mat-tab-group>
