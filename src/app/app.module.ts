@@ -82,11 +82,8 @@ import { AssociateComponent } from './old-professional/view-posts/associate.comp
 import { PatientTreatmentComponent } from './old-professional/patient-treatment/patient-treatment.component';
 import { CompaniesComponent } from './pages/companies/companies.component';
 import { AddCompanyComponent } from './pages/companies/add-company.component';
-<<<<<<< Updated upstream
-import { ChartPatientProgramsComponent } from './pages/patients/chart-patient-programs.component';
-=======
 import { AddTreatmentComponent } from './pages/treatment/add-treatment.component';
->>>>>>> Stashed changes
+import { ChartPatientProgramsComponent } from './pages/patients/chart-patient-programs.component';
 
 @NgModule({
   declarations: [
@@ -134,11 +131,6 @@ import { AddTreatmentComponent } from './pages/treatment/add-treatment.component
     GraphicsComponent,
     CompaniesComponent,
     AddCompanyComponent,
-<<<<<<< Updated upstream
-    ChartPatientProgramsComponent
-=======
-    AddTreatmentComponent
->>>>>>> Stashed changes
   ],
   imports: [
     BrowserModule,
