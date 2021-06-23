@@ -72,6 +72,7 @@ export class AddTreatmentComponent implements OnInit {
   }
 
   publicar(){
+    console.log("Tratamiento",this.treatment);
     /*
     this.treatment.datetime = moment().format('YYYYMMDDHHmmss')
     this.dataService.postData(this.treatment).then((result: any) => {

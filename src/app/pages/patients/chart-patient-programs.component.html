@@ -1,8 +1,11 @@
-<mat-card>
-  <h1 style="text-align: center;"><strong>Datos</strong></h1>
+<mat-card [class.compressedPost]="compressed">
+  <button class="compressedBtn" color="primary" (click)="compressed = !compressed">
+    <mat-icon *ngIf="compressed" style="margin-top:7px; font-size: 14px;">expand_more</mat-icon>
+    <mat-icon *ngIf="!compressed" style="margin-top:7px; font-size: 14px;">expand_less</mat-icon>
+  </button>
+  <mat-card-title>Gráfica</mat-card-title>
   <div style="display: block">
-    <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
-      [legend]="barChartLegend" [chartType]="barChartType">
+    <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend" [chartType]="barChartType">
     </canvas>
   </div>
 </mat-card>

@@ -16,9 +16,10 @@ export class ChartPatientProgramsComponent implements OnInit {
   public realizado: any[]=[];
   public labels: any[]=[];
   public dolor: any[]=[];
-  @Input() treatment: string;
+  @Input() program:string;
   @Input() interaction: string;
   idProgram: any;
+  public compressed:boolean = true;
 
   constructor(public http:HttpClient, private dataService : DataService) { }
 
@@ -27,7 +28,7 @@ export class ChartPatientProgramsComponent implements OnInit {
   }
  
   async getPolls(){
-    await this.dataService.getData("/"+this.treatment).then((program: any) => {
+    await this.dataService.getData("/"+this.program).then((program: any) => {
       for(let interaction of program.interactions){
         this.idProgram = interaction._id;
         this.dataService.getData("/"+this.idProgram).then((result:any)=>{

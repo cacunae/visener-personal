@@ -11,7 +11,7 @@ import * as moment from 'moment';
 })
 export class InteractionComponent implements OnInit {
   @Input() interaction:any;
-  @Input() resize:boolean;
+  @Input() resizable:boolean;
   @Input() origin:string;
   public compressed:any = false;
   public interact:boolean = true;
@@ -26,7 +26,7 @@ export class InteractionComponent implements OnInit {
         this.interaction = interaction;
       });
     }
-    if(this.resize){
+    if(this.resizable){
       this.compressed = true;
     }
   }

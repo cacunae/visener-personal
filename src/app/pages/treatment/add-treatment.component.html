@@ -6,22 +6,22 @@
         <mat-card-subtitle *ngIf="!id">Aquí podrás tratamiento un programa nuevo:</mat-card-subtitle>
         <mat-card-subtitle *ngIf="id">Aquí podrás actualizar un tratamiento:</mat-card-subtitle>
         <div *ngIf="!loading && treatment && program">
-            <mat-form-field appearance="outline">
-                <mat-label>Nombre del programa:</mat-label>
-                <input matInput placeholder="" [(ngModel)]="program.title">
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-                <mat-label>Detalle del programa:</mat-label>
-                <textarea matInput [(ngModel)]="program.content" cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="10"></textarea>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-                <mat-label>Objetivo:</mat-label>
-                <textarea matInput [(ngModel)]="program.objective" cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="10"></textarea>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-                <mat-label>Duración recomendada (En días)</mat-label>
-                <input matInput type="number" min="1" [(ngModel)]="program.duration">
-            </mat-form-field>
+            <div class="inputImitation">
+                <div>Nombre del programa:</div>
+                <div>{{program.title}}</div>
+            </div>
+            <div class="inputImitation">
+                <div>Detalle del programa:</div>
+                <div>{{program.content}}</div>
+            </div>
+            <div class="inputImitation">
+                <div>Objetivo:</div>
+                <div>{{program.objective}}</div>
+            </div>
+            <div class="inputImitation">
+                <div>Duración recomendada (En días):</div>
+                <div>{{program.duration}}</div>
+            </div>
             <mat-form-field appearance="outline">
                 <mat-label>Duración del Programa</mat-label>
                 <mat-date-range-input [rangePicker]="picker">
@@ -45,6 +45,26 @@
                             <div *ngIf="interactionDetail._id == interaction._id">
                                 <img style="width:60px; height:60px;" *ngIf="interactionDetail.image" src="{{interactionDetail.image | image}}" />
                                 {{interactionDetail.title}}
+                                <br><br>
+                                <div *ngIf="interaction.params.weekdays == []">
+                                    <mat-label>Días de la semana:</mat-label><br>
+                                    <mat-radio-group>
+                                      <mat-checkbox style="margin-right: 10px;"
+                                        [checked]='{arr:interaction.params.weekdays, day:day} | weekDays' *ngFor="let day of week"
+                                        (click)="setDays(interaction.params, day)" value="{{interaction.params.weekdays}}">{{day}}</mat-checkbox>
+                                    </mat-radio-group>
+                                    <br>
+                                </div>
+                                <mat-form-field appearance="outline" style="width: 100px !important; float: left;">
+                                    <mat-label>Iteracciones diarias</mat-label>
+                                    <mat-select class="form-control" name="daytimes" [(ngModel)]="interaction.params.repetitions">
+                                        <mat-option value="1">1</mat-option>
+                                        <mat-option value="2">2</mat-option>
+                                        <mat-option value="4">4</mat-option>
+                                        <mat-option value="8">8</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <br><br><br><br>
                                 <mat-form-field appearance="outline" style="width: calc(33% - 10px) !important; margin-right: 20px; float: left;">
                                     <mat-label>Repeticiones:</mat-label>
                                     <input matInput type="number" min="1" [(ngModel)]="interaction.params.repetitions">
@@ -63,7 +83,6 @@
                     </div>
                 </div>
             </div>
-            <mat-divider></mat-divider>
             <br>
             <div *ngIf="program.posts && program.posts.length>0">
                 <mat-card-subtitle style="margin:0%"><strong>Post Asociados:</strong></mat-card-subtitle>
