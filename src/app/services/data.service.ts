@@ -158,6 +158,19 @@ export class tagFilter implements PipeTransform {
   }
 }
 
+@Pipe({name: 'postFilter'})
+export class postFilter implements PipeTransform {
+  transform(obj:any):boolean {
+    let post:string = obj.post == undefined ? '':obj.post.toUpperCase();
+    let search:string = obj.search.toUpperCase();
+    if(search.length==0 || post.indexOf(search)>=0){
+      return true;
+    }else{
+      return false;
+    }
+  }
+}
+
 @Pipe({name: 'image'})
 export class image implements PipeTransform {
   transform(img:any):string {

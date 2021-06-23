@@ -40,7 +40,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { fechaFormateada, weekDays, tagFilter, image, video, featuresPipe, postnamePipe, interactionnamePipe } from './services/data.service';
+import { fechaFormateada, weekDays, tagFilter, postFilter, image, video, featuresPipe, postnamePipe, interactionnamePipe } from './services/data.service';
 import { PostComponent } from './pages/posts/post.component';
 import { InteractionComponent } from './pages/interactions/interaction.component';
 import { TreatmentComponent } from './pages/treatment/treatment.component';
@@ -82,6 +82,7 @@ import { AssociateComponent } from './old-professional/view-posts/associate.comp
 import { PatientTreatmentComponent } from './old-professional/patient-treatment/patient-treatment.component';
 import { CompaniesComponent } from './pages/companies/companies.component';
 import { AddCompanyComponent } from './pages/companies/add-company.component';
+import { ChartPatientProgramsComponent } from './pages/patients/chart-patient-programs.component';
 
 @NgModule({
   declarations: [
@@ -106,7 +107,7 @@ import { AddCompanyComponent } from './pages/companies/add-company.component';
     RolesComponent,
     AddRoleComponent,
     fechaFormateada,
-    weekDays, tagFilter, image, video, featuresPipe, postnamePipe, interactionnamePipe,
+    weekDays, tagFilter,postFilter, image, video, featuresPipe, postnamePipe, interactionnamePipe,
     PopupComponent,
     AddProgramComponent,
     AscProgramComponent,
@@ -128,7 +129,8 @@ import { AddCompanyComponent } from './pages/companies/add-company.component';
     PatientTreatmentComponent,
     GraphicsComponent,
     CompaniesComponent,
-    AddCompanyComponent
+    AddCompanyComponent,
+    ChartPatientProgramsComponent
   ],
   imports: [
     BrowserModule,

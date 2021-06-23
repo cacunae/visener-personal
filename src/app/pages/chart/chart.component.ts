@@ -107,7 +107,7 @@ export class ChartComponent implements OnInit {
   ];
 
   // mostrar leyendas
-  lineChartLegend = true;
+  lineChartLegend = false;
 
   lineChartType = 'line';
 

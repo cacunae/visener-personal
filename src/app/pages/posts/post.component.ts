@@ -17,6 +17,7 @@ export class PostComponent implements OnInit {
   @Input() demo2: any = false;
   @Input() demo3: any = false;
   @Input() origin:string;
+  public search:string="";
 
   constructor(public dialog: MatDialog, public http: HttpClient, public dataService: DataService) {
   }
@@ -25,6 +26,7 @@ export class PostComponent implements OnInit {
     if(this.origin == 'add-program'){
       this.dataService.getData("/" + this.post).then((post) => {
         this.post = {value: post};
+        console.log("THIS.POST", this.post,{value: post} )
       });
     }
   }
@@ -38,12 +40,11 @@ export class PostComponent implements OnInit {
       let comment = { entity: "comment", datetime: moment().format('YYYYMMDDHHmmss'), post: post.value._id, patient: this.dataService.user._id, name: this.dataService.user.name, text: text };
       if (text != null && text.trim() != "") {
       this.dataService.postData(comment).then((result:any) => {    
-          console.log("TEXT::", text)
           post.comments.push({ name: this.dataService.user.name , text: text });
        /*else if (!post.comments) { post.comments = []; }*/    
       });
     }
-     /* if (!post.comments) { post.comments = []; } */
+      if (!post.comments) { post.comments = []; } 
     });
   }
 
