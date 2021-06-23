@@ -49,7 +49,7 @@ export class AddProgramComponent implements OnInit {
       }
       if (this.program.interactions) {
         for(let interaction of this.program.interactions)
-        await this.dataService.getData("/" + interaction).then((interactionDetail: any) => {
+        await this.dataService.getData("/" + interaction._id).then((interactionDetail: any) => {
           this.interactions.push(interactionDetail);
         })
       }
@@ -108,10 +108,11 @@ export class AddProgramComponent implements OnInit {
       data: {text:'add-program'}
     });
     dialogRef.afterClosed().subscribe((result) => {
+      console.log("add-program::result", result);
       if(result){
         if(this.program.posts.findIndex((post:any) => post === result.value._id) < 0){
           this.program.posts.push(result.value._id);
-          this.posts.push(result.value);
+          this.posts.push(result);
         }else{
           alert("El post seleccionado ya fue agregado anteriormente.")
         }
@@ -126,7 +127,7 @@ export class AddProgramComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         if(this.program.interactions.findIndex((interaction:any) => interaction === result.value._id) < 0){
-          this.program.interactions.push(result.value._id);
+          this.program.interactions.push({_id: result.value._id, params: {poll: result.value.poll, repetitions: result.value.repetitions, series:result.value.series, rest:result.value.rest}});
           this.interactions.push(result.value);
         }else{
           alert("La tarea seleccionada ya fue agregada anteriormente.")

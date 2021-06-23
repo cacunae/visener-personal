@@ -1,8 +1,22 @@
 <mat-card>
-    <div *ngIf="treatment && !loading">
-        <mat-card-title style="margin-bottom: 20px;">{{treatment.title}}</mat-card-title>
-        <mat-card-subtitle style="margin-bottom: 5px;"><strong>Contenido: </strong>{{treatment.content}}</mat-card-subtitle>
-        <mat-card-subtitle style="margin-bottom: 5px;"><strong>Objetivo: </strong>{{treatment.objective}}</mat-card-subtitle>
-        <app-post [post]="post" *ngFor="let post of treatment.posts" origin="add-program"></app-post>
+    <div *ngIf="treatment && program && !loading">
+        <button mat-raised-button style="float: right;" color="primary" routerLink="/professional/upd-treatment/{{treatment._id}}" routerLinkActive="false">
+            <mat-icon *ngIf="!compressed" style="margin-top:7px; font-size: 14px;">visibility</mat-icon> Ver Programa
+        </button>    
+        <mat-card-title style="margin-bottom: 20px;">{{program.title}}</mat-card-title>
+        <div class="inputImitation">
+            <div>Contenido:</div>
+            <div>{{program.content}}</div>
+        </div>
+        <div class="inputImitation">
+            <div>Objetivo:</div>
+            <div>{{program.objective}}</div>
+        </div>
+        <div class="inputImitation">
+            <div>Fecha</div>
+            <div>{{treatment.datetime | fechaFormateada}}</div>
+        </div>
+        <app-interaction [interaction]="interaction._id" [resizable]="true" *ngFor="let interaction of program.interactions" origin="add-program"></app-interaction>
+        <app-post [postId]="post" [resizable]="true" *ngFor="let post of program.posts"></app-post>
     </div>
 </mat-card>

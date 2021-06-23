@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { PopupComponent } from '../pages/popup/popup.component';
 import { DataService } from '../services/data.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-header',
@@ -25,6 +25,7 @@ export class HeaderComponent {
   
   constructor(public dialog:MatDialog, public dataService:DataService) {
     this.user = this.dataService.user;
+    this.dataService.session = moment().unix();
   }
 
   popup(){

@@ -13,16 +13,24 @@ export class TreatmentComponent implements OnInit {
   @Input() origin:string;
   public interact:boolean = true;
   public loading:boolean = true;
+  public program:any;
 
   constructor(public dialog: MatDialog, public http: HttpClient, public dataService: DataService) {
   }
 
   ngOnInit(): void {
       this.interact = false;
-      this.dataService.getData("/" + this.treatment).then((treatment) => {
-        this.treatment = treatment;
-        this.loading = false;
-      });
+      this.getTreatment();
+  }
+
+  async getTreatment(){
+    await this.dataService.getData("/" + this.treatment).then((treatment) => {
+      this.treatment = treatment;
+    });
+    await this.dataService.getData("/" + this.treatment.program).then((program) => {
+      this.program = program;
+    });
+    this.loading = false;
   }
 
 }

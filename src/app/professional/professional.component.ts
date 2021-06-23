@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
+import { environment } from '../../environments/environment';
+import * as moment from 'moment';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-professional',
@@ -11,12 +14,27 @@ export class ProfessionalComponent implements OnInit {
   public roleName: string = "";
   public features: any[] = [];
   public message: string;
-  constructor(public router: Router, public dialog: MatDialog, public dataService: DataService) { }
+  public expirationTime:number = environment.expirationTime;
+
+  constructor(public router: Router, public dialog: MatDialog, public dataService: DataService, public snackBar:MatSnackBar) {
+    this.dataService.session = moment().unix();
+  }
+
+  getActivity(){
+    let now:any = moment().unix();
+    if(now - this.dataService.session > this.expirationTime){
+      this.router.navigateByUrl("/login");
+      this.snackBar.open('Sesión Expirada', 'OK', { duration: 7000 });
+    }else{
+      setTimeout(() => {this.getActivity()}, 10000);
+    }
+  }
 
   ngOnInit(): void {
     if (!this.dataService.user?._id) {
       this.router.navigateByUrl("/login");
     } else {
+      setTimeout(() => {this.getActivity()}, 10000);
       this.dataService.getData("/features").then((features: any) => {
         this.dataService.getData("/" + this.dataService.user.role).then((roleFeatures: any) => {
           this.roleName = roleFeatures.name;

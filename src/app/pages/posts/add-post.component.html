@@ -4,78 +4,81 @@
         <mat-card-title *ngIf="!id">Ingresar Post</mat-card-title>
         <mat-card-title *ngIf="id">Actualizar Post</mat-card-title>
         <mat-card-subtitle>Información gráfica:</mat-card-subtitle>
-        <button mat-stroked-button (click)="openAttachment()">
-            <mat-icon>image</mat-icon> Elegir Archivos
-        </button>
-        <img *ngIf="post.image" style="margin-left: 10px; width: 60px; margin-bottom: -10px;" src="{{post.image | image}}" />
-        <video *ngIf="post.video" style="margin-right: 5px; height:64px;"><source src="{{post.video | video}}"></video>
-        <br>
-        <mat-divider></mat-divider>
-        <mat-card-subtitle>Información del post:</mat-card-subtitle>
-        <mat-form-field appearance="outline">
-            <mat-label>Ingrese un título:</mat-label>
-            <input matInput placeholder="" [(ngModel)]="post.title">
-        </mat-form-field><br>
-        <mat-form-field appearance="outline">
-            <mat-label>Ingrese un subtitulo:</mat-label>
-            <input matInput placeholder="" [(ngModel)]="post.subtitle">
-        </mat-form-field> <br>
-        <mat-form-field appearance="outline">
-            <mat-label>Ingrese el contenido:</mat-label>
-            <textarea matInput placeholder="" [(ngModel)]="post.content" cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="10"></textarea>
-        </mat-form-field>
-        <mat-divider></mat-divider>
-        <mat-card-subtitle>Encuesta</mat-card-subtitle>
-        <mat-label>¿Desea agregar una encuesta?</mat-label><br>
-        <mat-radio-group aria-label="Select an option" [(ngModel)]="askPoll">
-            <mat-radio-button [value]="true" (click)="inicializaEncuesta()">Si</mat-radio-button>&nbsp;&nbsp;
-            <mat-radio-button [value]="false" (click)="eliminaEncuesta()">No</mat-radio-button>
-        </mat-radio-group><br><br>
-        <div cdkDropList (cdkDropListDropped)="drop($event)">
-            <div cdkDrag *ngFor="let pregunta of post.poll; let i = index"
-                style="border: 1px solid #cccccc; background-color: #fdfdfd; border-radius: 5px; padding: 10px; margin: 5px 10px;">
-                <button style="float: right; margin-top: -10px; margin-right: -10px;" mat-icon-button (click)="delPregunta(i)">
-                    <mat-icon>close</mat-icon>
-                </button>
-                <mat-card-subtitle><b>Pregunta {{i+1}}</b></mat-card-subtitle>
-                <mat-label>¿Qué tipo de pregunta quiere?</mat-label><br>
-                <mat-radio-group aria-label="Select an option" [(ngModel)]="pregunta.type">
-                    <!--<mat-radio-button value="text" (click)="changeTypeQuestion('text', pregunta)" style="margin-bottom: 0%">Texto libre</mat-radio-button>&nbsp;&nbsp;-->
-                    <mat-radio-button value="selection" (click)="changeTypeQuestion('selection', pregunta)"
-                        style="margin-bottom: 0%">Selección única</mat-radio-button>&nbsp;&nbsp;
-                    <mat-radio-button value="multiple" (click)="changeTypeQuestion('multiple', pregunta)"
-                        style="margin-bottom: 0%">Selección Multiple</mat-radio-button><br><br>
-                </mat-radio-group>
+        <div *ngIf="!loading">
+            <button mat-stroked-button (click)="openAttachment()">
+                <mat-icon>image</mat-icon> Elegir Archivos
+            </button>
+            <img *ngIf="post.image" style="margin-left: 10px; width: 60px; margin-bottom: -10px;" src="{{post.image | image}}" />
+            <video *ngIf="post.video" style="margin-right: 5px; height:64px;"><source src="{{post.video | video}}"></video>
+            <br>
+            <mat-divider></mat-divider>
+            <mat-card-subtitle>Información del post:</mat-card-subtitle>
+            <mat-form-field appearance="outline">
+                <mat-label>Ingrese un título:</mat-label>
+                <input matInput placeholder="" [(ngModel)]="post.title">
+            </mat-form-field><br>
+            <mat-form-field appearance="outline">
+                <mat-label>Ingrese un subtitulo:</mat-label>
+                <input matInput placeholder="" [(ngModel)]="post.subtitle">
+            </mat-form-field> <br>
+            <mat-form-field appearance="outline">
+                <mat-label>Ingrese el contenido:</mat-label>
+                <textarea matInput placeholder="" [(ngModel)]="post.content" cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="10"></textarea>
+            </mat-form-field>
+            <mat-divider></mat-divider>
+            <mat-card-subtitle>Encuesta</mat-card-subtitle>
+            <mat-label>¿Desea agregar una encuesta?</mat-label><br>
+            <mat-radio-group aria-label="Select an option" [(ngModel)]="askPoll">
+                <mat-radio-button [value]="true" (click)="inicializaEncuesta()">Si</mat-radio-button>&nbsp;&nbsp;
+                <mat-radio-button [value]="false" (click)="eliminaEncuesta()">No</mat-radio-button>
+            </mat-radio-group><br><br>
+            <div cdkDropList (cdkDropListDropped)="drop($event)">
+                <div cdkDrag *ngFor="let pregunta of post.poll; let i = index"
+                    style="border: 1px solid #cccccc; background-color: #fdfdfd; border-radius: 5px; padding: 10px; margin: 5px 10px;">
+                    <button style="float: right; margin-top: -10px; margin-right: -10px;" mat-icon-button (click)="delPregunta(i)">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                    <mat-card-subtitle><b>Pregunta {{i+1}}</b></mat-card-subtitle>
+                    <mat-label>¿Qué tipo de pregunta quiere?</mat-label><br>
+                    <mat-radio-group aria-label="Select an option" [(ngModel)]="pregunta.type">
+                        <!--<mat-radio-button value="text" (click)="changeTypeQuestion('text', pregunta)" style="margin-bottom: 0%">Texto libre</mat-radio-button>&nbsp;&nbsp;-->
+                        <mat-radio-button value="selection" (click)="changeTypeQuestion('selection', pregunta)"
+                            style="margin-bottom: 0%">Selección única</mat-radio-button>&nbsp;&nbsp;
+                        <mat-radio-button value="multiple" (click)="changeTypeQuestion('multiple', pregunta)"
+                            style="margin-bottom: 0%">Selección Multiple</mat-radio-button><br><br>
+                    </mat-radio-group>
 
-                <div class="form-group row">
-                    <mat-form-field appearance="outline">
-                        <mat-label>Ingrese la pregunta:</mat-label>
-                        <input matInput placeholder="Ej: ¿Cómo te sientes hoy?" type="text" [(ngModel)]="pregunta.question">
-                    </mat-form-field>
-                    <div class="col-md-8"
-                        *ngIf="(pregunta.type=='selection' || pregunta.type=='multiple') && pregunta.options">
-                        <div *ngFor="let option of pregunta.options; let j = index">
-                            <mat-form-field appearance="outline">
-                                <mat-label>Opción {{j+1}}</mat-label>
-                                <button mat-icon-button matSuffix (click)="delOption(i, j)">
-                                    <mat-icon>close</mat-icon>
-                                </button>
-                                <input matInput class="form-control" placeholder="Ej: Claro que sí"
-                                [(ngModel)]="option.description">
-                            </mat-form-field>
+                    <div class="form-group row">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Ingrese la pregunta:</mat-label>
+                            <input matInput placeholder="Ej: ¿Cómo te sientes hoy?" type="text" [(ngModel)]="pregunta.question">
+                        </mat-form-field>
+                        <div class="col-md-8"
+                            *ngIf="(pregunta.type=='selection' || pregunta.type=='multiple') && pregunta.options">
+                            <div *ngFor="let option of pregunta.options; let j = index">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Opción {{j+1}}</mat-label>
+                                    <button mat-icon-button matSuffix (click)="delOption(i, j)">
+                                        <mat-icon>close</mat-icon>
+                                    </button>
+                                    <input matInput class="form-control" placeholder="Ej: Claro que sí"
+                                    [(ngModel)]="option.description">
+                                </mat-form-field>
+                            </div>
+                            <button mat-raised-button color="primary" (click)="addAlternativa(pregunta)">
+                                <mat-icon>add</mat-icon> Agregar alternativa
+                            </button>&nbsp;&nbsp;&nbsp;
                         </div>
-                        <button mat-raised-button color="primary" (click)="addAlternativa(pregunta)">
-                            <mat-icon>add</mat-icon> Agregar alternativa
-                        </button>&nbsp;&nbsp;&nbsp;
                     </div>
                 </div>
             </div>
+            <button *ngIf="post.poll && post.poll.length>0" mat-raised-button color="primary" (click)="addPregunta()">
+                <mat-icon>add</mat-icon> Agregar pregunta
+            </button>&nbsp;&nbsp;&nbsp;
+            <br>
         </div>
-        <button *ngIf="post.poll && post.poll.length>0" mat-raised-button color="primary" (click)="addPregunta()">
-            <mat-icon>add</mat-icon> Agregar pregunta
-        </button>&nbsp;&nbsp;&nbsp;
-        <br>
     </mat-card>
+    <mat-spinner *ngIf="loading"></mat-spinner>
     <div class="desktopbuttons">
         <button mat-raised-button routerLink="/professional/posts" routerLinkActive="false">Cancelar</button>&nbsp;&nbsp;&nbsp;
         <button *ngIf="!id" mat-raised-button type="submit" color="primary" (click)="publicar()">Crear Post</button>

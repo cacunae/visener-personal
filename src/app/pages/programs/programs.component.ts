@@ -53,9 +53,11 @@ export class ProgramsComponent implements OnInit {
     for(let program of tmpPrograms){
       let tmpInteractions:any[] = []
       for(let interaction of program.value.interactions){
-        await this.dataService.getData("/" + interaction).then((interaction:any) =>{
-          tmpInteractions.push(interaction);
-        });
+        if(interaction._id){
+          await this.dataService.getData("/" + interaction._id).then((interaction:any) =>{
+            tmpInteractions.push(interaction);
+          });
+        }
       }
       program.interactionDetail = tmpInteractions;
     }

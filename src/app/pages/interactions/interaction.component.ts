@@ -11,7 +11,9 @@ import * as moment from 'moment';
 })
 export class InteractionComponent implements OnInit {
   @Input() interaction:any;
+  @Input() resize:boolean;
   @Input() origin:string;
+  public compressed:any = false;
   public interact:boolean = true;
 
   constructor(public dialog: MatDialog, public http: HttpClient, public dataService: DataService) {
@@ -23,6 +25,9 @@ export class InteractionComponent implements OnInit {
       this.dataService.getData("/" + this.interaction).then((interaction) => {
         this.interaction = interaction;
       });
+    }
+    if(this.resize){
+      this.compressed = true;
     }
   }
 

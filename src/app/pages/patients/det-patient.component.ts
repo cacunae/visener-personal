@@ -43,7 +43,6 @@ export class DetPatientComponent implements OnInit {
     await this.dataService.getData("/_design/view/_view/treatments-by-patient?key=\"" + this.id + "\"").then((treatments: any) => {
       this.treatments = treatments.rows;//.sort((a:any, b:any) => { return a.name.localeCompare(b.name) });
     });
-
     this.loading = false;
   }
 

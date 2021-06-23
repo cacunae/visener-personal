@@ -1,4 +1,9 @@
-<div *ngIf="interaction">
+<mat-card *ngIf="interaction" [class.compressedPost]="compressed">
+    <button class="compressedBtn" color="primary" (click)="compressed = !compressed">
+        <mat-icon *ngIf="compressed" style="margin-top:7px; font-size: 14px;">expand_more</mat-icon>
+        <mat-icon *ngIf="!compressed" style="margin-top:7px; font-size: 14px;">expand_less</mat-icon>
+    </button>
+    <mat-card-title *ngIf="interaction.title">{{interaction.title}}</mat-card-title>
     <div *ngIf="interaction.poll && interaction.poll.type=='slider'">
         <mat-card-subtitle class="desktop">{{interaction.subtitle}}</mat-card-subtitle>
         <mat-card-content>
@@ -51,4 +56,4 @@
     <button *ngIf="!interact" class="desktop" mat-raised-button color="primary"><mat-icon>send</mat-icon> Enviar</button>
     <br><br>
     </div>
-</div>
+</mat-card>

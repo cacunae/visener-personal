@@ -1,0 +1,85 @@
+<app-header title="Tratamientos" [backLink]="'/professional/det-patient/{{treatment.patient}}'" [event]="true" (rightEvent)="publicar()" [rightText]="'Guardar'"></app-header>
+<div class="content" role="main">
+    <mat-card>
+        <mat-card-title *ngIf="!id">Crear Tratamiento</mat-card-title>
+        <mat-card-title *ngIf="id">Actualizar Tratamiento</mat-card-title>
+        <mat-card-subtitle *ngIf="!id">Aquí podrás tratamiento un programa nuevo:</mat-card-subtitle>
+        <mat-card-subtitle *ngIf="id">Aquí podrás actualizar un tratamiento:</mat-card-subtitle>
+        <div *ngIf="!loading && treatment && program">
+            <mat-form-field appearance="outline">
+                <mat-label>Nombre del programa:</mat-label>
+                <input matInput placeholder="" [(ngModel)]="program.title">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Detalle del programa:</mat-label>
+                <textarea matInput [(ngModel)]="program.content" cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="10"></textarea>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Objetivo:</mat-label>
+                <textarea matInput [(ngModel)]="program.objective" cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="10"></textarea>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Duración recomendada (En días)</mat-label>
+                <input matInput type="number" min="1" [(ngModel)]="program.duration">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Duración del Programa</mat-label>
+                <mat-date-range-input [rangePicker]="picker">
+                    <input matStartDate [(ngModel)]="treatment.startDate" placeholder="Start date">
+                    <input matEndDate   [(ngModel)]="treatment.endDate" placeholder="End date">
+                </mat-date-range-input>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Notas del tratamiento:</mat-label>
+                <textarea matInput [(ngModel)]="treatment.content" cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="10"></textarea>
+            </mat-form-field>
+            <mat-divider></mat-divider>
+            <br>
+            <div *ngIf="program.interactions && program.interactions.length>0">
+                <mat-card-subtitle style="margin:0%"><strong>Tareas Asociadas:</strong></mat-card-subtitle>
+                <div>
+                    <div *ngFor="let interaction of program.interactions; let i = index;">
+                        <div *ngFor="let interactionDetail of interactions;">
+                            <div *ngIf="interactionDetail._id == interaction._id">
+                                <img style="width:60px; height:60px;" *ngIf="interactionDetail.image" src="{{interactionDetail.image | image}}" />
+                                {{interactionDetail.title}}
+                                <mat-form-field appearance="outline" style="width: calc(33% - 10px) !important; margin-right: 20px; float: left;">
+                                    <mat-label>Repeticiones:</mat-label>
+                                    <input matInput type="number" min="1" [(ngModel)]="interaction.params.repetitions">
+                                </mat-form-field>
+                                <mat-form-field appearance="outline" style="width: calc(33% - 10px) !important; margin-right: 20px; float: left;">
+                                    <mat-label>Series:</mat-label>
+                                    <input matInput type="number" min="1" [(ngModel)]="interaction.params.series">
+                                </mat-form-field>
+                                <mat-form-field appearance="outline" style="width: calc(33% - 20px) !important; float: left;">
+                                    <mat-label>Descanso:</mat-label>
+                                    <input matInput type="number" min="0" [(ngModel)]="interaction.params.rest">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <!--app-interaction [interaction]="interaction._id" [resizable]="true" origin="add-program"></app-interaction-->
+                    </div>
+                </div>
+            </div>
+            <mat-divider></mat-divider>
+            <br>
+            <div *ngIf="program.posts && program.posts.length>0">
+                <mat-card-subtitle style="margin:0%"><strong>Post Asociados:</strong></mat-card-subtitle>
+                <div>
+                    <div *ngFor="let post of program.posts; let i = index;">
+                        <app-post [postId]="post" [resizable]="true"></app-post>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </mat-card>
+    <mat-spinner *ngIf="loading"></mat-spinner>
+    <div class="desktopbuttons">
+        <button mat-raised-button routerLink="/professional/det-patient/{{treatment.patient}}" routerLinkActive="false">Cancelar</button>&nbsp;&nbsp;&nbsp;
+        <button mat-raised-button *ngIf="!id" color="primary" (click)="publicar()">Crear Tratamiento</button>
+        <button mat-raised-button *ngIf="id" color="primary" (click)="publicar()">Actualizar Tratamiento</button>
+    </div>
+
+</div>

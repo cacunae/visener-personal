@@ -113,6 +113,10 @@ h1 {
   .desktopbuttons{
     display: none !important;
   }
+
+  .mat-paginator-range-label {
+    margin: 0 15px 0 24px !important;
+  }
 }
 
 .cdk-overlay-pane{
@@ -318,4 +322,26 @@ mat-spinner, mat-spinner>svg {
 
 .inputImitation>div:last-child{
   margin-top: 5px;
+}
+
+.compressedPost{
+  height: 40px !important;
+  overflow-y: hidden;
+  margin-top: 0px;
+}
+
+.compressedBtn{
+  border-radius: 30px !important;
+  border: 3px solid #fff;
+  box-shadow: 0px 2px 3px rgba(0,0,0,0.3);
+  float: right;
+  margin-top: -12px !important;
+  margin-left: 10px;
+  height: 30px;
+  width: 30px;
+}
+.compressedBtn>mat-icon{
+  margin-left: -4px;
+  margin-top: 1px !important;
+  font-size: 22px !important;
 }

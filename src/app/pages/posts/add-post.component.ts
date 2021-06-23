@@ -23,9 +23,13 @@ export class AddPostComponent implements OnInit {
   public attachments: any[] = [];
   public files: any;
   public id:string = null;
+  public loading:boolean = true;
 
   constructor(public snackBar: MatSnackBar, public route: ActivatedRoute, public router: Router, private _fb: FormBuilder, public dataService: DataService, public dialog: MatDialog) {
     this.id = route.snapshot.paramMap.get('id');
+  }
+
+  ngOnInit(): void {
     if (this.id) {
       this.dataService.getData("/" + this.id).then((result: any) => {
         this.post = result;
@@ -34,11 +38,9 @@ export class AddPostComponent implements OnInit {
         }else{
           this.askPoll = false;
         }
+        this.loading = false;
       });
     }
-  }
-
-  ngOnInit(): void {
   }
 
   drop(event: CdkDragDrop<string[]>) {

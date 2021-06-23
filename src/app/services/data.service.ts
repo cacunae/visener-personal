@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Pipe, PipeTransform } from '@angular/core';
-import * as moment from 'moment';
 import { environment } from 'src/environments/environment';
+import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +11,7 @@ export class DataService {
   public databaseAPI = environment.databaseAPI;
   public headers:any;
   public user:User;
+  public session:any;
 
   constructor(public http: HttpClient) { 
     this.headers = new HttpHeaders().set('Content-Type', 'application/json');
