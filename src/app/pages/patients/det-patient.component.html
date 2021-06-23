@@ -14,7 +14,7 @@
                 <mat-tab label="Programas">
                     <div *ngFor="let treatment of treatments">
                         <app-treatment style="margin-left: 10px;" [treatment]="treatment.value.doc.program" origin="add-program"></app-treatment>
-                        <app-chart-patient-programs [treatment]="treatment.value.doc.program"></app-chart-patient-programs>
+                      <!--  <app-chart-patient-programs [treatment]="treatment.value.doc.program"></app-chart-patient-programs>-->
                     </div>
                 </mat-tab>
                 <mat-tab label="Posts">
