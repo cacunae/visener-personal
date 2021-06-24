@@ -55,5 +55,8 @@
     <button *ngIf="interact" class="desktop" mat-raised-button color="primary" (click)="responseInteraction(interaction, program)"><mat-icon>send</mat-icon> Enviar</button>
     <button *ngIf="!interact" class="desktop" mat-raised-button color="primary"><mat-icon>send</mat-icon> Enviar</button>
     <br><br>
+    <div *ngIf="interaction.poll.type=='slider'">
+        <app-chart-patient-programs [interaction]="interaction._id"></app-chart-patient-programs>
+    </div>
     </div>
 </mat-card>

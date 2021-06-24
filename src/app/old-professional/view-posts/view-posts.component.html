@@ -1,1 +1,12 @@
-<app-post *ngFor="let post of posts" [post]="post" [resizable]="true" [selectable]="true" [feedback]="false"></app-post>
+<div>
+    <div>
+        <input type="text" [(ngModel)]="search" placeholder="Ingrese las palabras a buscar..."
+            style="font-size: 14px; width: 100%; background-color: #fdfdfd; border: 1px solid #ccc; padding: 5px 10px; outline: none; border-radius: 15px; margin-bottom: 5px;" />
+        <br>
+    </div>
+    <div *ngFor="let post of posts">
+        <app-post *ngIf="({post:post.value.title+post.value.subtitle+post.value.content, search:search} | postFilter)"
+            [post]="post" [resizable]="true" [selectable]="true" [feedback]="false">
+        </app-post>
+    </div>
+</div>

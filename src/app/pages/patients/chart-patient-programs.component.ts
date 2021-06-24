@@ -28,17 +28,13 @@ export class ChartPatientProgramsComponent implements OnInit {
   }
  
   async getPolls(){
-    await this.dataService.getData("/"+this.program).then((program: any) => {
-      for(let interaction of program.interactions){
-        this.idProgram = interaction._id;
-        this.dataService.getData("/"+this.idProgram).then((result:any)=>{
-          if(result.poll.type == 'slider'){
-            this.programado.push(result.repetitions);
-            console.log("programado:", this.programado)
-          }
-        })  
+    await this.dataService.getData("/"+this.interaction).then((interaction: any) => {
+      console.log("INTER::", interaction)
+      if(interaction.poll.type == 'slider'){
+        this.programado.push(interaction.repetitions);
+        console.log("programado:", this.programado)
       }
-    });
+     }); 
   } 
 
   // array con valores

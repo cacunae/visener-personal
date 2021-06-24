@@ -10,6 +10,7 @@ import { AssociateComponent } from './associate.component';
 })
 export class ViewPostsComponent implements OnInit {
   public posts:any[] = [];
+  public search: string="";
 
   constructor(public dataService: DataService, @Inject(MAT_DIALOG_DATA) public data: DialogData) {
   }
