@@ -57,6 +57,7 @@ export class AddTreatmentComponent implements OnInit {
       }
     }else{
       this.treatment.professional = this.dataService.user._id;
+      this.treatment.patient = this.route.snapshot.paramMap.get('patient');
     }
     this.loading = false;
   }
@@ -72,8 +73,7 @@ export class AddTreatmentComponent implements OnInit {
   }
 
   publicar(){
-    console.log("Tratamiento",this.treatment);
-    /*
+    //console.log("Tratamiento",this.treatment);
     this.treatment.datetime = moment().format('YYYYMMDDHHmmss')
     this.dataService.postData(this.treatment).then((result: any) => {
       if(this.id){
@@ -83,6 +83,5 @@ export class AddTreatmentComponent implements OnInit {
       }
       this.router.navigateByUrl("/professional/det-patient/" + this.treatment.patient); 
     });
-    */
   }
 }

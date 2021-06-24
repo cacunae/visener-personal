@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DataService } from '../../services/data.service';
 import * as moment from 'moment';
@@ -12,7 +12,9 @@ import * as moment from 'moment';
 export class InteractionComponent implements OnInit {
   @Input() interaction:any;
   @Input() resizable:boolean;
+  @Input() removable:boolean;
   @Input() origin:string;
+  @Output() event = new EventEmitter<string>();
   public compressed:any = false;
   public interact:boolean = true;
 
@@ -31,4 +33,8 @@ export class InteractionComponent implements OnInit {
     }
   }
 
+  clickEvent(){
+    this.event.emit("click");
+  }
+  
 }

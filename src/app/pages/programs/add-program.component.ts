@@ -127,7 +127,7 @@ export class AddProgramComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         if(this.program.interactions.findIndex((interaction:any) => interaction === result.value._id) < 0){
-          this.program.interactions.push({_id: result.value._id, params: {poll: result.value.poll, repetitions: result.value.repetitions, series:result.value.series, rest:result.value.rest}});
+          this.program.interactions.push({_id: result.value._id, params: {poll: result.value.poll, iterations: result.value.iterations, repetitions: result.value.repetitions, series:result.value.series, rest:result.value.rest}});
           this.interactions.push(result.value);
         }else{
           alert("La tarea seleccionada ya fue agregada anteriormente.")

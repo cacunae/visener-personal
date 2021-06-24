@@ -56,7 +56,8 @@ export class AscProgramComponent implements OnInit {
 
   publicar() {
     if(this.treatment.program) {
-      this.treatment.datetime = moment().format('YYYYMMDDHHmmss')
+      this.treatment.datetime = moment().format('YYYYMMDDHHmmss');
+      this.treatment.interactions = this.program.interactions;
       this.dataService.postData(this.treatment).then((result:any) => {
         if(this.id){
           this.snackBar.open('Programa actualizado correctamente.', 'OK', { duration: 3000 });

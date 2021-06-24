@@ -1,10 +1,10 @@
-<app-header title="Programas" [backLink]="'/professional/asc-patients'" [event]="true" (rightEvent)="publicar()" [rightText]="'Guardar'"></app-header>
+<app-header title="Tratamiento" [backLink]="'/professional/asc-patients'" [event]="true" (rightEvent)="publicar()" [rightText]="'Guardar'"></app-header>
 <div class="content" role="main">
     <mat-card>
-        <mat-card-title *ngIf="!id">Crear Programa</mat-card-title>
-        <mat-card-title *ngIf="id">Actualizar Programa</mat-card-title>
-        <mat-card-subtitle *ngIf="!id">Aquí podrás agregar un programa nuevo:</mat-card-subtitle>
-        <mat-card-subtitle *ngIf="id">Aquí podrás actualizar un programa:</mat-card-subtitle>
+        <mat-card-title *ngIf="!id">Crear Tratamiento</mat-card-title>
+        <mat-card-title *ngIf="id">Actualizar Tratamiento</mat-card-title>
+        <mat-card-subtitle *ngIf="!id">Aquí podrás agregar un tratamiento nuevo:</mat-card-subtitle>
+        <mat-card-subtitle *ngIf="id">Aquí podrás actualizar un tratamiento:</mat-card-subtitle>
         <div *ngIf="!loading">
             <div class="inputImitation" *ngIf="patient">
                 <div>Nombre del Paciente:</div>
@@ -16,6 +16,7 @@
             <button mat-stroked-button (click)="treatment.program=null" *ngIf="treatment.program">
                 <mat-icon>remove_circle_outline</mat-icon> Borrar programa "{{program.title}}"
             </button>
+            <br>
             <div class="inputImitation" *ngIf="treatment.program">
                 <div>Nombre del Tratamiento:</div>
                 <div>{{program.title}}</div>
@@ -28,11 +29,11 @@
                 <div>Objetivo:</div>
                 <div>{{program.objective}}</div>
             </div>
-            <mat-form-field appearance="fill" *ngIf="treatment.program">
+            <mat-form-field appearance="outline">
                 <mat-label>Duración del Programa</mat-label>
                 <mat-date-range-input [rangePicker]="picker">
-                  <input matStartDate placeholder="Start date">
-                  <input matEndDate placeholder="End date">
+                    <input matStartDate [(ngModel)]="treatment.startDate" placeholder="Start date">
+                    <input matEndDate   [(ngModel)]="treatment.endDate" placeholder="End date">
                 </mat-date-range-input>
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-date-range-picker #picker></mat-date-range-picker>
@@ -40,19 +41,20 @@
             <mat-divider></mat-divider>
             <div *ngIf="program.interactions && program.interactions.length>0">
                 <mat-card-subtitle style="margin:0%"><strong>Tareas Asociadas:</strong></mat-card-subtitle>
-                <div cdkDropList (cdkDropListDropped)="drop($event)">
-                    <div cdkDrag *ngFor="let interaction of program.interactions; let i = index;" style="width: calc(100% - 20px); border: 1px solid #cccccc; background-color: #fdfdfd; border-radius: 5px; padding: 10px; margin: 5px 10px;">
-                        <app-interaction [interaction]="interaction" origin="add-program"></app-interaction>
-                    </div>
-                </div>
+                <app-interaction [interaction]="interaction._id" [resizable]="true" *ngFor="let interaction of program.interactions" origin="add-program"></app-interaction>
             </div>
+            <div *ngIf="program.posts && program.posts.length>0">
+                <mat-card-subtitle style="margin:0%"><strong>Post Asociados:</strong></mat-card-subtitle>
+                <app-post [postId]="post" [resizable]="true" *ngFor="let post of program.posts"></app-post>
+            </div>
+
         </div>
     </mat-card>
     <mat-spinner *ngIf="loading"></mat-spinner>
     <div class="desktopbuttons">
         <button mat-raised-button routerLink="/professional/asc-patients" routerLinkActive="false">Cancelar</button>&nbsp;&nbsp;&nbsp;
-        <button mat-raised-button *ngIf="!id" color="primary" (click)="publicar()">Asociar Programa</button>
-        <button mat-raised-button *ngIf="id" color="primary" (click)="publicar()">Actualizar Programa</button>
+        <button mat-raised-button *ngIf="!id" color="primary" (click)="publicar()">Asociar Tratamiento</button>
+        <button mat-raised-button *ngIf="id" color="primary" (click)="publicar()">Actualizar Tratamiento</button>
     </div>
 
 </div>

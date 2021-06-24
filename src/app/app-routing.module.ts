@@ -52,6 +52,7 @@ const routes: Routes = [
       { path: "programs", component: ProgramsComponent, canActivate: [RoleGuard]},
       { path: "add-program", component: AddProgramComponent, canActivate: [RoleGuard]},
       { path: "upd-program/:id", component: AddProgramComponent, canActivate: [RoleGuard]},
+      { path: "add-treatment/:patient", component: AddTreatmentComponent},
       { path: "upd-treatment/:id", component: AddTreatmentComponent},
       { path: "asc-program/:patient", component: AscProgramComponent, canActivate: [RoleGuard]},
       { path: "asc-program/:patient/:id", component: AscProgramComponent, canActivate: [RoleGuard]},

@@ -30,10 +30,7 @@
                 <mat-card-subtitle style="margin:0%"><strong>Post Asociados:</strong></mat-card-subtitle>
                 <div cdkDropList (cdkDropListDropped)="drop2($event)">
                     <div cdkDrag *ngFor="let post of program.posts; let i = index;">
-                        <button mat-icon-button (click)="delPost(i)" style="float:right; z-index:999;">
-                            <mat-icon>delete</mat-icon>
-                        </button>
-                        <app-post [postId]="post" [resizable]="true"></app-post>
+                        <app-post [postId]="post" [removable]="true" (event)="delPost(i)" [resizable]="true"></app-post>
                     </div>
                 </div>
             </div>
@@ -44,10 +41,7 @@
                 <mat-card-subtitle style="margin:0%"><strong>Tareas Asociadas:</strong></mat-card-subtitle>
                 <div cdkDropList (cdkDropListDropped)="drop($event)">
                     <div cdkDrag *ngFor="let interaction of program.interactions; let i = index;">
-                        <button mat-icon-button (click)="delInteraction(i)" style="float:right; z-index:999;">
-                            <mat-icon>delete</mat-icon>
-                        </button>
-                        <app-interaction [interaction]="interaction._id" origin="add-program"></app-interaction>
+                        <app-interaction [interaction]="interaction._id" [resizable]="true" [removable]="true" (event)="delInteraction(i)" origin="add-program"></app-interaction>
                     </div>
                 </div>
             </div>

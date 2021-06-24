@@ -37,51 +37,48 @@
             </mat-form-field>
             <mat-divider></mat-divider>
             <br>
-            <div *ngIf="program.interactions && program.interactions.length>0">
+            <div *ngIf="treatment.interactions && treatment.interactions.length>0">
                 <mat-card-subtitle style="margin:0%"><strong>Tareas Asociadas:</strong></mat-card-subtitle>
-                <div>
-                    <div *ngFor="let interaction of program.interactions; let i = index;">
-                        <div *ngFor="let interactionDetail of interactions;">
-                            <div *ngIf="interactionDetail._id == interaction._id">
-                                <img style="width:60px; height:60px;" *ngIf="interactionDetail.image" src="{{interactionDetail.image | image}}" />
-                                {{interactionDetail.title}}
-                                <br><br>
-                                <div *ngIf="interaction.params.weekdays == []">
-                                    <mat-label>Días de la semana:</mat-label><br>
-                                    <mat-radio-group>
-                                      <mat-checkbox style="margin-right: 10px;"
-                                        [checked]='{arr:interaction.params.weekdays, day:day} | weekDays' *ngFor="let day of week"
-                                        (click)="setDays(interaction.params, day)" value="{{interaction.params.weekdays}}">{{day}}</mat-checkbox>
-                                    </mat-radio-group>
-                                    <br>
-                                </div>
-                                <mat-form-field appearance="outline" style="width: 100px !important; float: left;">
-                                    <mat-label>Iteracciones diarias</mat-label>
-                                    <mat-select class="form-control" name="daytimes" [(ngModel)]="interaction.params.repetitions">
-                                        <mat-option value="1">1</mat-option>
-                                        <mat-option value="2">2</mat-option>
-                                        <mat-option value="4">4</mat-option>
-                                        <mat-option value="8">8</mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                                <br><br><br><br>
-                                <mat-form-field appearance="outline" style="width: calc(33% - 10px) !important; margin-right: 20px; float: left;">
-                                    <mat-label>Repeticiones:</mat-label>
-                                    <input matInput type="number" min="1" [(ngModel)]="interaction.params.repetitions">
-                                </mat-form-field>
-                                <mat-form-field appearance="outline" style="width: calc(33% - 10px) !important; margin-right: 20px; float: left;">
-                                    <mat-label>Series:</mat-label>
-                                    <input matInput type="number" min="1" [(ngModel)]="interaction.params.series">
-                                </mat-form-field>
-                                <mat-form-field appearance="outline" style="width: calc(33% - 20px) !important; float: left;">
-                                    <mat-label>Descanso:</mat-label>
-                                    <input matInput type="number" min="0" [(ngModel)]="interaction.params.rest">
-                                </mat-form-field>
+                <mat-card *ngFor="let interaction of treatment.interactions; let i = index;" style="margin-top: 5px; margin-bottom: 10px;">
+                    <div *ngFor="let interactionDetail of interactions;">
+                        <div *ngIf="interactionDetail._id == interaction._id">
+                            <img style="width:60px; height:60px;" *ngIf="interactionDetail.image" src="{{interactionDetail.image | image}}" />
+                            <mat-card-subtitle>{{interactionDetail.title}}</mat-card-subtitle>
+                            <div *ngIf="interaction.params.weekdays == []">
+                                <mat-label>Días de la semana:</mat-label><br>
+                                <mat-radio-group>
+                                    <mat-checkbox style="margin-right: 10px;"
+                                    [checked]='{arr:interaction.params.weekdays, day:day} | weekDays' *ngFor="let day of week"
+                                    (click)="setDays(interaction.params, day)" value="{{interaction.params.weekdays}}">{{day}}</mat-checkbox>
+                                </mat-radio-group>
+                                <br>
                             </div>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Iteracciones diarias</mat-label>
+                                <mat-select class="form-control" name="daytimes" [(ngModel)]="interaction.params.repetitions">
+                                    <mat-option value="1">1</mat-option>
+                                    <mat-option value="2">2</mat-option>
+                                    <mat-option value="4">4</mat-option>
+                                    <mat-option value="8">8</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <br>
+                            <mat-form-field appearance="outline" style="width: calc(33% - 10px) !important; margin-right: 20px; float: left;">
+                                <mat-label>Repeticiones:</mat-label>
+                                <input matInput type="number" min="1" [(ngModel)]="interaction.params.repetitions">
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" style="width: calc(33% - 10px) !important; margin-right: 20px; float: left;">
+                                <mat-label>Series:</mat-label>
+                                <input matInput type="number" min="1" [(ngModel)]="interaction.params.series">
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" style="width: calc(33% - 20px) !important; float: left;">
+                                <mat-label>Descanso:</mat-label>
+                                <input matInput type="number" min="0" [(ngModel)]="interaction.params.rest">
+                            </mat-form-field>
+                            <br><br><br>
                         </div>
-                        <!--app-interaction [interaction]="interaction._id" [resizable]="true" origin="add-program"></app-interaction-->
                     </div>
-                </div>
+                </mat-card>
             </div>
             <br>
             <div *ngIf="program.posts && program.posts.length>0">

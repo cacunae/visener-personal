@@ -13,8 +13,12 @@
             <div>{{program.objective}}</div>
         </div>
         <div class="inputImitation">
-            <div>Fecha</div>
+            <div>Asignación</div>
             <div>{{treatment.datetime | fechaFormateada}}</div>
+        </div>
+        <div class="inputImitation">
+            <div>Fecha</div>
+            <div>{{treatment.startDate | date:'dd/MM/YYYY'}} - {{treatment.endDate | date:'dd/MM/YYYY'}}</div>
         </div>
         <app-interaction [interaction]="interaction._id" [resizable]="true" *ngFor="let interaction of program.interactions" origin="add-program"></app-interaction>
         <app-post [postId]="post" [resizable]="true" *ngFor="let post of program.posts"></app-post>
