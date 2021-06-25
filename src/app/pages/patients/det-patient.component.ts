@@ -38,9 +38,7 @@ export class DetPatientComponent implements OnInit {
     }
 
     await this.getPosts();
-    await this.dataService.getData("/_design/view/_view/treatments-by-patient?key=\"" + this.id + "\"").then((treatments: any) => {
-      this.treatments = treatments.rows;//.sort((a:any, b:any) => { return a.name.localeCompare(b.name) });
-    });
+    await this.getTreatments();
     this.loading = false;
   }
 
@@ -50,11 +48,26 @@ export class DetPatientComponent implements OnInit {
     });
   }
 
+  async getTreatments(){
+    await this.dataService.getData("/_design/view/_view/treatments-by-patient?key=\"" + this.id + "\"").then((treatments: any) => {
+      this.treatments = treatments.rows;//.sort((a:any, b:any) => { return a.name.localeCompare(b.name) });
+    });
+  }
+
   removePost(publication:any){
     publication.state = "deleted";
     this.dataService.postData(publication).then((result) => {
       this.snackBar.open('Publicación eliminada correctamente.', 'OK', { duration: 3000 });
       this.getPosts();
+    });
+  }
+
+  removeProgram(treatment:any){
+    console.log("LLEGÓ::", treatment);
+    treatment.state = "deleted";
+    this.dataService.postData(treatment).then((result) => {
+      this.snackBar.open('Publicación eliminada correctamente.', 'OK', { duration: 3000 });
+      this.getTreatments();
     });
   }
 

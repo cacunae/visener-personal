@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DataService } from '../../services/data.service';
 import * as moment from 'moment';
@@ -11,6 +11,8 @@ import * as moment from 'moment';
 export class TreatmentComponent implements OnInit {
   @Input() treatment:any;
   @Input() origin:string;
+  @Input() removable:boolean;
+  @Output() event = new EventEmitter<string>();
   public interact:boolean = true;
   public loading:boolean = true;
   public program:any;
@@ -31,6 +33,10 @@ export class TreatmentComponent implements OnInit {
       this.program = program;
     });
     this.loading = false;
+  }
+
+  clickEvent(){
+    this.event.emit("click");
   }
 
 }

@@ -2,14 +2,17 @@
     <div *ngIf="treatment && program && !loading">
         <button mat-raised-button style="float: right;" color="primary" routerLink="/professional/upd-treatment/{{treatment._id}}" routerLinkActive="false">
             <mat-icon *ngIf="!compressed" style="margin-top:7px; font-size: 14px;">visibility</mat-icon> Ver Programa
-        </button>    
+        </button>   
+        <button *ngIf="removable" (click)="clickEvent()" class="compressedBtn" style="margin-top: 0px !important;margin-right:15px !important" color="primary">
+            <mat-icon style="margin-top:7px; font-size: 14px;">remove</mat-icon>
+        </button>
         <mat-card-title style="margin-bottom: 20px;">{{program.title}}</mat-card-title>
         <div class="inputImitation">
             <div>Contenido:</div>
             <div>{{program.content}}</div>
         </div>
         <div class="inputImitation">
-            <div>Objetivo:</div>
+            <div>Objetivo:</div>    
             <div>{{program.objective}}</div>
         </div>
         <div class="inputImitation">
