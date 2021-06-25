@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CommentComponent } from '../dialog-comment/comment.component';
 import { DataService } from '../../services/data.service';
@@ -16,8 +16,10 @@ export class PostComponent implements OnInit {
   @Input() postId:string;
   @Input() resizable:boolean;
   @Input() selectable:boolean;
+  @Input() removable:boolean;
   @Input() multiple:boolean;
   @Input() feedback:boolean;
+  @Output() event = new EventEmitter<string>();
   public compressed:any = false;
 
   constructor(public dialog: MatDialog, public http: HttpClient, public dataService: DataService) {
@@ -114,4 +116,7 @@ export class PostComponent implements OnInit {
     });
   }
 
+  clickEvent(){
+    this.event.emit("click");
+  }
 }

@@ -16,7 +16,7 @@ import { DialogProgramComponent } from './dialog-program.component';
 })
 export class AscProgramComponent implements OnInit {
   todayDate: Date = new Date();
-  public treatment:any = {entity: "treatment"};
+  public treatment:any = {entity: "treatment", state: "active"};
   public program:any = {};
   public myForm: FormGroup;
   public loading:boolean = true;

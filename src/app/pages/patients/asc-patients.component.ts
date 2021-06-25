@@ -54,7 +54,7 @@ export class AssociatedPatientsComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       if(result){
-        this.dataService.postData({entity: "publication", post: result.value._id, patient: patient.doc._id, professional: this.dataService.user._id, datetime: moment().format("YYYYMMDDHHmm") });
+        this.dataService.postData({entity: "publication", state:"active", post: result.value._id, patient: patient.doc._id, professional: this.dataService.user._id, datetime: moment().format("YYYYMMDDHHmm") });
         this.getPatients();
       }
     });

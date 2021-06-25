@@ -72,8 +72,6 @@ export class AddTreatmentComponent implements OnInit {
   }
 
   publicar(){
-    console.log("Tratamiento",this.treatment);
-    /*
     this.treatment.datetime = moment().format('YYYYMMDDHHmmss')
     this.dataService.postData(this.treatment).then((result: any) => {
       if(this.id){
@@ -83,6 +81,5 @@ export class AddTreatmentComponent implements OnInit {
       }
       this.router.navigateByUrl("/professional/det-patient/" + this.treatment.patient); 
     });
-    */
   }
 }
