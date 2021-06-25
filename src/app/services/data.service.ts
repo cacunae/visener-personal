@@ -172,6 +172,19 @@ export class postFilter implements PipeTransform {
   }
 }
 
+@Pipe({name: 'programFilter'})
+export class programFilter implements PipeTransform {
+  transform(obj:any):boolean {
+    let program:string = obj.program == undefined ? '':obj.program.toUpperCase();
+    let search:string = obj.search.toUpperCase();
+    if(search.length==0 || program.indexOf(search)>=0){
+      return true;
+    }else{
+      return false;
+    }
+  }
+}
+
 @Pipe({name: 'image'})
 export class image implements PipeTransform {
   transform(img:any):string {

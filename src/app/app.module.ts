@@ -40,7 +40,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { fechaFormateada, weekDays, tagFilter, postFilter, image, video, featuresPipe, postnamePipe, interactionnamePipe } from './services/data.service';
+import { fechaFormateada, weekDays, tagFilter, postFilter, image, video, featuresPipe, postnamePipe, interactionnamePipe, programFilter } from './services/data.service';
 import { PostComponent } from './pages/posts/post.component';
 import { InteractionComponent } from './pages/interactions/interaction.component';
 import { TreatmentComponent } from './pages/treatment/treatment.component';
@@ -108,7 +108,7 @@ import { ChartPatientProgramsComponent } from './pages/patients/chart-patient-pr
     RolesComponent,
     AddRoleComponent,
     fechaFormateada,
-    weekDays, tagFilter,postFilter, image, video, featuresPipe, postnamePipe, interactionnamePipe,
+    weekDays, tagFilter, programFilter, postFilter, image, video, featuresPipe, postnamePipe, interactionnamePipe,
     PopupComponent,
     AddProgramComponent,
     AscProgramComponent,
