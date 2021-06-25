@@ -1,5 +1,5 @@
-<h1 mat-dialog-title style="margin-bottom: 5px;">Seleccione un programa</h1>
-<input type="text" [(ngModel)]="search" placeholder="Ingrese los tags para filtrar resultados" style="font-size: 14px; width: 100%; background-color: #fdfdfd; border: 1px solid #ccc; padding: 5px 10px; outline: none; border-radius: 15px; margin-bottom: 5px;" />
+<h1 mat-dialog-title style="margin-bottom: 5px;text-align: center;">Seleccione un programa</h1>
+<input type="text" [(ngModel)]="search" placeholder="Ingrese el nombre de programa que desee" style="font-size: 14px; width: 100%; background-color: #fdfdfd; border: 1px solid #ccc; padding: 5px 10px; outline: none; border-radius: 15px; margin-bottom: 5px;" />
 <div mat-dialog-content text-align-center >
     <div *ngFor="let program of programs">
       <div *ngIf="({program:program.value.title, search:search} | programFilter)" [className]="program.value._id==param.selection ? 'thumbnail selected' : 'thumbnail'" (click)="select(program)">
