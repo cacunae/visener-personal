@@ -16,11 +16,11 @@
     <mat-card class="treatments">
       <mat-card-title class="titleTareas">Mis tareas</mat-card-title>
       <div *ngFor="let treatment of treatments">
-        <div id="interaction" *ngFor="let interaction of treatment.value.interactions">
-          <div *ngIf="interaction.poll && interaction.poll.areOk && interaction.poll.type=='slider'">
-            <mat-card-subtitle class="desktop">{{interaction.subtitle}}</mat-card-subtitle>
+        <div id="interaction" *ngFor="let interaction of treatment.value.doc.interactions">
+          <div *ngIf="interaction.areOk && interaction.params.poll.type=='slider'">
+            <mat-card-subtitle class="desktop">{{interaction.detail.subtitle}}</mat-card-subtitle>
             <mat-card-content>
-              <img style="width:60px; height:60px;" (click)="putPost(interaction)" *ngIf="interaction.image" src="{{interaction.image | image}}" /><br class="desktop">
+              <img style="width:60px; height:60px;" (click)="putPost(interaction)" *ngIf="interaction.detail.image" src="{{interaction.detail.image | image}}" /><br class="desktop">
               <button mat-raised-button class="cellphone" color="primary" (click)="responseInteraction(interaction, treatment)"><mat-icon>send</mat-icon></button>
               <mat-card-subtitle class="cellphone">{{interaction.subtitle}}</mat-card-subtitle>
               <mat-card-subtitle style="margin-bottom: 1px;" *ngIf="interaction.poll && interaction.poll.type=='slider'" >{{interaction.poll.question}}</mat-card-subtitle>
@@ -70,7 +70,7 @@
     </mat-card>
   </div>
   <div class="main">
-    <app-post *ngFor="let post of posts" [post]="post"></app-post>
+    <app-post *ngFor="let post of posts" [post]="post" [feedback]="true"></app-post>
   </div>
 </div>
 

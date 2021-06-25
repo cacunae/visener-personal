@@ -146,3 +146,7 @@
       visibility: hidden;
     }
   }
+
+  .main{
+    max-width: 525px !important;
+  }

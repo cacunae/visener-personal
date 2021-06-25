@@ -42,8 +42,8 @@
                 <mat-card *ngFor="let interaction of treatment.interactions; let i = index;" style="margin-top: 5px; margin-bottom: 10px;">
                     <div *ngFor="let interactionDetail of interactions;">
                         <div *ngIf="interactionDetail._id == interaction._id">
-                            <img style="width:60px; height:60px;" *ngIf="interactionDetail.image" src="{{interactionDetail.image | image}}" />
-                            <mat-card-subtitle>{{interactionDetail.title}}</mat-card-subtitle>
+                            <img style="float:right; border:3px solid #ffffff; box-shadow: 0px 0px 3px rgba(0,0,0,0.5); width:60px; height:60px;" *ngIf="interactionDetail.image" src="{{interactionDetail.image | image}}" />
+                            <mat-card-title>{{interactionDetail.title}}</mat-card-title>
                             <div *ngIf="interaction.params.weekdays == []">
                                 <mat-label>Días de la semana:</mat-label><br>
                                 <mat-radio-group>
@@ -53,29 +53,36 @@
                                 </mat-radio-group>
                                 <br>
                             </div>
+                            <div class="inputImitation" style="max-width: 400px;">
+                                <div>Tipo de Tarea:</div>
+                                <div>{{interaction.params.poll.type}}</div>
+                            </div>
                             <mat-form-field appearance="outline">
                                 <mat-label>Iteracciones diarias</mat-label>
-                                <mat-select class="form-control" name="daytimes" [(ngModel)]="interaction.params.repetitions">
-                                    <mat-option value="1">1</mat-option>
-                                    <mat-option value="2">2</mat-option>
-                                    <mat-option value="4">4</mat-option>
-                                    <mat-option value="8">8</mat-option>
+                                <mat-select class="form-control" name="daytimes" [(ngModel)]="interaction.params.iterations">
+                                    <mat-option [value]="1">1</mat-option>
+                                    <mat-option [value]="2">2</mat-option>
+                                    <mat-option [value]="4">4</mat-option>
+                                    <mat-option [value]="8">8</mat-option>
                                 </mat-select>
                             </mat-form-field>
                             <br>
-                            <mat-form-field appearance="outline" style="width: calc(33% - 10px) !important; margin-right: 20px; float: left;">
+                            <mat-form-field *ngIf="interaction.params.poll.type == 'slider'" appearance="outline" style="width: calc(33% - 10px) !important; margin-right: 20px; float: left;">
                                 <mat-label>Repeticiones:</mat-label>
                                 <input matInput type="number" min="1" [(ngModel)]="interaction.params.repetitions">
                             </mat-form-field>
-                            <mat-form-field appearance="outline" style="width: calc(33% - 10px) !important; margin-right: 20px; float: left;">
+                            <mat-form-field *ngIf="interaction.params.poll.type == 'slider'" appearance="outline" style="width: calc(33% - 10px) !important; margin-right: 20px; float: left;">
                                 <mat-label>Series:</mat-label>
                                 <input matInput type="number" min="1" [(ngModel)]="interaction.params.series">
                             </mat-form-field>
-                            <mat-form-field appearance="outline" style="width: calc(33% - 20px) !important; float: left;">
+                            <mat-form-field *ngIf="interaction.params.poll.type == 'slider'" appearance="outline" style="width: calc(33% - 20px) !important; float: left;">
                                 <mat-label>Descanso:</mat-label>
                                 <input matInput type="number" min="0" [(ngModel)]="interaction.params.rest">
                             </mat-form-field>
-                            <br><br><br>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Pregunta:</mat-label>
+                                <input matInput placeholder="Ej: ¿Cuánto dolor sentiste?" [(ngModel)]="interaction.params.poll.question">
+                            </mat-form-field>
                         </div>
                     </div>
                 </mat-card>

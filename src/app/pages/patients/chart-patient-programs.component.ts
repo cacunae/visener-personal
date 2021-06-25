@@ -34,7 +34,6 @@ export class ChartPatientProgramsComponent implements OnInit {
         this.dataService.getData("/"+this.idProgram).then((result:any)=>{
           if(result.poll.type == 'slider'){
             this.programado.push(result.repetitions);
-            console.log("programado:", this.programado)
           }
         })  
       }

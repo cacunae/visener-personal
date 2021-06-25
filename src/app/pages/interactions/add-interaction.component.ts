@@ -35,9 +35,10 @@ export class AddInteractionComponent implements OnInit {
     this.interaction.professional = this.dataService.user._id;
     this.id = route.snapshot.paramMap.get('id');
     if (this.id) {
-      this.dataService.getData("/" + this.id).then((result: any) => {
+      this.dataService.getData("/" + this.id).then((result:any) => {
         this.interaction = result
-        this.dataService.listById(this.interaction.post).then((post:any) =>{
+        console.log("Interac", this.interaction);
+        this.dataService.getData("/" + this.interaction.post).then((post:any) =>{
           this.postName = post.title;
           this.postSubtitle = post.subtitle;
           this.postContent = post.content;

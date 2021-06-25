@@ -95,14 +95,23 @@ export class PatientComponent implements OnInit {
   async getTreatments() {
     let tmpTreatments: any[];
     await this.dataService.getData("/_design/view/_view/treatments-by-patient?key=\"" + this.dataService.user._id + "\"").then((treatments: any) => {
-      tmpTreatments = treatments.rows.sort((a, b) => { return Number(b.value.datetime) - Number(a.value.datetime) });
+      tmpTreatments = treatments.rows.sort((a:any, b:any) => { return Number(b.value.doc.datetime) - Number(a.value.doc.datetime) });
     });
+    for(let treatment of tmpTreatments){
+      for(let interaction of treatment.value.doc.interactions){
+        await this.dataService.getData("/" + interaction._id).then((interactionDetail: any) => {
+          interaction.detail = interactionDetail;
+          interaction.areOk = true
+        });
+      }
+    }
+    
     /* Validate by date and weekday */
-    let deleteItems: any[] = [];
+    /*
     for (let treatment of tmpTreatments) {
-      if (treatment.value.interactions) {
-        for (let interaction of treatment.value.interactions) {
-          await this.dataService.getData("/_design/view/_view/polls-by-interaction?key=[\"" + treatment.value._id + "\",\"" + interaction.interaction + "\",\"" + moment().format("YYYYMMDD") + "\"]").then((polls: any) => {
+      if (treatment.value.doc.interactions) {
+        for (let interaction of treatment.value.doc.interactions) {
+          await this.dataService.getData("/_design/view/_view/polls-by-interaction?key=[\"" + treatment.value.doc._id + "\",\"" + interaction.interaction + "\",\"" + moment().format("YYYYMMDD") + "\"]").then((polls: any) => {
             interaction.responses = polls.rows.length + 1;
             if (polls.rows && polls.rows.length > 0) {
               if ((interaction.poll.relation == 'series' && interaction.series == polls.rows.length) || (interaction.poll.relation == 'interaction' && polls.rows.length > 0)) {
@@ -116,6 +125,8 @@ export class PatientComponent implements OnInit {
         }
       }
     }
+    */
+    console.log("Mis tratamientos", tmpTreatments);
     this.treatments = tmpTreatments;
   }
 
