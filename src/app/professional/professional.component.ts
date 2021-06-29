@@ -15,6 +15,8 @@ export class ProfessionalComponent implements OnInit {
   public features: any[] = [];
   public message: string;
   public expirationTime:number = environment.expirationTime;
+  public grantAccess:boolean = false;
+  public acepto:boolean = false;
 
   constructor(public router: Router, public dialog: MatDialog, public dataService: DataService, public snackBar:MatSnackBar) {
     this.dataService.session = moment().unix();
@@ -31,8 +33,11 @@ export class ProfessionalComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log("user", this.dataService.user);
     if (!this.dataService.user?._id) {
       this.router.navigateByUrl("/login");
+    } else if (!this.dataService.user.granted) {
+      this.grantAccess = true;
     } else {
       setTimeout(() => {this.getActivity()}, 10000);
       this.dataService.getData("/features").then((features: any) => {
@@ -63,4 +68,18 @@ export class ProfessionalComponent implements OnInit {
     }
   }
 
+  aceptar(){
+    if(this.acepto){
+      this.dataService.getData("/" + this.dataService.user._id).then((result:any)=>{
+        console.log(result);
+        result.granted = true;
+        this.dataService.postData(result).then(() => {
+          this.snackBar.open('Condiciones aceptadas. Ingrese nuevamente.', 'OK', {duration: 5000});
+          this.router.navigateByUrl("/login");
+        });
+      });
+    }else{
+      this.snackBar.open('Debe aceptar las condiciones', 'ERR', {duration: 5000});
+    }
+  }
 }

@@ -1,3 +1,21 @@
 <mat-menu #menu="matMenu"></mat-menu>
 <router-outlet></router-outlet>
 <span *ngIf="message">{{message}}</span>
+<!--app-header *ngIf="grantAccess" title="Visener"></app-header-->
+<div *ngIf="grantAccess" style="position: absolute; top: 0px; left: 0px; background-color: rgba(0,0,0,0.3); width: 100%; height: 100%;">
+    <br><br>
+    <mat-card style="width: 100%; max-width: 600px; height:80%; margin: auto;">
+        <h1>Acuerdo de Servicio</h1>
+        <div style="height: calc(100% - 130px); overflow: scroll; border: 1px solid #cccccc; padding: 10px;">
+            En este sitio usted compartirá información respecto a  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent non volutpat urna. Curabitur a aliquet tortor, ut tristique nisi. Sed scelerisque blandit justo, eget vestibulum felis vestibulum ac. Nam iaculis nulla sed tempus sodales. Duis ac lobortis ipsum. Maecenas luctus tempor semper. Etiam euismod metus eu sem congue blandit. Integer eu risus turpis. Morbi risus dolor, finibus non vehicula a, feugiat nec tellus. Praesent pulvinar tempor arcu vitae ornare. Duis at erat purus. Donec nec consectetur risus. Nullam sem felis, scelerisque eget tellus a, maximus bibendum risus. Mauris nec leo blandit, bibendum lacus non, luctus ante.<br>
+            Proin purus risus, tempor id posuere sagittis, tempus pretium tortor. Duis et feugiat mauris. Nunc tempus faucibus mauris, a sollicitudin lorem malesuada sed. Quisque maximus sem faucibus pellentesque mattis. Pellentesque semper sodales mauris id facilisis. Cras luctus dui vel orci finibus finibus. Duis id est eu nisi viverra ultrices nec sit amet erat. Proin varius nulla elit, at ultrices risus molestie vel. Aenean vitae bibendum nunc, efficitur viverra ligula. Pellentesque hendrerit enim nisl, vitae elementum libero posuere ut. Quisque ac nisl non quam facilisis ornare. Quisque interdum leo nec leo volutpat varius. Sed ultricies quam nisi, et volutpat tortor pretium eu. Mauris vulputate tempus urna non sagittis.<br>
+            Donec vel augue ut elit auctor accumsan. Integer imperdiet varius cursus. Integer quis eleifend orci, ut condimentum ante. Vestibulum eros massa, euismod ut ipsum a, rhoncus blandit mauris. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis egestas sem iaculis arcu commodo, at convallis arcu porttitor. Donec non tellus neque. Integer sollicitudin non mi vitae tempus. Vestibulum dolor risus, vestibulum eget varius nec, pretium quis elit. Vivamus nec risus velit. Phasellus dictum orci enim, euismod posuere leo tristique non. Praesent malesuada dapibus quam.<br>
+            Pellentesque blandit sagittis metus, quis placerat ligula pretium vitae. In eros magna, sagittis sit amet eros ac, rhoncus eleifend dui. Fusce placerat ac mauris ut rhoncus. Sed porta eros sed malesuada placerat. In molestie dictum metus sit amet porta. Donec mauris ligula, finibus ut gravida vel, egestas id nulla. Morbi id viverra urna. Donec eu est in urna scelerisque tempor vitae at mi. In quis enim ultrices, consequat lorem sit amet, lacinia ex. <br>
+        </div>
+        <div style="height:60px; padding:10px; text-align: center;">
+            <mat-checkbox class="example-margin" [(ngModel)]="acepto">Estoy de acuerdo con los términos y condiciones de Visener.</mat-checkbox>
+            <br>
+            <button mat-raised-button type="submit" color="primary" (click)="aceptar()">ACEPTAR</button>
+        </div>
+    </mat-card>
+</div>

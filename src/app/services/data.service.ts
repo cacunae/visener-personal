@@ -125,6 +125,7 @@ export class User{
   password:string = "";
   role:string = "";
   lastAccess:string = "";
+  granted:boolean = false;
   features:any[] = [];
 }
 
