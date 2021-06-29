@@ -9,6 +9,7 @@ import { ViewPostsComponent } from 'src/app/old-professional/view-posts/view-pos
 import { DataService } from 'src/app/services/data.service';
 import * as moment from 'moment';
 import { DialogProgramComponent } from './dialog-program.component';
+import { ViewTreatmentsComponent } from 'src/app/old-professional/view-treatments/view-treatments.component';
 
 @Component({
   selector: 'app-asc-programs',
@@ -73,22 +74,22 @@ export class AscProgramComponent implements OnInit {
   }
 
   addProgram() {
-    const dialogRef = this.dialog.open(DialogProgramComponent, {
+    const dialogRef = this.dialog.open(ViewTreatmentsComponent, {
       width: '520px',
       data: {text:'add-program'}
     });
     dialogRef.afterClosed().subscribe((result) => {
-      if(result){
-        console.log("result", result);
-        this.program = result.selection;
-        this.treatment.program = result.selection._id;
-      }
+        this.treatment.program = result.id;
+        this.dataService.getData("/" + this.treatment.program).then((programDetail: any) => {
+        this.program = programDetail;
+      });
     });
   }
-
+  
   getDay() {
     this.range;
     console.log(this.range)
   }
 
 }
+

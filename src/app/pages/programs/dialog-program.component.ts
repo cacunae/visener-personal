@@ -1,7 +1,11 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogData } from '../dialog-password/password.component';
 import { DataService } from '../../services/data.service';
+import { CommentComponent } from '../dialog-comment/comment.component';
+import { AssociateComponent } from 'src/app/old-professional/view-posts/associate.component';
+import * as moment from 'moment';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-dialog-program',
@@ -10,33 +14,31 @@ import { DataService } from '../../services/data.service';
 })
 
 export class DialogProgramComponent implements OnInit {
-  public param:any = {selection: ''};
-  public programs:any;
-  public search:string  = "";
+  @Input() program:any;
+  @Input() postId:string;
+  @Input() resizable:boolean;
+  @Input() selectable:boolean;
+  @Input() removable:boolean;
+  @Input() multiple:boolean;
+  @Input() feedback:boolean;
+  @Output() event = new EventEmitter<string>();
+  public compressed:any = false;
 
-  constructor(public dataService: DataService, public dialogRef: MatDialogRef<DialogProgramComponent>,  @Inject(MAT_DIALOG_DATA) public data: DialogData) {
-    console.log("DialogProgramComponent constructor data:", data);
-    if(!this.data){this.data = {text:''};}
-
-    this.dataService.getData("/_design/view/_view/programs").then((file:any) =>{
-      this.programs = file.rows;
-    });
+  constructor(public dialog: MatDialog, public http: HttpClient, public dataService: DataService) {
   }
 
   ngOnInit(): void {
-  }
-
-  select(program:any){
-    console.log("Pro", program);
-    if(this.param.selection._id == program.value._id){
-      this.param.selection = null;
-    }else{
-      this.param.selection = program.value;
+    if(this.resizable){
+      this.compressed = true;
     }
   }
 
-  onNoClick(){
-    this.dialogRef.close();
+  selectProgram(program: any){
+    console.log("PROGRAM::", program)
+    this.program = program;
   }
 
+  clickEvent(){
+    this.event.emit("click");
+  }
 }

@@ -84,6 +84,8 @@ import { CompaniesComponent } from './pages/companies/companies.component';
 import { AddCompanyComponent } from './pages/companies/add-company.component';
 import { AddTreatmentComponent } from './pages/treatment/add-treatment.component';
 import { ChartPatientProgramsComponent } from './pages/patients/chart-patient-programs.component';
+import { ViewTreatmentsComponent } from './old-professional/view-treatments/view-treatments.component';
+
 
 @NgModule({
   declarations: [
@@ -132,7 +134,8 @@ import { ChartPatientProgramsComponent } from './pages/patients/chart-patient-pr
     CompaniesComponent,
     AddCompanyComponent,
     AddTreatmentComponent,
-    ChartPatientProgramsComponent
+    ChartPatientProgramsComponent,
+    ViewTreatmentsComponent
   ],
   imports: [
     BrowserModule,

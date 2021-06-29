@@ -1,13 +1,18 @@
-<h1 mat-dialog-title style="margin-bottom: 5px;text-align: center;">Seleccione un programa</h1>
-<input type="text" [(ngModel)]="search" placeholder="Ingrese el nombre de programa que desee" style="font-size: 14px; width: 100%; background-color: #fdfdfd; border: 1px solid #ccc; padding: 5px 10px; outline: none; border-radius: 15px; margin-bottom: 5px;" />
-<div mat-dialog-content text-align-center >
-    <div *ngFor="let program of programs">
-      <div *ngIf="({program:program.value.title, search:search} | programFilter)" [className]="program.value._id==param.selection ? 'thumbnail selected' : 'thumbnail'" (click)="select(program)">
-        {{program.value.title}}
-      </div>
-    </div>   
-</div>
-<div mat-dialog-actions>
-  <button mat-stroked-button (click)="onNoClick()">Cancelar</button>
-  <button mat-raised-button color="primary" [mat-dialog-close]="param" cdkFocusInitial>Seleccionar</button>
-</div>
+<mat-card *ngIf="program && program.value" [class.compressedPost]="compressed">
+  <button class="compressedBtn" color="primary" (click)="compressed = !compressed">
+      <mat-icon *ngIf="compressed" style="margin-top:7px; font-size: 14px;">expand_more</mat-icon>
+      <mat-icon *ngIf="!compressed" style="margin-top:7px; font-size: 14px;">expand_less</mat-icon>
+  </button>
+  <button *ngIf="removable" (click)="clickEvent()" class="compressedBtn" color="primary">
+      <mat-icon style="margin-top:7px; font-size: 14px;">remove</mat-icon>
+  </button>
+  <mat-card-title *ngIf="program.value.title">{{program.value.title}}</mat-card-title>
+  <mat-card-subtitle *ngIf="program.value.objective">{{program.value.objective}}</mat-card-subtitle>
+  <mat-card-content *ngIf="program.value.content">{{program.value.content}}</mat-card-content>
+  <app-interaction [interaction]="interaction._id" [resizable]="true" *ngFor="let interaction of program.value.interactions" origin="add-program"></app-interaction>
+  <app-post [postId]="post" [resizable]="true" *ngFor="let post of program.value.posts"></app-post>
+  <br>
+  <div style="text-align: center;">
+      <button mat-raised-button color="primary" [mat-dialog-close]="program" (click)="selectProgram(program)">Seleccionar Programa</button>
+  </div>
+</mat-card>
