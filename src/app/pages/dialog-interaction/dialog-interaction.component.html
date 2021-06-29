@@ -1,8 +1,15 @@
 <h1 mat-dialog-title>Seleccione sus tareas</h1>
+<div>
+  <input type="text" [(ngModel)]="search" placeholder="Ingrese las palabras a buscar..."
+      style="font-size: 14px; width: 100%; background-color: #fdfdfd; border: 1px solid #ccc; padding: 5px 10px; outline: none; border-radius: 15px; margin-bottom: 5px;" />
+  <br>
+</div>
 <div mat-dialog-content text-align-center>
-    <div *ngFor="let interaction of interactions" [className]="interaction==data.selection ? 'thumbnail selected' : 'thumbnail'" (click)="select(interaction)" class="thumbnailcontainer">
-      <img *ngIf="interaction.value && interaction.value.image"  style="width: 100%;" src="{{interaction.value.image | image}}" />
-      <div style="margin-top: -5px;" [className]="interaction.value._id==data.selection ? 'thumbnail selected' : 'thumbnail'">{{interaction.value.subtitle}} </div>
+    <div *ngFor="let interaction of interactions" >
+      <div *ngIf="({interaction:interaction.value.title, search:search} | interactionFilter)" [className]="interaction==data.selection ? 'thumbnail selected' : 'thumbnail'" (click)="select(interaction)" class="thumbnailcontainer">
+        <img *ngIf="interaction.value && interaction.value.image"  style="width: 100%;" src="{{interaction.value.image | image}}" />
+        <div style="margin-top: -5px;" [className]="interaction.value._id==data.selection ? 'thumbnail selected' : 'thumbnail'">{{interaction.value.title}} </div> 
+      </div>
     </div>   
 </div>
 <div mat-dialog-actions>

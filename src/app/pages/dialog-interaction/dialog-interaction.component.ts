@@ -11,6 +11,7 @@ import { DataService } from '../../services/data.service';
 export class DialogInteractionComponent implements OnInit {
   public data:any = {selection:null};
   public interactions:any;
+  public search="";
 
   constructor(public dataService: DataService, public dialogRef: MatDialogRef<DialogInteractionComponent>) {
     this.dataService.getData("/_design/view/_view/interactions").then((interactions:any) =>{

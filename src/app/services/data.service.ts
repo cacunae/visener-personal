@@ -186,6 +186,19 @@ export class programFilter implements PipeTransform {
   }
 }
 
+@Pipe({name: 'interactionFilter'})
+export class interactionFilter implements PipeTransform {
+  transform(obj:any):boolean {
+    let interaction:string = obj.interaction == undefined ? '':obj.interaction.toUpperCase();
+    let search:string = obj.search.toUpperCase();
+    if(search.length==0 || interaction.indexOf(search)>=0){
+      return true;
+    }else{
+      return false;
+    }
+  }
+}
+
 @Pipe({name: 'image'})
 export class image implements PipeTransform {
   transform(img:any):string {
