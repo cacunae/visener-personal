@@ -33,7 +33,6 @@ export class ProfessionalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("user", this.dataService.user);
     if (!this.dataService.user?._id) {
       this.router.navigateByUrl("/login");
     } else if (!this.dataService.user.granted) {

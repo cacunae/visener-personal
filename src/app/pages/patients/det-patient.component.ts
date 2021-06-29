@@ -63,7 +63,6 @@ export class DetPatientComponent implements OnInit {
   }
 
   removeProgram(treatment:any){
-    console.log("LLEGÓ::", treatment);
     treatment.state = "deleted";
     this.dataService.postData(treatment).then((result) => {
       this.snackBar.open('Publicación eliminada correctamente.', 'OK', { duration: 3000 });

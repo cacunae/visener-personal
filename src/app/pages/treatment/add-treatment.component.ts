@@ -72,7 +72,8 @@ export class AddTreatmentComponent implements OnInit {
   }
 
   publicar(){
-    this.treatment.datetime = moment().format('YYYYMMDDHHmmss')
+    this.treatment.datetime = moment().format('YYYYMMDDHHmmss');
+    console.log("treat", JSON.parse(JSON.stringify(this.treatment)));
     this.dataService.postData(this.treatment).then((result: any) => {
       if(this.id){
         this.snackBar.open('Tratamiento actualizado correctamente.', 'OK', { duration: 3000 });

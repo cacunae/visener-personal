@@ -1,5 +1,5 @@
 <mat-card *ngIf="post && post.value" [class.compressedPost]="compressed">
-    <button class="compressedBtn" color="primary" (click)="compressed = !compressed">
+    <button *ngIf="resizable" class="compressedBtn" color="primary" (click)="compressed = !compressed">
         <mat-icon *ngIf="compressed" style="margin-top:7px; font-size: 14px;">expand_more</mat-icon>
         <mat-icon *ngIf="!compressed" style="margin-top:7px; font-size: 14px;">expand_less</mat-icon>
     </button>

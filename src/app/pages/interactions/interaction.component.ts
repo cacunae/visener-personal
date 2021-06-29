@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DataService } from '../../services/data.service';
 import * as moment from 'moment';
@@ -12,7 +12,9 @@ import * as moment from 'moment';
 export class InteractionComponent implements OnInit {
   @Input() interaction:any;
   @Input() resizable:boolean;
+  @Input() removable:boolean;
   @Input() origin:string;
+  @Output() event = new EventEmitter<string>();
   public compressed:any = false;
   public interact:boolean = true;
 
@@ -20,7 +22,7 @@ export class InteractionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(this.origin == 'add-program'){
+    if(this.interaction){
       this.interact = false;
       this.dataService.getData("/" + this.interaction).then((interaction) => {
         this.interaction = interaction;
@@ -29,6 +31,10 @@ export class InteractionComponent implements OnInit {
     if(this.resizable){
       this.compressed = true;
     }
+  }
+
+  clickEvent(){
+    this.event.emit("click");
   }
 
 }

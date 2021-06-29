@@ -29,7 +29,6 @@ export class PostComponent implements OnInit {
     if(this.postId){
       this.dataService.getData("/" + this.postId).then((post) => {
         this.post = {value: post};
-        console.log("THIS.POST", this.post,{value: post} )
       });
     }
     if(this.resizable){

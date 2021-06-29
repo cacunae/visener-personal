@@ -37,9 +37,9 @@
             </mat-form-field>
             <mat-divider></mat-divider>
             <br>
-            <div *ngIf="program.interactions && program.interactions.length>0">
+            <div *ngIf="treatment.interactions && treatment.interactions.length>0">
                 <mat-card-subtitle style="margin:0%"><strong>Tareas Asociadas:</strong></mat-card-subtitle>
-                <mat-card *ngFor="let interaction of program.interactions; let i = index;">
+                <mat-card *ngFor="let interaction of treatment.interactions; let i = index;">
                     <div *ngFor="let interactionDetail of interactions;">
                         <div *ngIf="interactionDetail._id == interaction._id">
                             <img style="width:60px; height:60px;" *ngIf="interactionDetail.image" src="{{interactionDetail.image | image}}" />
@@ -58,16 +58,22 @@
                                 <div>Tipo de Tarea:</div>
                                 <div>{{interaction.params.poll.type}}</div>
                             </div>
-                            <mat-form-field appearance="outline" style="max-width: 400px !important; float: left;">
-                                <mat-label>Iteracciones diarias</mat-label>
-                                <mat-select class="form-control" name="daytimes" [(ngModel)]="interaction.params.iterations">
-                                    <mat-option [value]="1">1</mat-option>
-                                    <mat-option [value]="2">2</mat-option>
-                                    <mat-option [value]="4">4</mat-option>
-                                    <mat-option [value]="8">8</mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                            <br>
+                            <div class="inputImitation"  style="max-width: 400px !important;">
+                                <div>Iteracciones diarias:</div>
+                                <div>{{interaction.params.iterations}}</div>
+                            </div>
+                            <div *ngIf="interaction.params.iterations==1" class="inputImitation"  style="max-width: 400px !important;">
+                                <div>Hora de activación:</div>
+                                <div>{{interaction.params.hour}}</div>
+                            </div>
+                            <div class="inputImitation"  style="width: calc(50% - 10px) !important; margin-right: 20px; float: left;">
+                                <div>Día de inicio:</div>
+                                <div>{{interaction.params.init}}</div>
+                            </div>
+                            <div class="inputImitation"  style="width: calc(50% - 20px) !important; float: left;">
+                                <div>Duración:</div>
+                                <div>{{interaction.params.long}}</div>
+                            </div>
                             <mat-form-field *ngIf="interaction.params.poll.type=='slider'" appearance="outline" style="width: calc(33% - 10px) !important; margin-right: 20px; float: left;">
                                 <mat-label>Repeticiones:</mat-label>
                                 <input matInput type="number" min="1" [(ngModel)]="interaction.params.repetitions">

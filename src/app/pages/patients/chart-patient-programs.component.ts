@@ -29,10 +29,8 @@ export class ChartPatientProgramsComponent implements OnInit {
  
   async getPolls(){
     await this.dataService.getData("/"+this.interaction).then((interaction: any) => {
-      console.log("INTER::", interaction)
       if(interaction.poll.type == 'slider'){
         this.programado.push(interaction.repetitions);
-        console.log("programado:", this.programado)
       }
      }); 
   } 

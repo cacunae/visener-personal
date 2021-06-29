@@ -31,8 +31,8 @@
             <mat-form-field appearance="fill" *ngIf="treatment.program">
                 <mat-label>Duración del Programa</mat-label>
                 <mat-date-range-input [rangePicker]="picker">
-                  <input matStartDate placeholder="Start date">
-                  <input matEndDate placeholder="End date">
+                    <input matStartDate [(ngModel)]="treatment.startDate" placeholder="Start date">
+                    <input matEndDate   [(ngModel)]="treatment.endDate" placeholder="End date">
                 </mat-date-range-input>
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-date-range-picker #picker></mat-date-range-picker>
@@ -42,7 +42,7 @@
                 <mat-card-subtitle style="margin:0%"><strong>Tareas Asociadas:</strong></mat-card-subtitle>
                 <div cdkDropList (cdkDropListDropped)="drop($event)">
                     <div cdkDrag *ngFor="let interaction of program.interactions; let i = index;" style="width: calc(100% - 20px); border: 1px solid #cccccc; background-color: #fdfdfd; border-radius: 5px; padding: 10px; margin: 5px 10px;">
-                        <app-interaction [interaction]="interaction" origin="add-program"></app-interaction>
+                        <app-interaction [interaction]="interaction._id" origin="add-program"></app-interaction>
                     </div>
                 </div>
             </div>
