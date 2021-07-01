@@ -34,7 +34,6 @@ export class DialogProgramComponent implements OnInit {
   }
 
   selectProgram(program: any){
-    console.log("PROGRAM::", program)
     this.program = program;
   }
 

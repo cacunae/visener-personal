@@ -325,7 +325,7 @@ mat-spinner, mat-spinner>svg {
 }
 
 .compressedPost{
-  height: 40px !important;
+  height: 60px !important;
   overflow-y: hidden;
   margin-top: 0px;
 }

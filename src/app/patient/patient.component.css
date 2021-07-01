@@ -8,6 +8,8 @@
   height: calc(100% - 5px);
   padding: 7px 5px 5px 5px;
   margin-left: 20px;
+  width: 100%;
+  max-width: 520px;
 }
 
 .content{
@@ -145,4 +147,8 @@
       display: none;
       visibility: hidden;
     }
+  }
+
+  mat-divider{
+    margin: 0px !important;
   }

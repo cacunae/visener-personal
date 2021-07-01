@@ -13,17 +13,19 @@ import { ValueConverter } from '@angular/compiler/src/render3/view/template';
   styleUrls: ['./patient.component.css']
 })
 export class PatientComponent implements OnInit {
-  public posts: any[] = [];
-  public treatments: any[] = [];
-  public comment: string = "";
-  public usuario: any;
-  public idPaciente: any;
-  id: any;
-  interaction: any;
-  todayDate: Date = new Date();
+  public posts:any[] = [];
+  public treatments:any[] = [];
+  public comment:string = "";
+  public usuario:any;
+  public idPaciente:any;
+  public loadingTreatments:boolean = false;
+
+  id:any;
+  interaction:any;
+  todayDate:Date = new Date();
   d = new Date();
   n = this.d.getDay();
-  day: any;
+  day:any;
 
   constructor(public http: HttpClient, public post: MatDialog, public dialog: MatDialog, public router: Router, public dataService: DataService) {
     if (!this.dataService.user?._id) {
@@ -65,7 +67,7 @@ export class PatientComponent implements OnInit {
 
   getPosts() {
     this.dataService.getData("/_design/view/_view/publications-by-patient?key=\"" + this.dataService.user._id + "\"&include_docs=true").then((posts: any) => {
-      this.posts = posts.rows.sort((a:any, b:any) => { return Number(b.doc.datetime) - Number(a.doc.datetime) });
+      this.posts = posts.rows.sort((a:any, b:any) => { return Number(a.doc.datetime) - Number(b.doc.datetime) });
       console.log("posts", posts);
       for (let index in this.posts) {
         this.posts[index].value = this.posts[index].doc;
@@ -93,44 +95,60 @@ export class PatientComponent implements OnInit {
   }
 
   async getTreatments() {
-    let tmpTreatments: any[];
+    this.loadingTreatments = true;
+    let tmpTreatments = [];
+    let now = moment().format("YYYYMMDD");
     await this.dataService.getData("/_design/view/_view/treatments-by-patient?key=\"" + this.dataService.user._id + "\"").then((treatments: any) => {
-      tmpTreatments = treatments.rows.sort((a, b) => { return Number(b.value.datetime) - Number(a.value.datetime) });
-    });
-    /* Validate by date and weekday */
-    let deleteItems: any[] = [];
-    for (let treatment of tmpTreatments) {
-      if (treatment.value.interactions) {
-        for (let interaction of treatment.value.interactions) {
-          await this.dataService.getData("/_design/view/_view/polls-by-interaction?key=[\"" + treatment.value._id + "\",\"" + interaction.interaction + "\",\"" + moment().format("YYYYMMDD") + "\"]").then((polls: any) => {
-            interaction.responses = polls.rows.length + 1;
-            if (polls.rows && polls.rows.length > 0) {
-              if ((interaction.poll.relation == 'series' && interaction.series == polls.rows.length) || (interaction.poll.relation == 'interaction' && polls.rows.length > 0)) {
-                interaction.poll.hide = true;
-                interaction.poll.areOk = true;
-              }else if ((interaction.poll.relation == 'series' && interaction.series <= polls.rows.length) || (interaction.poll.relation == 'interaction' && polls.rows.length > 0)) {
-                interaction.poll.hide = true;
-              }
-            }
-          });
+      for(let treatment of treatments.rows){
+        if(now >= moment(treatment.value.doc.startDate).format("YYYYMMDD") && now <= moment(treatment.value.doc.endDate).format("YYYYMMDD") && treatment.value.doc.interactions.length>0){
+          tmpTreatments.push(treatment.value.doc);
         }
       }
+      tmpTreatments = tmpTreatments.sort((a:any, b:any) => { return Number(b.datetime) - Number(a.datetime) });
+    });
+    for(let treatment of tmpTreatments){
+      for(let interaction of treatment.interactions){
+        await this.dataService.getData("/_design/view/_view/polls-by-interaction?key=[\"" + treatment._id + "\",\"" + interaction._id + "\",\"" + moment().format("YYYYMMDD") + "\"]").then((polls: any) => {
+          interaction.responses = polls.rows.length + 1;
+          console.log("interaction: type:" + interaction.params.poll.type + ", iterations:" + interaction.params.iterations + ", series:" + interaction.params.series + ", responses:" + polls.rows.length + ', condition:' + (interaction.params.poll.type!='slider' && interaction.params.iterations < polls.rows.length))
+          if (polls.rows && polls.rows.length > 0) {
+            if (interaction.params.poll.type=='slider' && interaction.params.series == polls.rows.length) {
+              interaction.params.poll.areOk = false;
+              interaction.params.poll.sliderQuestion = true;
+            }else if (interaction.params.poll.type=='slider' && interaction.params.series < polls.rows.length) {
+              interaction.params.poll.areOk = false;
+            }else if (interaction.params.poll.type != 'slider' && interaction.params.iterations <= polls.rows.length) {
+              interaction.params.poll.areOk = false;
+            }else{
+              interaction.params.poll.areOk = true;
+            }  
+          }else{
+            interaction.params.poll.areOk = true;
+          }
+        });
+
+        await this.dataService.getData("/" + interaction._id).then((response) => {
+          interaction.detail = response;
+        });
+      }
     }
+    console.log(tmpTreatments);
     this.treatments = tmpTreatments;
+    this.loadingTreatments = false;
   }
 
   responseInteraction(interaction: any, treatment: any) {
     let feedback = {
       entity: "poll", 
-      treatment: treatment.value._id, 
-      interaction: interaction.interaction, 
+      treatment: treatment._id, 
+      interaction: interaction.detail._id, 
       patient: this.dataService.user._id,
-      question: interaction.poll.question, 
-      slider: interaction.poll.slider, 
-      sliderend: interaction.poll.sliderend,
-      slidermax: interaction.repetitions, 
-      state: interaction.poll.state, 
-      yesno: interaction.poll.yesno, 
+      question: interaction.params.poll.question, 
+      slider: interaction.params.poll.slider, 
+      sliderend: interaction.params.poll.sliderend,
+      slidermax: interaction.params.poll.repetitions, 
+      state: interaction.params.poll.state, 
+      yesno: interaction.params.poll.yesno, 
       datetime: moment().format('YYYYMMDDHHmmss'), 
       date: moment().format('YYYYMMDD') 
     };
@@ -141,10 +159,11 @@ export class PatientComponent implements OnInit {
     });
   }
 
-  putPost(interaction: any) {
-    let post = { value: interaction.post };
-    post.value._id = interaction.interaction;
-    post.value.datetime = interaction.datetime;
+  async putPost(postId:string) {
+    let post:any = {};
+    await this.dataService.getData("/" + postId).then((response) => {
+      post = { value: response };
+    });
     if(this.posts[0].value._id !== post.value._id){
       this.posts.unshift(post);
       let index = 0;

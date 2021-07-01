@@ -108,7 +108,6 @@ export class AddProgramComponent implements OnInit {
       data: {text:'add-program'}
     });
     dialogRef.afterClosed().subscribe((result) => {
-      console.log("add-program::result", result);
       if(result){
         if(this.program.posts.findIndex((post:any) => post === result.value._id) < 0){
           this.program.posts.push(result.value._id);
