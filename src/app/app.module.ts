@@ -68,6 +68,7 @@ import { DialogAttachmentComponent } from './pages/dialog-attachment/dialog-atta
 import { DialogInteractionComponent } from './pages/dialog-interaction/dialog-interaction.component';
 import { CommentComponent } from './pages/dialog-comment/comment.component';
 import { PasswordComponent } from './pages/dialog-password/password.component';
+import { DisableComponent } from './pages/dialog-disable/disable.component';
 import { WeblogComponent } from './pages/dialog-weblog/weblog.component';
 import { GraphicsComponent } from './pages/graphics/graphics.component';
 
@@ -85,7 +86,7 @@ import { AddCompanyComponent } from './pages/companies/add-company.component';
 import { AddTreatmentComponent } from './pages/treatment/add-treatment.component';
 import { ChartPatientProgramsComponent } from './pages/patients/chart-patient-programs.component';
 import { ViewTreatmentsComponent } from './old-professional/view-treatments/view-treatments.component';
-
+import { EnableComponent } from './patient/enable.component';
 
 @NgModule({
   declarations: [
@@ -135,7 +136,9 @@ import { ViewTreatmentsComponent } from './old-professional/view-treatments/view
     AddCompanyComponent,
     AddTreatmentComponent,
     ChartPatientProgramsComponent,
-    ViewTreatmentsComponent
+    ViewTreatmentsComponent,
+    DisableComponent,
+    EnableComponent
   ],
   imports: [
     BrowserModule,

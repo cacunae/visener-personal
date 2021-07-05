@@ -44,7 +44,7 @@ export class ProgramsComponent implements OnInit {
     for(let program of tmpPrograms){
       let tmpPosts:any[] = []
       for(let post of program.value.posts){
-        await this.dataService.getData("/" + post).then((post:any) =>{
+        await this.dataService.getData("/" + post._id).then((post:any) =>{
           tmpPosts.push(post);
         });
       }

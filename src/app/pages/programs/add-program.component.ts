@@ -43,7 +43,7 @@ export class AddProgramComponent implements OnInit {
       });
       if (this.program.posts) {
         for(let post of this.program.posts)
-        await this.dataService.getData("/" + post).then((postDetail: any) => {
+        await this.dataService.getData("/" + post._id).then((postDetail: any) => {
           this.posts.push(postDetail);
         })
       }
@@ -110,7 +110,7 @@ export class AddProgramComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if(result){
         if(this.program.posts.findIndex((post:any) => post === result.value._id) < 0){
-          this.program.posts.push(result.value._id);
+          this.program.posts.push({_id: result.value._id, params:{init:1, long:1}});
           this.posts.push(result);
         }else{
           alert("El post seleccionado ya fue agregado anteriormente.")
@@ -126,7 +126,7 @@ export class AddProgramComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         if(this.program.interactions.findIndex((interaction:any) => interaction === result.value._id) < 0){
-          this.program.interactions.push({_id: result.value._id, params: {poll: result.value.poll, repetitions: result.value.repetitions, series:result.value.series, rest:result.value.rest}});
+          this.program.interactions.push({_id: result.value._id, params: {poll: result.value.poll, repetitions: result.value.repetitions, series:result.value.series, rest:result.value.rest, init:1, long:1}});
           this.interactions.push(result.value);
         }else{
           alert("La tarea seleccionada ya fue agregada anteriormente.")

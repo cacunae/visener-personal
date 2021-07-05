@@ -16,7 +16,7 @@ export class PatientComponent implements OnInit {
   public posts:any[] = [];
   public treatments:any[] = [];
   public comment:string = "";
-  public usuario:any;
+  public user:any;
   public idPaciente:any;
   public loadingTreatments:boolean = false;
 
@@ -28,10 +28,11 @@ export class PatientComponent implements OnInit {
   day:any;
 
   constructor(public http: HttpClient, public post: MatDialog, public dialog: MatDialog, public router: Router, public dataService: DataService) {
+    moment.locale('es');
     if (!this.dataService.user?._id) {
       this.router.navigateByUrl("/login");
     } else {
-      this.usuario = this.dataService.user;
+      this.user = this.dataService.user;
       switch (new Date().getDay()) {
         case 1: this.day = "Lunes"; break;
         case 2: this.day = "Martes"; break;
@@ -68,7 +69,6 @@ export class PatientComponent implements OnInit {
   getPosts() {
     this.dataService.getData("/_design/view/_view/publications-by-patient?key=\"" + this.dataService.user._id + "\"&include_docs=true").then((posts: any) => {
       this.posts = posts.rows.sort((a:any, b:any) => { return Number(a.doc.datetime) - Number(b.doc.datetime) });
-      console.log("posts", posts);
       for (let index in this.posts) {
         this.posts[index].value = this.posts[index].doc;
         this.dataService.getData("/_design/view/_view/like-by-post?key=\"" + this.posts[index].value._id + "\"").then((likes: any) => {
@@ -110,7 +110,6 @@ export class PatientComponent implements OnInit {
       for(let interaction of treatment.interactions){
         await this.dataService.getData("/_design/view/_view/polls-by-interaction?key=[\"" + treatment._id + "\",\"" + interaction._id + "\",\"" + moment().format("YYYYMMDD") + "\"]").then((polls: any) => {
           interaction.responses = polls.rows.length + 1;
-          console.log("interaction: type:" + interaction.params.poll.type + ", iterations:" + interaction.params.iterations + ", series:" + interaction.params.series + ", responses:" + polls.rows.length + ', condition:' + (interaction.params.poll.type!='slider' && interaction.params.iterations < polls.rows.length))
           if (polls.rows && polls.rows.length > 0) {
             if (interaction.params.poll.type=='slider' && interaction.params.series == polls.rows.length) {
               interaction.params.poll.areOk = false;
@@ -127,12 +126,16 @@ export class PatientComponent implements OnInit {
           }
         });
 
+        /* Elimina aquellas tareas que no sean de este día particular */
         await this.dataService.getData("/" + interaction._id).then((response) => {
           interaction.detail = response;
+          if(interaction.detail.weekdays.findIndex((day:string) => day.toLowerCase().replace('é', 'e') === moment().format('dddd') ) < 0){
+            console.log("busca " + moment().format('dddd') + " en ", interaction.detail.weekdays);
+            interaction.params.poll.areOk = false;
+          }
         });
       }
     }
-    console.log(tmpTreatments);
     this.treatments = tmpTreatments;
     this.loadingTreatments = false;
   }

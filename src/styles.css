@@ -345,3 +345,10 @@ mat-spinner, mat-spinner>svg {
   margin-top: 1px !important;
   font-size: 22px !important;
 }
+
+.disabled{
+  text-decoration: line-through rgba(0,0,0,.26);
+}
+.disabled>td{
+  color:rgba(0,0,0,.26) !important;
+}

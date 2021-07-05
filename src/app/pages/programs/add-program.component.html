@@ -29,7 +29,15 @@
                 <mat-card-subtitle style="margin:0%"><strong>Post Asociados:</strong></mat-card-subtitle>
                 <div cdkDropList (cdkDropListDropped)="drop2($event)">
                     <div cdkDrag *ngFor="let post of program.posts; let i = index;">
-                        <app-post [postId]="post" [resizable]="true" [removable]="true" (event)="delPost(i)"></app-post>
+                        <app-post [postId]="post._id" [resizable]="true" [removable]="true" (event)="delPost(i)"></app-post>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Día de inicio:</mat-label>
+                            <input matInput type="number" min="1" [(ngModel)]="post.params.init">
+                        </mat-form-field>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Duración:</mat-label>
+                            <input matInput type="number" min="1" [(ngModel)]="post.params.long">
+                        </mat-form-field>
                     </div>
                 </div>
             </div>

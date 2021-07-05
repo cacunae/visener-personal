@@ -1,17 +1,17 @@
-<mat-toolbar color="primary">
+<mat-toolbar *ngIf="user.state=='enabled'" color="primary">
   <mat-toolbar-row>
     <button mat-button (click)="popup()">
       <mat-icon>menu</mat-icon>
     </button>&nbsp;
     <span>Visener</span>
-    <span>&nbsp;{{usuario.name}}</span>
+    <span>&nbsp;{{user.name}}</span>
     <span class="spacer"></span>
     <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
       <mat-icon>share</mat-icon>
     </button>
   </mat-toolbar-row>
 </mat-toolbar>
-<div class="content" role="main">
+<div *ngIf="user.state=='enabled'" class="content" role="main">
   <div class="column">
     <mat-card class="treatments">
       <mat-card-title class="titleTareas">Mis tareas</mat-card-title>
@@ -85,6 +85,8 @@
     <app-post *ngFor="let post of posts" [post]="post" [feedback]="true"></app-post>
   </div>
 </div>
-
 <router-outlet></router-outlet>
 <mat-menu #menu="matMenu"></mat-menu>
+<div *ngIf="user.state=='disabled'">
+  <app-enable></app-enable>
+</div>

@@ -1,0 +1,24 @@
+<h1 mat-dialog-title>Deshabilitar Usuario</h1>
+<div mat-dialog-content>
+
+  <form *ngIf="enabled" [formGroup]="angForm" novalidate>
+    <p style="color:red;font-size:11px">Si está seguro de deshabilitar su usuario, escriba su password y presione el botón Deshabilitar.</p><br>
+    <mat-form-field class="mat-form" appearance="outline" >
+      <mat-label>Contraseña actual</mat-label>
+      <input matInput [type]="hide ? 'password' : 'text'" name="passwordActual" formControlName="passwordActual" [(ngModel)]="passwordActual" required>
+      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+  </form>
+  <div *ngIf="!enabled">
+    Si desea volver a habilitar su usuario, tiene plazo hasta el {{limitDate}} para volver a ingresar y confirmar su habilitación.
+    <br>
+    En estos momentos su cuenta ha sido deshabilitada.
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button *ngIf="enabled" mat-stroked-button (click)="onNoClick()">Cancelar</button>
+  <button *ngIf="enabled" mat-raised-button type="submit" color="primary" (click)="deshabilitar()">Deshabilitar</button>
+  <button *ngIf="!enabled" mat-raised-button color="primary" (click)="salir()">Salir</button>
+</div>

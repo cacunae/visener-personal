@@ -21,17 +21,17 @@
             <ng-container matColumnDef="actions">
                 <th mat-header-cell *matHeaderCellDef>Acciones</th>
                 <td mat-cell *matCellDef="let element">
-                    <button mat-icon-button routerLink="/professional/upd-patient/{{element.value._id}}" routerLinkActive="false">
+                    <button mat-icon-button routerLink="/professional/upd-patient/{{element.value._id}}" [disabled]="element.value.state" routerLinkActive="false">
                         <mat-icon>edit</mat-icon>
                     </button>
-                    <button mat-icon-button (click)="delPatient(element)">
+                    <button mat-icon-button (click)="delPatient(element)" [disabled]="element.value.state">
                         <mat-icon>delete</mat-icon>
                     </button>
                 </td>
             </ng-container>
         </div>
         <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-        <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="example-element-row example-element-row-border"></tr>
+        <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" [class.disabled]="element.value.state" class="example-element-row example-element-row-border"></tr>
     </table>
     <mat-paginator class="mat-elevation-z8" style="width: 100%;" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
 
