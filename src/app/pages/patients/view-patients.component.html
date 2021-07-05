@@ -1,0 +1,58 @@
+<div class="contentPDF" role="main">
+        <mat-card>
+            <div id="htmlData">
+            <br>
+            <mat-card-title style="text-align: center; margin:0%;">Detalles del Paciente</mat-card-title><br>
+            <div style="margin-left:10px;">
+                <mat-card-subtitle style="margin:0%;">INFORMACIÓN DEL PACIENTE:</mat-card-subtitle>
+                <p style="margin:0%;">Nombre Paciente: {{patients.name}} </p>
+                <p style="margin:0%;">Correo Electrónico: {{patients.username}} </p>
+                <p style="margin:0%;">Empresa: {{patients.company}} </p>
+            </div>
+            <br>
+            <div style="margin-left:10px;">
+                <mat-card-subtitle style="margin:0%;">PROFESIONALES ASOCIADOS:</mat-card-subtitle>
+                <div *ngFor="let professional of professional">
+                    <p style="margin:0%;">- {{professional}} </p>
+                </div>
+            </div>
+            <div style="margin-left:10px" *ngIf="!idProfessional">
+                <i>No hay Profesionales Asociados</i>
+            </div>
+            <br>
+            <div style="margin-left:10px">
+                <mat-card-subtitle style="margin:0%;">PROGRAMAS:</mat-card-subtitle>
+                <div *ngFor="let program of programs">
+                    <p style="margin:0%;">- {{program}}</p>
+                </div>
+                <div *ngIf="programsDel">
+                    <div *ngFor="let program of programsDel">
+                        <p style="margin:0%;">- {{program}} </p>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-left:10px" *ngIf="!state">
+                <i>No hay Programas Asociados</i>
+            </div>
+            <br>
+            <div style="margin-left:10px;">
+                <mat-card-subtitle style="margin:0%;">POST:</mat-card-subtitle>
+                <div *ngFor="let post of post">
+                    <h3 style="margin:0%;">{{post}}</h3>
+                    <div *ngIf="text">
+                        <h5 *ngIf="text" style="margin:0%;">Comentarios realizados:</h5>
+                        <a style="margin-left:10px;">- {{text}} </a>
+                    </div>
+                    <br>
+                </div>
+            </div>
+            <div style="margin-left:10px" *ngIf="!idPost">
+                <i>No hay posts Asociados</i>
+            </div>
+        </div>
+    </mat-card>
+<div style="text-align: center;">
+    <button mat-raised-button color="primary" class="btn btn-success btn-block" (click)="openPDF()">Descargar PDF</button>&nbsp;&nbsp;&nbsp;
+    <button class="desktop buttontop" mat-raised-button type="submit" color="primary" routerLink="/professional/patients" routerLinkActive="false">Volver</button>
+</div>
+</div>

@@ -1,0 +1,12 @@
+.contentPDF {
+    display: flex;
+    padding: 16px;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: calc(100% - 64px);
+    overflow: scroll;
+    max-width: 800px;
+    margin: auto;
+    margin-bottom: 20px;
+}
