@@ -68,10 +68,10 @@ export class ProgramsComponent implements OnInit {
   }
 
   delProgram(element: any) {
-    if(confirm("¿Estás seguro de eliminar la Tarea " + element.value.title + "?\nEsta acción no podrá deshacerse.")) {
+    if(confirm("¿Estás seguro de eliminar el programa " + element.value.title + "?\nEsta acción no podrá deshacerse.")) {
       this.dataService.deleteById(element.value._id + "?rev=" + element.value._rev).then(() => {
         this.snackBar.open('Programa eliminado correctamente', 'OK', {duration: 5000});
-        location.reload();
+        this.getPrograms();
       });
     }
   }
