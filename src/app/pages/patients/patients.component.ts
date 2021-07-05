@@ -4,7 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { DataService, patientsTable } from 'src/app/services/data.service';
-import { DialogDelPatientsComponent } from './dialog-del-patients/dialog-del-patients.component';
+import { DialogDelPatientsComponent } from './dialog-del-patients.component';
 
 @Component({
   selector: 'app-patients',

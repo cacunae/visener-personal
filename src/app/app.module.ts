@@ -48,7 +48,7 @@ import { TreatmentComponent } from './pages/treatment/treatment.component';
 import { PatientsComponent } from './pages/patients/patients.component';
 import { AddPatientComponent } from './pages/patients/add-patient.component';
 import { AssociatedPatientsComponent } from './pages/patients/asc-patients.component';
-import { DialogDelPatientsComponent } from './pages/patients/dialog-del-patients/dialog-del-patients.component';
+import { DialogDelPatientsComponent } from './pages/patients/dialog-del-patients.component';
 import { DetPatientComponent } from './pages/patients/det-patient.component';
 import { ViewPatientsComponent } from './pages/patients/view-patients.component';
 import { ProfessionalsComponent } from './pages/professionals/professionals.component';

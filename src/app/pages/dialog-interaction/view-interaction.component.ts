@@ -5,8 +5,7 @@ import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-view-interaction',
-  templateUrl: './view-interaction.component.html',
-  styleUrls: ['./view-interaction.component.css']
+  templateUrl: './view-interaction.component.html'
 })
 export class ViewInteractionComponent implements OnInit {
   public interactions:any[] = [];
