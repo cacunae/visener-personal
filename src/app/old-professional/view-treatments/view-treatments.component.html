@@ -7,6 +7,6 @@
   <div *ngFor="let program of programs">
       <app-dialog-program *ngIf="({program:program.value.title+program.value.subtitle+program.value.content, search:search} | programFilter)"
           [program]="program" [resizable]="true" [selectable]="true" [feedback]="false">
-      </app-dialog-program> 
+      </app-dialog-program> <br>
   </div>
 </div>

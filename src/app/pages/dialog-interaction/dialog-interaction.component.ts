@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {MatDialogRef} from '@angular/material/dialog';
 import { DataService } from '../../services/data.service';
 
@@ -10,24 +10,32 @@ import { DataService } from '../../services/data.service';
 
 export class DialogInteractionComponent implements OnInit {
   public data:any = {selection:null};
-  public interactions:any;
+  @Input() interaction:any;
+  @Input() interactionId:string;
+  @Input() resizable:boolean;
+  @Input() selectable:boolean;
+  @Input() removable:boolean;
+  @Input() multiple:boolean;
+  @Input() feedback:boolean;
+  public compressed:any = false;
   public search="";
 
   constructor(public dataService: DataService, public dialogRef: MatDialogRef<DialogInteractionComponent>) {
-    this.dataService.getData("/_design/view/_view/interactions").then((interactions:any) =>{
-      this.interactions = interactions.rows.sort((a:any, b:any)=>{ return Number(b.value.subtitle) - Number(a.value.subtitle)});
-    });
   }
 
   ngOnInit(): void {
+    if(this.resizable){
+      this.compressed = true;
+    }
   }
 
   select(interaction:any){
-    if(this.data.selection == interaction){
+   /* if(this.data.selection == interaction){
       this.data.selection = null;
     }else{
       this.data.selection = interaction;
-    }
+    }*/
+    console.log("INTERACTION:", interaction)
   }
 
 

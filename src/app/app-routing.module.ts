@@ -25,6 +25,7 @@ import { AscProgramComponent } from './pages/programs/asc-program.component';
 import { CompaniesComponent } from './pages/companies/companies.component';
 import { AddCompanyComponent } from './pages/companies/add-company.component';
 import { AddTreatmentComponent } from './pages/treatment/add-treatment.component';
+import { ViewPatientsComponent } from './pages/patients/view-patients.component';
 
 const routes: Routes = [
   { path: "", component: LoginComponent, pathMatch: "full" },
@@ -36,6 +37,7 @@ const routes: Routes = [
       { path: "add-patient", component: AddPatientComponent, canActivate: [RoleGuard]},
       { path: "upd-patient/:id", component: AddPatientComponent, canActivate: [RoleGuard]},
       { path: "asc-patients", component: AssociatedPatientsComponent, canActivate: [RoleGuard]},
+      { path: "view-patient/:id", component: ViewPatientsComponent},
       { path: "det-patient/:id", component: DetPatientComponent, canActivate: [RoleGuard]},
       { path: "professionals", component: ProfessionalsComponent, canActivate: [RoleGuard]},
       { path: "add-professional", component: AddProfessionalComponent, canActivate: [RoleGuard]},

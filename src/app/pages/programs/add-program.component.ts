@@ -9,6 +9,7 @@ import { DialogInteractionComponent } from '../dialog-interaction/dialog-interac
 import { ViewPostsComponent } from 'src/app/old-professional/view-posts/view-posts.component';
 import { DataService } from 'src/app/services/data.service';
 import * as moment from 'moment';
+import { ViewInteractionComponent } from '../dialog-interaction/view-interaction.component';
 
 @Component({
   selector: 'app-add-programs',
@@ -120,7 +121,7 @@ export class AddProgramComponent implements OnInit {
   }
 
   newInteraction() {
-    const dialogRef = this.dialog.open(DialogInteractionComponent, {
+    const dialogRef = this.dialog.open(ViewInteractionComponent, {
       width: '520px'
     });
     dialogRef.afterClosed().subscribe((result) => {

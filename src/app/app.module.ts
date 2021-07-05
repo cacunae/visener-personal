@@ -48,7 +48,9 @@ import { TreatmentComponent } from './pages/treatment/treatment.component';
 import { PatientsComponent } from './pages/patients/patients.component';
 import { AddPatientComponent } from './pages/patients/add-patient.component';
 import { AssociatedPatientsComponent } from './pages/patients/asc-patients.component';
+import { DialogDelPatientsComponent } from './pages/patients/dialog-del-patients/dialog-del-patients.component';
 import { DetPatientComponent } from './pages/patients/det-patient.component';
+import { ViewPatientsComponent } from './pages/patients/view-patients.component';
 import { ProfessionalsComponent } from './pages/professionals/professionals.component';
 import { AddProfessionalComponent } from './pages/professionals/add-professional.component';
 import { InteractionsComponent } from './pages/interactions/interactions.component';
@@ -86,6 +88,7 @@ import { AddCompanyComponent } from './pages/companies/add-company.component';
 import { AddTreatmentComponent } from './pages/treatment/add-treatment.component';
 import { ChartPatientProgramsComponent } from './pages/patients/chart-patient-programs.component';
 import { ViewTreatmentsComponent } from './old-professional/view-treatments/view-treatments.component';
+import { ViewInteractionComponent } from './pages/dialog-interaction/view-interaction.component';
 import { EnableComponent } from './patient/enable.component';
 
 @NgModule({
@@ -138,7 +141,10 @@ import { EnableComponent } from './patient/enable.component';
     ChartPatientProgramsComponent,
     ViewTreatmentsComponent,
     DisableComponent,
-    EnableComponent
+    EnableComponent,
+    ViewInteractionComponent,
+    DialogDelPatientsComponent,
+    ViewPatientsComponent
   ],
   imports: [
     BrowserModule,

@@ -1,18 +1,43 @@
-<h1 mat-dialog-title>Seleccione sus tareas</h1>
-<div>
-  <input type="text" [(ngModel)]="search" placeholder="Ingrese las palabras a buscar..."
-      style="font-size: 14px; width: 100%; background-color: #fdfdfd; border: 1px solid #ccc; padding: 5px 10px; outline: none; border-radius: 15px; margin-bottom: 5px;" />
+<mat-card *ngIf="interaction && interaction.value" [class.compressedPost]="compressed">
+  <button class="compressedBtn" color="primary" (click)="compressed = !compressed">
+    <mat-icon *ngIf="compressed" style="margin-top:7px; font-size: 14px;">expand_more</mat-icon>
+    <mat-icon *ngIf="!compressed" style="margin-top:7px; font-size: 14px;">expand_less</mat-icon>
+  </button>
+  <button *ngIf="removable" (click)="clickEvent()" class="compressedBtn" color="primary">
+    <mat-icon style="margin-top:7px; font-size: 14px;">remove</mat-icon>
+  </button>
+  <mat-card-title *ngIf="interaction.value.title">{{interaction.value.title}}</mat-card-title>
+  <mat-card-subtitle *ngIf="interaction.value.subtitle">{{interaction.value.subtitle}}</mat-card-subtitle>
+  <mat-card-content>
+    <img style="width:60px; height:60px;" (click)="putPost(interaction)" *ngIf="interaction.value.image" src="{{interaction.value.image | image}}/" /><br class="desktop">
+    <button *ngIf="interaction" mat-raised-button class="cellphone" color="primary"><mat-icon>send</mat-icon></button>
+    <button *ngIf="!interaction" mat-raised-button class="cellphone" color="primary"><mat-icon>send</mat-icon></button>
+    <mat-card-subtitle class="cellphone">{{interaction.value.subtitle}} ({{interaction.value.responses}}/{{interaction.series}})</mat-card-subtitle>
+    <div class="cellphone" *ngIf="interaction.value.poll && interaction.value.poll.type=='slider'">
+    Series: {{interaction.value.series}}<br class="desktop">
+    Repetición: {{interaction.value.repetitions}}<br class="desktop">
+    Descanso: {{interaction.value.rest}}<br class="desktop"><br>
+    </div>
+    <div class="desktop">
+    Series: {{interaction.value.series}}<br class="desktop">
+    Repetición: {{interaction.value.repetitions}}<br class="desktop">
+    Descanso: {{interaction.value.rest}}<br class="desktop"><br>
+    </div>
+    <mat-card-subtitle style="margin-bottom: 1px;" *ngIf="interaction.value.poll && interaction.value.poll.type!=='slider'" >{{interaction.value.poll.question}}</mat-card-subtitle>
+    <mat-slider thumbLabel [(ngModel)]="interaction.value.poll.slider" *ngIf="interaction.value.poll && interaction.value.poll.type=='slider'" min="{{interaction.value.poll.min}}" max="{{interaction.value.repetitions}}" step="1" tickInterval="0" value="0"></mat-slider>
+    <mat-button-toggle-group [(ngModel)]="interaction.value.poll.state" *ngIf="interaction.value.poll && interaction.value.poll.type=='state'">
+    <mat-button-toggle value="good"><mat-icon>sentiment_satisfied</mat-icon></mat-button-toggle>
+    <mat-button-toggle value="neutral"><mat-icon>sentiment_neutral</mat-icon></mat-button-toggle>
+    <mat-button-toggle value="bad"><mat-icon>sentiment_dissatisfied</mat-icon></mat-button-toggle>
+    </mat-button-toggle-group>
+    <mat-button-toggle-group [(ngModel)]="interaction.value.poll.yesno" *ngIf="interaction.value.poll && interaction.value.poll.type=='yesno'">
+    <mat-button-toggle value="good"><mat-icon>thumb_up</mat-icon></mat-button-toggle>
+    <mat-button-toggle value="neutral"><mat-icon>thumb_down</mat-icon></mat-button-toggle>
+    </mat-button-toggle-group>
+</mat-card-content>
   <br>
-</div>
-<div mat-dialog-content text-align-center>
-    <div *ngFor="let interaction of interactions" >
-      <div *ngIf="({interaction:interaction.value.title, search:search} | interactionFilter)" [className]="interaction==data.selection ? 'thumbnail selected' : 'thumbnail'" (click)="select(interaction)" class="thumbnailcontainer">
-        <img *ngIf="interaction.value && interaction.value.image"  style="width: 100%;" src="{{interaction.value.image | image}}" />
-        <div style="margin-top: -5px;" [className]="interaction.value._id==data.selection ? 'thumbnail selected' : 'thumbnail'">{{interaction.value.title}} </div> 
-      </div>
-    </div>   
-</div>
-<div mat-dialog-actions>
-  <button mat-stroked-button (click)="onNoClick()">Cancelar</button>
-  <button mat-raised-button color="primary" [mat-dialog-close]="data.selection" cdkFocusInitial>Seleccionar</button>
-</div>
+  <div style="text-align: center;">
+    <button mat-raised-button color="primary" [mat-dialog-close]="interaction" (click)="select(interaction)">Seleccionar
+      Programa</button>
+  </div>
+</mat-card>

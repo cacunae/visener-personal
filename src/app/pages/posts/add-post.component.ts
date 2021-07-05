@@ -30,6 +30,7 @@ export class AddPostComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loading = false;
     if (this.id) {
       this.dataService.getData("/" + this.id).then((result: any) => {
         this.post = result;

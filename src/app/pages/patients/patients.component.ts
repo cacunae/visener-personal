@@ -1,8 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { DataService, patientsTable } from 'src/app/services/data.service';
+import { DialogDelPatientsComponent } from './dialog-del-patients/dialog-del-patients.component';
 
 @Component({
   selector: 'app-patients',
@@ -17,7 +19,7 @@ export class PatientsComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(public snackBar: MatSnackBar, private dataService: DataService) { }
+  constructor(public snackBar: MatSnackBar, private dataService: DataService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.getPatients();
@@ -31,6 +33,36 @@ export class PatientsComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
       this.loading = false;
     }); 
+  }
+
+  delPatient1(element: any){
+    this.dataService.getData("/_design/view/_view/relations-by-patient?key=\""+element.value._id+"\"&include_docs=true").then((professionals: any) => {
+      if(professionals.rows){
+        for(let professional of professionals.rows){
+          console.log("proff::", professional)
+          this.dataService.deleteById(professional.value.doc._id + "?rev=" + professional.value.doc._rev);
+          this.dataService.deleteById(element.value._id + "?rev=" + element.value._rev);
+        } 
+      }
+      this.dataService.getData("/_design/view/_view/treatments-by-patient?key=\""+element.value._id+"\"&include_docs=true").then((treatments: any) => {
+        if(treatments.rows){
+          for(let treatment of treatments.rows){
+            console.log("treatments:", treatment.value.doc._id, treatment.value.doc._rev)
+            this.dataService.deleteById(treatment.value.doc._id + "?rev=" + treatment.value.doc._rev);
+          }
+        }
+        this.dataService.getData("/_design/view/_view/feedback-by-user?key=\""+element.value._id+"\"&include_docs=true").then((comments: any) => {
+          if(comments.rows){
+            for(let comment of comments.rows){
+              console.log("comments:", comment)
+              this.dataService.deleteById(comment.value._id + "?rev=" + comment.value._rev)
+            }
+          }
+        })
+      })
+      alert("Paciente Eliminado Correctamente");
+      this.getPatients();
+    })  
   }
 
   delPatient(element: any) {
@@ -52,5 +84,11 @@ export class PatientsComponent implements OnInit {
 
   buscar(){
     alert("buscando" );
+  }
+
+  eliminar() {
+    const dialogRef = this.dialog.open(DialogDelPatientsComponent, {
+      width: '500px',
+    });
   }
 }
