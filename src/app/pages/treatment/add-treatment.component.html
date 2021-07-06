@@ -101,7 +101,7 @@
                 <mat-card-subtitle style="margin:0%"><strong>Post Asociados:</strong></mat-card-subtitle>
                 <div>
                     <div *ngFor="let post of program.posts; let i = index;">
-                        <app-post [postId]="post" [resizable]="true"></app-post>
+                        <app-post [postId]="post._id" [resizable]="true"></app-post>
                     </div>
                 </div>
             </div>

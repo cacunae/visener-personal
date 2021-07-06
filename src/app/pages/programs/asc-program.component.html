@@ -1,10 +1,10 @@
-<app-header title="Programas" [backLink]="'/professional/asc-patients'" [event]="true" (rightEvent)="publicar()" [rightText]="'Guardar'"></app-header>
+<app-header title="Tratamientos" [backLink]="'/professional/asc-patients'" [event]="true" (rightEvent)="publicar()" [rightText]="'Guardar'"></app-header>
 <div class="content" role="main">
     <mat-card>
-        <mat-card-title *ngIf="!id">Crear Programa</mat-card-title>
-        <mat-card-title *ngIf="id">Actualizar Programa</mat-card-title>
-        <mat-card-subtitle *ngIf="!id">Aquí podrás agregar un programa nuevo:</mat-card-subtitle>
-        <mat-card-subtitle *ngIf="id">Aquí podrás actualizar un programa:</mat-card-subtitle>
+        <mat-card-title *ngIf="!id">Crear Tratamiento</mat-card-title>
+        <mat-card-title *ngIf="id">Actualizar Tratamiento</mat-card-title>
+        <mat-card-subtitle *ngIf="!id">Aquí podrás agregar un tratamiento nuevo:</mat-card-subtitle>
+        <mat-card-subtitle *ngIf="id">Aquí podrás actualizar un tratamiento:</mat-card-subtitle>
         <div *ngIf="!loading">
             <div class="inputImitation" *ngIf="patient">
                 <div>Nombre del Paciente:</div>
@@ -51,8 +51,8 @@
     <mat-spinner *ngIf="loading"></mat-spinner>
     <div class="desktopbuttons">
         <button mat-raised-button routerLink="/professional/asc-patients" routerLinkActive="false">Cancelar</button>&nbsp;&nbsp;&nbsp;
-        <button mat-raised-button *ngIf="!id" color="primary" (click)="publicar()">Asociar Programa</button>
-        <button mat-raised-button *ngIf="id" color="primary" (click)="publicar()">Actualizar Programa</button>
+        <button mat-raised-button *ngIf="!id" color="primary" (click)="publicar()">Asociar Tratamiento</button>
+        <button mat-raised-button *ngIf="id" color="primary" (click)="publicar()">Actualizar Tratamiento</button>
     </div>
 
 </div>
