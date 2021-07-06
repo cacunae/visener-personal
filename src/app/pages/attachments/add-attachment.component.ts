@@ -35,7 +35,7 @@ export class AddAttachmentComponent implements OnInit {
       this.dataService.postData(this.attachment).then((result: any) => {
         let headers = new HttpHeaders().set("If-Match", result.rev);
         this.http.put(this.dataService.databaseAPI + "/" + result.id + "/" + this.attachment.entity, file, { headers: headers}).subscribe((result2) => {
-          if(this.attachment == "image"){
+          if(this.attachment.entity == "image"){
             this.snackBar.open('Imagen publicada correctamente', 'OK', {duration: 3000});
           }else{
             this.snackBar.open('Video publicado correctamente', 'OK', {duration: 3000});
@@ -52,7 +52,7 @@ export class AddAttachmentComponent implements OnInit {
         this.dataService.postData(this.attachment).then((result: any) => {
           let headers = new HttpHeaders().set("If-Match", result.rev);
           this.http.put(this.dataService.databaseAPI + "/" + result.id + "/" + this.attachment.entity, file, { headers: headers}).subscribe((result2) => {
-            if(this.attachment == "image"){
+            if(this.attachment.entity == "image"){
               this.snackBar.open('Imagen publicada correctamente', 'OK', {duration: 3000});
             }else{
               this.snackBar.open('Video publicado correctamente', 'OK', {duration: 3000});
@@ -64,7 +64,7 @@ export class AddAttachmentComponent implements OnInit {
       }
     }else if(this.attachment._id){
       this.dataService.postData(this.attachment).then((result: any) => {
-        if(this.attachment == "image"){
+        if(this.attachment.entity == "image"){
           this.snackBar.open('Imagen publicada correctamente', 'OK', {duration: 3000});
         }else{
           this.snackBar.open('Video publicado correctamente', 'OK', {duration: 3000});

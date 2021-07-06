@@ -50,7 +50,7 @@ export class PostsComponent implements OnInit {
       element.value.state = "deleted";
       this.loading = true;
       this.dataService.postData(element.value).then(() => {
-        this.snackBar.open('Tarea eliminada correctamente', 'OK', {duration: 5000});
+        this.snackBar.open('Post eliminada correctamente', 'OK', {duration: 5000});
         this.loading = false;
         this.getPosts();
       });
