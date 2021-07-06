@@ -14,7 +14,7 @@ import { HttpClient } from '@angular/common/http';
 })
 
 export class DialogProgramComponent implements OnInit {
-  @Input() program:any;
+  @Input() program:any = {};
   @Input() postId:string;
   @Input() resizable:boolean;
   @Input() selectable:boolean;
@@ -22,6 +22,7 @@ export class DialogProgramComponent implements OnInit {
   @Input() multiple:boolean;
   @Input() feedback:boolean;
   @Output() event = new EventEmitter<string>();
+  public posts: any[] = [];
   public compressed:any = false;
 
   constructor(public dialog: MatDialog, public http: HttpClient, public dataService: DataService) {
@@ -30,6 +31,7 @@ export class DialogProgramComponent implements OnInit {
   ngOnInit(): void {
     if(this.resizable){
       this.compressed = true;
+      this.posts = this.program.value.posts;
     }
   }
 

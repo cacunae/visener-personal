@@ -3,8 +3,8 @@
     <mat-icon *ngIf="compressed" style="margin-top:7px; font-size: 14px;">expand_more</mat-icon>
     <mat-icon *ngIf="!compressed" style="margin-top:7px; font-size: 14px;">expand_less</mat-icon>
   </button>
-  <mat-card-title>Gráfica</mat-card-title>
-  <div style="display: block">
+  <mat-card-title style="margin-bottom:5%;">Gráfica</mat-card-title>
+  <div style="display: block;">
     <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend" [chartType]="barChartType">
     </canvas>
   </div>
