@@ -12,7 +12,7 @@ import { Md5 } from 'ts-md5';
   templateUrl: './add-patient.component.html'
 })
 export class AddPatientComponent implements OnInit {
-  public patient:any = { entity: "patient", name: "", username: "", password: "" };
+  public patient:any = { entity: "patient", name: "", username: "", password: "", state: "enabled" };
   public companies:any[] = [];
   public hide = true;
   public angForm: FormGroup;

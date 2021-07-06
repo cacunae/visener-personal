@@ -6,7 +6,7 @@
     <button *ngIf="removable" (click)="clickEvent()" class="compressedBtn" color="primary">
         <mat-icon style="margin-top:7px; font-size: 14px;">remove</mat-icon>
     </button>
-    <mat-card-title style="margin-bottom:0%!important;" *ngIf="interaction.title">{{interaction.title}}</mat-card-title>
+    <mat-card-title [class.compressedPost]="compressed" style="margin-bottom:0%!important;" *ngIf="interaction.title">{{interaction.title}}</mat-card-title>
     <div *ngIf="interaction.poll && interaction.poll.type=='slider'">
         <mat-card-subtitle class="desktop">{{interaction.subtitle}}</mat-card-subtitle>
         <mat-card-content>

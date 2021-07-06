@@ -6,10 +6,16 @@
     <button *ngIf="removable" (click)="clickEvent()" class="compressedBtn" color="primary">
         <mat-icon style="margin-top:7px; font-size: 14px;">remove</mat-icon>
     </button>
-    <mat-card-subtitle *ngIf="post.value.subtitle" style="float:right; color:#a0a0a0; font-size: 12px;">
+    <button *ngIf="compressed && selectable" class="compressedBtn" color="primary" [mat-dialog-close]="post">
+        <mat-icon *ngIf="compressed" style="margin-top:7px; font-size: 14px;">add</mat-icon>
+    </button>
+    <button *ngIf="compressed && multiple" class="compressedBtn" color="primary" (click)="selectPost(post)">
+        <mat-icon *ngIf="compressed" style="margin-top:7px; font-size: 14px;">add</mat-icon>
+    </button>
+    <mat-card-subtitle *ngIf="!compressed" style="float:right; color:#a0a0a0; font-size: 12px;">
         {{post.value.datetime | fechaFormateada}}
     </mat-card-subtitle>
-    <mat-card-title *ngIf="post.value.title">{{post.value.title}}</mat-card-title>
+    <mat-card-title [class.compressedPost]="compressed" *ngIf="post.value.title">{{post.value.title}}</mat-card-title>
     <mat-card-subtitle *ngIf="post.value.subtitle">{{post.value.subtitle}}</mat-card-subtitle>
     <img mat-card-image *ngIf="post.value.image" src="{{post.value.image | image}}" />
     <video mat-card-image controls preload="auto" *ngIf="post.value.video">
