@@ -20,7 +20,10 @@
             <div>{{treatment.datetime | fechaFormateada}}</div>
         </div>
         <app-interaction [interaction]="interaction._id" [resizable]="true" *ngFor="let interaction of program.interactions" origin="add-program"></app-interaction>
-        <app-post [postId]="post._id" [resizable]="true" *ngFor="let post of program.posts"></app-post>
+        <div *ngFor="let post of program.posts">
+            <app-post [postId]="post._id" [resizable]="true"></app-post>
+        </div>
+        
     </div>
 </mat-card>
 <br>

@@ -97,10 +97,10 @@
                 </mat-card>
             </div>
             <br>
-            <div *ngIf="program.posts && program.posts.length>0">
+            <div *ngIf="program.posts">
                 <mat-card-subtitle style="margin:0%"><strong>Post Asociados:</strong></mat-card-subtitle>
                 <div>
-                    <div *ngFor="let post of program.posts; let i = index;">
+                    <div *ngFor="let post of program.posts">
                         <app-post [postId]="post._id" [resizable]="true"></app-post>
                     </div>
                 </div>

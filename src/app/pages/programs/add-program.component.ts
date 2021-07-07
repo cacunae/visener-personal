@@ -33,6 +33,7 @@ export class AddProgramComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm();
+    console.log("posts:", this.posts)
   }
 
   async createForm(){
@@ -41,6 +42,7 @@ export class AddProgramComponent implements OnInit {
     if (this.id) {
       await this.dataService.getData("/" + this.id).then((result: any) => {
         this.program = result;
+        console.log("result:",result)
       });
       if (this.program.posts) {
         for(let post of this.program.posts)
@@ -110,6 +112,7 @@ export class AddProgramComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       if(result){
+        console.log("result:", result)
         if(this.program.posts.findIndex((post:any) => post === result.value._id) < 0){
           this.program.posts.push({_id: result.value._id, params:{init:1, long:1}});
           this.posts.push(result);

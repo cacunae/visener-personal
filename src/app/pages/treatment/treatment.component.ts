@@ -16,6 +16,7 @@ export class TreatmentComponent implements OnInit {
   public interact:boolean = true;
   public loading:boolean = true;
   public program:any;
+  public posts:any;
 
   constructor(public dialog: MatDialog, public http: HttpClient, public dataService: DataService) {
   }
@@ -31,6 +32,7 @@ export class TreatmentComponent implements OnInit {
     });
     await this.dataService.getData("/" + this.treatment.program).then((program) => {
       this.program = program;
+
     });
     this.loading = false;
   }

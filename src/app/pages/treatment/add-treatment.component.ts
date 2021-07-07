@@ -43,12 +43,6 @@ export class AddTreatmentComponent implements OnInit {
       await this.dataService.getData("/" + this.treatment.program).then((result: any) => {
         this.program = result;
       });
-      if (this.program.posts) {
-        for(let post of this.program.posts)
-        await this.dataService.getData("/" + post).then((postDetail: any) => {
-          this.posts.push(postDetail);
-        })
-      }
       if (this.program.interactions) {
         for(let interaction of this.program.interactions)
         await this.dataService.getData("/" + interaction._id).then((interactionDetail: any) => {
