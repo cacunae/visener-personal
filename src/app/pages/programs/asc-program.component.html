@@ -13,7 +13,7 @@
             <button mat-stroked-button (click)="addProgram()" *ngIf="!treatment.program">
                 <mat-icon>assignment</mat-icon> Elegir Programa a asociar
             </button>
-            <button mat-stroked-button (click)="treatment.program=null" *ngIf="treatment.program">
+            <button mat-stroked-button (click)="treatment.program=null; program=null;" *ngIf="treatment.program">
                 <mat-icon>remove_circle_outline</mat-icon> Borrar programa "{{program.title}}"
             </button>
             <div class="inputImitation" *ngIf="treatment.program">
@@ -28,14 +28,16 @@
                 <div>Objetivo:</div>
                 <div>{{program.objective}}</div>
             </div>
-            <mat-form-field appearance="fill" *ngIf="treatment.program">
-                <mat-label>Duración del Programa</mat-label>
-                <mat-date-range-input [rangePicker]="picker">
-                    <input matStartDate [(ngModel)]="treatment.startDate" placeholder="Start date">
-                    <input matEndDate   [(ngModel)]="treatment.endDate" placeholder="End date">
-                </mat-date-range-input>
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-date-range-picker #picker></mat-date-range-picker>
+            <div class="inputImitation" *ngIf="program.duration">
+                <div>Duración:</div>
+                <div>{{program.duration}}</div>
+            </div>
+            <mat-form-field appearance="outline" *ngIf="treatment.program">
+                <mat-label>Inicio del Programa</mat-label>
+                <input matInput [matDatepicker]="datepicker" [(ngModel)]="treatment.startDate">
+                <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+                <mat-datepicker #datepicker>
+                </mat-datepicker>
             </mat-form-field>
             <mat-divider></mat-divider>
             <div *ngIf="program.interactions && program.interactions.length>0">

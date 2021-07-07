@@ -29,13 +29,17 @@
                 <button mat-raised-button class="cellphone" color="primary" (click)="responseInteraction(interaction, treatment)"><mat-icon>send</mat-icon></button>
                 <mat-card-subtitle class="cellphone">{{interaction.detail.subtitle}}</mat-card-subtitle>
                 <mat-card-subtitle style="margin-bottom: 1px;" *ngIf="interaction.params.poll && interaction.params.poll.type=='slider'" >{{interaction.params.poll.question}}</mat-card-subtitle>
-                <mat-button-toggle-group [(ngModel)]="interaction.params.poll.state">
+                <mat-button-toggle-group *ngIf="interaction.params.poll.type=='yesno'" [(ngModel)]="interaction.params.poll.yesno">
+                  <mat-button-toggle value="yes"><mat-icon>thumb_up</mat-icon> Sí</mat-button-toggle>
+                  <mat-button-toggle value="no"><mat-icon>thumb_down</mat-icon> No</mat-button-toggle>
+                </mat-button-toggle-group>
+                <mat-button-toggle-group *ngIf="interaction.params.poll.type=='state'" [(ngModel)]="interaction.params.poll.state">
                   <mat-button-toggle value="good"><mat-icon>sentiment_satisfied</mat-icon></mat-button-toggle>
                   <mat-button-toggle value="neutral"><mat-icon>sentiment_neutral</mat-icon></mat-button-toggle>
                   <mat-button-toggle value="bad"><mat-icon>sentiment_dissatisfied</mat-icon></mat-button-toggle>
                 </mat-button-toggle-group>
               </mat-card-content>
-              <button mat-raised-button class="desktop" color="primary" (click)="responseInteraction(interaction, treatment)"><mat-icon>send</mat-icon> Enviar</button>
+              <button mat-raised-button class="desktop" color="primary" [disabled]="(interaction.params.poll.type=='yesno' && !interaction.params.poll.yesno) || (interaction.params.poll.type=='state' && !interaction.params.poll.state)" (click)="responseInteraction(interaction, treatment)"><mat-icon>send</mat-icon> Enviar</button>
               <br class="desktop"><br>
               <mat-divider class="desktop"></mat-divider><br class="desktop">
             </div>

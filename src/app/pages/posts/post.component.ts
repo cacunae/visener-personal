@@ -31,9 +31,38 @@ export class PostComponent implements OnInit {
         this.post = {value: post};
       });
     }
+    if(this.feedback){
+      this.getComments(this.post);
+      this.getLikes(this.post);
+    }
     if(this.resizable){
       this.compressed = true;
     }
+  }
+
+  getComments(post:any){
+    this.dataService.getData("/_design/view/_view/comment-by-post?key=\"" + post.value._id + "\"").then((comments: any) => {
+      post.comments = [];
+      comments.rows.sort((a:any, b:any) => { return Number(b.value.datetime) - Number(a.value.datetime) });
+      for (let comment of comments.rows) {
+        post.comments.push({ name: comment.value.name, text: comment.value.text });
+      }
+    });
+  }
+
+  getLikes(post:any){
+    this.dataService.getData("/_design/view/_view/like-by-post?key=\"" + post.value._id + "\"").then((likes: any) => {
+      post.likes = likes.rows.length;
+      post.liked = 'false';
+      if (likes.rows.length > 0) {
+        for(let like of likes.rows){
+          if(like.value.patient == this.dataService.user._id){
+            post.liked = 'true';
+            post.like = { _id: like.value._id, _rev: like.value._rev };
+          }
+        }
+      }
+    });
   }
 
   openComment(post: any) {
@@ -44,11 +73,10 @@ export class PostComponent implements OnInit {
     dialogRef.afterClosed().subscribe((text) => {
       let comment = { entity: "comment", datetime: moment().format('YYYYMMDDHHmmss'), post: post.value._id, patient: this.dataService.user._id, name: this.dataService.user.name, text: text };
       if (text != null && text.trim() != "") {
-      this.dataService.postData(comment).then((result:any) => {    
+        this.dataService.postData(comment).then((result:any) => {    
           post.comments.push({ name: this.dataService.user.name , text: text });
-       /*else if (!post.comments) { post.comments = []; }*/    
-      });
-    }
+        });
+      }
       if (!post.comments) { post.comments = []; } 
     });
   }

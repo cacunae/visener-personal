@@ -57,7 +57,11 @@ export class AscProgramComponent implements OnInit {
   }
 
   publicar() {
-    if(this.treatment.program) {
+    if(!this.treatment.startDate){
+      this.snackBar.open('Selecciones la fecha de inicio.', 'ERR', { duration: 3000 });
+    }else if(this.treatment.program) {
+      this.treatment.endDate = moment(this.treatment.startDate).add(this.program.duration, 'days');
+      console.log("Fechas", this.treatment.startDate, this.program.duration, this.treatment.endtDate);
       this.treatment.interactions = this.program.interactions;
       this.treatment.datetime = moment().format('YYYYMMDDHHmmss')
       this.dataService.postData(this.treatment).then((result:any) => {

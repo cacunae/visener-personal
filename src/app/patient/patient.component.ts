@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { PopupComponent } from '../pages/popup/popup.component';
@@ -27,7 +27,7 @@ export class PatientComponent implements OnInit {
   n = this.d.getDay();
   day:any;
 
-  constructor(public http: HttpClient, public post: MatDialog, public dialog: MatDialog, public router: Router, public dataService: DataService) {
+  constructor(public http: HttpClient, public post: MatDialog, public dialog: MatDialog, public router: Router, public dataService: DataService, public zone: NgZone) {
     moment.locale('es');
     if (!this.dataService.user?._id) {
       this.router.navigateByUrl("/login");
@@ -71,25 +71,6 @@ export class PatientComponent implements OnInit {
       this.posts = posts.rows.sort((a:any, b:any) => { return Number(a.doc.datetime) - Number(b.doc.datetime) });
       for (let index in this.posts) {
         this.posts[index].value = this.posts[index].doc;
-        this.dataService.getData("/_design/view/_view/like-by-post?key=\"" + this.posts[index].value._id + "\"").then((likes: any) => {
-          this.posts[index].likes = likes.rows.length;
-          this.posts[index].liked = 'false';
-          if (likes.rows.length > 0) {
-            for(let like of likes.rows){
-              if(like.value.patient == this.dataService.user._id){
-                this.posts[index].liked = 'true';
-                this.posts[index].like = { _id: like.value._id, _rev: like.value._rev };
-              }
-            }
-          }
-        });
-        this.dataService.getData("/_design/view/_view/comment-by-post?key=\"" + this.posts[index].value._id + "\"").then((comments: any) => {
-          this.posts[index].comments = [];
-          comments.rows.sort((a:any, b:any) => { return Number(b.value.datetime) - Number(a.value.datetime) });
-          for (let comment of comments.rows) {
-            this.posts[index].comments.push({ name: comment.value.name, text: comment.value.text });
-          }
-        });
       }
     });
   }
@@ -129,8 +110,7 @@ export class PatientComponent implements OnInit {
         /* Elimina aquellas tareas que no sean de este día particular */
         await this.dataService.getData("/" + interaction._id).then((response) => {
           interaction.detail = response;
-          if(interaction.detail.weekdays.findIndex((day:string) => day.toLowerCase().replace('é', 'e') === moment().format('dddd') ) < 0){
-            console.log("busca " + moment().format('dddd') + " en ", interaction.detail.weekdays);
+          if(interaction.detail.weekdays.findIndex((day:string) => day.toLowerCase().replace('é', 'e') === moment().format('dddd').toLowerCase().replace('é', 'e') ) < 0){
             interaction.params.poll.areOk = false;
           }
         });
@@ -138,6 +118,20 @@ export class PatientComponent implements OnInit {
     }
     this.treatments = tmpTreatments;
     this.loadingTreatments = false;
+
+    /* Añade los post de los tratamientos activos al muro */
+    for(let treatment of this.treatments){
+      this.dataService.getData("/" + treatment.program).then((program:any) => {
+        for(let post of program.posts){
+          this.dataService.getData("/" + post._id).then((result:any) => {
+              this.posts.push({comments: [], value: result, doc: {liked:false, likes: 0, value: result}});
+          });
+        }
+      });
+    }
+    
+    this.posts.sort((a:any, b:any) => { return Number(a.doc.datetime) - Number(b.doc.datetime) });
+
   }
 
   responseInteraction(interaction: any, treatment: any) {
@@ -162,30 +156,13 @@ export class PatientComponent implements OnInit {
     });
   }
 
-  async putPost(postId:string) {
+  putPost(postId:string) {
     let post:any = {};
-    await this.dataService.getData("/" + postId).then((response) => {
-      post = { value: response };
+    this.dataService.getData("/" + postId).then((response) => {
+      if(this.posts[0].value._id !== postId){
+        this.posts.unshift({ value: response });
+      }
     });
-    if(this.posts[0].value._id !== post.value._id){
-      this.posts.unshift(post);
-      let index = 0;
-      this.dataService.getData("/_design/view/_view/like-by-post?key=\"" + this.posts[index].value._id + "\"").then((likes: any) => {
-        if (likes.rows.length > 0) {
-          this.posts[index].liked = 'true';
-          this.posts[index].like = { _id: likes.rows[0].value._id, _rev: likes.rows[0].value._rev };
-        } else {
-          this.posts[index].liked = 'false';
-        }
-      });
-      this.dataService.getData("/_design/view/_view/comment-by-post?key=\"" + this.posts[index].value._id + "\"").then((comments: any) => {
-        this.posts[index].comments = [];
-        comments.rows.sort((a:any, b:any) => { return Number(b.value.datetime) - Number(a.value.datetime) });
-        for (let comment of comments.rows) {
-          this.posts[index].comments.push({ name: comment.value.name, text: comment.value.text });
-        }
-      });
-    }
   }
 
 }
