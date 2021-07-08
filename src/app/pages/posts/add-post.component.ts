@@ -101,7 +101,7 @@ export class AddPostComponent implements OnInit {
   }
 
   publicar() {
-    if(this.post.title && this.post.image && this.post.content){
+    if(this.post.title && (this.post.image || this.post.video) && this.post.content){
       this.post.datetime = moment().format('YYYYMMDDHHmmss') //Date.now();
       this.dataService.postData(this.post).then((result: any) => {
         if(this.id){
