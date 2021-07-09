@@ -90,6 +90,7 @@ import { ChartPatientProgramsComponent } from './pages/patients/chart-patient-pr
 import { ViewTreatmentsComponent } from './old-professional/view-treatments/view-treatments.component';
 import { ViewInteractionComponent } from './pages/dialog-interaction/view-interaction.component';
 import { EnableComponent } from './patient/enable.component';
+import { GetInformationComponent } from './pages/patients/get-information.component';
 
 @NgModule({
   declarations: [
@@ -144,7 +145,8 @@ import { EnableComponent } from './patient/enable.component';
     EnableComponent,
     ViewInteractionComponent,
     DialogDelPatientsComponent,
-    ViewPatientsComponent
+    ViewPatientsComponent,
+    GetInformationComponent
   ],
   imports: [
     BrowserModule,

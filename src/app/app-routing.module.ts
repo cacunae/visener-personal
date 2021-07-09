@@ -26,6 +26,7 @@ import { CompaniesComponent } from './pages/companies/companies.component';
 import { AddCompanyComponent } from './pages/companies/add-company.component';
 import { AddTreatmentComponent } from './pages/treatment/add-treatment.component';
 import { ViewPatientsComponent } from './pages/patients/view-patients.component';
+import { GetInformationComponent } from './pages/patients/get-information.component';
 
 const routes: Routes = [
   { path: "", component: LoginComponent, pathMatch: "full" },
@@ -33,6 +34,7 @@ const routes: Routes = [
   { path: "*", component: ProfessionalComponent, pathMatch: "full" },
   { path: "professional", component: ProfessionalComponent, children:
     [
+      { path: "notifications", component: GetInformationComponent},
       { path: "patients", component: PatientsComponent, canActivate: [RoleGuard]},
       { path: "add-patient", component: AddPatientComponent, canActivate: [RoleGuard]},
       { path: "upd-patient/:id", component: AddPatientComponent, canActivate: [RoleGuard]},

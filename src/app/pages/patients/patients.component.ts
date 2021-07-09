@@ -16,6 +16,7 @@ export class PatientsComponent implements OnInit {
   public columnsToDisplay: string[] = ['id', 'name', 'username', 'company', 'actions'];
   public dataSource:any;
   public loading:boolean = true;
+  public notifications:number = 0;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -23,16 +24,23 @@ export class PatientsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getPatients();
+    this.getNotifications();
   }
 
   getPatients(){
     this.loading = true;
-    this.dataService.getData("/_design/view/_view/patients").then((patients: any) => {
+    this.dataService.getData("/_design/view/_view/patients").then((patients:any) => {
       this.patients = patients.rows.sort((a:any, b:any) => { return a.value.name.localeCompare(b.value.name) });
       this.dataSource = new MatTableDataSource<patientsTable>(this.patients);
       this.dataSource.paginator = this.paginator;
       this.loading = false;
     }); 
+  }
+
+  getNotifications(){
+    this.dataService.getData("/_design/view/_view/requests").then((notifications:any) => {
+      this.notifications = notifications.total_rows;
+    });
   }
 
   delPatient1(element: any){

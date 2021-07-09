@@ -1,4 +1,4 @@
-<app-header title="Pacientes" [rightLink]="'/professional/add-patient'" [rightIcon]="'add'" [search]="true" (searchEvent)="buscar()"></app-header>
+<app-header title="Pacientes" [notifications]="notifications" [rightLink]="'/professional/add-patient'" [rightIcon]="'add'" [search]="true" (searchEvent)="buscar()"></app-header>
 <div class="content" role="main">
     <table mat-table [dataSource]="dataSource" matSort multiTemplateDataRows class="mat-elevation-z8">
         <div>

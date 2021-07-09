@@ -15,6 +15,7 @@ export class HeaderComponent {
   @Input() rightLink:string;
   @Input() rightIcon:string;
   @Input() rightText:string;
+  @Input() notifications:number;
   @Input() event:boolean = false;
   @Output() rightEvent = new EventEmitter<string>();
   @Input() search:boolean = false;

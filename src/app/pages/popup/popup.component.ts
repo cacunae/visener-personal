@@ -6,6 +6,7 @@ import { DataService } from '../../services/data.service';
 import { WeblogComponent } from '../dialog-weblog/weblog.component';
 import { PasswordComponent } from '../dialog-password/password.component';
 import { DisableComponent } from '../dialog-disable/disable.component';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-popup',
@@ -67,4 +68,19 @@ export class PopupComponent implements OnInit {
     });
     this.popUpRef.close();
   }
+
+  solicitarInformacion(){
+    this.popUpRef.close();
+    this.dataService.getData("/_design/view/_view/requests-by-patient?key=\"" + this.dataService.user._id + "\"").then((result:any) => {
+      console.log("result", result, result.rows.length);
+      if(result.rows.length==0){
+        this.dataService.postData({entity:"request", datetime: moment().format('YYYYMMDDHHmmss'), state:"active", patient: this.dataService.user._id}).then(() => {
+          alert("Se ha solicitado el envío de tu información recolectada a tu correo. Esto podría demorar un tiempo hasta que los administradores confirmen tus datos.");
+        });
+      }else{
+        alert("Ya ha una solicitud de información abierta. Espera la respuesta del administrador.");
+      }
+    });
+  }
+
 }
