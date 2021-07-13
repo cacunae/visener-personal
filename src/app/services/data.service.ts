@@ -136,6 +136,23 @@ export class fechaFormateada implements PipeTransform {
   }
 }
 
+@Pipe({name: 'fechaFormateadaCorta'})
+export class fechaFormateadaCorta implements PipeTransform {
+  transform(value: string):string {
+    return moment(value, "YYYYMMDDHHmmss").format("DD-MM-YYYY");
+  }
+}
+
+@Pipe({name: 'treatmentActivePipe'})
+export class treatmentActivePipe implements PipeTransform {
+  transform(object: any):boolean {
+    let now = moment().format("YYYYMMDD");
+    let start = moment(object.start, "YYYYMMDDHHmmss").format("YYYYMMDD");
+    let end = moment(object.end, "YYYYMMDDHHmmss").format("YYYYMMDD");
+    return start <= now && now <= end;
+  }
+}
+
 @Pipe({name: 'weekDays'})
 export class weekDays implements PipeTransform {
   transform(obj:any):boolean {

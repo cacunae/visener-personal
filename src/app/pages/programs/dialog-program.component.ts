@@ -3,7 +3,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { DialogData } from '../dialog-password/password.component';
 import { DataService } from '../../services/data.service';
 import { CommentComponent } from '../dialog-comment/comment.component';
-import { AssociateComponent } from 'src/app/old-professional/view-posts/associate.component';
+import { AssociateComponent } from '../../pages/posts/associate.component';
 import * as moment from 'moment';
 import { HttpClient } from '@angular/common/http';
 

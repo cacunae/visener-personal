@@ -40,7 +40,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { fechaFormateada, weekDays, tagFilter, postFilter, interactionFilter, image, video, featuresPipe, postnamePipe, interactionnamePipe, programFilter } from './services/data.service';
+import { fechaFormateada, weekDays, tagFilter, postFilter, interactionFilter, image, video, featuresPipe, postnamePipe, interactionnamePipe, programFilter, fechaFormateadaCorta, treatmentActivePipe } from './services/data.service';
 import { PostComponent } from './pages/posts/post.component';
 import { InteractionComponent } from './pages/interactions/interaction.component';
 import { TreatmentComponent } from './pages/treatment/treatment.component';
@@ -78,10 +78,9 @@ import { GraphicsComponent } from './pages/graphics/graphics.component';
 import { ProfessionalComponent } from './professional/professional.component';
 import { PdfComponent } from './old-professional/pdf/pdf.component';
 
-import { ViewPostsComponent } from './old-professional/view-posts/view-posts.component';
-import { ViewPostsAssociateComponent } from './old-professional/view-posts/view-posts-associate.component';
+import { ViewPostsComponent } from './pages/posts/view-posts.component';
 import { HeaderComponent } from './header/header.component';
-import { AssociateComponent } from './old-professional/view-posts/associate.component';
+import { AssociateComponent } from './pages/posts/associate.component';
 import { PatientTreatmentComponent } from './old-professional/patient-treatment/patient-treatment.component';
 import { CompaniesComponent } from './pages/companies/companies.component';
 import { AddCompanyComponent } from './pages/companies/add-company.component';
@@ -115,6 +114,8 @@ import { GetInformationComponent } from './pages/patients/get-information.compon
     RolesComponent,
     AddRoleComponent,
     fechaFormateada,
+    fechaFormateadaCorta,
+    treatmentActivePipe,
     weekDays, tagFilter, programFilter, postFilter, interactionFilter, image, video, featuresPipe, postnamePipe, interactionnamePipe,
     PopupComponent,
     AddProgramComponent,
@@ -133,7 +134,6 @@ import { GetInformationComponent } from './pages/patients/get-information.compon
     HeaderComponent,
     PostsComponent,
     AssociateComponent,
-    ViewPostsAssociateComponent,
     PatientTreatmentComponent,
     GraphicsComponent,
     CompaniesComponent,

@@ -26,19 +26,7 @@ export class AssociateComponent implements OnInit {
     }); 
   }
 
-  save() {
-    for (let patient of this.patients) {
-      if (patient.selected) {
-        this.dataService.postData({ entity: "publication", post: this.data.text, patient: patient.value._id, professional: this.idProfessional, datetime: moment().format('YYYYMMDDHHmmss') }).then((result: any) => {
-          this.dialogRef.close();
-        })
-      }
-    }
-    alert("Asociación realizada correctamente.");
-  }
-
   onNoClick(){
     this.dialogRef.close();
-    this.router.navigateByUrl("/professional/view-posts");
   }
 }

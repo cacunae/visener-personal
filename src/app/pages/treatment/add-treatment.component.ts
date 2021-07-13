@@ -1,11 +1,8 @@
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DialogInteractionComponent } from '../dialog-interaction/dialog-interaction.component';
-import { ViewPostsComponent } from '../../old-professional/view-posts/view-posts.component';
 import { DataService } from '../../services/data.service';
 import * as moment from 'moment';
 

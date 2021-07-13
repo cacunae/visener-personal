@@ -3,7 +3,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CommentComponent } from '../dialog-comment/comment.component';
 import { DataService } from '../../services/data.service';
-import { AssociateComponent } from '../../old-professional/view-posts/associate.component';
+import { AssociateComponent } from './associate.component';
 import * as moment from 'moment';
 
 @Component({

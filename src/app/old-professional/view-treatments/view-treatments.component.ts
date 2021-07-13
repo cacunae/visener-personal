@@ -5,7 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { DialogData } from 'src/app/pages/dialog-password/password.component';
 import { DataService } from 'src/app/services/data.service';
-import { ViewPostsComponent } from '../view-posts/view-posts.component';
+import { ViewPostsComponent } from '../../pages/posts/view-posts.component';
 
 @Component({
   selector: 'app-view-programs',

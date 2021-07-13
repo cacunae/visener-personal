@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { DialogData } from 'src/app/old-professional/view-posts/associate.component';
-import { DataService } from 'src/app/services/data.service';
+import { DialogData } from '../posts/associate.component';
+import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'app-view-interaction',

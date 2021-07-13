@@ -6,7 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { DialogInteractionComponent } from '../dialog-interaction/dialog-interaction.component';
-import { ViewPostsComponent } from 'src/app/old-professional/view-posts/view-posts.component';
+import { ViewPostsComponent } from '../posts/view-posts.component';
 import { DataService } from 'src/app/services/data.service';
 import * as moment from 'moment';
 import { ViewInteractionComponent } from '../dialog-interaction/view-interaction.component';

@@ -3,8 +3,8 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ViewPostsComponent } from 'src/app/old-professional/view-posts/view-posts.component';
-import { DataService } from 'src/app/services/data.service';
+import { ViewPostsComponent } from '../posts/view-posts.component';
+import { DataService } from '../../services/data.service';
 import { DialogAttachmentComponent } from '../dialog-attachment/dialog-attachment.component';
 import * as moment from 'moment';
 
