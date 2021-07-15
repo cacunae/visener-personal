@@ -90,6 +90,7 @@ import { ViewTreatmentsComponent } from './old-professional/view-treatments/view
 import { ViewInteractionComponent } from './pages/dialog-interaction/view-interaction.component';
 import { EnableComponent } from './patient/enable.component';
 import { GetInformationComponent } from './pages/patients/get-information.component';
+import { DialogReAsingComponent } from './pages/dialog-re-asing/dialog-re-asing.component';
 
 @NgModule({
   declarations: [
@@ -146,7 +147,8 @@ import { GetInformationComponent } from './pages/patients/get-information.compon
     ViewInteractionComponent,
     DialogDelPatientsComponent,
     ViewPatientsComponent,
-    GetInformationComponent
+    GetInformationComponent,
+    DialogReAsingComponent
   ],
   imports: [
     BrowserModule,

@@ -67,14 +67,14 @@
               <mat-divider class="desktop"></mat-divider><br class="desktop">
             </div>
             
-            <div *ngIf="interaction.params.poll.type=='slider' && interaction.params.poll.areOk">
+            <div *ngIf="interaction.params.poll.type=='slider2' && interaction.params.poll.areOk">
               <!--SLIDER ({{interaction.responses}} - {{interaction.params.iterations}})<br-->
               <mat-card-subtitle class="desktop">{{interaction.detail.subtitle}} ({{interaction.responses}}/{{interaction.params.series}})</mat-card-subtitle>
               <mat-card-content>
                 <img style="width:60px; height:60px;" (click)="putPost(interaction.detail.post)" *ngIf="interaction.detail.image" src="{{interaction.detail.image | image}}/" /><br class="desktop">
                 <button mat-raised-button class="cellphone" color="primary" (click)="responseInteraction(interaction, treatment)"><mat-icon>send</mat-icon></button>
                 <mat-card-subtitle class="cellphone">{{interaction.subtitle}} ({{interaction.responses}}/{{interaction.params.series}})</mat-card-subtitle>
-                <div class="cellphone" *ngIf="interaction.poll && interaction.poll.type=='slider'">
+                <div class="cellphone" *ngIf="interaction.poll && interaction.poll.type=='slider2'">
                   Series: {{interaction.params.series}}<br class="desktop">
                   Repetición: {{interaction.params.repetitions}}<br class="desktop">
                   Descanso: {{interaction.params.rest}}<br class="desktop"><br>
@@ -84,7 +84,7 @@
                   Repetición: {{interaction.params.repetitions}}<br class="desktop">
                   Descanso: {{interaction.params.rest}}<br class="desktop">
                 </div>
-                <mat-slider thumbLabel [(ngModel)]="interaction.params.poll.slider" *ngIf="interaction.params.poll && interaction.params.poll.type=='slider2'" min="min" max="max" step="1" tickInterval="0" value="0"></mat-slider>
+                <mat-slider thumbLabel [(ngModel)]="interaction.params.poll.slider" *ngIf="interaction.params.poll && interaction.params.poll.type=='slider2'" min="{{interaction.params.poll.min}}" max="{{interaction.params.poll.max}}"></mat-slider>
               </mat-card-content>
               <button class="desktop" mat-raised-button color="primary" (click)="responseInteraction(interaction, treatment)"><mat-icon>send</mat-icon> Enviar</button>
               <br class="desktop"><br>

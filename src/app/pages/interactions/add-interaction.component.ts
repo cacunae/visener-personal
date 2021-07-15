@@ -40,6 +40,11 @@ export class AddInteractionComponent implements OnInit {
     if (this.id) {
       this.dataService.getData("/" + this.id).then((result: any) => {
         this.interaction = result
+        console.log("post:", result)
+        if(result.poll.type=='slider2'){
+          this.max = result.poll.max;
+          this.min = result.poll.min;
+        }
         this.dataService.listById(this.interaction.post).then((post:any) =>{
           this.postName = post.title;
           this.postSubtitle = post.subtitle;
@@ -49,10 +54,6 @@ export class AddInteractionComponent implements OnInit {
           for(let poll of this.postPoll){
             this.postPollType = poll.type;
             console.log("poll", poll)
-            if(this.postPollType=='slider2'){
-              this.max = poll.max;
-              this.min = poll.min;
-            }
             this.postPollQuestion = poll.question;
             this.postPollOptions = poll.options;
             for(let option of poll.options){

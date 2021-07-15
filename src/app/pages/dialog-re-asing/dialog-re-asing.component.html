@@ -1,0 +1,14 @@
+<h1 mat-dialog-title>Pacientes</h1>
+<div mat-dialog-content>
+    <div *ngFor="let professional of professionals">
+        <mat-checkbox name="professional" [(ngModel)]="professional.selected"
+            [value]="professional.value._id" ngDefaultControl style="display: block;">
+            {{professional.value.doc.name}}
+        </mat-checkbox>
+    </div>
+    <mat-spinner *ngIf="loading"></mat-spinner>
+</div>
+<div mat-dialog-actions>
+    <button mat-stroked-button (click)="onNoClick()">Cancelar</button>
+    <button mat-raised-button color="primary" (click)="save()">Guardar</button>
+</div>

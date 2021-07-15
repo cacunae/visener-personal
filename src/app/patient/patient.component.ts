@@ -89,15 +89,16 @@ export class PatientComponent implements OnInit {
     });
     for(let treatment of tmpTreatments){
       for(let interaction of treatment.interactions){
+        console.log("inter:", interaction)
         await this.dataService.getData("/_design/view/_view/polls-by-interaction?key=[\"" + treatment._id + "\",\"" + interaction._id + "\",\"" + moment().format("YYYYMMDD") + "\"]").then((polls: any) => {
           interaction.responses = polls.rows.length + 1;
           if (polls.rows && polls.rows.length > 0) {
-            if (interaction.params.poll.type=='slider' && interaction.params.series == polls.rows.length) {
+            if (interaction.params.poll.type=='slider' || interaction.params.poll.type=='slider2' && interaction.params.series == polls.rows.length) {
               interaction.params.poll.areOk = false;
               interaction.params.poll.sliderQuestion = true;
-            }else if (interaction.params.poll.type=='slider' && interaction.params.series < polls.rows.length) {
+            }else if (interaction.params.poll.type=='slider' || interaction.params.poll.type=='slider2' && interaction.params.series < polls.rows.length) {
               interaction.params.poll.areOk = false;
-            }else if (interaction.params.poll.type != 'slider' && interaction.params.iterations <= polls.rows.length) {
+            }else if (interaction.params.poll.type != 'slider' || interaction.params.poll.type != 'slider2' && interaction.params.iterations <= polls.rows.length) {
               interaction.params.poll.areOk = false;
             }else{
               interaction.params.poll.areOk = true;
