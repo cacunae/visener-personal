@@ -9,13 +9,11 @@ import { DetPatientComponent } from './pages/patients/det-patient.component';
 import { ProfessionalsComponent } from './pages/professionals/professionals.component';
 import { AddProfessionalComponent } from './pages/professionals/add-professional.component';
 import { InteractionsComponent } from './pages/interactions/interactions.component';
-import { AddInteractionComponent } from './pages/interactions/add-interaction.component';
 import { AttachmentsComponent } from './pages/attachments/attachments.component';
 import { AddAttachmentComponent } from './pages/attachments/add-attachment.component';
 import { PostsComponent } from './pages/posts/posts.component';
 import { AddPostComponent } from './pages/posts/add-post.component';
 import { ProgramsComponent } from './pages/programs/programs.component';
-import { AddProgramComponent } from './pages/programs/add-program.component';
 import { ProfessionalComponent } from './professional/professional.component';
 import { RolesComponent } from './pages/roles/roles.component';
 import { AddRoleComponent } from './pages/roles/add-role.component';
@@ -25,8 +23,11 @@ import { AscProgramComponent } from './pages/programs/asc-program.component';
 import { CompaniesComponent } from './pages/companies/companies.component';
 import { AddCompanyComponent } from './pages/companies/add-company.component';
 import { AddTreatmentComponent } from './pages/treatment/add-treatment.component';
-import { ViewPatientsComponent } from './pages/patients/view-patients.component';
+import { AddInteractionComponent } from './pages/interactions/add-interaction.component';
+import { AddProgramComponent } from './pages/programs/add-program.component';
 import { GetInformationComponent } from './pages/patients/get-information.component';
+import { ViewPatientsComponent } from './pages/patients/view-patients.component';
+import { ViewPostsComponent } from './pages/posts/view-posts.component';
 
 const routes: Routes = [
   { path: "", component: LoginComponent, pathMatch: "full" },
@@ -53,6 +54,7 @@ const routes: Routes = [
       { path: "posts", component: PostsComponent, canActivate: [RoleGuard]},
       { path: "add-post", component: AddPostComponent, canActivate: [RoleGuard]},
       { path: "upd-post/:id", component: AddPostComponent, canActivate: [RoleGuard]},
+      { path: "view-posts/:id", component: ViewPostsComponent, canActivate: [RoleGuard]},
       { path: "programs", component: ProgramsComponent, canActivate: [RoleGuard]},
       { path: "add-program", component: AddProgramComponent, canActivate: [RoleGuard]},
       { path: "upd-program/:id", component: AddProgramComponent, canActivate: [RoleGuard]},

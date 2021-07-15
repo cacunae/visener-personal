@@ -6,10 +6,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { DialogInteractionComponent } from '../dialog-interaction/dialog-interaction.component';
-import { ViewPostsComponent } from '../posts/view-posts.component';
 import { DataService } from 'src/app/services/data.service';
 import * as moment from 'moment';
 import { ViewInteractionComponent } from '../dialog-interaction/view-interaction.component';
+import { ViewPostsComponent } from '../posts/view-posts.component';
 
 @Component({
   selector: 'app-add-programs',
@@ -17,13 +17,13 @@ import { ViewInteractionComponent } from '../dialog-interaction/view-interaction
 })
 export class AddProgramComponent implements OnInit {
   todayDate: Date = new Date();
-  public program: any = { entity: "program", patient: "", professional: "", title: "", content: "",posts: [], objective: "", detail: "", weekdays: [], interactions: [], duration: 1 };
-  public posts:any[] = [];
-  public interactions:any[] = [];
+  public program: any = { entity: "program", patient: "", professional: "", title: "", content: "", posts: [], objective: "", detail: "", weekdays: [], interactions: [], duration: 1 };
+  public posts: any[] = [];
+  public interactions: any[] = [];
   public myForm: FormGroup;
   public week = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
-  public loading:boolean = true;
-  range = new FormGroup({start: new FormControl(), end: new FormControl() });
+  public loading: boolean = true;
+  range = new FormGroup({ start: new FormControl(), end: new FormControl() });
   selectedOptions: any;
   index: any;
   id: any;
@@ -33,28 +33,27 @@ export class AddProgramComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm();
-    console.log("posts:", this.posts)
   }
 
-  async createForm(){
+  async createForm() {
     this.program.professional = this.dataService.user._id;
     this.id = this.route.snapshot.paramMap.get('id');
     if (this.id) {
       await this.dataService.getData("/" + this.id).then((result: any) => {
         this.program = result;
-        console.log("result:",result)
+        console.log("result:", result)
       });
       if (this.program.posts) {
-        for(let post of this.program.posts)
-        await this.dataService.getData("/" + post._id).then((postDetail: any) => {
-          this.posts.push(postDetail);
-        })
+        for (let post of this.program.posts)
+          await this.dataService.getData("/" + post._id).then((postDetail: any) => {
+            this.posts.push(postDetail);
+          })
       }
       if (this.program.interactions) {
-        for(let interaction of this.program.interactions)
-        await this.dataService.getData("/" + interaction._id).then((interactionDetail: any) => {
-          this.interactions.push(interactionDetail);
-        })
+        for (let interaction of this.program.interactions)
+          await this.dataService.getData("/" + interaction._id).then((interactionDetail: any) => {
+            this.interactions.push(interactionDetail);
+          })
       }
     }
     this.loading = false;
@@ -90,33 +89,40 @@ export class AddProgramComponent implements OnInit {
 
   publicar() {
     //if(this.program.posts.length>0 && this.program.interactions.length>0) {
-    if(this.program.interactions.length>0) {
-      this.program.datetime = moment().format('YYYYMMDDHHmmss')
-      this.dataService.postData(this.program).then((result: any) => {
-        if(this.id){
-          this.snackBar.open('Programa actualizado correctamente.', 'OK', { duration: 3000 });
+    if (this.program.interactions.length > 0) {
+      for (let param of this.program.interactions) {
+        if(param.params.init+param.params.long-1<=this.program.duration) {
+          this.program.datetime = moment().format('YYYYMMDDHHmmss')
+          this.dataService.postData(this.program).then((result: any) => {
+            if (this.id) {
+              this.snackBar.open('Programa actualizado correctamente.', 'OK', { duration: 3000 });
+            } else {
+              this.snackBar.open('Programa creado correctamente.', 'OK', { duration: 3000 });
+            }
+            this.router.navigateByUrl("/professional/programs");
+          });
         }else{
-          this.snackBar.open('Programa creado correctamente.', 'OK', { duration: 3000 });
+          this.snackBar.open('El día de inicio de algunas tareas no coincide con la duración del programa', 'ERR', { duration: 3000 });
         }
-        this.router.navigateByUrl("/professional/programs"); 
-      });
+      }
     } else {
       this.snackBar.open('Debes agregar al menos una tarea y un post.', 'ERR', { duration: 3000 });
     }
+
   }
 
   newPost() {
     const dialogRef = this.dialog.open(ViewPostsComponent, {
       width: '520px',
-      data: {text:'add-program'}
+      data: { text: 'add-program' }
     });
     dialogRef.afterClosed().subscribe((result) => {
-      if(result){
+      if (result) {
         console.log("result:", result)
-        if(this.program.posts.findIndex((post:any) => post === result.value._id) < 0){
-          this.program.posts.push({_id: result.value._id, params:{init:1, long:1}});
+        if (this.program.posts.findIndex((post: any) => post === result.value._id) < 0) {
+          this.program.posts.push({ _id: result.value._id, params: { init: 1, long: 1 } });
           this.posts.push(result);
-        }else{
+        } else {
           alert("El post seleccionado ya fue agregado anteriormente.")
         }
       }
@@ -129,10 +135,10 @@ export class AddProgramComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        if(this.program.interactions.findIndex((interaction:any) => interaction === result.value._id) < 0){
-          this.program.interactions.push({_id: result.value._id, params: {poll: result.value.poll, repetitions: result.value.repetitions, series:result.value.series, rest:result.value.rest, init:1, long:1}});
+        if (this.program.interactions.findIndex((interaction: any) => interaction === result.value._id) < 0) {
+          this.program.interactions.push({ _id: result.value._id, params: { poll: result.value.poll, repetitions: result.value.repetitions, series: result.value.series, rest: result.value.rest, init: 1, long: 1 } });
           this.interactions.push(result.value);
-        }else{
+        } else {
           alert("La tarea seleccionada ya fue agregada anteriormente.")
         }
       }

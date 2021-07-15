@@ -66,6 +66,31 @@
               <br class="desktop"><br>
               <mat-divider class="desktop"></mat-divider><br class="desktop">
             </div>
+            
+            <div *ngIf="interaction.params.poll.type=='slider' && interaction.params.poll.areOk">
+              <!--SLIDER ({{interaction.responses}} - {{interaction.params.iterations}})<br-->
+              <mat-card-subtitle class="desktop">{{interaction.detail.subtitle}} ({{interaction.responses}}/{{interaction.params.series}})</mat-card-subtitle>
+              <mat-card-content>
+                <img style="width:60px; height:60px;" (click)="putPost(interaction.detail.post)" *ngIf="interaction.detail.image" src="{{interaction.detail.image | image}}/" /><br class="desktop">
+                <button mat-raised-button class="cellphone" color="primary" (click)="responseInteraction(interaction, treatment)"><mat-icon>send</mat-icon></button>
+                <mat-card-subtitle class="cellphone">{{interaction.subtitle}} ({{interaction.responses}}/{{interaction.params.series}})</mat-card-subtitle>
+                <div class="cellphone" *ngIf="interaction.poll && interaction.poll.type=='slider'">
+                  Series: {{interaction.params.series}}<br class="desktop">
+                  Repetición: {{interaction.params.repetitions}}<br class="desktop">
+                  Descanso: {{interaction.params.rest}}<br class="desktop"><br>
+                </div>
+                <div class="desktop">
+                  Series: {{interaction.params.series}}<br class="desktop">
+                  Repetición: {{interaction.params.repetitions}}<br class="desktop">
+                  Descanso: {{interaction.params.rest}}<br class="desktop">
+                </div>
+                <mat-slider thumbLabel [(ngModel)]="interaction.params.poll.slider" *ngIf="interaction.params.poll && interaction.params.poll.type=='slider2'" min="min" max="max" step="1" tickInterval="0" value="0"></mat-slider>
+              </mat-card-content>
+              <button class="desktop" mat-raised-button color="primary" (click)="responseInteraction(interaction, treatment)"><mat-icon>send</mat-icon> Enviar</button>
+              <br class="desktop"><br>
+              <mat-divider class="desktop"></mat-divider><br class="desktop">
+            </div>
+
             <div *ngIf="interaction.params.poll.type=='slider' && interaction.params.poll.sliderQuestion">
               <!--SLIDER QUESTION ({{interaction.responses}} - {{interaction.params.iterations}})<br-->
                 <mat-card-subtitle style="margin-bottom: 1px;">{{interaction.params.poll.question}}</mat-card-subtitle>

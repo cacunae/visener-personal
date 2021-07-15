@@ -19,7 +19,7 @@ export class PatientComponent implements OnInit {
   public user:any;
   public idPaciente:any;
   public loadingTreatments:boolean = false;
-
+  
   id:any;
   interaction:any;
   todayDate:Date = new Date();

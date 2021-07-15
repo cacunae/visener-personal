@@ -5,6 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { DataService, patientsTable } from 'src/app/services/data.service';
 import { DialogDelPatientsComponent } from './dialog-del-patients.component';
+import { ViewPatientsComponent } from './view-patients.component';
 
 @Component({
   selector: 'app-get-information',
@@ -35,7 +36,7 @@ export class GetInformationComponent implements OnInit {
     }); 
   }
 
-  getInformation(element: any){
+  delNotification(element: any){
     if(window.confirm('¿Quieres deshabilitar esta solicitud?')){
       element.value.doc.state = 'disabled';
       this.dataService.postData(element.value.doc).then(() => {

@@ -24,7 +24,7 @@ export class ProgramsComponent implements OnInit {
   public id:any[] = [];
   public patients: any[] = [];
   public patient:any;
-  public columnsToDisplay: string[] = ['id', 'program', 'interactions', 'datetime', 'actions'];
+  public columnsToDisplay: string[] = ['id', 'program', 'interactions', 'posts', 'datetime', 'actions'];
   public loading:boolean = true;
   public dataSource;
 

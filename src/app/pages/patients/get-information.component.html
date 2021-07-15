@@ -21,8 +21,11 @@
             <ng-container matColumnDef="actions">
                 <th mat-header-cell *matHeaderCellDef>Acciones</th>
                 <td mat-cell *matCellDef="let element">
-                    <button mat-icon-button (click)="getInformation(element)">
+                    <button mat-icon-button routerLink="/professional/view-patient/{{element.id}}" routerLinkActive="false">
                         <mat-icon>picture_as_pdf</mat-icon>
+                    </button>
+                    <button mat-icon-button (click)="delNotification(element)">
+                        <mat-icon>delete</mat-icon>
                     </button>
                 </td>
             </ng-container>

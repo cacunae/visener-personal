@@ -3,10 +3,11 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ViewPostsComponent } from '../posts/view-posts.component';
-import { DataService } from '../../services/data.service';
+import { DataService } from 'src/app/services/data.service';
 import { DialogAttachmentComponent } from '../dialog-attachment/dialog-attachment.component';
 import * as moment from 'moment';
+import { ViewPostsComponent } from '../posts/view-posts.component';
+import { borderTopRightRadius } from 'html2canvas/dist/types/css/property-descriptors/border-radius';
 
 @Component({
   selector: 'app-add-interaction',
@@ -17,7 +18,7 @@ export class AddInteractionComponent implements OnInit {
   public interaction: any = { entity: "interaction", state: "active", title: null, subtitle: null, iterations: 1, repetitions: 1, series: 1, rest: 1, content: null, weekdays: [], poll: { type: 'slider', relation: 'series' } };
   public myForm: FormGroup;
   public week: any[] = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
-  public feedback: any[] = [{ id: "slider", value: "Slider" }, { id: "state", value: "Estados (Caritas)" }, { id: "yesno", value: "Opciones (Sí/No)" }];
+  public feedback: any[] = [{ id: "slider", value: "Slider" },{ id: "slider2", value: "Slider2" }, { id: "state", value: "Estados (Caritas)" }, { id: "yesno", value: "Opciones (Sí/No)" }];
   public relations: any[] = [{ id: "ejercicio", value: "Feedback asociado a ejercicio" }, { id: "series", value: "Feedback asociado a series" }];
   public postName: string = '';
   public postSubtitle: string = '';
@@ -26,6 +27,8 @@ export class AddInteractionComponent implements OnInit {
   public postPollQuestion: string = '';
   public postPollOptions: string = '';
   public postPollOptionsDescription: string='';
+  public max;
+  public min;
   public id: any; 
   postImage: any;
   postPoll: any;
@@ -45,6 +48,11 @@ export class AddInteractionComponent implements OnInit {
           this.postImage = post.image;
           for(let poll of this.postPoll){
             this.postPollType = poll.type;
+            console.log("poll", poll)
+            if(this.postPollType=='slider2'){
+              this.max = poll.max;
+              this.min = poll.min;
+            }
             this.postPollQuestion = poll.question;
             this.postPollOptions = poll.options;
             for(let option of poll.options){
@@ -67,21 +75,41 @@ export class AddInteractionComponent implements OnInit {
     }
   }
 
-  publicar() {
+  publicar(){
     if (this.interaction.series <= 0 || this.interaction.repetitions <= 0 || this.interaction.rest < 0 || this.interaction.iterations <= 0){
       this.snackBar.open('Revise los valores, no pueden ser negativos', 'OK', { duration: 3000 });
-    }else if (
-      this.interaction.post && this.interaction.poll.question && this.interaction.title && this.interaction.iterations > 0 &&
-      this.interaction.subtitle && this.interaction.image && //this.interaction.content && 
-      this.interaction.series > 0 && this.interaction.repetitions > 0 && this.interaction.rest >= 0) {
-      this.interaction.datetime = moment().format('YYYYMMDDHHmmss') //Date.now();
-      this.dataService.postData(this.interaction).then((result: any) => {
-        this.snackBar.open('Tarea creada correctamente', 'OK', { duration: 3000 });
-        this.router.navigateByUrl("/professional/interactions");
-      });
-    } else {
-      this.snackBar.open('Ingrese todos los datos', 'OK', { duration: 3000 });
+    }else if(this.interaction.poll.type=="slider" || this.interaction.poll.type=='slider2'){
+      if(this.interaction.post && this.interaction.title && this.interaction.iterations > 0 &&
+        this.interaction.subtitle && this.interaction.image && //this.interaction.content && 
+        this.interaction.series > 0 && this.interaction.repetitions > 0 && this.interaction.rest >= 0){
+          if(this.interaction.poll.question){
+            if(this.interaction.poll.type=='slider2'){
+              this.interaction.poll.max = this.max;
+              this.interaction.poll.min = this.min;
+            }
+            this.dataService.postData(this.interaction).then((result: any) => {
+              this.snackBar.open('Tarea creada correctamente', 'OK', { duration: 3000 });
+              this.router.navigateByUrl("/professional/interactions");
+            });
+          }else{
+            this.snackBar.open('Ingrese una pregunta', 'OK', { duration: 3000 });
+          }
+      }else{
+        this.snackBar.open('Ingrese todos los datos', 'OK', { duration: 3000 });
+      }
+    }else if(this.interaction.poll.type=="state" || this.interaction.poll.type=="yesno"){
+      if(this.interaction.post && this.interaction.title && this.interaction.iterations > 0 &&
+        this.interaction.subtitle && this.interaction.image && //this.interaction.content && 
+        this.interaction.series > 0 && this.interaction.repetitions > 0 && this.interaction.rest >= 0){
+          this.dataService.postData(this.interaction).then((result: any) => {
+            this.snackBar.open('Tarea creada correctamente', 'OK', { duration: 3000 });
+            this.router.navigateByUrl("/professional/interactions");
+          });
+      }else{
+        this.snackBar.open('Ingrese todos los datos', 'OK', { duration: 3000 });
+      }
     }
+    console.log(this.interaction)
   }
 
   openAttachment() {

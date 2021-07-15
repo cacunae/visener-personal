@@ -20,8 +20,7 @@ export class RoleGuard implements CanActivate {
         if(feature.actions.findIndex((action:string) => action === "/professional/" + route.routeConfig.path) > -1){
           permission = true;
         }
-      }
-      
+      }    
       if(!permission){
         this.snackBar.open('No tiene permisos para esta funcionalidad.', 'ERR', { duration: 3000 });
         console.log("canActivate::No access::" + "/professional/" + route.routeConfig.path );

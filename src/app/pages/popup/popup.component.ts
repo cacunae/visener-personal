@@ -7,6 +7,7 @@ import { WeblogComponent } from '../dialog-weblog/weblog.component';
 import { PasswordComponent } from '../dialog-password/password.component';
 import { DisableComponent } from '../dialog-disable/disable.component';
 import * as moment from 'moment';
+import { DialogDelPatientsComponent } from '../patients/dialog-del-patients.component';
 
 @Component({
   selector: 'app-popup',
@@ -60,6 +61,17 @@ export class PopupComponent implements OnInit {
 
   deshabilitarUsuario(){
     const dialogRef = this.dialog.open(DisableComponent, {
+      width: '400px',
+      data: {}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+    });
+    this.popUpRef.close();
+  }
+
+  delUser(){
+    const dialogRef = this.dialog.open(DialogDelPatientsComponent, {
       width: '400px',
       data: {}
     });

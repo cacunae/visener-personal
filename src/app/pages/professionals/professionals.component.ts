@@ -21,6 +21,7 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class ProfessionalsComponent implements OnInit {
   public professionals: any[] = [];
+  public patients:any = {};
   public columnsToDisplay: string[] = ['id', 'name', 'company', 'role', 'actions'];
   public loading:boolean = true;
   public dataSource;
@@ -49,11 +50,22 @@ export class ProfessionalsComponent implements OnInit {
   }
 
   delProfessional(element: any) {
-    if(confirm("¿Estás seguro de eliminar al profesional " + element.value.name + "?\nEsta acción no podrá deshacerse.")) {
-      this.dataService.deleteById(element.value.doc._id + "?rev=" + element.value.doc._rev).then(() => {
+    if(confirm("¿Estás seguro de eliminar al profesional " + element.value.doc.name + "?\nEsta acción no podrá deshacerse.")) {
+      if(element.patients.length>0){
+        if(confirm("Te gustaría reasignar a los pacientes a un nuevo profesional?")){  
+          this.patients.entity=="relation";
+          this.patients = element.patients;
+          if(element.patients.lenght>0){
+            console.log("pa:", this.patients)
+          }else{
+            console.log("pa2:", this.patients)
+          }
+        }
+      }
+      /*this.dataService.deleteById(element.value.doc._id + "?rev=" + element.value.doc._rev).then(() => {
         this.snackBar.open('Profesional Eliminado correctamente.', 'OK', {duration: 5000});
         this.getProfessionals();
-      });
+      });*/
     }
   }
 
