@@ -1,6 +1,6 @@
 <div class="content" role="main" style="text-align: center;">
   <mat-card style="max-width: 400px; width: 100%; margin: auto; margin-top:100px;">
-    <mat-card-title>Visener</mat-card-title>
+    <mat-card-title class="logo">Visener</mat-card-title>
     <mat-card-subtitle>Ingresa tus Datos</mat-card-subtitle>
     <mat-card-content>
       <form class="example-form">
@@ -15,7 +15,7 @@
         </mat-form-field>
         <br>
         <div *ngIf="error" class="error">Usuario o clave incorrecta.</div>
-        <button mat-raised-button color="primary" (click)="validaUsuario()">Iniciar Sesion</button>
+        <button mat-raised-button color="primary" (click)="validaUsuario()">Iniciar sesión</button>
       </form>
     </mat-card-content>
     <br>

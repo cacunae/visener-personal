@@ -1,4 +1,42 @@
 /* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: raleway;
+  src: url(assets/fonts/Raleway-Regular.ttf);
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: raleway;
+  src: url(assets/fonts/Raleway-Bold.ttf);
+  font-weight: 500;
+}
+
+.mat-toolbar.mat-primary{
+  background-color: #FFFFFF !important;
+  color: #616160;
+}
+
+.logo{
+  color: #FFD628 !important;
+  font-family: raleway !important;
+  font-size: 36px;
+  letter-spacing: -2px;
+  line-height: 40px;
+}
+
+.mat-stroked-button{
+  color: #616160 !important;
+  font-family: raleway !important;
+  border-radius: 30px !important;
+}
+
+.mat-raised-button{
+  background-color: #FFD628 !important;
+  color: #616160 !important;
+  border-radius: 30px !important;
+  font-family: raleway;
+  font-weight: 500;
+}
 
 html, body {
   height: 100%;
@@ -21,7 +59,7 @@ body {
 mat-toolbar {
   position: relative;
   z-index: 2;
-  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1);
 }
 
 mat-form-field{
