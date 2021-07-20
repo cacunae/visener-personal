@@ -91,6 +91,7 @@ import { ViewInteractionComponent } from './pages/dialog-interaction/view-intera
 import { EnableComponent } from './patient/enable.component';
 import { GetInformationComponent } from './pages/patients/get-information.component';
 import { DialogReAsingComponent } from './pages/dialog-re-asing/dialog-re-asing.component';
+import { GroupsComponent } from './patient/groups/groups.component';
 
 @NgModule({
   declarations: [
@@ -148,7 +149,8 @@ import { DialogReAsingComponent } from './pages/dialog-re-asing/dialog-re-asing.
     DialogDelPatientsComponent,
     ViewPatientsComponent,
     GetInformationComponent,
-    DialogReAsingComponent
+    DialogReAsingComponent,
+    GroupsComponent
   ],
   imports: [
     BrowserModule,

@@ -29,8 +29,12 @@ export class PatientsComponent implements OnInit {
 
   getPatients(){
     this.loading = true;
+    this.patients = [];
     this.dataService.getData("/_design/view/_view/patients").then((patients:any) => {
-      this.patients = patients.rows.sort((a:any, b:any) => { return a.value.name.localeCompare(b.value.name) });
+      patients = patients.rows.sort((a:any, b:any) => { return a.value.name.localeCompare(b.value.name) });
+      for(let patient of patients){
+        this.patients.push(patient.value);
+      }
       this.dataSource = new MatTableDataSource<patientsTable>(this.patients);
       this.dataSource.paginator = this.paginator;
       this.loading = false;
@@ -99,4 +103,12 @@ export class PatientsComponent implements OnInit {
       width: '500px',
     });
   }
+
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    console.log(this.dataSource);
+  }
+
 }
