@@ -24,8 +24,12 @@ export class RolesComponent implements OnInit {
 
   getFeatures(){
     this.loading = true;
+    this.roles = [];
     this.dataService.getData("/_design/view/_view/roles").then((roles: any) => {
-      this.roles = roles.rows.sort((a:any, b:any) => { return a.value.name.localeCompare(b.value.name) });
+      roles = roles.rows.sort((a:any, b:any) => { return a.value.name.localeCompare(b.value.name) });
+      for(let role of roles) {
+        this.roles.push(role.value);
+      }
       this.dataSource = new MatTableDataSource<rolesTable>(this.roles);
       this.dataSource.paginator = this.paginator;
       this.loading = false;
@@ -33,4 +37,8 @@ export class RolesComponent implements OnInit {
 
   }
 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
 }

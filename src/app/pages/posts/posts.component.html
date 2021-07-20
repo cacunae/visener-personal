@@ -1,5 +1,11 @@
 <app-header title="Posts" [rightLink]="'/professional/add-post'" [rightIcon]="'add'"></app-header>
 <div class="content" role="main">
+    
+    <mat-form-field appearance="standard">
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+    </mat-form-field>
+
     <table mat-table [dataSource]="dataSource" matSort multiTemplateDataRows class="mat-elevation-z8">
         <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Nº</th>
@@ -9,25 +15,25 @@
         <ng-container matColumnDef="image">
             <th mat-header-cell *matHeaderCellDef>Imagen</th>
             <td mat-cell *matCellDef="let post">
-                <img *ngIf="post.value.image"
+                <img *ngIf="post.image"
                     style="margin-right: 5px; margin-top: 3px; object-fit: cover; width:64px; height:64px;"
-                    src="{{post.value.image | image}}" />
-                <video *ngIf="post.value.video"
+                    src="{{post.image | image}}" />
+                <video *ngIf="post.video"
                     style="margin-right: 5px; margin-top: 3px; object-fit: cover; width:64px; height:64px;">
-                    <source src="{{post.value.video | video}}">
+                    <source src="{{post.video | video}}">
                 </video>
             </td>
         </ng-container>
         <ng-container matColumnDef="titulo">
             <th mat-header-cell *matHeaderCellDef>Titulo</th>
             <td mat-cell *matCellDef="let post" (click)="expandedElement = expandedElement === post ? null : post">
-                {{post.value.title}}
+                {{post.title}}
             </td>
         </ng-container>
         <ng-container matColumnDef="datetime">
             <th mat-header-cell *matHeaderCellDef class="desktop">Fecha / Hora</th>
             <td mat-cell *matCellDef="let post" (click)="expandedElement = expandedElement === post ? null : post"
-                class="desktop">{{post.value.datetime
+                class="desktop">{{post.datetime
                 | fechaFormateada}}</td>
         </ng-container>
         <ng-container matColumnDef="actions">
@@ -49,12 +55,12 @@
                     [@detailExpand]="post == expandedElement ? 'expanded' : 'collapsed'">
                     <div class="example-element-description">
                         <strong>Subtitulo:</strong><br>
-                        <a>{{post.value.subtitle}}</a><br><br>
+                        <a>{{post.subtitle}}</a><br><br>
                         <strong>Detalles:</strong><br>
-                        <a>{{post.value.content}}</a><br><br>
-                        <div *ngIf="post.value.poll">
+                        <a>{{post.content}}</a><br><br>
+                        <div *ngIf="post.poll">
                             <strong>Pregunta:</strong><br>
-                            <div *ngFor="let poll of post.value.poll">
+                            <div *ngFor="let poll of post.poll">
                                 <a><strong>- {{poll.question}}</strong></a>
                                 <div *ngIf="poll.type=='selection'">
                                     <div *ngFor="let option of poll.options">

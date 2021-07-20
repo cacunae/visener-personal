@@ -52,8 +52,12 @@ export class InteractionsComponent implements OnInit {
 
   getInteractions(){
     this.loading = true;
+    this.interactions = [];
     this.dataService.getData("/_design/view/_view/interactions").then((interactions: any) => {
-      this.interactions = interactions.rows.sort((a, b) => { return a.value.title.localeCompare(b.value.title) });
+      interactions = interactions.rows.sort((a, b) => { return a.value.title.localeCompare(b.value.title) });
+      for(let interaction of interactions){
+        this.interactions.push(interaction.value);
+      }
       this.dataSource = new MatTableDataSource<interactionsTable>(this.interactions);
       this.dataSource.paginator = this.paginator;
       this.loading = false;
@@ -80,4 +84,8 @@ export class InteractionsComponent implements OnInit {
     }
   }
 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
 }

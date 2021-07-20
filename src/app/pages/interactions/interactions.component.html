@@ -1,5 +1,9 @@
 <app-header title="Tareas" [rightLink]="'/professional/add-interaction'" [rightIcon]="'add'"></app-header>
 <div class="content" role="main">
+    <mat-form-field appearance="standard">
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+    </mat-form-field>
     <table mat-table [dataSource]="dataSource" matSort multiTemplateDataRows class="mat-elevation-z8">
         <div>
             <ng-container matColumnDef="id">
@@ -11,15 +15,15 @@
                 <th mat-header-cell *matHeaderCellDef></th>
                 <td mat-cell *matCellDef="let interaction"
                     (click)="expandedElement = expandedElement === interaction ? null : interaction;">
-                    <img *ngIf="interaction.value.image" style="margin-left: 0px; width: 30px; margin-bottom: 10px;"
-                        src="{{interaction.value.image | image}}" /><br>
+                    <img *ngIf="interaction.image" style="margin-left: 0px; width: 30px; margin-bottom: 10px;"
+                        src="{{interaction.image | image}}" /><br>
                 </td>
             </ng-container>
             <ng-container matColumnDef="name">
                 <th mat-header-cell *matHeaderCellDef>Nombre de Tarea</th>
                 <td mat-cell *matCellDef="let interaction"
                     (click)="expandedElement = expandedElement === interaction ? null : interaction;">
-                    {{interaction.value.title}}</td>
+                    {{interaction.title}}</td>
             </ng-container>
             <ng-container matColumnDef="actions">
                 <th mat-header-cell *matHeaderCellDef>Acciones</th>
@@ -27,7 +31,7 @@
                     <button mat-icon-button (click)="delInteraction(interaction)">
                         <mat-icon>delete</mat-icon>
                     </button>
-                    <button mat-icon-button routerLink="/professional/upd-interaction/{{interaction.value._id}}"
+                    <button mat-icon-button routerLink="/professional/upd-interaction/{{interaction._id}}"
                         routerLinkActive="false">
                         <mat-icon>edit</mat-icon>
                     </button>
@@ -41,48 +45,48 @@
                     [@detailExpand]="interaction == expandedElement ? 'expanded' : 'collapsed'">
                     <div class="example-element-description"><br>
                         <div>
-                            <img *ngIf="interaction.value._attachments"
+                            <img *ngIf="interaction._attachments"
                                 style="margin-left: 10px; width: 100px; margin-bottom: -10px;"
-                                src="{{interaction.value._id | image}}" /><br><br>
-                            <img *ngIf="interaction.value.image"
+                                src="{{interaction._id | image}}" /><br><br>
+                            <img *ngIf="interaction.image"
                                 style="margin-left: 10px; width: 100px; margin-bottom: -10px;"
-                                src="{{interaction.value.image | image}}/" /><br><br>
+                                src="{{interaction.image | image}}/" /><br><br>
                         </div><br>
                         <mat-form-field>
                             <mat-label style="margin:0%">Texto de despliegue:</mat-label>
-                            <input matInput readonly="readonly" value="{{interaction.value.subtitle}}">
+                            <input matInput readonly="readonly" value="{{interaction.subtitle}}">
                         </mat-form-field>
                         <mat-form-field>
                             <mat-label>Descripción:</mat-label>
-                            <input matInput readonly="readonly" value="{{interaction.value.content}}">
+                            <input matInput readonly="readonly" value="{{interaction.content}}">
                         </mat-form-field>
                         <br>
                         <div style="display: inline-block;">
                             <mat-form-field
                                 style="width: calc(25% - 10px) !important; margin-right: 20px; float: left;">
                                 <mat-label>Repeticiones:</mat-label>
-                                <input matInput readonly="readonly" value="{{interaction.value.repetitions}}">
+                                <input matInput readonly="readonly" value="{{interaction.repetitions}}">
                             </mat-form-field>
                             <mat-form-field
                                 style="width: calc(25% - 20px) !important; margin-right: 20px; float: left;">
                                 <mat-label>Series:</mat-label>
-                                <input matInput readonly="readonly" value="{{interaction.value.series}}">
+                                <input matInput readonly="readonly" value="{{interaction.series}}">
                             </mat-form-field>
                             <mat-form-field
                                 style="width: calc(25% - 15px) !important; margin-right: 20px; float: left;">
                                 <mat-label>Descanso:</mat-label>
-                                <input matInput readonly="readonly" value="{{interaction.value.rest}}">
+                                <input matInput readonly="readonly" value="{{interaction.rest}}">
                             </mat-form-field>
                             <mat-form-field style="width: calc(25% - 20px) !important; margin-top: 0px; float: left;">
-                                <mat-label>{{interaction.value.iterations}}</mat-label>
-                                <mat-select class="form-control" value="{{interaction.value.iterations}}">
+                                <mat-label>{{interaction.iterations}}</mat-label>
+                                <mat-select class="form-control" value="{{interaction.iterations}}">
                                 </mat-select>
                             </mat-form-field>
                         </div>
                         <div>
                             <mat-label>Días de la semana:</mat-label><br>
                             <mat-radio-group>
-                                {{interaction.value.weekdays}}
+                                {{interaction.weekdays}}
                             </mat-radio-group>
                         </div><br>
                         <mat-tab-group mat-align-tabs="center" style="width: 100%;" animationDuration="0ms">
@@ -90,15 +94,15 @@
                                 <br>
                                 <mat-form-field>
                                     <mat-label>Pregunta:</mat-label>
-                                    <input matInput readonly="readonly">{{interaction.value.poll.question}}
+                                    <input matInput readonly="readonly">{{interaction.poll.question}}
                                 </mat-form-field>
                                 <mat-form-field>
                                     <mat-label>Tipo de feedback:</mat-label>
-                                    <input matInput readonly="readonly"> {{interaction.value.poll.type}}
+                                    <input matInput readonly="readonly"> {{interaction.poll.type}}
                                 </mat-form-field>
                                 <mat-form-field>
                                     <mat-label>Relación</mat-label>
-                                    <input matInput readonly="readonly"> {{interaction.value.poll.relation}}
+                                    <input matInput readonly="readonly"> {{interaction.poll.relation}}
                                 </mat-form-field>
                                 <br>
                             </mat-tab>
@@ -106,22 +110,22 @@
                                 <br>
                                 <div [dataSource]="post">
                                     <div *ngFor="let posts of post">
-                                        <div *ngIf="interaction.value.post==posts.value._id">
+                                        <div *ngIf="interaction.post==posts._id">
                                             <div>
-                                                <img *ngIf="posts.value.image"
+                                                <img *ngIf="posts.image"
                                                     style="margin-left: 10px; width: 100px; margin-bottom: -10px;"
-                                                    src="{{posts.value.image | image}}" /><br><br>
+                                                    src="{{posts.image | image}}" /><br><br>
                                             </div><br>
                                             <mat-card-subtitle><strong>Titulo:</strong></mat-card-subtitle>
-                                            <input matInput value="{{posts.value.title}}" readonly="readonly"><br><br>
+                                            <input matInput value="{{posts.title}}" readonly="readonly"><br><br>
                                             <mat-card-subtitle><strong>Subtitulo:</strong></mat-card-subtitle>
-                                            <input matInput value="{{posts.value.subtitle}}"
+                                            <input matInput value="{{posts.subtitle}}"
                                                 readonly="readonly"><br><br>
                                             <mat-card-subtitle><strong>Detalles:</strong></mat-card-subtitle>
-                                            <input matInput value="{{posts.value.content}}" readonly="readonly"><br><br>
-                                            <div *ngIf="posts.value.poll">
+                                            <input matInput value="{{posts.content}}" readonly="readonly"><br><br>
+                                            <div *ngIf="posts.poll">
                                                 <mat-card-subtitle><strong>Encuesta:</strong></mat-card-subtitle><br>
-                                                <div *ngFor="let files of posts.value.poll">
+                                                <div *ngFor="let files of posts.poll">
                                                     <div *ngIf="files.type=='selection'">
                                                         <strong><input matInput readonly="readonly"
                                                                 value="{{files.question}}"></strong>

@@ -61,20 +61,27 @@ export class ProgramsComponent implements OnInit {
       }
       program.interactionDetail = tmpInteractions;
     }
-    this.programs = tmpPrograms;
+    this.programs = [];
+    for(let program of tmpPrograms){
+      this.programs.push(program.value);
+    }
     this.dataSource = new MatTableDataSource<programsTable>(this.programs);
       this.dataSource.paginator = this.paginator;
     this.loading = false;
   }
 
   delProgram(element: any) {
-    if(confirm("¿Estás seguro de eliminar el programa " + element.value.title + "?\nEsta acción no podrá deshacerse.")) {
-      this.dataService.deleteById(element.value._id + "?rev=" + element.value._rev).then(() => {
+    if(confirm("¿Estás seguro de eliminar el programa " + element.title + "?\nEsta acción no podrá deshacerse.")) {
+      this.dataService.deleteById(element._id + "?rev=" + element._rev).then(() => {
         this.snackBar.open('Programa eliminado correctamente', 'OK', {duration: 5000});
         this.getPrograms();
       });
     }
   }
 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
 }
 

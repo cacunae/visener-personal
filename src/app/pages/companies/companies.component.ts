@@ -30,8 +30,12 @@ export class CompaniesComponent implements OnInit {
 
   getCompanies(){
     this.loading = true;
+    this.companies = [];
     this.dataService.getData("/_design/view/_view/companies").then((companies:any) =>{
-      this.companies = companies.rows.sort((a:any, b:any) => { return a.value.name.localeCompare(b.value.name) });
+      companies = companies.rows.sort((a:any, b:any) => { return a.value.name.localeCompare(b.value.name) });
+      for(let company of companies){
+        this.companies.push(company.value);
+      }
       this.dataSource = new MatTableDataSource<companiesTable>(this.companies);
       this.dataSource.paginator = this.paginator;
       this.loading = false;
@@ -45,5 +49,9 @@ export class CompaniesComponent implements OnInit {
     });
   }
 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
 }
 

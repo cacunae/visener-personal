@@ -30,8 +30,12 @@ export class AssociatedPatientsComponent implements OnInit {
 
   async getPatients(){
     this.loading = true;
+    this.patients = [];
     await this.dataService.getData("/_design/view/_view/relations-by-professional?include_docs=true&key=\"" + this.dataService.user._id + "\"").then((patients: any) => {
-      this.patients = patients.rows.sort((a:any, b:any) => { return a.doc.name.localeCompare(b.doc.name) });
+      patients = patients.rows.sort((a:any, b:any) => { return a.doc.name.localeCompare(b.doc.name) });
+      for(let patient of patients){
+        this.patients.push(patient.value);
+      }
       this.dataSource = new MatTableDataSource<patientsTable>(this.patients);
       this.dataSource.paginator = this.paginator;
       this.loading = false;
@@ -91,5 +95,10 @@ export class AssociatedPatientsComponent implements OnInit {
 
   buscar(){
     alert("buscando" );
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }

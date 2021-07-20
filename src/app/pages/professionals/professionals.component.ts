@@ -37,8 +37,12 @@ export class ProfessionalsComponent implements OnInit {
 
   async getProfessionals(){
     this.loading = true;
+    this.professionals = [];
     await this.dataService.getData("/_design/view/_view/professionals?include_docs=true").then((professionals: any) => {
-      this.professionals = professionals.rows.sort((a:any, b:any) => { return a.value.doc.name.localeCompare(b.value.doc.name) });
+      professionals = professionals.rows.sort((a:any, b:any) => { return a.value.doc.name.localeCompare(b.value.doc.name) });
+      for(let professional of professionals){
+        this.professionals.push(professional.value)
+      }
       this.dataSource = new MatTableDataSource<professionalsTable>(this.professionals);
       this.dataSource.paginator = this.paginator;
     });
@@ -123,4 +127,8 @@ export class ProfessionalsComponent implements OnInit {
     }
   }
 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
 }

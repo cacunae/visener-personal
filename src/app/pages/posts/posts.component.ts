@@ -36,8 +36,12 @@ export class PostsComponent implements OnInit {
 
   getPosts(){
     this.loading = true;
-    this.dataService.getData("/_design/view/_view/posts").then((post:any) =>{
-      this.posts = post.rows.sort((a:any, b:any) => { return a.value.datetime < b.value.datetime });
+    this.posts = [];
+    this.dataService.getData("/_design/view/_view/posts").then((posts:any) =>{
+      posts = posts.rows.sort((a:any, b:any) => { return a.value.datetime < b.value.datetime });
+      for(let post of posts){
+        this.posts.push(post.value);
+      }
       this.dataSource = new MatTableDataSource<postsTable>(this.posts);
       this.dataSource.paginator = this.paginator;
       this.loading = false;
@@ -57,4 +61,8 @@ export class PostsComponent implements OnInit {
     }
   }
 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
 }

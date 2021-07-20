@@ -1,5 +1,10 @@
 <app-header title="Profesionales" [rightLink]="'/professional/add-professional'" [rightIcon]="'add'"></app-header>
 <div class="content" role="main">
+    <mat-form-field appearance="standard">
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+    </mat-form-field>
+
     <table mat-table [dataSource]="dataSource" matSort multiTemplateDataRows class="mat-elevation-z8">
         <div>
             <ng-container matColumnDef="id">
@@ -11,10 +16,10 @@
                 <th mat-header-cell *matHeaderCellDef>Nombre del Profesional</th>
                 <td mat-cell *matCellDef="let professional" (click)="expElem = expElem === professional ? null : professional;">
                     <span *ngIf="professional.patients && professional.patients.length>0" matBadge="{{professional.patients.length}}" matBadgeOverlap="false" matBadgeColor="warn">
-                        {{professional.value.doc.name}}
+                        {{professional.doc.name}}
                     </span>
                     <span *ngIf="!professional.patients || professional.patients.length==0">
-                        {{professional.value.doc.name}}
+                        {{professional.doc.name}}
                     </span>
                 </td>
             </ng-container>
@@ -22,7 +27,7 @@
                 <th mat-header-cell *matHeaderCellDef class="desktop">Empresa</th>
                 <td mat-cell *matCellDef="let professional"
                     (click)="expElem = expElem === professional ? null : professional;" class="desktop">
-                    {{professional.value.doc.company}}</td>
+                    {{professional.doc.company}}</td>
             </ng-container>
             <ng-container matColumnDef="role">
                 <th mat-header-cell *matHeaderCellDef class="desktop">Rol</th>
@@ -36,10 +41,10 @@
                     <button mat-icon-button (click)="delProfessional(element)">
                         <mat-icon>delete</mat-icon>
                     </button>
-                    <button *ngIf="element.value.doc.professional" mat-icon-button (click)="addRelation(element)">
+                    <button *ngIf="element.doc.professional" mat-icon-button (click)="addRelation(element)">
                         <mat-icon title="Relacionar paciente">person_add_alt</mat-icon>
                     </button>
-                    <button mat-icon-button routerLink="/professional/upd-professional/{{element.value.doc._id}}" routerLinkActive="false">
+                    <button mat-icon-button routerLink="/professional/upd-professional/{{element.doc._id}}" routerLinkActive="false">
                         <mat-icon>edit</mat-icon>
                     </button>
                 </td>
