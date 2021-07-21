@@ -43,7 +43,7 @@ export class CompaniesComponent implements OnInit {
   }
 
   delCompany(element: any){
-    this.dataService.deleteById(element.value._id + "?rev=" + element.value._rev).then(() => {
+    this.dataService.deleteById(element._id + "?rev=" + element._rev).then(() => {
       this.snackBar.open('Empresa Eliminada correctamente.', 'OK', {duration: 5000});
       this.getCompanies();
     });

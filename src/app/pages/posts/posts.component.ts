@@ -49,11 +49,11 @@ export class PostsComponent implements OnInit {
   }
 
   delete(element: any) {
-    if(confirm("¿Estás seguro de eliminar el Post " + element.value.title + "?\nEsta acción no podrá deshacerse.")) {
+    if(confirm("¿Estás seguro de eliminar el Post " + element.title + "?\nEsta acción no podrá deshacerse.")) {
       //this.dataService.deleteById(element.value._id + "?rev=" + element.value._rev).then(() => {
-      element.value.state = "deleted";
+      element.state = "deleted";
       this.loading = true;
-      this.dataService.postData(element.value).then(() => {
+      this.dataService.postData(element).then(() => {
         this.snackBar.open('Post eliminado correctamente', 'OK', {duration: 5000});
         this.loading = false;
         this.getPosts();

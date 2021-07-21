@@ -1,9 +1,9 @@
 <app-header title="Posts" [rightLink]="'/professional/add-post'" [rightIcon]="'add'"></app-header>
 <div class="content" role="main">
     
-    <mat-form-field appearance="standard">
-        <mat-label>Filter</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+    <mat-form-field appearance="outline">
+        <mat-label>Buscar</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ej: Marco" #input>
     </mat-form-field>
 
     <table mat-table [dataSource]="dataSource" matSort multiTemplateDataRows class="mat-elevation-z8">

@@ -73,11 +73,11 @@ export class InteractionsComponent implements OnInit {
   }
 
   delInteraction(element: any) {
-    if(confirm("¿Estás seguro de eliminar la Tarea " + element.value.title + "?\nEsta acción no podrá deshacerse.")) {
+    if(confirm("¿Estás seguro de eliminar la Tarea " + element.title + "?\nEsta acción no podrá deshacerse.")) {
       //console.log("deleteInteraction::", element);
       //this.dataService.deleteById(element.value._id + "?rev=" + element.value._rev).then(() => {
-      element.value.state = "deleted";
-      this.dataService.postData(element.value).then(() => {
+      element.state = "deleted";
+      this.dataService.postData(element).then(() => {
         this.snackBar.open('Tarea eliminada correctamente', 'OK', {duration: 5000});
         this.getInteractions();
       });

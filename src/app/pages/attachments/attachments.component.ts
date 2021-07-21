@@ -24,8 +24,12 @@ export class AttachmentsComponent implements OnInit {
 
   getAttachments(){
     this.loading = true;
-    this.dataService.getData("/_design/view/_view/attachments").then((patients: any) => {
-      this.attachments = patients.rows.sort((a:any, b:any) => { return a.value.datetime < b.value.datetime });
+    this.attachments = [];
+    this.dataService.getData("/_design/view/_view/attachments").then((attachments: any) => {
+      attachments = attachments.rows.sort((a:any, b:any) => { return a.value.datetime < b.value.datetime });
+      for(let attachment of attachments) {
+        this.attachments.push(attachment.value)
+      }
       this.dataSource = new MatTableDataSource<attachmentsTable>(this.attachments);
       this.dataSource.paginator = this.paginator;
     this.loading = false;
@@ -33,7 +37,7 @@ export class AttachmentsComponent implements OnInit {
   }
 
   delAttachment(element: any) {
-    this.dataService.getData("/_design/view/_view/posts-by-attachment?key=\""+element.value._id+"\"&include_docs=true").then((attachments: any) => {
+    this.dataService.getData("/_design/view/_view/posts-by-attachment?key=\""+element._id+"\"&include_docs=true").then((attachments: any) => {
       if(attachments && attachments.rows && attachments.rows.length>1){
         alert("No se puede eliminar esta imagen porque está relacionado a " + attachments.rows.length + " posts o tareas.");
       }else if(attachments && attachments.rows && attachments.rows.length>0){
@@ -41,7 +45,7 @@ export class AttachmentsComponent implements OnInit {
       }else{
         if(confirm("¿Estás seguro de eliminar la imagen?\nEsta acción no podrá deshacerse.")) {
           this.loading = true;
-          this.dataService.deleteById(element.value._id + "?rev=" + element.value._rev).then(() => {
+          this.dataService.deleteById(element._id + "?rev=" + element._rev).then(() => {
             this.loading = false;
             this.snackBar.open('Imagen eliminada correctamente.', 'OK', {duration: 5000});
             this.getAttachments();
@@ -49,5 +53,10 @@ export class AttachmentsComponent implements OnInit {
         }
       }
     });
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }
