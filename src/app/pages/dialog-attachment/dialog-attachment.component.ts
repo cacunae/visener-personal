@@ -15,11 +15,9 @@ export class DialogAttachmentComponent implements OnInit {
   public search:string  = "";
 
   constructor(public dataService: DataService, public dialogRef: MatDialogRef<DialogAttachmentComponent>,  @Inject(MAT_DIALOG_DATA) public data: DialogData) {
-    console.log("DialogAttachmentComponent constructor data:", data);
     if(!this.data){this.data = {text:''};}
-
-    this.dataService.getData("/_design/view/_view/attachments").then((file:any) =>{
-      this.attachments = file.rows;
+    this.dataService.getData("/_design/view/_view/attachments").then((attachments:any) =>{
+      this.attachments = attachments.rows.sort((a:any, b:any) => { return a.value.datetime < b.value.datetime });
     });
   }
 

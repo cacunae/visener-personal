@@ -74,7 +74,6 @@ export class InteractionsComponent implements OnInit {
 
   delInteraction(element: any) {
     if(confirm("¿Estás seguro de eliminar la Tarea " + element.title + "?\nEsta acción no podrá deshacerse.")) {
-      //console.log("deleteInteraction::", element);
       //this.dataService.deleteById(element.value._id + "?rev=" + element.value._rev).then(() => {
       element.state = "deleted";
       this.dataService.postData(element).then(() => {

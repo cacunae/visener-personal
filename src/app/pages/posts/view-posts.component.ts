@@ -21,7 +21,7 @@ export class ViewPostsComponent implements OnInit {
 
   getPosts() {
     this.dataService.getData("/_design/view/_view/posts").then((posts: any) => {
-      this.posts = posts.rows.sort((a:any, b:any) => { return Number(b.value.datetime) - Number(a.value.datetime) });
+      this.posts = posts.rows.sort((a:any, b:any) => { return a.value.title.localeCompare(b.value.title) });
     });
   }
 

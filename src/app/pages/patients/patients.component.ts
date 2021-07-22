@@ -51,7 +51,6 @@ export class PatientsComponent implements OnInit {
     this.dataService.getData("/_design/view/_view/relations-by-patient?key=\""+element.value._id+"\"&include_docs=true").then((professionals: any) => {
       if(professionals.rows){
         for(let professional of professionals.rows){
-          console.log("proff::", professional)
           this.dataService.deleteById(professional.value.doc._id + "?rev=" + professional.value.doc._rev);
           this.dataService.deleteById(element.value._id + "?rev=" + element.value._rev);
         } 
@@ -59,14 +58,12 @@ export class PatientsComponent implements OnInit {
       this.dataService.getData("/_design/view/_view/treatments-by-patient?key=\""+element.value._id+"\"&include_docs=true").then((treatments: any) => {
         if(treatments.rows){
           for(let treatment of treatments.rows){
-            console.log("treatments:", treatment.value.doc._id, treatment.value.doc._rev)
             this.dataService.deleteById(treatment.value.doc._id + "?rev=" + treatment.value.doc._rev);
           }
         }
         this.dataService.getData("/_design/view/_view/feedback-by-user?key=\""+element.value._id+"\"&include_docs=true").then((comments: any) => {
           if(comments.rows){
             for(let comment of comments.rows){
-              console.log("comments:", comment)
               this.dataService.deleteById(comment.value._id + "?rev=" + comment.value._rev)
             }
           }

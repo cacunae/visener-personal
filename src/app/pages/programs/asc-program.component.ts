@@ -36,7 +36,6 @@ export class AscProgramComponent implements OnInit {
 
   async createForm(){
     this.id = this.route.snapshot.paramMap.get('id');
-    console.log("paciente:", this.route.snapshot.paramMap.get('patient'));
     await this.dataService.getData("/" + this.route.snapshot.paramMap.get('patient')).then((patient: any) => {
       this.patient = patient;
       this.treatment.patient = this.patient._id;

@@ -20,6 +20,7 @@ export class AddPatientComponent implements OnInit {
   public passwordConfirm:string = "";
   public passwordTemp:string = "";
   public loading:boolean = true;
+  public actionLoading:boolean = false;
 
   constructor(public route: ActivatedRoute, public snackBar: MatSnackBar, public router: Router, private _fb: FormBuilder, public dataService: DataService, public dialog: MatDialog) {
   }
@@ -53,23 +54,30 @@ export class AddPatientComponent implements OnInit {
   }
 
   publicar(){
+    this.actionLoading = true;
     if(this.angForm.valid){
       if((this.patient.password==this.passwordConfirm && this.patient.password != "") ){
         this.patient.password = Md5.hashStr(this.patient.password);
         this.patient.datetime = this.patient.datetime = moment().format("YYYYMMDDHHmm");
         this.dataService.postData(this.patient).then((result:any)=>{
-          this.snackBar.open('Paciente actualizado correctamente', 'OK', { duration: 3000 });
+          this.snackBar.open('Paciente actualizado correctamente.', 'OK', { duration: 3000 });
           this.router.navigateByUrl("/professional/patients");
+          this.actionLoading = false;
         });
       }else if(this.patient.password==this.passwordConfirm && this.patient._id){
         this.patient.password = this.passwordTemp;
         this.dataService.postData(this.patient).then((result:any)=>{
-          this.snackBar.open('Paciente actualizado correctamente', 'OK', { duration: 3000 });
+          this.snackBar.open('Paciente actualizado correctamente.', 'OK', { duration: 3000 });
           this.router.navigateByUrl("/professional/patients");
+          this.actionLoading = false;
         });
       }else{
-        this.snackBar.open('Las contraseñas no coinciden', 'ERROR', { duration: 3000 });
+        this.snackBar.open('Las contraseñas no coinciden.', 'ERROR', { duration: 3000 });
+        this.actionLoading = false;
       }
+    }else{
+      this.snackBar.open('Debe ingresar toda la información del paciente.', 'ERROR', { duration: 3000 });
+      this.actionLoading = false;
     }
   }
 }

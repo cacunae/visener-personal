@@ -21,7 +21,6 @@ export class DialogDelPatientsComponent implements OnInit {
   ngOnInit(): void {
     this.dataService.getData("/"+this.dataService.user._id).then((pass:any)=>{
       this.password = pass.password;
-      console.log("this.password:", this.password)
     })
   }
 
@@ -39,21 +38,18 @@ export class DialogDelPatientsComponent implements OnInit {
         this.dataService.getData("/_design/view/_view/relations-by-patient?key=\""+this.dataService.user._id+"\"&include_docs=true").then((professionals: any) => {
           if(professionals.rows){
             for(let professional of professionals.rows){
-              console.log("proff::", professional)
               this.dataService.deleteById(professional.value.doc._id + "?rev=" + professional.value.doc._rev);
             } 
           }
           this.dataService.getData("/_design/view/_view/treatments-by-patient?key=\""+this.dataService.user._id+"\"&include_docs=true").then((treatments: any) => {
             if(treatments.rows){
               for(let treatment of treatments.rows){
-                console.log("treatments:", treatment.value.doc._id, treatment.value.doc._rev)
                 this.dataService.deleteById(treatment.value.doc._id + "?rev=" + treatment.value.doc._rev);
               }
             }
             this.dataService.getData("/_design/view/_view/feedback-by-user?key=\""+this.dataService.user._id+"\"&include_docs=true").then((comments: any) => {
               if(comments.rows){
                 for(let comment of comments.rows){
-                  console.log("comments:", comment)
                   this.dataService.deleteById(comment.value._id + "?rev=" + comment.value._rev)
                 }
               }

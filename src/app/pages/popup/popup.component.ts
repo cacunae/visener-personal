@@ -84,7 +84,6 @@ export class PopupComponent implements OnInit {
   solicitarInformacion(){
     this.popUpRef.close();
     this.dataService.getData("/_design/view/_view/requests-by-patient?key=\"" + this.dataService.user._id + "\"").then((result:any) => {
-      console.log("result", result, result.rows.length);
       if(result.rows.length==0){
         this.dataService.postData({entity:"request", datetime: moment().format('YYYYMMDDHHmmss'), state:"active", patient: this.dataService.user._id}).then(() => {
           alert("Se ha solicitado el envío de tu información recolectada a tu correo. Esto podría demorar un tiempo hasta que los administradores confirmen tus datos.");

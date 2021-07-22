@@ -14,7 +14,7 @@
                 <mat-tab label="Programas">
                     <br>
                     <div *ngFor="let treatment of treatments" style="padding-left: 5px; padding-right: 5px;">
-                        <app-treatment *ngIf="{start: treatment.value.doc.startDate, end:treatment.value.doc.startDate} | treatmentActivePipe" [treatment]="treatment.value.doc._id" origin="add-program" [removable]="true" (event)="removeProgram(treatment.value.doc)"></app-treatment>
+                        <app-treatment *ngIf="{start: treatment.value.doc.startDate, end:treatment.value.doc.endDate} | treatmentActivePipe" [treatment]="treatment.value.doc._id" origin="add-program" [removable]="true" (event)="removeProgram(treatment.value.doc)"></app-treatment>
                     </div>
                 </mat-tab>
                 <mat-tab label="Posts">
@@ -26,7 +26,7 @@
                 <mat-tab label="Histórico">
                     <br>
                     <div *ngFor="let treatment of treatments" style="padding-left: 5px; padding-right: 5px;">
-                        <app-treatment *ngIf="! ({start: treatment.value.doc.startDate, end:treatment.value.doc.startDate} | treatmentActivePipe)" [treatment]="treatment.value.doc._id" origin="add-program" [removable]="true" (event)="removeProgram(treatment.value.doc)"></app-treatment>
+                        <app-treatment *ngIf="! ({start: treatment.value.doc.startDate, end: treatment.value.doc.endDate} | treatmentActivePipe)" [treatment]="treatment.value.doc._id" origin="add-program" [removable]="true" (event)="removeProgram(treatment.value.doc)"></app-treatment>
                     </div>
                 </mat-tab>
             </mat-tab-group>

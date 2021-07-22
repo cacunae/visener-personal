@@ -38,6 +38,12 @@
   font-weight: 500;
 }
 
+.mat-raised-button.mat-button-disabled{
+  background-color: #e6d27d !important;
+  color: #eeeeee !important;
+  cursor: not-allowed !important;
+}
+
 html, body {
   height: 100%;
   width: 100%;

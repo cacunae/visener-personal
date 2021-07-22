@@ -55,16 +55,13 @@ export class AddTreatmentComponent implements OnInit {
   setDays(interaction: any, dayname: string) {
     if (interaction.weekdays.findIndex((day: string) => day === dayname) < 0) {
       interaction.weekdays.push(dayname);
-      console.log("dayname", interaction.weekdays)
     } else {
       interaction.weekdays.splice(interaction.weekdays.findIndex((day: string) => day === dayname), 1);
-      console.log("dayname", interaction.weekdays)
     }
   }
 
   publicar(){
     this.treatment.datetime = moment().format('YYYYMMDDHHmmss');
-    console.log("treat", JSON.parse(JSON.stringify(this.treatment)));
     this.dataService.postData(this.treatment).then((result: any) => {
       if(this.id){
         this.snackBar.open('Tratamiento actualizado correctamente.', 'OK', { duration: 3000 });

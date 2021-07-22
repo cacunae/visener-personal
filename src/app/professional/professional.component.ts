@@ -70,7 +70,6 @@ export class ProfessionalComponent implements OnInit {
   aceptar(){
     if(this.acepto){
       this.dataService.getData("/" + this.dataService.user._id).then((result:any)=>{
-        console.log(result);
         result.granted = true;
         this.dataService.postData(result).then(() => {
           this.snackBar.open('Condiciones aceptadas. Ingrese nuevamente.', 'OK', {duration: 5000});

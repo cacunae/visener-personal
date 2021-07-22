@@ -35,7 +35,6 @@ export class DialogInteractionComponent implements OnInit {
     }else{
       this.data.selection = interaction;
     }*/
-    console.log("INTERACTION:", interaction)
   }
 
 

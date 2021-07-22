@@ -48,7 +48,7 @@
     <mat-spinner *ngIf="loading"></mat-spinner>
     <div class="desktopbuttons">
         <button mat-raised-button routerLink="/professional/patients" routerLinkActive="false">Cancelar</button>&nbsp;&nbsp;&nbsp;
-        <button mat-raised-button *ngIf="!id" type="submit" color="primary" (click)="publicar()">Crear Paciente</button>
-        <button mat-raised-button *ngIf="id" type="submit" color="primary" (click)="publicar()">Actualizar Paciente</button>
+        <button mat-raised-button [disabled]="actionLoading" *ngIf="!id" type="submit" color="primary" (click)="publicar()">Crear Paciente</button>
+        <button mat-raised-button [disabled]="actionLoading" *ngIf="id" type="submit" color="primary" (click)="publicar()">Actualizar Paciente</button>
     </div>
 </div>
