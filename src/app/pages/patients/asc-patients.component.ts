@@ -34,19 +34,19 @@ export class AssociatedPatientsComponent implements OnInit {
     await this.dataService.getData("/_design/view/_view/relations-by-professional?include_docs=true&key=\"" + this.dataService.user._id + "\"").then((patients: any) => {
       patients = patients.rows.sort((a:any, b:any) => { return a.doc.name.localeCompare(b.doc.name) });
       for(let patient of patients){
-        this.patients.push(patient.value);
+        this.patients.push(patient.doc);
       }
       this.dataSource = new MatTableDataSource<patientsTable>(this.patients);
       this.dataSource.paginator = this.paginator;
       this.loading = false;
     });
     for(let patient of this.patients){
-      this.dataService.getData("/_design/view/_view/publications-by-patient?key=\"" + patient.doc._id + "\"").then((posts:any) => {
+      this.dataService.getData("/_design/view/_view/publications-by-patient?key=\"" + patient._id + "\"").then((posts:any) => {
         patient.posts = posts.rows.length;
       });
     }
     for(let patient of this.patients){
-      this.dataService.getData("/_design/view/_view/treatments-by-patient?key=\"" + patient.doc._id + "\"").then((treatments:any) => {
+      this.dataService.getData("/_design/view/_view/treatments-by-patient?key=\"" + patient._id + "\"").then((treatments:any) => {
         patient.treatments = treatments.rows.length;
       });
     }
@@ -59,7 +59,7 @@ export class AssociatedPatientsComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       if(result){
-        this.dataService.postData({entity: "publication", state:"active", post: result.value._id, patient: patient.doc._id, professional: this.dataService.user._id, datetime: moment().format("YYYYMMDDHHmm") });
+        this.dataService.postData({entity: "publication", state:"active", post: result.value._id, patient: patient._id, professional: this.dataService.user._id, datetime: moment().format("YYYYMMDDHHmm") });
         this.getPatients();
       }
     });
@@ -79,7 +79,7 @@ export class AssociatedPatientsComponent implements OnInit {
         dialogRef2.afterClosed().subscribe((result2) => {
           if(result2){
             for(let patient of result2){
-              this.dataService.postData({entity: "publication", state:"active", post: result.value._id, patient: patient.doc._id, professional: this.dataService.user._id, datetime: moment().format("YYYYMMDDHHmm") }).then((result3) => {
+              this.dataService.postData({entity: "publication", state:"active", post: result.value._id, patient: patient._id, professional: this.dataService.user._id, datetime: moment().format("YYYYMMDDHHmm") }).then((result3) => {
                 this.getPatients();
               });
             }
@@ -90,7 +90,7 @@ export class AssociatedPatientsComponent implements OnInit {
   }
 
   verPaciente(patient:any){
-    this.router.navigateByUrl("/professional/det-patient/" + patient.doc._id);
+    this.router.navigateByUrl("/professional/det-patient/" + patient._id);
   }
 
   buscar(){

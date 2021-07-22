@@ -1,9 +1,6 @@
 <app-header title="Programas" [rightLink]="'/professional/add-program'" [rightIcon]="'add'"></app-header>
 <div class="content" role="main">
-    <mat-form-field appearance="outline">
-        <mat-label>Buscar:</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="Ej: Programa" #input>
-      </mat-form-field>
+    <input class="search" type="search" matInput (keyup)="applyFilter($event)" placeholder="Buscar" #input>
     <table mat-table [dataSource]="dataSource" matSort multiTemplateDataRows class="mat-elevation-z8">
         <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Nº</th>
@@ -38,7 +35,7 @@
         <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef>Acciones</th>
             <td mat-cell *matCellDef="let element">
-                <button mat-icon-button routerLink="/professional/upd-program/{{element.id}}"
+                <button mat-icon-button routerLink="/professional/upd-program/{{element._id}}"
                     routerLinkActive="false">
                     <mat-icon>edit</mat-icon>
                 </button>

@@ -41,13 +41,14 @@ export class ProfessionalsComponent implements OnInit {
     await this.dataService.getData("/_design/view/_view/professionals?include_docs=true").then((professionals: any) => {
       professionals = professionals.rows.sort((a:any, b:any) => { return a.value.doc.name.localeCompare(b.value.doc.name) });
       for(let professional of professionals){
-        this.professionals.push(professional.value)
+        professional.value.doc.role = {name: professional.doc.name, _id: professional.doc._id};
+        this.professionals.push(professional.value.doc)
       }
       this.dataSource = new MatTableDataSource<professionalsTable>(this.professionals);
       this.dataSource.paginator = this.paginator;
     });
     for (let professional of this.professionals) {
-      await this.dataService.getData("/_design/view/_view/relations-by-professional?key=\""+professional.doc._id+"\"&include_docs=true").then((patients: any) => {
+      await this.dataService.getData("/_design/view/_view/relations-by-professional?key=\""+professional._id+"\"&include_docs=true").then((patients: any) => {
         professional.patients = patients.rows;
       }); 
     }
@@ -73,7 +74,7 @@ export class ProfessionalsComponent implements OnInit {
           });
         }*/
       }else{
-        this.dataService.deleteById(element.doc._id + "?rev=" + element.doc._rev).then(() => {
+        this.dataService.deleteById(element._id + "?rev=" + element._rev).then(() => {
         this.snackBar.open('Profesional Eliminado correctamente.', 'OK', {duration: 5000});
         this.getProfessionals();
       });
@@ -84,7 +85,7 @@ export class ProfessionalsComponent implements OnInit {
   addReAsing(element: any){
     const dialogRef = this.dialog.open(DialogReAsingComponent, {
       width: '400px',
-      data: { professional: element.doc._id }
+      data: { professional: element._id }
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -101,7 +102,7 @@ export class ProfessionalsComponent implements OnInit {
   addRelation(element: any) {
     const dialogRef = this.dialog.open(DialogAddRelationComponent, {
       width: '400px',
-      data: { professional: element.doc._id }
+      data: { professional: element._id }
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -115,7 +116,7 @@ export class ProfessionalsComponent implements OnInit {
   }
 
   delRelation(professional:any, patient: any) {
-    if(confirm("Estás seguro de eliminar la relación entre el profesional " + professional.doc.name + " y el paciente " + patient.doc.name)) {
+    if(confirm("Estás seguro de eliminar la relación entre el profesional " + professional.name + " y el paciente " + patient.doc.name)) {
       this.dataService.deleteById(patient.doc._id + "?rev=" + patient.doc._rev).then((result:any) => {
         if(result.ok){
           this.getProfessionals();

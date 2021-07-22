@@ -1,11 +1,6 @@
 <app-header title="Perfiles" [rightLink]="'/professional/add-role'" [rightIcon]="'add'"></app-header>
 <div class="content" role="main">
-
-    <mat-form-field appearance="standard">
-        <mat-label>Buscar</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="Ej: Admin" #input>
-    </mat-form-field>
-
+    <input class="search" type="search" matInput (keyup)="applyFilter($event)" placeholder="Buscar" #input>
     <table mat-table [dataSource]="dataSource" matSort multiTemplateDataRows class="mat-elevation-z8">
         <div>
             <ng-container matColumnDef="id">

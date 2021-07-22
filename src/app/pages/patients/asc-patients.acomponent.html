@@ -1,11 +1,6 @@
 <app-header title="Mis Pacientes" [event]="true" (rightEvent)="asociarPostMultiple()" [rightIcon]="'group_add'" [search]="true" (searchEvent)="buscar()"></app-header>
 <div class="content" role="main">
-
-    <mat-form-field appearance="outline">
-        <mat-label>Buscar</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="Ej: Marco" #input>
-    </mat-form-field>
-
+    <input class="search" type="search" matInput (keyup)="applyFilter($event)" placeholder="Buscar" #input>
     <table mat-table [dataSource]="dataSource" matSort multiTemplateDataRows class="mat-elevation-z8">
         <div>
             <ng-container matColumnDef="id">
@@ -14,11 +9,11 @@
             </ng-container>
             <ng-container matColumnDef="name">
                 <th mat-header-cell *matHeaderCellDef>Nombre del Paciente</th>
-                <td mat-cell *matCellDef="let patient">{{patient.doc.name}}</td>
+                <td mat-cell *matCellDef="let patient">{{patient.name}}</td>
             </ng-container>
             <ng-container matColumnDef="username">
                 <th mat-header-cell *matHeaderCellDef class="desktop">Correo Electrónico</th>
-                <td mat-cell *matCellDef="let patient" class="desktop">{{patient.doc.username}}</td>
+                <td mat-cell *matCellDef="let patient" class="desktop">{{patient.username}}</td>
             </ng-container>
             <ng-container matColumnDef="company">
                 <th mat-header-cell *matHeaderCellDef class="desktop">Redes</th>
@@ -27,20 +22,20 @@
             <ng-container matColumnDef="actions">
                 <th mat-header-cell *matHeaderCellDef>Acciones</th>
                 <td mat-cell *matCellDef="let element">
-                    <button mat-icon-button (click)="asociarPost(element)" [disabled]="element.doc.state=='disabled'">
+                    <button mat-icon-button (click)="asociarPost(element)" [disabled]="element.state=='disabled'">
                         <mat-icon>post_add</mat-icon>
                     </button>
-                    <button mat-icon-button routerLink="/professional/asc-program/{{element.doc._id}}" routerLinkActive="false" [disabled]="element.doc.state=='disabled'">
+                    <button mat-icon-button routerLink="/professional/asc-program/{{element._id}}" routerLinkActive="false" [disabled]="element.state=='disabled'">
                         <mat-icon>assignment</mat-icon>
                     </button>
-                    <button mat-icon-button (click)="verPaciente(element)" [disabled]="element.doc.state=='disabled'">
+                    <button mat-icon-button (click)="verPaciente(element)" [disabled]="element.state=='disabled'">
                         <mat-icon>visibility</mat-icon>
                     </button>
                 </td>
             </ng-container>
         </div>
         <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-        <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" [class.disabled]="element.doc.state=='disabled'" class="example-element-row example-element-row-border"></tr>
+        <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" [class.disabled]="element.state=='disabled'" class="example-element-row example-element-row-border"></tr>
     </table>
     <mat-paginator class="mat-elevation-z8" style="width: 100%;" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
 
