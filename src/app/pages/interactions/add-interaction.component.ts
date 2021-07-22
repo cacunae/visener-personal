@@ -33,6 +33,7 @@ export class AddInteractionComponent implements OnInit {
   postImage: any;
   postPoll: any;
   postPost: any;
+  public actionLoading:boolean = false;
 
   constructor(public route: ActivatedRoute, public snackBar: MatSnackBar, public router: Router, private _formBuilder: FormBuilder, private _fb: FormBuilder, public dataService: DataService, public dialog: MatDialog) {
     this.interaction.professional = this.dataService.user._id;
@@ -75,7 +76,9 @@ export class AddInteractionComponent implements OnInit {
   }
 
   publicar(){
+    this.actionLoading = true;
     if (this.interaction.series <= 0 || this.interaction.repetitions <= 0 || this.interaction.rest < 0 || this.interaction.iterations <= 0){
+      this.actionLoading = false;
       this.snackBar.open('Revise los valores, no pueden ser negativos', 'OK', { duration: 3000 });
     }else if(this.interaction.poll.type=="slider" || this.interaction.poll.type=='slider2'){
       if(this.interaction.post && this.interaction.title && this.interaction.iterations > 0 &&
@@ -87,13 +90,16 @@ export class AddInteractionComponent implements OnInit {
               this.interaction.poll.min = this.min;
             }
             this.dataService.postData(this.interaction).then((result: any) => {
+              this.actionLoading = false;
               this.snackBar.open('Tarea creada correctamente', 'OK', { duration: 3000 });
               this.router.navigateByUrl("/professional/interactions");
             });
           }else{
+            this.actionLoading = false;
             this.snackBar.open('Ingrese una pregunta', 'OK', { duration: 3000 });
           }
       }else{
+        this.actionLoading = false;
         this.snackBar.open('Ingrese todos los datos', 'OK', { duration: 3000 });
       }
     }else if(this.interaction.poll.type=="state" || this.interaction.poll.type=="yesno"){
@@ -101,10 +107,12 @@ export class AddInteractionComponent implements OnInit {
         this.interaction.subtitle && this.interaction.image && //this.interaction.content && 
         this.interaction.series > 0 && this.interaction.repetitions > 0 && this.interaction.rest >= 0){
           this.dataService.postData(this.interaction).then((result: any) => {
+            this.actionLoading = false;
             this.snackBar.open('Tarea creada correctamente', 'OK', { duration: 3000 });
             this.router.navigateByUrl("/professional/interactions");
           });
       }else{
+        this.actionLoading = false;
         this.snackBar.open('Ingrese todos los datos', 'OK', { duration: 3000 });
       }
     }

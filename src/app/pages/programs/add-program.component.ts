@@ -20,6 +20,7 @@ export class AddProgramComponent implements OnInit {
   public program: any = { entity: "program", patient: "", professional: "", title: "", content: "", posts: [], objective: "", detail: "", weekdays: [], interactions: [], duration: 1 };
   public posts: any[] = [];
   public interactions: any[] = [];
+  public actionLoading:boolean = false;
   public myForm: FormGroup;
   public week = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
   public loading: boolean = true;
@@ -88,27 +89,30 @@ export class AddProgramComponent implements OnInit {
   }
 
   publicar() {
-    //if(this.program.posts.length>0 && this.program.interactions.length>0) {
+    this.actionLoading = true;
     if (this.program.interactions.length > 0) {
       for (let param of this.program.interactions) {
         if(param.params.init+param.params.long-1<=this.program.duration) {
           this.program.datetime = moment().format('YYYYMMDDHHmmss')
           this.dataService.postData(this.program).then((result: any) => {
             if (this.id) {
+              this.actionLoading = false;
               this.snackBar.open('Programa actualizado correctamente.', 'OK', { duration: 3000 });
             } else {
+              this.actionLoading = false;
               this.snackBar.open('Programa creado correctamente.', 'OK', { duration: 3000 });
             }
             this.router.navigateByUrl("/professional/programs");
           });
         }else{
+          this.actionLoading = false;
           this.snackBar.open('El día de inicio de algunas tareas no coincide con la duración del programa', 'ERR', { duration: 3000 });
         }
       }
     } else {
+      this.actionLoading = false;
       this.snackBar.open('Debes agregar al menos una tarea y un post.', 'ERR', { duration: 3000 });
     }
-
   }
 
   newPost() {

@@ -21,6 +21,7 @@ export class AddProfessionalComponent implements OnInit {
   public passwordConfirm:string = "";
   public passwordTemp:string = "";
   public loading:boolean = true;
+  public actionLoading:boolean = false;
   constructor(public route: ActivatedRoute, public snackBar: MatSnackBar, public router: Router, private _fb: FormBuilder, public dataService: DataService, public dialog: MatDialog) {
   }
 
@@ -57,21 +58,25 @@ export class AddProfessionalComponent implements OnInit {
   }
 
   publicar() {
+    this.actionLoading = true;
     if(this.angForm.valid){
       if((this.professional.password==this.passwordConfirm && this.professional.password != "") ){
         this.professional.password = Md5.hashStr(this.professional.password);
         this.professional.datetime = this.professional.datetime = moment().format("YYYYMMDDHHmm");
         this.dataService.postData(this.professional).then((result:any)=>{
+          this.actionLoading = false;
           this.snackBar.open('Profesional actualizado correctamente', 'OK', { duration: 3000 });
           this.router.navigateByUrl("/professional/professionals");
         });
       }else if(this.professional.password==this.passwordConfirm && this.professional._id){
         this.professional.password = this.passwordTemp;
         this.dataService.postData(this.professional).then((result:any)=>{
+          this.actionLoading = false;
           this.snackBar.open('Profesional actualizado correctamente', 'OK', { duration: 3000 });
           this.router.navigateByUrl("/professional/professionals");
         });
       }else{
+        this.actionLoading = false;
         this.snackBar.open('Las contraseñas no coinciden', 'ERROR', { duration: 3000 });
       }
     }

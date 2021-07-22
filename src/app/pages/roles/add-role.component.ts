@@ -20,6 +20,7 @@ export class AddRoleComponent implements OnInit {
   public id:string = "";
   public new:any[] = [];
   public loading:boolean = true;
+  public actionLoading:boolean = false;
 
   constructor(public route: ActivatedRoute, public snackBar: MatSnackBar, public router: Router, private _fb: FormBuilder, public dataService: DataService, public dialog: MatDialog) {
   }
@@ -63,17 +64,21 @@ export class AddRoleComponent implements OnInit {
   }
 
   publicar(){
+    this.actionLoading = true;
     if(this.angForm.valid && this.role.features?.length>0){
       this.role.datetime = moment().format("YYYYMMDDHHmm");
       this.dataService.postData(this.role).then((result:any)=>{
         if(this.id){
+          this.actionLoading = false;
           this.snackBar.open('Perfil actualizado correctamente.', 'OK', { duration: 3000 });
         }else{
+          this.actionLoading = false;
           this.snackBar.open('Perfil creado correctamente.', 'OK', { duration: 3000 });
         }
         this.router.navigateByUrl("/professional/roles");
       });
     }else{
+      this.actionLoading = false;
       this.snackBar.open('Ingrese todos los valores.', 'ERR', { duration: 3000 });
     }
   }

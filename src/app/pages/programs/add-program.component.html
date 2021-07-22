@@ -84,8 +84,8 @@
     <mat-spinner *ngIf="loading"></mat-spinner>
     <div class="desktopbuttons">
         <button mat-raised-button routerLink="/professional/programs" routerLinkActive="false">Cancelar</button>&nbsp;&nbsp;&nbsp;
-        <button mat-raised-button *ngIf="!id" color="primary" (click)="publicar()">Crear Programa</button>
-        <button mat-raised-button *ngIf="id" color="primary" (click)="publicar()">Actualizar Programa</button>
+        <button mat-raised-button *ngIf="!id" color="primary" [disabled]="actionLoading" (click)="publicar()">Crear Programa</button>
+        <button mat-raised-button *ngIf="id" color="primary" [disabled]="actionLoading" (click)="publicar()">Actualizar Programa</button>
     </div>
 
 </div>

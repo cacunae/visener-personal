@@ -59,8 +59,8 @@
     </mat-card>
     <div *ngIf="!loading" class="desktopbuttons">
         <button mat-raised-button routerLink="/professional/professionals" routerLinkActive="false">Cancelar</button>&nbsp;&nbsp;&nbsp;
-        <button *ngIf="!id" mat-raised-button type="submit" color="primary" (click)="publicar()">Crear Profesional</button>
-        <button *ngIf="id" mat-raised-button  type="submit" color="primary" (click)="publicar()">Actualizar Profesional</button>
+        <button *ngIf="!id" mat-raised-button type="submit" [disabled]="actionLoading" color="primary" (click)="publicar()">Crear Profesional</button>
+        <button *ngIf="id" mat-raised-button  type="submit" [disabled]="actionLoading" color="primary" (click)="publicar()">Actualizar Profesional</button>
     </div>
     <mat-spinner *ngIf="loading"></mat-spinner>
 

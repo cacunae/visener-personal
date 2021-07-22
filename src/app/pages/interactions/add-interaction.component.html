@@ -102,7 +102,7 @@
     </mat-card>
     <div class="desktopbuttons">
         <button mat-raised-button routerLink="/professional/interactions" routerLinkActive="false">Cancelar</button>&nbsp;&nbsp;&nbsp;
-        <button *ngIf="!id" mat-raised-button color="primary" (click)="publicar()">Crear Tarea</button>
-        <button *ngIf="id" mat-raised-button color="primary" (click)="publicar()">Actualizar Tarea</button>
+        <button *ngIf="!id" mat-raised-button color="primary" [disabled]="actionLoading" (click)="publicar()">Crear Tarea</button>
+        <button *ngIf="id" mat-raised-button color="primary" [disabled]="actionLoading" (click)="publicar()">Actualizar Tarea</button>
     </div>
 </div>

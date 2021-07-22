@@ -36,7 +36,7 @@
     <mat-spinner *ngIf="loading"></mat-spinner>
     <div class="desktopbuttons">
         <button mat-raised-button routerLink="/professional/roles" routerLinkActive="false">Cancelar</button>&nbsp;&nbsp;&nbsp;
-        <button mat-raised-button *ngIf="!id" type="submit" color="primary" (click)="publicar()">Crear Perfil</button>
-        <button mat-raised-button *ngIf="id" type="submit" color="primary" (click)="publicar()">Actualizar Perfil</button>
+        <button mat-raised-button *ngIf="!id" type="submit" [disabled]="actionLoading" color="primary" (click)="publicar()">Crear Perfil</button>
+        <button mat-raised-button *ngIf="id" type="submit" [disabled]="actionLoading" color="primary" (click)="publicar()">Actualizar Perfil</button>
     </div>
 </div>

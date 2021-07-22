@@ -13,7 +13,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
   templateUrl: './add-post.component.html'
 })
 export class AddPostComponent implements OnInit {
-  public post: any = {entity: "post", state: "active"};
+  public post: any = { entity: "post", state: "active" };
   public polls: any = {};
   public options: any = {};
   public askPoll: boolean;
@@ -22,8 +22,9 @@ export class AddPostComponent implements OnInit {
   public arreglo: any[] = [];
   public attachments: any[] = [];
   public files: any;
-  public id:string = null;
-  public loading:boolean = true;
+  public id: string = null;
+  public loading: boolean = true;
+  public actionLoading: boolean = false;
 
   constructor(public snackBar: MatSnackBar, public route: ActivatedRoute, public router: Router, private _fb: FormBuilder, public dataService: DataService, public dialog: MatDialog) {
     this.id = route.snapshot.paramMap.get('id');
@@ -34,9 +35,9 @@ export class AddPostComponent implements OnInit {
     if (this.id) {
       this.dataService.getData("/" + this.id).then((result: any) => {
         this.post = result;
-        if(this.post.poll){
+        if (this.post.poll) {
           this.askPoll = true;
-        }else{
+        } else {
           this.askPoll = false;
         }
         this.loading = false;
@@ -53,12 +54,12 @@ export class AddPostComponent implements OnInit {
       width: '520px'
     });
     dialogRef.afterClosed().subscribe(result => {
-      if(result){
+      if (result) {
         this.post.image = null;
         this.post.video = null;
-        if(result.entity=='image'){
+        if (result.entity == 'image') {
           this.post.image = result.selection;
-        }else{
+        } else {
           setTimeout(() => {
             this.post.video = result.selection;
           }, 500);
@@ -71,11 +72,11 @@ export class AddPostComponent implements OnInit {
     this.post.poll = null;
   }
 
-  delPregunta(index:number){
+  delPregunta(index: number) {
     this.post.poll.splice(index, 1);
   }
 
-  delOption(question:number, index:number){
+  delOption(question: number, index: number) {
     this.post.poll[question].options.splice(index, 1);
   }
 
@@ -87,11 +88,11 @@ export class AddPostComponent implements OnInit {
     this.post.poll.push({ id: this.post.poll.length + 1, type: 'text', question: '' });
   }
 
-  addAlternativa(pregunta:any) {
+  addAlternativa(pregunta: any) {
     pregunta.options.push({ id: pregunta.options.length + 1, description: '' });
   }
 
-  changeTypeQuestion(type:any, question:any) {
+  changeTypeQuestion(type: any, question: any) {
     question.type = type;
     if (question.type == 'text') {
       question.options = null;
@@ -101,19 +102,22 @@ export class AddPostComponent implements OnInit {
   }
 
   publicar() {
-    if(this.post.title && (this.post.image || this.post.video) && this.post.content){
+    this.actionLoading = true;
+    if (this.post.title && (this.post.image || this.post.video) && this.post.content) {
       this.post.datetime = moment().format('YYYYMMDDHHmmss') //Date.now();
       this.dataService.postData(this.post).then((result: any) => {
-        if(this.id){
+        if (this.id) {
+          this.actionLoading = false;
           this.snackBar.open('Post actualizado correctamente', 'OK', { duration: 3000 });
-        }else{
+        } else {
+          this.actionLoading = false;
           this.snackBar.open('Post creado correctamente', 'OK', { duration: 3000 });
         }
         this.router.navigateByUrl("/professional/posts");
-      }); 
+      });
     } else {
+      this.actionLoading = false;
       this.snackBar.open('Debe agregar una foto, un título y un contenido', 'ERR', { duration: 3000 });
     }
-
   }
 }

@@ -17,6 +17,7 @@ export class AddCompanyComponent implements OnInit {
   public loading: boolean = true;
   public id: string = "";
   public attachment: any = { entity: "image" };
+  public actionLoading: boolean = false;
 
   constructor(public route: ActivatedRoute, public snackBar: MatSnackBar, public http: HttpClient, public router: Router, private _fb: FormBuilder, public dataService: DataService, public dialog: MatDialog) {
     this.id = route.snapshot.paramMap.get('id');
@@ -32,35 +33,40 @@ export class AddCompanyComponent implements OnInit {
   }
 
   publicar(files: File[]) {
+    this.actionLoading = true;
     let file: File = files[0];
     if (this.company.rut.length == 10) {
       if (this.id) {
-        if(files.length>0){
+        if (files.length > 0) {
           this.dataService.postData(this.company).then((result: any) => {
             let headers = new HttpHeaders().set("If-Match", result.rev);
             this.http.put(this.dataService.databaseAPI + "/" + result.id + "/" + this.attachment.entity, file, { headers: headers }).subscribe((result2) => {
               this.loading = false;
             });
+            this.actionLoading = false;
             this.snackBar.open('Empresa Actualizada correctamente', 'OK', { duration: 3000 });
             this.router.navigateByUrl("/professional/companies");
           })
-        }else{
+        } else {
           this.dataService.postData(this.company).then((result: any) => {
+            this.actionLoading = false;
             this.snackBar.open('Empresa Actualizada correctamente', 'OK', { duration: 3000 });
             this.router.navigateByUrl("/professional/companies");
           });
         }
-      }else{
+      } else {
         this.dataService.postData(this.company).then((result: any) => {
           let headers = new HttpHeaders().set("If-Match", result.rev);
           this.http.put(this.dataService.databaseAPI + "/" + result.id + "/" + this.attachment.entity, file, { headers: headers }).subscribe((result2) => {
             this.loading = false;
           });
+          this.actionLoading = false;
           this.snackBar.open('Empresa Creada correctamente', 'OK', { duration: 3000 });
           this.router.navigateByUrl("/professional/companies");
         });
       }
-    }else {
+    } else {
+      this.actionLoading = false;
       this.snackBar.open('Debe ingresar un RUT válido', 'ERR', { duration: 3000 });
     }
   }
