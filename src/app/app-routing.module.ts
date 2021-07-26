@@ -28,6 +28,7 @@ import { AddProgramComponent } from './pages/programs/add-program.component';
 import { GetInformationComponent } from './pages/patients/get-information.component';
 import { ViewPatientsComponent } from './pages/patients/view-patients.component';
 import { ViewPostsComponent } from './pages/posts/view-posts.component';
+import { GroupsComponent } from './patient/groups/groups.component';
 
 const routes: Routes = [
   { path: "", component: LoginComponent, pathMatch: "full" },
@@ -70,11 +71,12 @@ const routes: Routes = [
       { path: "upd-company/:id", component: AddCompanyComponent},
     ]
   },
-  { path: "patient", component: PatientComponent, pathMatch: "full" },
+  { path: "patient", component: PatientComponent, pathMatch: "full"},
+  { path: "patient/groups", component: GroupsComponent, pathMatch: "full" },
+  { path: "patient/groups/:id", component: GroupsComponent, pathMatch: "full" },
   { path: "login", component: LoginComponent, pathMatch: "full" },
   { path: "patient", loadChildren: () => import('./patient/patient.component').then(m => m.PatientComponent)},
   { path: "professional", loadChildren: () => import('./professional/professional.component').then(m => m.ProfessionalComponent)},
-  
   { path: "login", loadChildren: () => import('./login/login.component').then(m => m.LoginComponent)},
 ];
 

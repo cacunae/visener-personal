@@ -1,14 +1,17 @@
 <mat-toolbar *ngIf="user.state=='enabled'" color="primary">
   <mat-toolbar-row>
-    <button mat-button (click)="popup()">
+    <button mat-button (click)="popup()" style="margin-left: -20px; margin-right: -10px;">
       <mat-icon>menu</mat-icon>
     </button>&nbsp;
     <span class="logo">Visener</span>
     <span class="spacer"></span>
-    <span class="desktop">&nbsp;{{user.name}}</span>
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-      <mat-icon>share</mat-icon>
+    <button mat-icon-button>
+      <mat-icon style="color:#FFD628">home</mat-icon>
     </button>
+    <button mat-icon-button routerLink="/patient/groups" routerLinkActive="true">
+      <mat-icon>group</mat-icon>
+    </button>
+    <span class="desktop">&nbsp;{{user.name}}</span>
   </mat-toolbar-row>
 </mat-toolbar>
 <div *ngIf="user.state=='enabled'" class="content" role="main">

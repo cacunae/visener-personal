@@ -92,6 +92,7 @@ import { EnableComponent } from './patient/enable.component';
 import { GetInformationComponent } from './pages/patients/get-information.component';
 import { DialogReAsingComponent } from './pages/dialog-re-asing/dialog-re-asing.component';
 import { GroupsComponent } from './patient/groups/groups.component';
+import { AddGroupComponent } from './patient/groups/add-group.component';
 
 @NgModule({
   declarations: [
@@ -150,7 +151,8 @@ import { GroupsComponent } from './patient/groups/groups.component';
     ViewPatientsComponent,
     GetInformationComponent,
     DialogReAsingComponent,
-    GroupsComponent
+    GroupsComponent,
+    AddGroupComponent,
   ],
   imports: [
     BrowserModule,

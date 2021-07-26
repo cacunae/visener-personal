@@ -1,1 +1,55 @@
-<p>groups works!</p>
+<mat-toolbar *ngIf="user.state=='enabled'" color="primary">
+    <mat-toolbar-row>
+      <button mat-button (click)="popup()" style="margin-left: -20px; margin-right: -10px;">
+        <mat-icon>menu</mat-icon>
+      </button>&nbsp;
+      <span class="logo">Visener<span style="font-weight: 100; font-size:20px; letter-spacing: 0px;">GRUPOS</span></span>
+      <span class="spacer"></span>
+      <button mat-icon-button routerLink="/patient" routerLinkActive="false">
+        <mat-icon>home</mat-icon>
+      </button>
+      <button mat-icon-button routerLink="/patient/groups" routerLinkActive="false">
+        <mat-icon style="color:#FFD628">group</mat-icon>
+      </button>
+      <span class="desktop">&nbsp;{{user.name}}</span>
+      <!--button mat-icon-button>
+        <mat-icon>share</mat-icon>
+      </button-->
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <div *ngIf="user.state=='enabled'" class="content" role="main">
+    <div class="column">
+      <mat-card class="treatments">
+        <mat-card-title class="titleTareas">Mis grupos</mat-card-title><br>
+        <div *ngIf="loadingGroups" style="display: inline-block;">
+          <mat-spinner></mat-spinner>
+        </div>
+        <div *ngIf="id">
+            <button mat-icon-button routerLink="/patient/groups" routerLinkActive="false">Volver</button>        
+        </div>
+        <div *ngIf="!id">
+            <button mat-raised-button (click)="addGroup()">
+                <mat-icon>add</mat-icon> Nuevo grupo
+            </button>
+            <br><br>
+        </div>
+        <div *ngIf="!loadingGroups && !id">
+          <button *ngFor="let group of groups" routerLink="/patient/groups/{{group.value._id}}" routerLinkActive="false" style="background-color: #ffffff; margin-bottom: 10px;">
+              <div>
+                <mat-card-title class="desktop">{{group.value.name}}</mat-card-title>
+                <mat-card-content>{{group.value.content}}</mat-card-content>
+              </div>
+            </button>
+        </div>
+      </mat-card>
+    </div>
+    <div class="main">
+        <mat-card *ngIf="id">
+            <mat-card-title>Bienvenido a {{group.name}}</mat-card-title><br>
+            <mat-card-content>{{group.content}}</mat-card-content>
+        </mat-card>
+        <br *ngIf="id">
+        <app-post *ngFor="let post of posts" [post]="post" [feedback]="true"></app-post>
+    </div>
+  </div>
+  <mat-menu #menu="matMenu"></mat-menu>
