@@ -1,0 +1,154 @@
+.column{
+    border: 0px;
+    width: 260px;
+  }
+  
+  .main{
+    overflow-y: scroll;
+    height: calc(100% - 5px);
+    padding: 7px 5px 5px 5px;
+    margin-left: 20px;
+    width: 100%;
+    max-width: 520px;
+  }
+  
+  .content{
+    text-align: center;
+    overflow: hidden;
+    flex-direction: row;
+  }
+  
+  .treatments{
+    position: fixed;
+    top: 90px;
+    width: 235px;
+    height: calc(100% - 115px);
+    overflow-y: scroll;
+  }
+  
+  :host {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      font-size: 14px;
+      color: #333;
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+  
+    h1,  h2,  h3,  h4,  h5,  h6 {
+      margin: 8px 0;
+    }
+  
+    p {
+      margin: 0;
+    }
+  
+    .spacer {
+      flex: 1 1 auto;
+    }
+  
+    svg#clouds {
+      position: fixed;
+      bottom: -160px;
+      left: -230px;
+      z-index: -10;
+      width: 1920px;
+    }
+  
+  
+    /* Responsive Styles */
+    @media screen and (max-width: 700px) {
+      .titleTareas{
+        display: none;
+      }
+      .content {
+        text-align: center;
+        width: 100%;
+        overflow: hidden;
+        display: inline;
+        flex-direction: column;
+      }
+  
+      .column{
+        width: 100%;
+        border: 0px;
+        display: block;
+        height: 95px;
+      }
+  
+      .main{
+        display: block;
+        overflow-y: scroll;
+        padding-top: 15px;
+        height: calc(100% - 150px);
+        margin-top: -20px;
+        margin-left: 0px;
+      }
+  
+      .treatments{
+        top: 57px;
+        width: 100%;
+        height: 90px;
+        overflow: hidden;
+        border-radius: 0px 0px 4px 4px;
+      }
+  
+      #interaction img{
+        float: left;
+      }
+  
+      #interaction .cellphone{
+        display: block;
+        margin-bottom: 1px;
+      }
+  
+      button.cellphone{
+        float: right;
+        margin-top: 10px;
+        margin-left: 5px;
+        margin-right: -5px;
+        border-radius: 25px;
+        width: 50px;
+        height: 50px;
+        min-width: 40px;
+      }
+  
+      mat-button-toggle-group{
+        height: 35px;
+        display: inline-flex !important;
+      }
+  
+      mat-button-toggle-group>mat-button-toggle{
+        margin-top: -8px;
+      }
+  
+      .card-container > *:not(.circle-link) ,
+      .terminal {
+        width: 100%;
+      }
+  
+      .card:not(.highlight-card) {
+        height: 16px;
+        margin: 8px 0;
+      }
+  
+      .card.highlight-card span {
+        margin-left: 72px;
+      }
+  
+      svg#rocket-smoke {
+        right: 120px;
+        transform: rotate(-5deg);
+      }
+    }
+  
+    @media screen and (max-width: 575px) {
+      svg#rocket-smoke {
+        display: none;
+        visibility: hidden;
+      }
+    }
+  
+    mat-divider{
+      margin: 0px !important;
+    }

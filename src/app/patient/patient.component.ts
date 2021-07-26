@@ -5,7 +5,6 @@ import { PopupComponent } from '../pages/popup/popup.component';
 import { DataService } from '../services/data.service';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
-import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 
 @Component({
   selector: 'app-patient',
@@ -89,7 +88,6 @@ export class PatientComponent implements OnInit {
     });
     for(let treatment of tmpTreatments){
       for(let interaction of treatment.interactions){
-        console.log("inter:", interaction)
         await this.dataService.getData("/_design/view/_view/polls-by-interaction?key=[\"" + treatment._id + "\",\"" + interaction._id + "\",\"" + moment().format("YYYYMMDD") + "\"]").then((polls: any) => {
           interaction.responses = polls.rows.length + 1;
           if (polls.rows && polls.rows.length > 0) {
