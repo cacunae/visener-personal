@@ -25,12 +25,12 @@
             <ng-container matColumnDef="actions">
                 <th mat-header-cell *matHeaderCellDef>Acciones</th>
                 <td mat-cell *matCellDef="let interaction" nowrap>
-                    <button mat-icon-button (click)="delInteraction(interaction)">
-                        <mat-icon>delete</mat-icon>
-                    </button>
                     <button mat-icon-button routerLink="/professional/upd-interaction/{{interaction._id}}"
                         routerLinkActive="false">
                         <mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-icon-button (click)="delInteraction(interaction)">
+                        <mat-icon>delete</mat-icon>
                     </button>
                 </td>
             </ng-container>

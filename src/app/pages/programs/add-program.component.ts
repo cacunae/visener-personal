@@ -91,6 +91,10 @@ export class AddProgramComponent implements OnInit {
   publicar() {
     this.actionLoading = true;
     if (this.program.interactions.length > 0) {
+      if(this.program.title.length == 0 || this.program.content.length == 0 || this.program.objective.length == 0) {
+        this.actionLoading = false;
+        this.snackBar.open('Verifica que todos los campos estén correctos.', 'OK', { duration: 3000 });
+      } else{
       for (let param of this.program.interactions) {
         if(param.params.init+param.params.long-1<=this.program.duration) {
           this.program.datetime = moment().format('YYYYMMDDHHmmss')
@@ -109,6 +113,7 @@ export class AddProgramComponent implements OnInit {
           this.snackBar.open('El día de inicio de algunas tareas no coincide con la duración del programa', 'ERR', { duration: 3000 });
         }
       }
+    }
     } else {
       this.actionLoading = false;
       this.snackBar.open('Debes agregar al menos una tarea y un post.', 'ERR', { duration: 3000 });

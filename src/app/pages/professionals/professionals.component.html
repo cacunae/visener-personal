@@ -34,14 +34,14 @@
             <ng-container matColumnDef="actions">
                 <th mat-header-cell *matHeaderCellDef>Acciones</th>
                 <td mat-cell *matCellDef="let element">
-                    <button mat-icon-button (click)="delProfessional(element)">
-                        <mat-icon>delete</mat-icon>
+                    <button mat-icon-button routerLink="/professional/upd-professional/{{element._id}}" routerLinkActive="false">
+                        <mat-icon>edit</mat-icon>
                     </button>
                     <button *ngIf="element.professional" mat-icon-button (click)="addRelation(element)">
                         <mat-icon title="Relacionar paciente">person_add_alt</mat-icon>
                     </button>
-                    <button mat-icon-button routerLink="/professional/upd-professional/{{element._id}}" routerLinkActive="false">
-                        <mat-icon>edit</mat-icon>
+                    <button mat-icon-button (click)="delProfessional(element)">
+                        <mat-icon>delete</mat-icon>
                     </button>
                 </td>
             </ng-container>

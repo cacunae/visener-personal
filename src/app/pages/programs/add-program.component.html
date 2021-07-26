@@ -50,7 +50,7 @@
                     <div cdkDrag *ngFor="let interaction of program.interactions; let i = index;">
                         <app-interaction [interaction]="interaction._id" [resizable]="true" [removable]="true" (event)="delInteraction(i)"></app-interaction>
                         <mat-form-field appearance="outline" style="max-width: 400px !important; float: left;">
-                            <mat-label>Iteracciones diarias</mat-label>
+                            <mat-label>Interacciones diarias</mat-label>
                             <mat-select class="form-control" name="daytimes" [(ngModel)]="interaction.params.iterations">
                                 <mat-option [value]="1">1</mat-option>
                                 <mat-option [value]="2">2</mat-option>
