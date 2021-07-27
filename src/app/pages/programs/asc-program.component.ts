@@ -94,5 +94,9 @@ export class AscProgramComponent implements OnInit {
     console.log(this.range)
   }
 
+  drop($event){
+    console.log("event:", $event)
+  }
+
 }
 

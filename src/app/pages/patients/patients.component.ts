@@ -48,20 +48,19 @@ export class PatientsComponent implements OnInit {
   }
 
   delPatient1(element: any){
-    this.dataService.getData("/_design/view/_view/relations-by-patient?key=\""+element.value._id+"\"&include_docs=true").then((professionals: any) => {
+    this.dataService.getData("/_design/view/_view/relations-by-patient?key=\""+element._id+"\"&include_docs=true").then((professionals: any) => {
       if(professionals.rows){
         for(let professional of professionals.rows){
-          this.dataService.deleteById(professional.value.doc._id + "?rev=" + professional.value.doc._rev);
-          this.dataService.deleteById(element.value._id + "?rev=" + element.value._rev);
+          this.dataService.deleteById(professional.doc._id + "?rev=" + professional.doc._rev);
         } 
       }
-      this.dataService.getData("/_design/view/_view/treatments-by-patient?key=\""+element.value._id+"\"&include_docs=true").then((treatments: any) => {
+      this.dataService.getData("/_design/view/_view/treatments-by-patient?key=\""+element._id+"\"&include_docs=true").then((treatments: any) => {
         if(treatments.rows){
           for(let treatment of treatments.rows){
             this.dataService.deleteById(treatment.value.doc._id + "?rev=" + treatment.value.doc._rev);
           }
         }
-        this.dataService.getData("/_design/view/_view/feedback-by-user?key=\""+element.value._id+"\"&include_docs=true").then((comments: any) => {
+        this.dataService.getData("/_design/view/_view/feedback-by-user?key=\""+element._id+"\"&include_docs=true").then((comments: any) => {
           if(comments.rows){
             for(let comment of comments.rows){
               this.dataService.deleteById(comment.value._id + "?rev=" + comment.value._rev)
@@ -75,14 +74,14 @@ export class PatientsComponent implements OnInit {
   }
 
   delPatient(element: any) {
-    this.dataService.getData("/_design/view/_view/relations-by-patient?key=\""+element.value._id+"\"&include_docs=true").then((professionals: any) => {
+    this.dataService.getData("/_design/view/_view/relations-by-patient?key=\""+element._id+"\"&include_docs=true").then((professionals: any) => {
       if(professionals && professionals.rows && professionals.rows.length>0){
         alert("No se puede eliminar este paciente porque está relacionado a un profesional.");
       }else if(professionals && professionals.rows && professionals.rows.length>0){
         alert("No se puede eliminar este paciente porque está relacionado a " + professionals.rows.length + " profesionales.");
       }else{
-        if(confirm("¿Estás seguro de eliminar al paciente " + element.value.name + "?\nEsta acción no podrá deshacerse.")) {
-          this.dataService.deleteById(element.value._id + "?rev=" + element.value._rev).then(() => {
+        if(confirm("¿Estás seguro de eliminar al paciente " + element.name + "?\nEsta acción no podrá deshacerse.")) {
+          this.dataService.deleteById(element._id + "?rev=" + element._rev).then(() => {
             this.snackBar.open('Paciente Eliminado correctamente.', 'OK', {duration: 5000});
             this.getPatients();
           });
