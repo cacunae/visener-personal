@@ -105,7 +105,7 @@ export class PatientComponent implements OnInit {
             interaction.params.poll.areOk = true;
           }
         });
-
+ 
         /* Elimina aquellas tareas que no sean de este día particular */
         await this.dataService.getData("/" + interaction._id).then((response) => {
           interaction.detail = response;

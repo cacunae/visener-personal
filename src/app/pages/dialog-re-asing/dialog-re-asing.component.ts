@@ -11,6 +11,7 @@ import { DataService } from 'src/app/services/data.service';
 export class DialogReAsingComponent implements OnInit {
   professionals: any[];
   idProfessional: any;
+  idPatients:any[] = [];
   loading:boolean = true; 
   
   constructor(public dataService: DataService, public dialogRef: MatDialogRef<DialogReAsingComponent>, @Inject(MAT_DIALOG_DATA) data) {
@@ -27,10 +28,12 @@ export class DialogReAsingComponent implements OnInit {
 
     await this.dataService.getData("/_design/view/_view/professionals").then((professionals: any) => {
       tmpProfessional = professionals.rows;
-      console.log("pro", tmpProfessional)
     });
     await this.dataService.getData("/_design/view/_view/relations-by-professional?key=\""+this.idProfessional+"\"&include_docs=true").then((professional: any) => {
       relProfessional = professional.rows;
+      for(let name of professional.rows){
+        console.log("rel:", name.value.doc.patient)
+      }
     });
     for(let professional of tmpProfessional){
       if(relProfessional.findIndex((item:any) => item.value.doc.professional === professional.value._id) >= 0){
@@ -42,19 +45,23 @@ export class DialogReAsingComponent implements OnInit {
   }
 
   save() {
-    for (let professional of this.professionals) {
-      console.log("pro", professional)
-      if (professional.selected) {
-        console.log("pro2", professional.selected)
-        this.dataService.postData({ entity: "relation", patient: professional.value._id, professional: professional.value.doc._id, datetime: moment().format('YYYYMMDDHHmmss') }).then((result:any) => {
-          if(result.ok){
-            this.dialogRef.close("ok");
-          }else{
-            this.dialogRef.close("err");
-          }
+    this.dataService.getData("/_design/view/_view/relations-by-professional?key=\""+this.idProfessional+"\"&include_docs=true").then((professional: any) => {
+      for(let name of professional.rows){
+         for (let professional of this.professionals) {
+        if (professional.selected) {
+          console.log("rel:", name.value.doc.patient)
+          this.dataService.postData({ entity: "relation", patient: name.value.doc.patient, professional: professional.value.doc._id, datetime: moment().format('YYYYMMDDHHmmss') }).then((result:any) => {
+            console.log("result:", result)
+            if(result.ok){
+              this.dialogRef.close("ok");
+            }else{
+              this.dialogRef.close("err");
+            }
         })
       }
     }
+      }
+    });
   }
 
   onNoClick(){

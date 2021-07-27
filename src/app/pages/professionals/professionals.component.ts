@@ -41,7 +41,7 @@ export class ProfessionalsComponent implements OnInit {
     await this.dataService.getData("/_design/view/_view/professionals?include_docs=true").then((professionals: any) => {
       professionals = professionals.rows.sort((a:any, b:any) => { return a.value.doc.name.localeCompare(b.value.doc.name) });
       for(let professional of professionals){
-        professional.value.doc.role = {name: professional.doc.name, _id: professional.doc._id};
+        professional.value.doc.role = {name: professional.name, _id: professional._id};
         this.professionals.push(professional.value.doc)
       }
       this.dataSource = new MatTableDataSource<professionalsTable>(this.professionals);
@@ -56,23 +56,16 @@ export class ProfessionalsComponent implements OnInit {
   }
 
   delProfessional(element: any) {
-    if(confirm("¿Estás seguro de eliminar al profesional " + element.doc.name + "?\nEsta acción no podrá deshacerse.")) {
+    if(confirm("¿Estás seguro de eliminar al profesional " + element.name + "?\nEsta acción no podrá deshacerse.")) {
       if(element.patients.length>0){
-        alert("El Profesional tiene pacientes asociados");
-        /* if(confirm("Te gustaría reasignar a los pacientes a un nuevo profesional?")){  
+        if(confirm("Te gustaría reasignar a los pacientes a un nuevo profesional?")){  
           this.addReAsing(element);
-         for(let patient of element.patients){
-          this.patients.entity=="relation";
-          this.patients.patient = patient.value.doc.patient;
-         }
-          this.patients.professional = element.value.doc._id;
-          console.log("patients:", this.patients)
-          
-         this.dataService.deleteById(element.value.doc._id + "?rev=" + element.value.doc._rev).then(() => {
-          this.snackBar.open('Profesional Eliminado correctamente.', 'OK', {duration: 5000});
-          this.getProfessionals();
+        }else{
+          this.dataService.deleteById(element._id + "?rev=" + element._rev).then(() => {
+            this.snackBar.open('Profesional Eliminado correctamente.', 'OK', {duration: 5000});
+            this.getProfessionals();
           });
-        }*/
+        }
       }else{
         this.dataService.deleteById(element._id + "?rev=" + element._rev).then(() => {
         this.snackBar.open('Profesional Eliminado correctamente.', 'OK', {duration: 5000});
@@ -92,6 +85,10 @@ export class ProfessionalsComponent implements OnInit {
       console.log("result:", result)
       if(result==="ok"){
         this.snackBar.open('Asociación realizada correctamente.', 'OK', {duration: 5000});
+        this.dataService.deleteById(element._id + "?rev=" + element._rev).then(() => {
+          this.snackBar.open('Profesional Eliminado correctamente.', 'OK', {duration: 5000});
+          location.reload();
+        });
         this.getProfessionals();
       }else if(result==="err"){
         this.snackBar.open('Se produjo un error al asociar.', 'ERR', {duration: 5000});
@@ -117,7 +114,7 @@ export class ProfessionalsComponent implements OnInit {
 
   delRelation(professional:any, patient: any) {
     if(confirm("Estás seguro de eliminar la relación entre el profesional " + professional.name + " y el paciente " + patient.doc.name)) {
-      this.dataService.deleteById(patient.doc._id + "?rev=" + patient.doc._rev).then((result:any) => {
+      this.dataService.deleteById(patient.value.doc._id + "?rev=" + patient.value.doc._rev).then((result:any) => {
         if(result.ok){
           this.getProfessionals();
           this.snackBar.open('Relación eliminada correctamente.', 'OK', {duration: 5000});

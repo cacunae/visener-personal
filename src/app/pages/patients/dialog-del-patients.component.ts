@@ -19,6 +19,7 @@ export class DialogDelPatientsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log("user:", this.dataService.user._id)
     this.dataService.getData("/"+this.dataService.user._id).then((pass:any)=>{
       this.password = pass.password;
     })
@@ -63,6 +64,13 @@ export class DialogDelPatientsComponent implements OnInit {
               }
             })
           })
+          this.dataService.getData("/_design/view/_view/requests-by-patient?key=\""+this.dataService.user._id+"\"&include_docs=true").then((requests: any) => {
+            if(requests.rows.length>0){
+              for(let request of requests.rows){
+                this.dataService.deleteById(request.doc._id + "?rev=" + request.doc._rev)
+              } 
+            }
+          })
           this.dataService.deleteById(this.dataService.user._id + "?rev=" + this.dataService.user._rev);
           alert("Paciente Eliminado Correctamente");
           localStorage.clear();
@@ -71,7 +79,6 @@ export class DialogDelPatientsComponent implements OnInit {
       }else{
         this.snackBar.open('La contraseña no coincide', 'ERR', { duration: 3000 });
       }
-      console.log("info:",this.dataService.user)
     }else{
       this.snackBar.open('Debe aceptar los términos antes de continuar.', 'ERR', { duration: 3000 });
     }

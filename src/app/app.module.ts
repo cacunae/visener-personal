@@ -93,6 +93,8 @@ import { GetInformationComponent } from './pages/patients/get-information.compon
 import { DialogReAsingComponent } from './pages/dialog-re-asing/dialog-re-asing.component';
 import { GroupsComponent } from './patient/groups/groups.component';
 import { AddGroupComponent } from './patient/groups/add-group.component';
+import { MentionModule } from 'angular-mentions';
+import { NgMentionModule } from 'angular-mention';
 
 @NgModule({
   declarations: [
@@ -189,7 +191,9 @@ import { AddGroupComponent } from './patient/groups/add-group.component';
     MatProgressSpinnerModule,
     MatBadgeModule,
     DragDropModule,
-    ChartsModule
+    ChartsModule,
+    MentionModule,
+    NgMentionModule
   ],
   providers: [CookieService, MatSnackBar],
   bootstrap: [AppComponent]

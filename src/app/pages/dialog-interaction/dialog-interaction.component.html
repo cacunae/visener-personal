@@ -6,9 +6,15 @@
   <button *ngIf="removable" (click)="clickEvent()" class="compressedBtn" color="primary">
     <mat-icon style="margin-top:7px; font-size: 14px;">remove</mat-icon>
   </button>
-  <mat-card-title *ngIf="interaction.value.title">{{interaction.value.title}}</mat-card-title>
-  <mat-card-subtitle *ngIf="interaction.value.subtitle">{{interaction.value.subtitle}}</mat-card-subtitle>
+  <button *ngIf="compressed && selectable" class="compressedBtn" color="primary" [mat-dialog-close]="interaction">
+    <mat-icon *ngIf="compressed" style="margin-top:7px; font-size: 14px;">add</mat-icon>
+  </button>
+  <button *ngIf="compressed && multiple" class="compressedBtn" color="primary" (click)="select(interaction)">
+      <mat-icon *ngIf="compressed" style="margin-top:7px; font-size: 14px;">add</mat-icon>
+  </button>
+  <mat-card-title [class.compressedPost]="compressed" style="font-size:18px;margin-bottom: 30px;" *ngIf="interaction.value.title">{{interaction.value.title}}</mat-card-title>
   <mat-card-content>
+    <mat-card-subtitle *ngIf="interaction.value.subtitle">{{interaction.value.subtitle}}</mat-card-subtitle>
     <img style="width:60px; height:60px;" (click)="putPost(interaction)" *ngIf="interaction.value.image" src="{{interaction.value.image | image}}/" /><br class="desktop">
     <button *ngIf="interaction" mat-raised-button class="cellphone" color="primary"><mat-icon>send</mat-icon></button>
     <button *ngIf="!interaction" mat-raised-button class="cellphone" color="primary"><mat-icon>send</mat-icon></button>
