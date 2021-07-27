@@ -18,6 +18,7 @@ export class PatientComponent implements OnInit {
   public user:any;
   public idPaciente:any;
   public loadingTreatments:boolean = false;
+  public texto:any[] = ["Hola"];
   
   id:any;
   interaction:any;
@@ -47,6 +48,22 @@ export class PatientComponent implements OnInit {
   ngOnInit(): void {
     this.getPosts();
     this.getTreatments();
+    this.mensaje();
+  }
+  
+  mensaje(){
+    let nombre: string = this.user.name;
+    if(this.d.getHours() <= 12){
+      this.texto[0] = "Buenos días, " + nombre.split(" ")[0] + " ¿qué tal te va?";
+    } else if(this.d.getHours() >= 12 && this.d.getHours() < 19){
+      this.texto[0] = "Buenas tardes, " + nombre.split(" ")[0] + " ¿no tienes ninguna tarea pendiente?.";
+    } else if(this.d.getHours() >= 19){
+      this.texto[0] = "Buenas noches, " + nombre.split(" ")[0] + " ¿cómo estuvo tu día?";
+    }
+  }
+
+  cerrarSaludo(){
+    document.getElementById("saludo").style.display = "none";
   }
 
   popup() {

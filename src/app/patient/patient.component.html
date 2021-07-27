@@ -114,6 +114,12 @@
     </mat-card>
   </div>
   <div class="main">
+    <div id="saludo">
+      <mat-card>
+        <span>{{texto[0]}}</span>
+        <button mat-flat-button id="close" title="cerrar" (click)="cerrarSaludo()">x</button> 
+      </mat-card>
+    </div>
     <app-post *ngFor="let post of posts" [post]="post" [feedback]="true"></app-post>
   </div>
 </div>
