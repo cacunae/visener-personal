@@ -14,7 +14,7 @@ export interface DialogData {
 })
 
 export class CommentComponent implements OnInit {
-  patients:any;
+  relations:any;
   name:any[] = [];
   items:any;
 
@@ -23,11 +23,17 @@ export class CommentComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.dataService.getData("/_design/view/_view/patients").then((result:any)=>{
-      this.patients = result.rows;
-      for(let patient of this.patients){
-        this.name.push(patient.value.name)
-        this.items = this.name;
+    this.dataService.getData("/_design/view/_view/relations-by-patient?key=\""+ this.dataService.user._id+"\"").then((results:any)=>{
+      this.relations = results.rows;
+      for(let relation of this.relations){
+        console.log("relations:", this.relations, relation)
+        this.dataService.getData("/"+ relation.value.doc.professional).then((professional:any) =>{
+          this.name.push(professional.name);
+          if(this.name.length == this.relations.length){
+            this.items = this.name;
+            console.log("items:", this.items)
+          }
+        })
       }
     })
   }

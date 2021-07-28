@@ -95,6 +95,7 @@ import { GroupsComponent } from './patient/groups/groups.component';
 import { AddGroupComponent } from './patient/groups/add-group.component';
 import { MentionModule } from 'angular-mentions';
 import { NgMentionModule } from 'angular-mention';
+import { ChallengesComponent } from './pages/challenges/challenges.component';
 
 @NgModule({
   declarations: [
@@ -155,6 +156,7 @@ import { NgMentionModule } from 'angular-mention';
     DialogReAsingComponent,
     GroupsComponent,
     AddGroupComponent,
+    ChallengesComponent,
   ],
   imports: [
     BrowserModule,
