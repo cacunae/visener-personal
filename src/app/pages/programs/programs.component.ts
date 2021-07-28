@@ -40,13 +40,13 @@ export class ProgramsComponent implements OnInit {
     let tmpPrograms:any[] = [];
     await this.dataService.getData("/_design/view/_view/programs").then((programs:any) =>{
       tmpPrograms = programs.rows.sort((a:any, b:any)=>{ return Number(b.value.datetime) - Number(a.value.datetime)});
-    }); 
+    });
     for(let program of tmpPrograms){
       let tmpPosts:any[] = []
       for(let post of program.value.posts){
-        await this.dataService.getData("/" + post._id).then((post:any) =>{
-          tmpPosts.push(post);
-        });
+          //await this.dataService.getData("/" + post._id).then((post:any) =>{
+          //tmpPosts.push(post);
+          //});
       }
       program.postsDetail = tmpPosts;
     }
@@ -54,9 +54,9 @@ export class ProgramsComponent implements OnInit {
       let tmpInteractions:any[] = []
       for(let interaction of program.value.interactions){
         if(interaction._id){
-          await this.dataService.getData("/" + interaction._id).then((interaction:any) =>{
-            tmpInteractions.push(interaction);
-          });
+          // await this.dataService.getData("/" + interaction._id).then((interaction:any) =>{
+          //   tmpInteractions.push(interaction);
+          //});
         }
       }
       program.interactionDetail = tmpInteractions;
@@ -65,6 +65,7 @@ export class ProgramsComponent implements OnInit {
     for(let program of tmpPrograms){
       this.programs.push(program.value);
     }
+
     this.dataSource = new MatTableDataSource<programsTable>(this.programs);
       this.dataSource.paginator = this.paginator;
     this.loading = false;

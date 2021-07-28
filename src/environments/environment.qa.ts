@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  databaseAPI: "http://18.229.98.43:5984/visener-qa",
+  databaseAPI: "https://api.visener.com/v1/visener-qa",
   endpointAPI: "",
   expirationTime: 10000
 };

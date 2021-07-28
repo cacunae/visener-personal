@@ -17,8 +17,8 @@
     </mat-card-subtitle-->
     <mat-card-title [class.compressedPost]="compressed" *ngIf="post.value.title">{{post.value.title}}</mat-card-title>
     <mat-card-subtitle *ngIf="post.value.subtitle && !feedback">{{post.value.subtitle}}</mat-card-subtitle>
-    <img mat-card-image *ngIf="post.value.image" src="{{post.value.image | image}}" />
-    <video mat-card-image controls preload="auto" *ngIf="post.value.video">
+    <img mat-card-image *ngIf="post.value.image && !compressed" src="{{post.value.image | image}}" />
+    <video mat-card-image controls preload="auto" *ngIf="post.value.video && !compressed">
         <source src="{{post.value.video | video}}" />
     </video>
     <mat-card-content *ngIf="post.value.content">{{post.value.content}}</mat-card-content>

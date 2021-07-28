@@ -41,20 +41,24 @@ export class AddProgramComponent implements OnInit {
     this.id = this.route.snapshot.paramMap.get('id');
     if (this.id) {
       await this.dataService.getData("/" + this.id).then((result: any) => {
+        console.log("Program?", this.id);
         this.program = result;
-        console.log("result:", result)
       });
       if (this.program.posts) {
-        for (let post of this.program.posts)
+        for (let post of this.program.posts){
+          console.log("Post?", post._id);
           await this.dataService.getData("/" + post._id).then((postDetail: any) => {
             this.posts.push(postDetail);
-          })
+          });
+        }
       }
       if (this.program.interactions) {
-        for (let interaction of this.program.interactions)
+        for (let interaction of this.program.interactions){
+          console.log("Interaction?", interaction._id);
           await this.dataService.getData("/" + interaction._id).then((interactionDetail: any) => {
             this.interactions.push(interactionDetail);
-          })
+          });
+        }
       }
     }
     this.loading = false;

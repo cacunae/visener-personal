@@ -21,7 +21,7 @@ export class ViewPostsComponent implements OnInit {
 
   getPosts() {
     this.dataService.getData("/_design/view/_view/posts").then((posts: any) => {
-      this.posts = posts.rows.sort((a:any, b:any) => { return a.value.title.localeCompare(b.value.title) });
+      this.posts = posts.rows.sort((a:any, b:any) => { if(a.value.title && b.value.title) {return a.value.title.localeCompare(b.value.title);} });
     });
   }
 
