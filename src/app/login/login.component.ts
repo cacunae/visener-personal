@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
     this.error = false;
     if (/[!#$%^&*()_+\-=\[\]{};':"\\|,<>\/?]+/.test(this.email)) {
       this.error = true;
-      this.snackBar.open('Usuario o contraseña errónea.', 'OK', { duration: 5000 });
+      this.snackBar.open('Usuario o contraseña errónea.', 'ERROR', { duration: 5000 });
     } else {
       this.dataService.login(this.email, Md5.hashStr(this.password)).then((result: any) => {
         if (result.rows && result.rows[0] && result.rows[0].id) {
@@ -52,12 +52,12 @@ export class LoginComponent implements OnInit {
           } else if (this.dataService.user.entity === "patient") {
             this.router.navigateByUrl("/patient");
           } else {
-            this.snackBar.open('Hubo un problema al cargar su perfil.', 'OK', { duration: 5000 });
+            this.snackBar.open('Hubo un problema al cargar su perfil.', 'ERROR', { duration: 5000 });
             this.router.navigateByUrl("/login");
           }
         } else {
           this.error = true;
-          this.snackBar.open('Usuario o contraseña errónea.', 'OK', { duration: 5000 });
+          this.snackBar.open('Usuario o contraseña errónea.', 'ERROR', { duration: 5000 });
         }
       });
     }
