@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
 
   validaUsuario() {
     this.error = false;
-    if (/[!#$%^&*()_+\-=\[\]{};':"\\|,<>\/?]+/.test(this.email)) {
+    if (/[!#$%^&*()+\=\[\]{};':"\\|,<>\/?]+/.test(this.email)) {
       this.error = true;
       this.snackBar.open('Usuario o contraseña errónea.', 'ERROR', { duration: 5000 });
     } else {
