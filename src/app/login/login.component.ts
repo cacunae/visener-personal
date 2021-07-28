@@ -30,7 +30,10 @@ export class LoginComponent implements OnInit {
     if (/[!#$%^&*()+\=\[\]{};':"\\|,<>\/?]+/.test(this.email)) {
       this.error = true;
       this.snackBar.open('El email ingresado contiene caracteres inválidos.', 'ERROR', { duration: 5000 });
-    } else {
+    } else if( this.email == undefined || this.password == undefined) {
+      this.error = true;
+      this.snackBar.open('Por favor ingrese correo y su contraseña.', 'ERROR', { duration: 5000 });
+    } else{
       this.dataService.login(this.email, Md5.hashStr(this.password)).then((result: any) => {
         if (result.rows && result.rows[0] && result.rows[0].id) {
           this.dataService.setUser(result.rows[0].value);

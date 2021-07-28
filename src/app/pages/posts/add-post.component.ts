@@ -103,7 +103,7 @@ export class AddPostComponent implements OnInit {
 
   publicar() {
     this.actionLoading = true;
-    if (this.post.title && (this.post.image || this.post.video) && this.post.content) {
+    if (this.post.title && this.post.subtitle && (this.post.image || this.post.video) && this.post.content) {
       this.post.datetime = moment().format('YYYYMMDDHHmmss') //Date.now();
       this.dataService.postData(this.post).then((result: any) => {
         if (this.id) {
@@ -117,7 +117,7 @@ export class AddPostComponent implements OnInit {
       });
     } else {
       this.actionLoading = false;
-      this.snackBar.open('Debe agregar una foto, un título y un contenido', 'ERR', { duration: 3000 });
+      this.snackBar.open('Debe agregar una foto, un título y un contenido', 'ERROR', { duration: 3000 });
     }
   }
 }
