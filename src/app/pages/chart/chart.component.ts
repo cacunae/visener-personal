@@ -30,7 +30,7 @@ export class ChartComponent implements OnInit {
   async getPolls(){
    await this.dataService.getData("/_design/view/_view/polls-by-chart?key=[\"" + this.treatment + "\",\"" + this.interaction + "\"]").then((polls: any) => {
        if(polls.rows){
-        polls.rows.sort((a:any, b:any) => { return Number(a.value.datetime) - Number(b.value.datetime) });
+        polls.rows.sort((a:any, b:any) => { return a.value.datetime.localeCompare(b.value.datetime) });
         for(let poll of polls.rows){
           if(poll.value.slider){
             this.realizado.push(poll.value.slider);

@@ -26,7 +26,7 @@ export class AttachmentsComponent implements OnInit {
     this.loading = true;
     this.attachments = [];
     this.dataService.getData("/_design/view/_view/attachments").then((attachments: any) => {
-      attachments = attachments.rows.sort((a:any, b:any) => { return a.value.datetime < b.value.datetime });
+      attachments = attachments.rows.sort((a:any, b:any) => { return b.value.datetime.localeCompare(a.value.datetime) });
       for(let attachment of attachments) {
         this.attachments.push(attachment.value)
       }

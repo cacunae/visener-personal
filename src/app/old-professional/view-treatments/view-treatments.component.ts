@@ -24,7 +24,7 @@ export class ViewTreatmentsComponent implements OnInit {
 
   getPrograms() {
     this.dataService.getData("/_design/view/_view/programs").then((programs: any) => {
-      this.programs = programs.rows.sort((a:any, b:any) => { return Number(b.value.datetime) - Number(a.value.datetime) });
+      this.programs = programs.rows.sort((a:any, b:any) => { return b.value.datetime.localeCompare(a.value.datetime) });
     });
   }
 

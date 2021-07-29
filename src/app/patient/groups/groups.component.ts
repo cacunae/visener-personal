@@ -76,7 +76,7 @@ export class GroupsComponent implements OnInit {
     this.posts = [];
     if(this.id){
       this.dataService.getData("/_design/view/_view/groupal-publications-by-group?key=\"" + this.id + "\"").then((posts: any) => {
-        this.posts = posts.rows.sort((a:any, b:any) => { return Number(a.value.datetime) - Number(b.value.datetime) });
+         this.posts = posts.rows.sort((a:any, b:any) => { return b.value.datetime.localeCompare(a.value.datetime) });
       });  
     }else{
       let tmpPosts:any[] = []; let tmpGroups:any[] = [];
@@ -88,7 +88,7 @@ export class GroupsComponent implements OnInit {
           tmpPosts = tmpPosts.concat(posts.rows);
         });
       }
-      this.posts = tmpPosts.sort((a:any, b:any) => { return Number(a.value.datetime) - Number(b.value.datetime) });
+      this.posts = tmpPosts.sort((a:any, b:any) => { return b.value.datetime.localeCompare(a.value.datetime) });
     }
   }
 

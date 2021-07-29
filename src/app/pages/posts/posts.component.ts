@@ -38,7 +38,7 @@ export class PostsComponent implements OnInit {
     this.loading = true;
     this.posts = [];
     this.dataService.getData("/_design/view/_view/posts").then((posts:any) =>{
-      posts = posts.rows.sort((a:any, b:any) => { return a.value.datetime < b.value.datetime });
+      posts = posts.rows.sort((a:any, b:any) => { return b.value.datetime.localeCompare(a.value.datetime) });
       for(let post of posts){
         this.posts.push(post.value);
       }
