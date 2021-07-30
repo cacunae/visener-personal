@@ -37,7 +37,7 @@ export class PatientTreatmentComponent implements OnInit {
   getPrograms(){
     this.loading = true;
     this.dataService.getData("/_design/view/_view/programs-by-professional?key=\"" + this.dataService.user._id + "\"&include_docs=true").then((programs: any) => {
-      this.programs = programs.rows.sort((a:any, b:any) => { return Number(b.value.datetime) - Number(a.value.datetime) });
+      this.programs = programs.rows.sort((a:any, b:any) => { return b.value.datetime.localeCompare(a.value.datetime) });
       this.loading = false;
     });
   }

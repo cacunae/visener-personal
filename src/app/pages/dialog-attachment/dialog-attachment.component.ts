@@ -17,7 +17,7 @@ export class DialogAttachmentComponent implements OnInit {
   constructor(public dataService: DataService, public dialogRef: MatDialogRef<DialogAttachmentComponent>,  @Inject(MAT_DIALOG_DATA) public data: DialogData) {
     if(!this.data){this.data = {text:''};}
     this.dataService.getData("/_design/view/_view/attachments").then((attachments:any) =>{
-      this.attachments = attachments.rows.sort((a:any, b:any) => { return a.value.datetime < b.value.datetime });
+      this.attachments = attachments.rows.sort((a:any, b:any) => { return b.value.datetime.localeCompare(a.value.datetime) });
     });
   }
 

@@ -46,6 +46,7 @@ export class DataService {
   }
 
   postData(body:any){
+    console.log("Body:", body);
     return this.http.post(this.databaseAPI, body, { headers: this.headers}).toPromise()
   }
 

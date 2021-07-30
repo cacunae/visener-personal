@@ -39,7 +39,7 @@ export class ProgramsComponent implements OnInit {
   async getPrograms(){
     let tmpPrograms:any[] = [];
     await this.dataService.getData("/_design/view/_view/programs").then((programs:any) =>{
-      tmpPrograms = programs.rows.sort((a:any, b:any)=>{ return Number(b.value.datetime) - Number(a.value.datetime)});
+      tmpPrograms = programs.rows.sort((a:any, b:any) => { return b.value.datetime.localeCompare(a.value.datetime) });
     });
     for(let program of tmpPrograms){
       let tmpPosts:any[] = []

@@ -31,7 +31,7 @@ export class PatientsComponent implements OnInit {
     this.loading = true;
     this.patients = [];
     this.dataService.getData("/_design/view/_view/patients").then((patients:any) => {
-      patients = patients.rows.sort((a:any, b:any) => { return a.value.name.localeCompare(b.value.name) });
+      patients = patients.rows.sort((a:any, b:any) => { return a.value.name.trim().localeCompare(b.value.name.trim()) });
       for(let patient of patients){
         this.patients.push(patient.value);
       }
