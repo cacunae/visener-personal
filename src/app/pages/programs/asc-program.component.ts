@@ -21,6 +21,7 @@ export class AscProgramComponent implements OnInit {
   public program:any = {};
   public myForm: FormGroup;
   public loading:boolean = true;
+  public actionLoading:boolean = false;
   range = new FormGroup({start: new FormControl(), end: new FormControl() });
   selectedOptions: any;
   index:any;
@@ -55,8 +56,10 @@ export class AscProgramComponent implements OnInit {
     this.loading = false;
   }
 
-  publicar() {
+  publicar() { 
+    this.actionLoading = true;
     if(!this.treatment.startDate){
+      this.actionLoading = false;
       this.snackBar.open('Selecciones la fecha de inicio.', 'ERR', { duration: 3000 });
     }else if(this.treatment.program) {
       this.treatment.endDate = moment(this.treatment.startDate).add(this.program.duration, 'days');
@@ -65,13 +68,16 @@ export class AscProgramComponent implements OnInit {
       this.treatment.datetime = moment().format('YYYYMMDDHHmmss')
       this.dataService.postData(this.treatment).then((result:any) => {
         if(this.id){
+          this.actionLoading = false;
           this.snackBar.open('Programa actualizado correctamente.', 'OK', { duration: 3000 });
         }else{
+          this.actionLoading = false;
           this.snackBar.open('Programa asignado correctamente.', 'OK', { duration: 3000 });
         }
         this.router.navigateByUrl("/professional/asc-patients"); 
       });
     } else {
+      this.actionLoading = false;
       this.snackBar.open('Debes agregar al menos programa.', 'ERR', { duration: 3000 });
     }
   }
