@@ -108,12 +108,12 @@ export class PatientComponent implements OnInit {
         await this.dataService.getData("/_design/view/_view/polls-by-interaction?key=[\"" + treatment._id + "\",\"" + interaction._id + "\",\"" + moment().format("YYYYMMDD") + "\"]").then((polls: any) => {
           interaction.responses = polls.rows.length + 1;
           if (polls.rows && polls.rows.length > 0) {
-            if (interaction.params.poll.type=='slider' || interaction.params.poll.type=='slider2' && interaction.params.series == polls.rows.length) {
+            if ((interaction.params.poll.type=='slider' || interaction.params.poll.type=='slider2') && interaction.params.series == polls.rows.length) {
               interaction.params.poll.areOk = false;
               interaction.params.poll.sliderQuestion = true;
-            }else if (interaction.params.poll.type=='slider' || interaction.params.poll.type=='slider2' && interaction.params.series < polls.rows.length) {
+            }else if ((interaction.params.poll.type=='slider' || interaction.params.poll.type=='slider2') && interaction.params.series < polls.rows.length) {
               interaction.params.poll.areOk = false;
-            }else if (interaction.params.poll.type != 'slider' || interaction.params.poll.type != 'slider2' && interaction.params.iterations <= polls.rows.length) {
+            }else if ((interaction.params.poll.type != 'slider' || interaction.params.poll.type != 'slider2') && interaction.params.iterations <= polls.rows.length) {
               interaction.params.poll.areOk = false;
             }else{
               interaction.params.poll.areOk = true;
@@ -139,9 +139,11 @@ export class PatientComponent implements OnInit {
     for(let treatment of this.treatments){
       this.dataService.getData("/" + treatment.program).then((program:any) => {
         for(let post of program.posts){
-          this.dataService.getData("/" + post._id).then((result:any) => {
-              this.posts.push({comments: [], value: result, doc: {liked:false, likes: 0, value: result}});
-          });
+          if(now >= moment(treatment.startDate).add(post.params.init-1, 'day').format("YYYYMMDD") && now <= moment(treatment.startDate).add(post.params.init-1, 'day').add(post.params.long, 'day').format("YYYYMMDD")){
+            this.dataService.getData("/" + post._id).then((result:any) => {
+                this.posts.push({comments: [], value: result, doc: {liked:false, likes: 0, value: result}});
+            });
+          }
         }
       });
     }

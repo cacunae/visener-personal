@@ -1,13 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
 @font-face {
-  font-family: raleway;
-  src: url(assets/fonts/Raleway-Regular.ttf);
+  font-family: brown;
+  src: url(assets/fonts/Brown-Light.otf);
+  font-weight: 100;
+}
+
+@font-face {
+  font-family: brown;
+  src: url(assets/fonts/Brown-Regular.otf);
   font-weight: 300;
 }
 
 @font-face {
-  font-family: raleway;
-  src: url(assets/fonts/Raleway-Bold.ttf);
+  font-family: brown;
+  src: url(assets/fonts/Brown-Bold.otf);
   font-weight: 500;
 }
 
@@ -18,7 +24,7 @@
 
 .logo{
   color: #FFD628 !important;
-  font-family: raleway !important;
+  font-family: brown !important;
   font-size: 36px;
   letter-spacing: -2px;
   line-height: 40px;
@@ -26,7 +32,7 @@
 
 .mat-stroked-button{
   color: #616160 !important;
-  font-family: raleway !important;
+  font-family: brown !important;
   border-radius: 30px !important;
 }
 
@@ -34,7 +40,7 @@
   background-color: #FFD628 !important;
   color: #616160 !important;
   border-radius: 30px !important;
-  font-family: raleway;
+  font-family: brown;
   font-weight: 500;
 }
 
