@@ -7,10 +7,17 @@ mat-card {
 
 mat-card-title {
     margin-bottom: 20px;
+    font-size: 18px;
+    font-weight: 600;
 }
 
 mat-card-subtitle {
     color: rgba(0, 0, 0, .87);
+    font-size: 12px;
+}
+
+mat-card-content {
+    font-size: 12px;
 }
 
 mat-radio-group {
@@ -21,6 +28,7 @@ mat-radio-group {
 
 mat-radio-button {
     margin: 5px;
+    font-size: 12px;
 }
 
 input {

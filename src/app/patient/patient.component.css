@@ -181,3 +181,8 @@
   mat-divider{
     margin: 0px !important;
   }
+
+  mat-card-title {
+    font-size: 18px;
+    font-weight: 600;
+}
