@@ -1,0 +1,51 @@
+.compressedPost2{
+    height: 70px !important;
+    overflow-y: hidden;
+    margin-top: 0px;
+}
+
+::ng-deep .mat-progress-bar-fill::after {
+    background-color: #FFD628!important;
+}
+
+::ng-deep .mat-progress-bar {
+    height:10px!important;
+}
+
+::ng-deep .mat-progress-bar-buffer {
+    background-color: #ECF0F3;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 163px 170px;
+    grid-gap: 100px;
+    padding-bottom: 0px;
+}
+
+.grid-container2 {
+    display: grid;
+    grid-template-columns: 320px 0px;
+    grid-gap: 5px;
+    padding: 0px;
+}
+  
+.grid-container > div {
+    text-align: center;
+    padding: 0px;
+    font-size: 30px;
+}
+
+.contenido2{
+    position: absolute;
+    margin: 40px;
+    margin-left: -22px;
+    font-size: 17px;
+}
+
+.contenido3{
+    position: absolute;
+    margin: 40px;
+    margin-left: -14px;
+    font-size: 17px;
+}

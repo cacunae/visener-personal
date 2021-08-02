@@ -1,0 +1,104 @@
+<mat-card *ngIf="programs" [class.compressedPost2]="compressed">
+  <button class="compressedBtn" color="primary" (click)="compressed = !compressed">
+    <mat-icon *ngIf="compressed" style="margin-top:7px; font-size: 14px;">expand_more</mat-icon>
+    <mat-icon *ngIf="!compressed" style="margin-top:7px; font-size: 14px;">expand_less</mat-icon>
+  </button>
+  <button *ngIf="selectable" (click)="progress(programs)" class="compressedBtn" color="primary">
+    <mat-icon style="margin-top:7px; font-size: 14px;">visibility</mat-icon>
+  </button>
+  <div [class.compressedPost]="compressed">
+    <mat-card-title style="font-size:18px;margin-bottom: 10px;" *ngIf="programs.title">{{programs.title}}
+    </mat-card-title>
+    <div style="text-align: left;">
+      <div *ngFor="let id of programId">
+        <div *ngIf="id == programs._id">
+          <div *ngFor="let treatment of treatments">
+            <div *ngIf="treatment.value.doc.program == programs._id">
+              <div class="grid-container2" style="margin-bottom:20px;">
+                <mat-progress-bar mode="determinate" color="#FFD628" value="{{programs.progress}}"></mat-progress-bar>
+                <strong>{{programs.progress}}%</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <mat-card-content style="height: 240px!important;">
+    <div class="grid-container">
+      <div style="text-align: left;">
+        <mat-card-subtitle class="contenido" *ngIf="programs.objective"><strong>Objetivo</strong><br>
+          {{programs.objective}}</mat-card-subtitle>
+      </div>
+      <div style="text-align: left;">
+        <div *ngFor="let id of programId">
+          <div *ngIf="id == programs._id">
+            <div *ngFor="let treatment of treatments">
+              <div *ngIf="treatment.value.doc.program == programs._id">
+                <mat-card-subtitle class="contenido"><strong>Inicio:</strong><br>
+                  {{treatment.value.doc.startDate | date:'d/MM/y'}} </mat-card-subtitle>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-container">
+      <mat-card-subtitle class="contenido" *ngIf="programs.duration"><strong>Días de Duración:</strong><br>
+        {{programs.duration}} días</mat-card-subtitle>
+      <div style="text-align: left;">
+        <div *ngFor="let id of programId">
+          <div *ngIf="id == programs._id">
+            <div *ngFor="let treatment of treatments">
+              <div *ngIf="treatment.value.doc.program == programs._id">
+                <mat-card-subtitle class="contenido"><strong>Término:</strong><br>
+                  {{treatment.value.doc.endDate | date:'d/MM/y'}} </mat-card-subtitle>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div>
+      <div *ngFor="let id of programId">
+        <div *ngIf="id == programs._id">
+          <div *ngFor="let treatment of treatments">
+            <div *ngIf="treatment.value.doc.program == programs._id">
+              <div *ngFor="let feed of feedbacks;let i = index">
+                <div *ngIf="i<1">
+                  <div *ngIf="feed.value.treatment != treatment.value.doc._id">
+                    <div style="text-align: center;">
+                      <mat-card-subtitle><strong>Cumplimiento del Desafío</strong></mat-card-subtitle>
+                      <a class="contenido3"><strong>0%</strong></a>
+                    </div>
+                      <round-progress style="margin-left:170px" [current]="0" [max]="100" [color]="'#FFD628'" [background]="'#9c9c9c'"
+                        [radius]="50" [stroke]="10" [semicircle]="false" [rounded]="true" [clockwise]="false"
+                        [responsive]="false" [duration]="800" [animation]="'easeInOutQuart'" [animationDelay]="0">
+                      </round-progress>
+                  </div>
+                  <div *ngIf="feed.value.treatment === treatment.value.doc._id">
+                    <div style="text-align: center;">
+                      <mat-card-subtitle><strong>Cumplimiento del Desafío</strong></mat-card-subtitle>
+                      <a class="contenido2"><strong>{{percent}}%</strong></a>
+                    </div>
+                      <round-progress style="margin-left:170px" [current]="total" [max]="totalMax" [color]="'#FFD628'" [background]="'#fff'"
+                        [radius]="50" [stroke]="10" [semicircle]="false" [rounded]="true" [clockwise]="false"
+                        [responsive]="false" [duration]="800" [animation]="'easeInOutQuart'" [animationDelay]="0">
+                      </round-progress>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+
+    <div>
+    </div>
+  </mat-card-content>
+  <br>
+</mat-card>

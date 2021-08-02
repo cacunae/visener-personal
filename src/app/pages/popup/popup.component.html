@@ -1,5 +1,6 @@
 <!--<button mat-menu-item><mat-icon>notifications_off</mat-icon><span>Disable alerts</span></button>-->
 <button *ngFor="let feature of features" mat-menu-item routerLink="professional/{{feature.name}}" routerLinkActive="false" (click)="popUpRef.close();"><mat-icon>{{feature.icon}}</mat-icon><span>{{feature.title}}</span></button>
+<button *ngIf="user.entity=='patient'" mat-menu-item (click)="getChallenges()"><mat-icon>assessment</mat-icon> Desafíos</button>
 <button *ngIf="user.entity=='patient'" mat-menu-item (click)="deshabilitarUsuario()"><mat-icon>person_off</mat-icon> Deshabilitar usuario</button>
 <button *ngIf="user.entity=='patient'" mat-menu-item (click)="solicitarInformacion()"><mat-icon>verified_user</mat-icon> Solicitar mi información</button>
 <button *ngIf="user.entity=='patient'" mat-menu-item (click)="delUser()"><mat-icon>verified_user</mat-icon> Eliminar Mi Cuenta</button>

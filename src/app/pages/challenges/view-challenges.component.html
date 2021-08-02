@@ -1,0 +1,9 @@
+<div>
+    <h1 style="text-align: center;"><strong>Mis Desafíos</strong></h1>
+        <div *ngFor="let programs of programs">
+                <app-challenges
+                [programs]="programs" [treatments]="treatments" [feedbacks]="feedbacks" [resizable]="true" [selectable]="true" [feedback]="false">
+            </app-challenges> <br>
+        </div>
+    <button mat-raised-button mat-dialog-close>Volver</button>
+  </div>

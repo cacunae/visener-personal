@@ -95,7 +95,12 @@ import { GroupsComponent } from './patient/groups/groups.component';
 import { AddGroupComponent } from './patient/groups/add-group.component';
 import { MentionModule } from 'angular-mentions';
 import { NgMentionModule } from 'angular-mention';
-//import { ChallengesComponent } from './pages/challenges/challenges.component';
+import { ChallengesComponent } from './pages/challenges/challenges.component';
+import { ViewChallengesComponent } from './pages/challenges/view-challenges.component';
+import { NgCircleProgressModule } from 'ng-circle-progress';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { ProgressChallengesComponent } from './pages/challenges/progress-challenges.component';
+import { RoundProgressModule } from 'angular-svg-round-progressbar';
 
 @NgModule({
   declarations: [
@@ -156,7 +161,9 @@ import { NgMentionModule } from 'angular-mention';
     DialogReAsingComponent,
     GroupsComponent,
     AddGroupComponent,
-    //ChallengesComponent,
+    ChallengesComponent,
+    ViewChallengesComponent,
+    ProgressChallengesComponent,
   ],
   imports: [
     BrowserModule,
@@ -195,8 +202,18 @@ import { NgMentionModule } from 'angular-mention';
     DragDropModule,
     ChartsModule,
     MentionModule,
-    NgMentionModule
+    NgMentionModule,
+    NgCircleProgressModule.forRoot({
+      radius: 100,
+      outerStrokeWidth: 8,
+      innerStrokeWidth: 4,
+      outerStrokeColor: "#FCD820", 
+      animationDuration: 300,
+    }),
+    MatProgressBarModule,
+    RoundProgressModule
   ],
+  
   providers: [CookieService, MatSnackBar],
   bootstrap: [AppComponent]
 })

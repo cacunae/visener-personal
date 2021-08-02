@@ -8,6 +8,8 @@ import { PasswordComponent } from '../dialog-password/password.component';
 import { DisableComponent } from '../dialog-disable/disable.component';
 import * as moment from 'moment';
 import { DialogDelPatientsComponent } from '../patients/dialog-del-patients.component';
+import { ChallengesComponent } from '../challenges/challenges.component';
+import { ViewChallengesComponent } from '../challenges/view-challenges.component';
 
 @Component({
   selector: 'app-popup',
@@ -92,6 +94,17 @@ export class PopupComponent implements OnInit {
         alert("Ya ha una solicitud de información abierta. Espera la respuesta del administrador.");
       }
     });
+  }
+
+  getChallenges(){
+    const dialogRef = this.dialog.open(ViewChallengesComponent, {
+      width: '530px',
+      data: {}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+    });
+    this.popUpRef.close();
   }
 
 }

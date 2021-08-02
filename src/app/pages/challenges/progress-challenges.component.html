@@ -1,0 +1,37 @@
+<mat-card>
+    <mat-card-title>
+        <mat-icon [mat-dialog-close] style="color:black">arrow_back</mat-icon>  {{arreglo.title}}
+    </mat-card-title>
+</mat-card>
+<br>
+<div *ngFor="let id of treatmentId">
+    <div *ngIf="id == arreglo._id">
+        <div *ngFor="let treatment of treatments">
+            <div *ngIf="treatment.value.doc.program == arreglo._id">
+                <mat-card-subtitle style="text-align: right;margin-bottom:0%">Progreso al día: {{date}} </mat-card-subtitle>
+                <br>
+                <mat-card-subtitle style="margin-bottom: 0%;text-align: center;"><strong>Avance total del
+                        desafío</strong></mat-card-subtitle>
+                <mat-progress-bar value="{{arreglo.progress}}"></mat-progress-bar>
+                <div style="text-align: center;"><strong>{{arreglo.progress}}</strong></div>
+                <br>
+                <br>
+                <mat-card-subtitle style="margin-bottom: 0%;"><strong>Día de Inicio:
+                    </strong>{{treatment.value.doc.startDate |
+                    date:'d/MM/yy H:mm'}}</mat-card-subtitle>
+                <mat-card-subtitle style="margin-bottom: 0%;"><strong>Día de Término:
+                    </strong>{{treatment.value.doc.endDate |
+                    date:'d/MM/yy H:mm'}}</mat-card-subtitle>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+   <!--<mat-calendar [selected]="this.sampleRange">
+    </mat-calendar>-->
+    
+    <mat-calendar [selected]="this.sampleRange"
+    [comparisonStart]="this.startDate"
+    [comparisonStart]="this.endDate"
+    (selectedChange)="this.onChange($event)"></mat-calendar>
+</div>
