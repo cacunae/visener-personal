@@ -11,7 +11,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './enable.component.html'
 })
 export class EnableComponent implements OnInit {
-  public acepto:boolean = false;
+  public terms:boolean = false;
+  public politics:boolean = false;
 
   constructor(public router: Router, public dialog: MatDialog, public dataService: DataService, public snackBar:MatSnackBar) {
   }
@@ -20,16 +21,18 @@ export class EnableComponent implements OnInit {
   }
 
   aceptar(){
-    if(this.acepto){
+    if(this.terms && this.politics){
       this.dataService.getData("/" + this.dataService.user._id).then((result:any)=>{
-        result.state = "enabled";
+        result.enabled = "true";
         this.dataService.postData(result).then(() => {
-          this.snackBar.open('Usuario habilitado. Ingrese nuevamente.', 'OK', {duration: 5000});
-          this.router.navigateByUrl("/login");
+          this.snackBar.open('Términos aceptados correctamente.', 'OK', {duration: 5000});
         });
       });
     }else{
-      this.snackBar.open('Debe aceptar las condiciones', 'ERR', {duration: 5000});
+      const dialogRef = this.dialog.open(EnableComponent, {
+        width: '1000px'
+      });
+      this.snackBar.open('Debe aceptar las condiciones', 'ERROR', {duration: 5000});
     }
   }
 }

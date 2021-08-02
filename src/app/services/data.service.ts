@@ -128,6 +128,7 @@ export class User{
   lastAccess:string = "";
   granted:boolean = false;
   features:any[] = [];
+  enabled:string = "";
 }
 
 @Pipe({name: 'fechaFormateada'})
