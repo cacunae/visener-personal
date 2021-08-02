@@ -3,7 +3,7 @@
     <button mat-button (click)="popup()" style="margin-left: -20px; margin-right: -10px;">
       <mat-icon>menu</mat-icon>
     </button>&nbsp;
-    <span class="logo">Visener</span>
+    <span class="logo"><img src="../../assets/logo.png"></span>
     <span class="spacer"></span>
     <button mat-icon-button>
       <mat-icon style="color:#FFD628">home</mat-icon>
@@ -24,7 +24,7 @@
       <div *ngIf="!loadingTreatments">
         <div *ngFor="let treatment of treatments">
           <div id="interaction" *ngFor="let interaction of treatment.interactions">
-            <div *ngIf="interaction.params.poll.type!='slider' && interaction.params.poll.areOk">
+            <div *ngIf="interaction.params.poll.type!='slider' && interaction.params.poll.type!='slider2' && interaction.params.poll.areOk">
               <!--NO-SLIDER ({{interaction.responses}} - {{interaction.params.iterations}})<br-->
               <mat-card-subtitle class="desktop">{{interaction.detail.subtitle}}</mat-card-subtitle>
               <mat-card-content>
@@ -37,9 +37,9 @@
                   <mat-button-toggle value="no"><mat-icon>thumb_down</mat-icon> No</mat-button-toggle>
                 </mat-button-toggle-group>
                 <mat-button-toggle-group *ngIf="interaction.params.poll.type=='state'" [(ngModel)]="interaction.params.poll.state">
-                  <mat-button-toggle value="good"><mat-icon>sentiment_satisfied</mat-icon></mat-button-toggle>
-                  <mat-button-toggle value="neutral"><mat-icon>sentiment_neutral</mat-icon></mat-button-toggle>
-                  <mat-button-toggle value="bad"><mat-icon>sentiment_dissatisfied</mat-icon></mat-button-toggle>
+                  <mat-button-toggle value="good"><img src="../../assets/cara_alegre.png"    class="carita"></mat-button-toggle>
+                  <mat-button-toggle value="neutral"><img src="../../assets/cara_neutra.png" class="carita"></mat-button-toggle>
+                  <mat-button-toggle value="bad"><img src="../../assets/cara_triste.png"     class="carita"></mat-button-toggle>
                 </mat-button-toggle-group>
               </mat-card-content>
               <button mat-raised-button class="desktop" color="primary" [disabled]="(interaction.params.poll.type=='yesno' && !interaction.params.poll.yesno) || (interaction.params.poll.type=='state' && !interaction.params.poll.state)" (click)="responseInteraction(interaction, treatment)"><mat-icon>send</mat-icon> Enviar</button>
@@ -52,7 +52,7 @@
               <mat-card-content>
                 <img style="width:60px; height:60px;" (click)="putPost(interaction.detail.post)" *ngIf="interaction.detail.image" src="{{interaction.detail.image | image}}/" /><br class="desktop">
                 <button mat-raised-button class="cellphone" color="primary" (click)="responseInteraction(interaction, treatment)"><mat-icon>send</mat-icon></button>
-                <mat-card-subtitle class="cellphone">{{interaction.subtitle}} ({{interaction.responses}}/{{interaction.params.series}})</mat-card-subtitle>
+                <mat-card-subtitle class="cellphone">{{interaction.detail.subtitle}} ({{interaction.responses}}/{{interaction.params.series}})</mat-card-subtitle>
                 <div class="cellphone" *ngIf="interaction.poll && interaction.poll.type=='slider'">
                   Series: {{interaction.params.series}}<br class="desktop">
                   Repetición: {{interaction.params.repetitions}}<br class="desktop">
@@ -63,45 +63,38 @@
                   Repetición: {{interaction.params.repetitions}}<br class="desktop">
                   Descanso: {{interaction.params.rest}}<br class="desktop">
                 </div>
+                {{!interaction.params.poll.min ? '0': interaction.params.poll.min}}
                 <mat-slider thumbLabel [(ngModel)]="interaction.params.poll.slider" *ngIf="interaction.params.poll && interaction.params.poll.type=='slider'" min="{{interaction.params.poll.min}}" max="{{interaction.params.repetitions}}" step="1" tickInterval="0" value="0"></mat-slider>
+                {{interaction.params.repetitions}}
               </mat-card-content>
               <button class="desktop" mat-raised-button color="primary" (click)="responseInteraction(interaction, treatment)"><mat-icon>send</mat-icon> Enviar</button>
               <br class="desktop"><br>
               <mat-divider class="desktop"></mat-divider><br class="desktop">
             </div>
-            
             <div *ngIf="interaction.params.poll.type=='slider2' && interaction.params.poll.areOk">
-              <!--SLIDER ({{interaction.responses}} - {{interaction.params.iterations}})<br-->
-              <mat-card-subtitle class="desktop">{{interaction.detail.subtitle}} ({{interaction.responses}}/{{interaction.params.series}})</mat-card-subtitle>
+              <!--SLIDER2 ({{interaction.responses}} - {{interaction.params.iterations}})<br-->
+              <mat-card-subtitle class="desktop">{{interaction.detail.subtitle}}<!-- ({{interaction.responses}}/{{interaction.params.series}})--></mat-card-subtitle>
               <mat-card-content>
                 <img style="width:60px; height:60px;" (click)="putPost(interaction.detail.post)" *ngIf="interaction.detail.image" src="{{interaction.detail.image | image}}/" /><br class="desktop">
                 <button mat-raised-button class="cellphone" color="primary" (click)="responseInteraction(interaction, treatment)"><mat-icon>send</mat-icon></button>
-                <mat-card-subtitle class="cellphone">{{interaction.subtitle}} ({{interaction.responses}}/{{interaction.params.series}})</mat-card-subtitle>
-                <div class="cellphone" *ngIf="interaction.poll && interaction.poll.type=='slider2'">
-                  Series: {{interaction.params.series}}<br class="desktop">
-                  Repetición: {{interaction.params.repetitions}}<br class="desktop">
-                  Descanso: {{interaction.params.rest}}<br class="desktop"><br>
-                </div>
-                <div class="desktop">
-                  Series: {{interaction.params.series}}<br class="desktop">
-                  Repetición: {{interaction.params.repetitions}}<br class="desktop">
-                  Descanso: {{interaction.params.rest}}<br class="desktop">
-                </div>
+                <mat-card-subtitle class="cellphone">{{interaction.detail.subtitle}}<!-- ({{interaction.responses}}/{{interaction.params.series}})--></mat-card-subtitle>
+                {{!interaction.params.poll.min ? '0': interaction.params.poll.min}}
                 <mat-slider thumbLabel [(ngModel)]="interaction.params.poll.slider" *ngIf="interaction.params.poll && interaction.params.poll.type=='slider2'" min="{{interaction.params.poll.min}}" max="{{interaction.params.poll.max}}"></mat-slider>
+                {{interaction.params.poll.max}}
               </mat-card-content>
               <button class="desktop" mat-raised-button color="primary" (click)="responseInteraction(interaction, treatment)"><mat-icon>send</mat-icon> Enviar</button>
               <br class="desktop"><br>
               <mat-divider class="desktop"></mat-divider><br class="desktop">
             </div>
-
+            <!--br>{{interaction.params.poll.type}}-{{interaction.params.poll.sliderQuestion}}<br-->
             <div *ngIf="interaction.params.poll.type=='slider' && interaction.params.poll.sliderQuestion">
               <!--SLIDER QUESTION ({{interaction.responses}} - {{interaction.params.iterations}})<br-->
                 <mat-card-subtitle style="margin-bottom: 1px;">{{interaction.params.poll.question}}</mat-card-subtitle>
                 <mat-card-content>
                 <mat-button-toggle-group [(ngModel)]="interaction.params.poll.state">
-                  <mat-button-toggle value="good"><mat-icon>sentiment_satisfied</mat-icon></mat-button-toggle>
-                  <mat-button-toggle value="neutral"><mat-icon>sentiment_neutral</mat-icon></mat-button-toggle>
-                  <mat-button-toggle value="bad"><mat-icon>sentiment_dissatisfied</mat-icon></mat-button-toggle>
+                  <mat-button-toggle value="good"><img src="../../assets/cara_alegre.png" class="carita"></mat-button-toggle>
+                  <mat-button-toggle value="neutral"><img src="../../assets/cara_neutra.png" class="carita"></mat-button-toggle>
+                  <mat-button-toggle value="bad"><img src="../../assets/cara_triste.png" class="carita"></mat-button-toggle>
                 </mat-button-toggle-group>
                 </mat-card-content>
                 <button class="desktop" mat-raised-button color="primary" (click)="responseInteraction(interaction, treatment)"><mat-icon>send</mat-icon> Enviar</button>

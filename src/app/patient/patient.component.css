@@ -65,9 +65,28 @@
     width: 1920px;
   }
 
+  .logo>img{
+    width: 130px;
+    margin-top: 10px;
+  }
+
+  .carita{
+    width:32px; 
+    margin: -4px;
+  }
 
   /* Responsive Styles */
   @media screen and (max-width: 700px) {
+    .logo>img{
+      width: 110px;
+      margin-top: 10px;
+    }
+
+    .carita{
+      width: 28px;
+      margin-top: 10px;
+    }
+
     .titleTareas{
       display: none;
     }
