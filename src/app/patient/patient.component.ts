@@ -5,6 +5,7 @@ import { PopupComponent } from '../pages/popup/popup.component';
 import { DataService } from '../services/data.service';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
+import { EnableComponent } from './enable.component';
 
 @Component({
   selector: 'app-patient',
@@ -49,6 +50,7 @@ export class PatientComponent implements OnInit {
     this.getPosts();
     this.getTreatments();
     this.mensaje();
+    this.getEnable();
   }
   
   mensaje(){
@@ -181,4 +183,19 @@ export class PatientComponent implements OnInit {
     });
   }
 
+
+  getEnable() {
+    if(this.user.enabled == "false" ){
+      const dialogRef = this.dialog.open(EnableComponent, {
+        width: '1000px'
+      });
+    } else if(this.user.enabled == undefined){
+      console.log(this.user)
+      // this.user.enable = "false";
+      // this.dataService.postData(this.user);
+
+    } else {
+      console.log("lol");
+    }
+  }
 }
