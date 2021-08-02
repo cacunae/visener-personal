@@ -6,6 +6,7 @@ import { DataService } from '../services/data.service';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { EnableComponent } from './enable.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-patient',
@@ -28,7 +29,7 @@ export class PatientComponent implements OnInit {
   n = this.d.getDay();
   day:any;
 
-  constructor(public http: HttpClient, public post: MatDialog, public dialog: MatDialog, public router: Router, public dataService: DataService, public zone: NgZone) {
+  constructor(public http: HttpClient, public post: MatDialog, public dialog: MatDialog, public router: Router, public dataService: DataService, public zone: NgZone, public snackBar:MatSnackBar) {
     moment.locale('es');
     if (!this.dataService.user?._id) {
       this.router.navigateByUrl("/login");
@@ -191,13 +192,11 @@ export class PatientComponent implements OnInit {
       const dialogRef = this.dialog.open(EnableComponent, {
         width: '1000px'
       });
-    } else if(this.user.enabled == undefined){
-      console.log(this.user)
-      // this.user.enable = "false";
-      // this.dataService.postData(this.user);
+    } else if(this.user.enabled == undefined || this.user.enabled == null){
+      this.snackBar.open('Hemos hecho una actualización a nuestros términos y condiciones.', 'OK', {duration: 5000});
 
     } else {
-      console.log("lol");
+      console.log("acepted.")
     }
   }
 }
