@@ -48,7 +48,7 @@
         <button *ngIf="post.liked=='true'" mat-raised-button style="font-size: 12px;" color="primary" (click)="like(post)">
             <mat-icon style="margin-top:7px; font-size: 14px;">thumb_up</mat-icon> Me gusta
         </button>
-        <button *ngIf="post.liked=='false'" mat-raised-button style="font-size: 12px;" (click)="like(post)">
+        <button *ngIf="post.liked=='false'" mat-stroked-button style="font-size: 12px;" (click)="like(post)">
             <mat-icon style="margin-top:7px; font-size: 14px;">thumb_up</mat-icon> Me gusta
         </button>
         <button mat-stroked-button style="margin-left: 10px; font-size: 12px;" (click)="openComment(post)">
