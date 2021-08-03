@@ -12,7 +12,7 @@ import { Md5 } from 'ts-md5';
   templateUrl: './add-professional.component.html'
 })
 export class AddProfessionalComponent implements OnInit {
-  public professional:any = { entity: "professional", role: "Kinesiólogo", name: "", username: "", password: "" };
+  public professional:any = { entity: "professional", role: "Kinesiólogo", name: "", username: "", password: "", granted: false};
   public roles:any[] = [];
   public companies:any[] = [];
   public hide:boolean = true;

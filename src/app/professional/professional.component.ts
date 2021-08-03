@@ -16,7 +16,8 @@ export class ProfessionalComponent implements OnInit {
   public message: string;
   public expirationTime:number = environment.expirationTime;
   public grantAccess:boolean = false;
-  public acepto:boolean = false;
+  public terms:boolean = false;
+  public politics:boolean = false;
 
   constructor(public router: Router, public dialog: MatDialog, public dataService: DataService, public snackBar:MatSnackBar) {
     this.dataService.session = moment().unix();
@@ -68,7 +69,7 @@ export class ProfessionalComponent implements OnInit {
   }
 
   aceptar(){
-    if(this.acepto){
+    if(this.terms && this.politics){
       this.dataService.getData("/" + this.dataService.user._id).then((result:any)=>{
         result.granted = true;
         this.dataService.postData(result).then(() => {

@@ -188,7 +188,7 @@ export class PatientComponent implements OnInit {
 
 
   getEnable() {
-    if(this.user.enabled == "false" ){
+    if(this.user.enabled == "false" && this.user.entity == "patient"){
       const dialogRef = this.dialog.open(EnableComponent, {
         width: '1000px'
       });
