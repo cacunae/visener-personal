@@ -6,7 +6,7 @@
     <br><br>
     <mat-card style="width: calc(100% - 20px); max-width: 600px; height: 80%; margin: auto;">
         <h1>Acuerdo de Servicio</h1>
-        <div style="height: calc(100% - 160px); overflow: hidden; border: 1px solid #cccccc; padding: 10px;">
+        <div style="height: calc(100% - 145px); overflow: hidden; border: 1px solid #cccccc; padding: 10px;">
             <mat-tab-group style="height: 100%;">
                 <mat-tab label="Términos y condiciones" class="mathead">
                     <div style="text-align: justify; padding-right: 10px;">
@@ -507,10 +507,10 @@
                 </mat-tab>
             </mat-tab-group>
         </div>
-        <div align="left" style="position: sticky; margin-top: 5px;">
-            <mat-checkbox class="desktop" style="margin-bottom:15px; display: block;" [(ngModel)]="terms">Estoy de acuerdo con
+        <div align="left" style="position: sticky; margin-top: 8px;">
+            <mat-checkbox class="desktop" style="padding-bottom: 8px;" [(ngModel)]="terms">Estoy de acuerdo con
                 los términos y condiciones de Visener.</mat-checkbox>
-            <mat-checkbox class="desktop" style="margin-bottom:15px; display: block;" [(ngModel)]="politics">He leído y acepto
+            <mat-checkbox class="desktop" [(ngModel)]="politics">He leído y acepto
                 las políticas de privacidad de Visener.</mat-checkbox>
         </div>
         <div align="right">
