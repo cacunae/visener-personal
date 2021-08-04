@@ -179,9 +179,19 @@ export class PatientComponent implements OnInit {
 
   putPost(postId:string) {
     let post:any = {};
+    let temp:any[] = []
+    var myDiv = document.getElementById('main');
+    myDiv.scrollTop = 0;
     this.dataService.getData("/" + postId).then((response) => {
-      if(this.posts[0].value._id !== postId){
-        this.posts.unshift({ value: response });
+      for(let index in this.posts) {
+        if(this.posts[index].value._id === postId){
+          temp.push(this.posts[index].value._id)
+        }
+      }
+      if(temp.includes(postId)){
+        this.posts.unshift(this.posts.splice(this.posts.findIndex(item => item.value._id === postId), 1)[0]);
+      } else {
+        this.posts.unshift({value: response});
       }
     });
   }
