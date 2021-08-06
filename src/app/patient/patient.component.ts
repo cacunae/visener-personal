@@ -30,11 +30,13 @@ export class PatientComponent implements OnInit {
   postTitle:any[] = [];
   id:any;
   interaction:any;
-  todayDate:Date = new Date();
+  todayDate:Date = new Date(moment().format('DDMMYYYY'));
   d = new Date();
   n = this.d.getDay();
   day:any;
   hidden: boolean = false;
+  currentDay:any = new Date();
+  dateTime:any;
 
   constructor(public http: HttpClient, public post: MatDialog, public dialog: MatDialog, public router: Router, public dataService: DataService, public zone: NgZone, public snackBar:MatSnackBar) {
     moment.locale('es');
@@ -227,6 +229,10 @@ export class PatientComponent implements OnInit {
         console.log("mentions:", this.mentions)
         for(let mention of this.mentions){
           this.mention = mention;
+          let datetime:any = new Date(mention.value.datetime);
+         /* this.currentDay = moment().format('DDMMYYYY');*/
+          this.dateTime = Math.floor((this.currentDay - datetime) / 1000 / 60 / 60 / 24);
+          console.log("current:",this.dateTime)
           this.dataService.getData("/"+mention.value.patient).then((patients:any)=>{
             this.patientName = patients.name;
           })
@@ -243,6 +249,25 @@ export class PatientComponent implements OnInit {
 
   toggleBadgeVisibility() {
     this.hidden = !this.hidden;
+  }
+
+  viewComment(postId:any){
+    console.log("element:", postId)
+    var myDiv = document.getElementById('main');
+    myDiv.scrollTop = 0;
+    let temp:any[] = [];
+    this.dataService.getData("/" + postId).then((response) => {
+      for(let index in this.posts) {
+        if(this.posts[index].value._id === postId){
+          temp.push(this.posts[index].value._id)
+        }
+      }
+      if(temp.includes(postId)){
+        this.posts.unshift(this.posts.splice(this.posts.findIndex(item => item.value._id === postId), 1)[0]);
+      } else {
+        this.posts.unshift({value: response});
+      }
+    });
   }
 
 }

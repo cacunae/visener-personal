@@ -1,5 +1,5 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
@@ -23,7 +23,6 @@ export class PostsComponent implements OnInit {
   public columnsToDisplay: string[] = ['id', 'image' ,'titulo', 'datetime' ,'actions'];
   public loading:boolean = true;
   public dataSource;
-
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('htmlData') htmlData:ElementRef;
   @ViewChild(MatPaginator) paginator: MatPaginator;

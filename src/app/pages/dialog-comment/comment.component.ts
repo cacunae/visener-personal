@@ -1,6 +1,7 @@
 import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 import { Component, OnInit, Inject, Output, Input } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import * as moment from 'moment';
 import { now } from 'moment';
 import { withLatestFrom } from 'rxjs-compat/operator/withLatestFrom';
 import { DataService } from 'src/app/services/data.service';
@@ -47,7 +48,7 @@ export class CommentComponent implements OnInit {
             this.mention.idMention = patient.value._id;
             this.mention.entity = "mention";
             this.mention.post = this.mention.post.post;
-            this.mention.dateTime = Date.now();
+            this.mention.datetime =  new Date();
           }
         }
         this.mention.text = $event;

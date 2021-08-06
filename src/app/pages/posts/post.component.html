@@ -55,7 +55,7 @@
             <mat-icon style="margin-top:7px; font-size: 14px;">comment</mat-icon> Comentar
         </button>
         <div style="float: right; margin-top: 10px; margin-left: 20px;" *ngIf="!post.comments || post.comments.length == 0">Sin comentarios.</div>
-        <div style="float: right; margin-top: 10px; margin-left: 20px;" *ngIf="post.comments && post.comments.length == 1">{{post.comments.length}} comentario.</div>
+        <div style="float: right; margin-top: 10px; margin-left: 20px;" *ngIf="post.comments && post.comments.length == 1">{{post.comments.length}} comentario. </div>
         <div style="float: right; margin-top: 10px; margin-left: 20px;" *ngIf="post.comments && post.comments.length > 1">{{post.comments.length}} comentarios.</div>
         <div style="float: right; margin-top: 10px;" *ngIf="post.likes && post.likes == 1">{{post.likes}} like. </div>
         <div style="float: right; margin-top: 10px;" *ngIf="post.likes && post.likes > 1">{{post.likes}} likes.</div>
