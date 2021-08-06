@@ -26,9 +26,10 @@ export class AddAttachmentComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  public async uploadFile( files: File[] ){
+  public async uploadFile(files: File[] ){
+    console.log("file:", files)
     this.uploading = true; 
-    if(files[0] && this.attachment.tags){
+    if(files.length && this.attachment.tags){
       let file:File = files[0];
       this.attachment.datetime = moment().format('YYYYMMDDHHmmss');
       this.attachment.tags = this.attachment.tags + ",  " + files[0].name.split(".")[0];

@@ -98,7 +98,8 @@ export class PopupComponent implements OnInit {
 
   getChallenges(){
     const dialogRef = this.dialog.open(ViewChallengesComponent, {
-      width: '530px',
+      width: '570px',
+      height: '600px',
       data: {}
     });
 

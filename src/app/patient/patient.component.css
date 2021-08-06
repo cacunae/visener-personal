@@ -185,4 +185,9 @@
   mat-card-title {
     font-size: 18px;
     font-weight: 600;
-}
+  }
+
+  ::ng-deep .mat-menu-item {
+    white-space:initial!important;
+    line-height: 16px!important;
+  }

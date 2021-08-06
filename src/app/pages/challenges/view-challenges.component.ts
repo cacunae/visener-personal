@@ -33,19 +33,22 @@ export class ViewChallengesComponent implements OnInit {
   getTreatments() {
     this.dataService.getData("/_design/view/_view/treatments-by-patient?key=\"" + this.dataService.user._id + "\"").then((treatments: any) => {
       for (let treatment of treatments.rows) {
-        this.treatments.push(treatment);
         this.dataService.getData("/" + treatment.value.doc.program).then((program: any) => {
           this.startDate = new Date(treatment.value.doc.startDate.substr(0, 10));
           this.endDate = new Date(treatment.value.doc.endDate.substr(0, 10));
           this.dateVal2 = new Date();
           this.dateVal = Math.floor((this.dateVal2 - this.startDate) / 1000 / 60 / 60 / 24);
           program.progress = this.dateVal * 100 / program.duration;
-          this.programs2.push(program);
+          if(program.progress>100){
+            program.progress = 100;
+            this.programs2.push(program);
+          }else{
+            this.programs2.push(program);
+          }
           program.allInteractions = 0;
-          this.programs = this.programs2;
-          
         });
       }
+      this.programs = this.programs2;
     });
   }
 

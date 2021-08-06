@@ -66,29 +66,23 @@
         <div *ngIf="id == programs._id">
           <div *ngFor="let treatment of treatments">
             <div *ngIf="treatment.value.doc.program == programs._id">
-              <div *ngFor="let feed of feedbacks;let i = index">
-                <div *ngIf="i<1">
-                  <div *ngIf="feed.value.treatment != treatment.value.doc._id">
-                    <div style="text-align: center;">
-                      <mat-card-subtitle><strong>Cumplimiento del Desafío</strong></mat-card-subtitle>
-                      <a class="contenido3"><strong>0%</strong></a>
-                    </div>
-                      <round-progress style="margin-left:170px" [current]="0" [max]="100" [color]="'#FFD628'" [background]="'#9c9c9c'"
-                        [radius]="50" [stroke]="10" [semicircle]="false" [rounded]="true" [clockwise]="false"
-                        [responsive]="false" [duration]="800" [animation]="'easeInOutQuart'" [animationDelay]="0">
-                      </round-progress>
-                  </div>
-                  <div *ngIf="feed.value.treatment === treatment.value.doc._id">
-                    <div style="text-align: center;">
-                      <mat-card-subtitle><strong>Cumplimiento del Desafío</strong></mat-card-subtitle>
-                      <a class="contenido2"><strong>{{percent}}%</strong></a>
-                    </div>
-                      <round-progress style="margin-left:170px" [current]="total" [max]="totalMax" [color]="'#FFD628'" [background]="'#fff'"
-                        [radius]="50" [stroke]="10" [semicircle]="false" [rounded]="true" [clockwise]="false"
-                        [responsive]="false" [duration]="800" [animation]="'easeInOutQuart'" [animationDelay]="0">
-                      </round-progress>
-                  </div>
-                </div>
+              <div style="text-align: center;">
+                <mat-card-subtitle><strong>Cumplimiento del Desafío</strong></mat-card-subtitle>
+                <a class="contenido2"><strong>{{percent}}%</strong></a>
+              </div>
+              <div *ngIf="percent!=0">
+                <round-progress style="margin-left:194px" [current]="total" [max]="totalMax" [color]="'#FFD628'"
+                  [background]="'#E4E4E4'" [radius]="50" [stroke]="10" [semicircle]="false" [rounded]="true"
+                  [clockwise]="false" [responsive]="false" [duration]="800" [animation]="'easeInOutQuart'"
+                  [animationDelay]="0">
+                </round-progress>
+              </div>
+              <div *ngIf="percent==0">
+                <round-progress style="margin-left:194px" [current]="0" [max]="100" [color]="'#FFD628'"
+                  [background]="'#E4E4E4'" [radius]="50" [stroke]="10" [semicircle]="false" [rounded]="true"
+                  [clockwise]="false" [responsive]="false" [duration]="800" [animation]="'easeInOutQuart'"
+                  [animationDelay]="0">
+                </round-progress>
               </div>
             </div>
           </div>

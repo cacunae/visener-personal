@@ -1,4 +1,4 @@
-import { Component, NgZone, OnInit } from '@angular/core';
+import { Component, Input, NgZone, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { PopupComponent } from '../pages/popup/popup.component';
@@ -7,6 +7,8 @@ import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { EnableComponent } from './enable.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatMenuTrigger } from '@angular/material/menu';
+import { borderTopRightRadius } from 'html2canvas/dist/types/css/property-descriptors/border-radius';
 
 @Component({
   selector: 'app-patient',
@@ -14,6 +16,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./patient.component.css']
 })
 export class PatientComponent implements OnInit {
+  @ViewChild('menuTrigger') menuTrigger: MatMenuTrigger;
   public posts:any[] = [];
   public treatments:any[] = [];
   public comment:string = "";
@@ -21,13 +24,17 @@ export class PatientComponent implements OnInit {
   public idPaciente:any;
   public loadingTreatments:boolean = false;
   public texto:any[] = ["Hola"];
-  
+  mentions:any[]=[];
+  mention:any[]=[];
+  patientName:any[]=[];
+  postTitle:any[] = [];
   id:any;
   interaction:any;
   todayDate:Date = new Date();
   d = new Date();
   n = this.d.getDay();
   day:any;
+  hidden: boolean = false;
 
   constructor(public http: HttpClient, public post: MatDialog, public dialog: MatDialog, public router: Router, public dataService: DataService, public zone: NgZone, public snackBar:MatSnackBar) {
     moment.locale('es');
@@ -52,6 +59,7 @@ export class PatientComponent implements OnInit {
     this.getTreatments();
     this.mensaje();
     this.getEnable();
+    this.getMentions();
   }
   
   mensaje(){
@@ -90,6 +98,7 @@ export class PatientComponent implements OnInit {
       this.posts = posts.rows.sort((a:any, b:any) => { return Number(a.doc.datetime) - Number(b.doc.datetime) });
       for (let index in this.posts) {
         this.posts[index].value = this.posts[index].doc;
+        console.log("post:",this.posts[index].value)
       }
     });
   }
@@ -209,4 +218,31 @@ export class PatientComponent implements OnInit {
       console.log("acepted.")
     }
   }
+
+  getMentions(){
+    this.dataService.getData("/_design/view/_view/comments-by-mention?key=\""+this.dataService.user._id+"\"").then((mentions:any)=>{
+      console.log("ment:", mentions.rows)
+      if(mentions.rows.length>0){
+        this.mentions = mentions.rows;
+        console.log("mentions:", this.mentions)
+        for(let mention of this.mentions){
+          this.mention = mention;
+          this.dataService.getData("/"+mention.value.patient).then((patients:any)=>{
+            this.patientName = patients.name;
+          })
+          this.dataService.getData("/"+mention.value.post).then((post:any)=>{
+            this.postTitle = post.title;
+          })
+        }
+      }else{
+        this.mentions == [];  
+        console.log("llegó", this.mentions)
+      }
+    })
+  }
+
+  toggleBadgeVisibility() {
+    this.hidden = !this.hidden;
+  }
+
 }

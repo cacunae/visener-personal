@@ -11,6 +11,14 @@
     <button mat-icon-button routerLink="/patient/groups" routerLinkActive="true">
       <mat-icon>group</mat-icon>
     </button>
+    <button mat-button *ngIf="mentions.length==0" [matMenuTriggerFor]="menu" (click)="getMentions()" #menuTrigger><mat-icon>notifications_none</mat-icon></button>
+    <button mat-button *ngIf="mentions.length>0" [matMenuTriggerFor]="menu" (click)="getMentions()" #menuTrigger><mat-icon matBadge="!" [matBadgeHidden]="hidden" (click)="toggleBadgeVisibility()" matBadgeColor="warn">notifications_none</mat-icon></button>
+    <mat-menu #menu="matMenu">
+          <div *ngFor="let men of mentions">
+            <button *ngIf="mentions.length>0" mat-menu-item style="font-size: 12px!important;"> <strong>{{patientName}}</strong> te etiquetó en un comentario en el post <strong>"{{postTitle}}"</strong>:<strong>"{{men.value.text}}"</strong> </button>
+          </div>
+          <button *ngIf="mentions.length==0" mat-menu-item><i>No hay menciones.</i></button>
+        </mat-menu>
     <span class="desktop">&nbsp;{{user.name}}</span>
   </mat-toolbar-row>
 </mat-toolbar>
@@ -113,7 +121,7 @@
         <button mat-flat-button id="close" title="cerrar" (click)="cerrarSaludo()">x</button> 
       </mat-card>
     </div>
-    <app-post *ngFor="let post of posts" [post]="post" [feedback]="true"></app-post>
+    <app-post *ngFor="let post of posts" [post]="post" [idMention]="idMention" [feedback]="true"></app-post>
   </div>
 </div>
 <router-outlet></router-outlet>

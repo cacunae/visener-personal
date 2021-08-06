@@ -14,6 +14,7 @@ import * as moment from 'moment';
 export class PostComponent implements OnInit {
   @Input() post:any;
   @Input() postId:string;
+  @Input() idMention:any;
   @Input() resizable:boolean;
   @Input() selectable:boolean;
   @Input() removable:boolean;
@@ -68,14 +69,14 @@ export class PostComponent implements OnInit {
   openComment(post: any) {
     const dialogRef = this.dialog.open(CommentComponent, {
       width: '400px',
-      data: { text: '' }
+      data: { text: '', post:post.value._id }
     });
     dialogRef.afterClosed().subscribe((text) => {
       let comment = { entity: "comment", datetime: moment().format('YYYYMMDDHHmmss'), post: post.value._id, patient: this.dataService.user._id, name: this.dataService.user.name, text: text };
       if (text != null && text.trim() != "") {
-        this.dataService.postData(comment).then((result:any) => {    
-          post.comments.push({ name: this.dataService.user.name , text: text });
-        });
+          this.dataService.postData(comment).then((result:any) => {    
+            post.comments.push({ name: this.dataService.user.name , text: text });
+          });
       }
       if (!post.comments) { post.comments = []; } 
     });

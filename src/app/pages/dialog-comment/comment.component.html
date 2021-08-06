@@ -1,8 +1,8 @@
 <h1 mat-dialog-title>Ingrese su comentario</h1>
 <div mat-dialog-content>
-    <textarea [(ngModel)]="data.text" [mention]="items" (selectedTerm)="onSelect($event)" [mentionConfig]="{triggerChar:'@',maxItems:10,labelKey:'name',searchTerm:true}">{{data.text}}</textarea>
+    <textarea [(ngModel)]="data.text" [mention]="items" (ngModelChange)="mentions($event)" [mentionConfig]="{triggerChar:'@',maxItems:20,labelKey:'name'}">{{data.text}}</textarea>
 </div>
 <div mat-dialog-actions>
   <button mat-stroked-button (click)="onNoClick()">Cancelar</button>
-  <button mat-raised-button color="primary" [mat-dialog-close]="data.text" cdkFocusInitial>Grabar comentario</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="data.text" (click)="sendMentions()" cdkFocusInitial>Grabar comentario</button>
 </div>

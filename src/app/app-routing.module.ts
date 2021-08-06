@@ -29,6 +29,7 @@ import { GetInformationComponent } from './pages/patients/get-information.compon
 import { ViewPatientsComponent } from './pages/patients/view-patients.component';
 import { ViewPostsComponent } from './pages/posts/view-posts.component';
 import { GroupsComponent } from './patient/groups/groups.component';
+import { ViewChallengesComponent } from './pages/challenges/view-challenges.component';
 
 const routes: Routes = [
   { path: "", component: LoginComponent, pathMatch: "full" },
@@ -68,7 +69,7 @@ const routes: Routes = [
       { path: "graphics", component: GraphicsComponent},
       { path: "companies", component: CompaniesComponent},
       { path: "add-company", component: AddCompanyComponent},
-      { path: "upd-company/:id", component: AddCompanyComponent},
+      { path: "upd-company/:id", component: AddCompanyComponent}
     ]
   },
   { path: "patient", component: PatientComponent, pathMatch: "full"},

@@ -1,5 +1,8 @@
-import { Component, OnInit, Inject, Output } from '@angular/core';
-import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { ValueConverter } from '@angular/compiler/src/render3/view/template';
+import { Component, OnInit, Inject, Output, Input } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { now } from 'moment';
+import { withLatestFrom } from 'rxjs-compat/operator/withLatestFrom';
 import { DataService } from 'src/app/services/data.service';
 
 
@@ -14,35 +17,49 @@ export interface DialogData {
 })
 
 export class CommentComponent implements OnInit {
-  relations:any;
-  name:any[] = [];
-  items:any;
+  relations: any;
+  name: any[] = [];
+  items: any[] = [];
+  idMention:any[] = [];
+  mention: any={};
+  text:any;
 
-  constructor(public dataService: DataService, public dialogRef: MatDialogRef<CommentComponent>, @Inject(MAT_DIALOG_DATA) public data: DialogData) { 
-    
+  constructor(public dataService: DataService, public dialogRef: MatDialogRef<CommentComponent>, @Inject(MAT_DIALOG_DATA) public data: DialogData, @Inject(MAT_DIALOG_DATA) public post: DialogData) {
+    this.mention.post = post;
   }
 
   ngOnInit(): void {
-    this.dataService.getData("/_design/view/_view/relations-by-patient?key=\""+ this.dataService.user._id+"\"").then((results:any)=>{
-      this.relations = results.rows;
-      for(let relation of this.relations){
-        console.log("relations:", this.relations, relation)
-        this.dataService.getData("/"+ relation.value.doc.professional).then((professional:any) =>{
-          this.name.push(professional.name);
-          if(this.name.length == this.relations.length){
-            this.items = this.name;
-            console.log("items:", this.items)
-          }
-        })
+    this.dataService.getData("/_design/view/_view/patients").then((patients: any) => {
+      for(let patient of patients.rows){
+        this.name.push(patient.value.name);
+        this.idMention.push(patient.value._id)
+        this.items = this.name;
       }
     })
   }
 
-  onSelect($event){
-    console.log("event:")
+  mentions($event) {
+      this.dataService.getData("/_design/view/_view/patients").then((patients: any) => {
+        for(let patient of patients.rows){
+          if($event == "@"+patient.value.name){
+            this.mention.patient = this.dataService.user._id;
+            this.mention.mention = patient.value.name;
+            this.mention.idMention = patient.value._id;
+            this.mention.entity = "mention";
+            this.mention.post = this.mention.post.post;
+            this.mention.dateTime = Date.now();
+          }
+        }
+        this.mention.text = $event;
+      })
   }
 
-  onNoClick(){
+  sendMentions(){
+    console.log("mention:", this.mention)
+    this.dataService.postData(this.mention)
+  }
+
+  onNoClick() {
     this.dialogRef.close();
   }
 }
