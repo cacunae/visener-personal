@@ -9,6 +9,7 @@ import { EnableComponent } from './enable.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { borderTopRightRadius } from 'html2canvas/dist/types/css/property-descriptors/border-radius';
+import { PopupConfigurationComponent } from '../pages/popup-configuration/popup-configuration.component';
 
 @Component({
   selector: 'app-patient',
@@ -90,6 +91,17 @@ export class PatientComponent implements OnInit {
     });
   }
 
+  popupConfiguration() {
+    const dialogRef = this.dialog.open(PopupConfigurationComponent, {
+      width: '400px',
+      data: { comment: this.comment }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.comment = result;
+    });
+  }
+  
   cerrarSesion() {
     this.dataService.user = null;
     localStorage.clear();

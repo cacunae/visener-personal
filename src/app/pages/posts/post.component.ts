@@ -20,6 +20,7 @@ export class PostComponent implements OnInit {
   @Input() removable:boolean;
   @Input() multiple:boolean;
   @Input() feedback:boolean;
+  @Input() datetime:boolean;
   @Output() event = new EventEmitter<string>();
   public compressed:any = false;
 

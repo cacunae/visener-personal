@@ -1,0 +1,18 @@
+<div>
+    <div>
+        <input type="text" [(ngModel)]="search" placeholder="Ingrese las palabras a buscar..."
+            style="font-size: 14px; width: 100%; background-color: #fdfdfd; border: 1px solid #ccc; padding: 5px 10px; outline: none; border-radius: 15px; margin-bottom: 5px;" />
+        <br>
+    </div>
+    <div *ngFor="let group of groups">
+        <mat-card *ngIf="({group:group.value.title+group.value.subtitle+group.value.content, search:search} | postFilter)">
+            <button class="compressedBtn" color="primary" [mat-dialog-close]="group">
+                <mat-icon style="margin-top:7px; font-size: 14px;">group_add</mat-icon>
+            </button>
+            <mat-card-title style="padding-bottom: 10px;margin-bottom:0%;">{{group.value.title}}</mat-card-title>
+            <mat-card-content>{{group.value.content}}</mat-card-content>            
+        </mat-card> 
+        <br>
+    </div>
+    <button mat-raised-button mat-dialog-close>Cancelar</button>
+</div>

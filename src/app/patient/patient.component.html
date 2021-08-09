@@ -21,6 +21,9 @@
           <button *ngIf="mentions.length==0" mat-menu-item><i>No hay menciones.</i></button>
         </mat-menu>
     <span class="desktop">&nbsp;{{user.name}}</span>
+    <button mat-button (click)="popupConfiguration()" style="margin-right: -20px; margin-left: -10px;">
+      <mat-icon>account_circle</mat-icon>
+    </button>&nbsp;
   </mat-toolbar-row>
 </mat-toolbar>
 <div *ngIf="user.state=='enabled'" class="content" role="main">

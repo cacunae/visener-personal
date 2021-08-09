@@ -26,6 +26,7 @@ import { ChartComponent } from './pages/chart/chart.component';
 import { ChartsModule } from 'ng2-charts';
 import { PatientComponent } from './patient/patient.component';
 import { PopupComponent } from './pages/popup/popup.component';
+import { PopupConfigurationComponent } from './pages/popup-configuration/popup-configuration.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
@@ -93,6 +94,7 @@ import { GetInformationComponent } from './pages/patients/get-information.compon
 import { DialogReAsingComponent } from './pages/dialog-re-asing/dialog-re-asing.component';
 import { GroupsComponent } from './patient/groups/groups.component';
 import { AddGroupComponent } from './patient/groups/add-group.component';
+import { ViewGroupsComponent } from './patient/groups/view-groups.component';
 import { MentionModule } from 'angular-mentions';
 import { NgMentionModule } from 'angular-mention';
 import { ChallengesComponent } from './pages/challenges/challenges.component';
@@ -129,6 +131,7 @@ import { RoundProgressModule } from 'angular-svg-round-progressbar';
     treatmentActivePipe,
     weekDays, tagFilter, programFilter, postFilter, interactionFilter, image, video, featuresPipe, postnamePipe, interactionnamePipe,
     PopupComponent,
+    PopupConfigurationComponent,
     AddProgramComponent,
     AscProgramComponent,
     DialogProgramComponent,
@@ -161,6 +164,7 @@ import { RoundProgressModule } from 'angular-svg-round-progressbar';
     DialogReAsingComponent,
     GroupsComponent,
     AddGroupComponent,
+    ViewGroupsComponent,
     ChallengesComponent,
     ViewChallengesComponent,
     ProgressChallengesComponent,

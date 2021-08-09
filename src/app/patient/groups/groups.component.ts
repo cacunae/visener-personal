@@ -6,6 +6,8 @@ import { DataService } from '../../services/data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 import { AddGroupComponent } from './add-group.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ViewGroupsComponent } from './view-groups.component';
 
 @Component({
   selector: 'app-groups',
@@ -21,13 +23,16 @@ export class GroupsComponent implements OnInit {
   public loadingGroups:boolean = false;
   public id:any;
   public group:any = {};
+  public postContent:string = "";
+  public postTitle:string = "";
+
   interaction:any;
   todayDate:Date = new Date();
   d = new Date();
   n = this.d.getDay();
   day:any;
 
-  constructor(public route: ActivatedRoute, public http: HttpClient, public post: MatDialog, public dialog: MatDialog, public router: Router, public dataService: DataService, public zone: NgZone) {
+  constructor(public route: ActivatedRoute, public snackBar:MatSnackBar, public http: HttpClient, public post: MatDialog, public dialog: MatDialog, public router: Router, public dataService: DataService, public zone: NgZone) {
     moment.locale('es');
     this.id = this.route.snapshot.paramMap.get('id');
     if(this.id){
@@ -80,7 +85,8 @@ export class GroupsComponent implements OnInit {
       });  
     }else{
       let tmpPosts:any[] = []; let tmpGroups:any[] = [];
-      await this.dataService.getData("/_design/view/_view/groups-by-patient?key=\"" + this.dataService.user._id + "\"").then((groups: any) => {
+      await this.dataService.getData("/_design/view/_view/groups-by-patient?include_docs=true&key=\"" + this.dataService.user._id + "\"").then((groups: any) => {
+        for(let group of groups.rows){ group.value = group.doc; }
         tmpGroups = groups.rows;
       });
       for (let tmpGroup of tmpGroups) {
@@ -94,17 +100,40 @@ export class GroupsComponent implements OnInit {
 
   async getGroups() {
     this.loadingGroups = true;
-    await this.dataService.getData("/_design/view/_view/groups-by-patient?key=\"" + this.dataService.user._id + "\"").then((groups: any) => {
-      this.groups = groups.rows.sort((a:any, b:any) => { return a.value.name.localeCompare(b.value.name) });
+    await this.dataService.getData("/_design/view/_view/groups-by-patient?include_docs=true&key=\"" + this.dataService.user._id + "\"").then((groups: any) => {
+      for(let group of groups.rows){ group.value = group.doc; }
+      this.groups = groups.rows.sort((a:any, b:any) => { return a.value.title.localeCompare(b.value.title) });
     });
     this.loadingGroups = false;
   }
 
-  putPost(postId:string) {
-    let post:any = {};
-    this.dataService.getData("/" + postId).then((response) => {
-      if(this.posts[0].value._id !== postId){
-        this.posts.unshift({ value: response });
+  publicar() {
+    let groupalPublication:any = {group: this.id, entity: "groupal-publication", state: "active", title: this.postTitle, content: this.postContent, datetime: moment().format('YYYYMMDDHHmmss') };
+    console.log(groupalPublication);
+    this.dataService.postData(groupalPublication).then((response:any) => {
+      if(response.ok){
+        this.postTitle = null;
+        this.postContent = null;
+        this.getPosts();
+        this.snackBar.open('Tu post ha sido publicado.', 'OK', {duration: 5000});
+      }else{
+        this.snackBar.open('Ocurrió un error al publicar tu post. Vuelve a intentarlo.', 'ERROR', {duration: 5000});
+      }
+    });
+  }
+
+  lstGroup(){
+    const dialogRef = this.dialog.open(ViewGroupsComponent, {
+      width: '400px',
+      data: {}
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if(result){
+        this.dataService.postData({entity:"member", group: result.value._id, datetime: moment().format("YYYYMMDDHHmm"), state: "active", patient: this.dataService.user._id}).then((group:any) => {
+          this.getPosts();
+          this.getGroups();
+        });
       }
     });
   }
@@ -117,9 +146,13 @@ export class GroupsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if(result){
-        this.dataService.postData({entity:"group", name: result.name, content: result.content, datetime: moment().format("YYYYMMDDHHmm"), state: "active", patient: this.dataService.user._id}).then((group:any) => {
-          this.getPosts();
-          this.getGroups();
+        this.dataService.postData({entity:"group", title: result.title, content: result.content, datetime: moment().format("YYYYMMDDHHmm"), state: "active", patient: this.dataService.user._id}).then((group:any) => {
+          console.log("add::group", group);
+          this.dataService.postData({entity:"member", group: group.id, datetime: moment().format("YYYYMMDDHHmm"), state: "active", patient: this.dataService.user._id}).then((member:any) => {
+            console.log("add::member", member);
+            this.getPosts();
+            this.getGroups();
+          });
         });
       }
     });
