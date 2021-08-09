@@ -103,6 +103,7 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { ProgressChallengesComponent } from './pages/challenges/progress-challenges.component';
 import { RoundProgressModule } from 'angular-svg-round-progressbar';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -218,7 +219,7 @@ import { RoundProgressModule } from 'angular-svg-round-progressbar';
     RoundProgressModule
   ],
   
-  providers: [CookieService, MatSnackBar],
+  providers: [CookieService, MatSnackBar, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

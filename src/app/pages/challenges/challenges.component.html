@@ -68,21 +68,47 @@
             <div *ngIf="treatment.value.doc.program == programs._id">
               <div style="text-align: center;">
                 <mat-card-subtitle><strong>Cumplimiento del Desafío</strong></mat-card-subtitle>
-                <a class="contenido2"><strong>{{percent}}%</strong></a>
+
               </div>
               <div *ngIf="percent!=0">
-                <round-progress style="margin-left:194px" [current]="total" [max]="totalMax" [color]="'#FFD628'"
-                  [background]="'#E4E4E4'" [radius]="50" [stroke]="10" [semicircle]="false" [rounded]="true"
-                  [clockwise]="false" [responsive]="false" [duration]="800" [animation]="'easeInOutQuart'"
-                  [animationDelay]="0">
-                </round-progress>
+                <div>
+                  <mat-card-subtitle style="position:absolute;margin-left:236px">Desafíos por día:</mat-card-subtitle>
+                  <a style="position:absolute;margin:40px;margin-left:373px;font-size:17px;margin-top:40px;"><strong>{{percent}}%</strong></a>
+                  <round-progress style="margin-left:340px;margin-top: 0px;" [current]="total" [max]="totalMax" [color]="'#FFD628'"
+                    [background]="'#E4E4E4'" [radius]="50" [stroke]="10" [semicircle]="false" [rounded]="true"
+                    [clockwise]="false" [responsive]="false" [duration]="800" [animation]="'easeInOutQuart'"
+                    [animationDelay]="0">
+                  </round-progress>
+                </div>
+                <div>
+                  <mat-card-subtitle style="position: absolute;margin-top: -98px;">Desafío total:</mat-card-subtitle>
+                  <a style="position:absolute;margin:40px;margin-left: 118px;;font-size:17px;margin-top: -60px;"><strong>{{totalXPro}}%</strong></a>
+                  <round-progress style="margin-left:87px;position: absolute;margin-top: -99px;" [current]="total" [max]="totalMax2"
+                    [color]="'#FFD628'" [background]="'#E4E4E4'" [radius]="50" [stroke]="10" [semicircle]="false"
+                    [rounded]="true" [clockwise]="false" [responsive]="false" [duration]="800"
+                    [animation]="'easeInOutQuart'" [animationDelay]="0">
+                  </round-progress>
+                </div>
               </div>
               <div *ngIf="percent==0">
-                <round-progress style="margin-left:194px" [current]="0" [max]="100" [color]="'#FFD628'"
-                  [background]="'#E4E4E4'" [radius]="50" [stroke]="10" [semicircle]="false" [rounded]="true"
-                  [clockwise]="false" [responsive]="false" [duration]="800" [animation]="'easeInOutQuart'"
-                  [animationDelay]="0">
-                </round-progress>
+                <div>
+                  <mat-card-subtitle style="position:absolute;margin-left:236px">Desafíos por día:</mat-card-subtitle>
+                  <a style="position:absolute;margin:40px;margin-left: 379px;;font-size:17px"><strong>{{percent}}%</strong></a>
+                  <round-progress style="margin-left:86px;position: absolute;margin-top: 3px;" [current]="0" [max]="100"
+                    [color]="'#FFD628'" [background]="'#E4E4E4'" [radius]="50" [stroke]="10" [semicircle]="false"
+                    [rounded]="true" [clockwise]="false" [responsive]="false" [duration]="800"
+                    [animation]="'easeInOutQuart'" [animationDelay]="0">
+                  </round-progress>
+                </div>
+                <div>
+                  <mat-card-subtitle >Desafío total:</mat-card-subtitle>
+                  <a style="position:absolute;margin:40px;margin-left:126px;margin-top:4px;font-size:17px"><strong>{{percent}}%</strong></a>
+                  <round-progress style="margin-left:340px;margin-top: -35px;" [current]="0" [max]="100" [color]="'#FFD628'"
+                    [background]="'#E4E4E4'" [radius]="50" [stroke]="10" [semicircle]="false" [rounded]="true"
+                    [clockwise]="false" [responsive]="false" [duration]="800" [animation]="'easeInOutQuart'"
+                    [animationDelay]="0">
+                  </round-progress>
+                </div>
               </div>
             </div>
           </div>

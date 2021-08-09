@@ -18,10 +18,10 @@
                 <br>
                 <mat-card-subtitle style="margin-bottom: 0%;"><strong>Día de Inicio:
                     </strong>{{treatment.value.doc.startDate |
-                    date:'d/MM/yy H:mm'}}</mat-card-subtitle>
+                    date:'d/MM/yy'}}</mat-card-subtitle>
                 <mat-card-subtitle style="margin-bottom: 0%;"><strong>Día de Término:
                     </strong>{{treatment.value.doc.endDate |
-                    date:'d/MM/yy H:mm'}}</mat-card-subtitle>
+                    date:'d/MM/yy'}}</mat-card-subtitle>
             </div>
         </div>
     </div>
@@ -31,7 +31,5 @@
     </mat-calendar>-->
     
     <mat-calendar [selected]="this.sampleRange"
-    [comparisonStart]="this.startDate"
-    [comparisonStart]="this.endDate"
     (selectedChange)="this.onChange($event)"></mat-calendar>
 </div>

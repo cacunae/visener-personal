@@ -37,6 +37,8 @@ export class ViewChallengesComponent implements OnInit {
           this.startDate = new Date(treatment.value.doc.startDate.substr(0, 10));
           this.endDate = new Date(treatment.value.doc.endDate.substr(0, 10));
           this.dateVal2 = new Date();
+          console.log("dateVal1:", this.endDate)
+          console.log("dateVal2:", this.dateVal2)
           this.dateVal = Math.floor((this.dateVal2 - this.startDate) / 1000 / 60 / 60 / 24);
           program.progress = this.dateVal * 100 / program.duration;
           if(program.progress>100){

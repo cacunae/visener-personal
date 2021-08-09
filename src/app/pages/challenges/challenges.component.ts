@@ -34,6 +34,10 @@ export class ChallengesComponent implements OnInit {
   percents: any[] = [];
   @Input() value: any;
   exist: boolean = true;
+  totalMax2: number;
+  arrayTotal:any[] = []
+  totalXPro: any;
+
 
   constructor(public dataService: DataService, public dialogRef: MatDialogRef<ChallengesComponent>, public dialog: MatDialog) {
   }
@@ -54,25 +58,30 @@ export class ChallengesComponent implements OnInit {
         this.dataService.getData("/_design/view/_view/treatments-by-patient?key=\"" + this.dataService.user._id + "\"").then((treatments: any) => {
           for (let treat of treatments.rows) {
             if (treat.value.doc.program == this.programs._id) {
+              for (let interaction of treat.value.doc.interactions) {
+                this.totalMax = interaction.params.long * interaction.params.iterations;
+                this.arrayTotal.push(this.totalMax)
+              }
               for (let feedback of feedbacks.rows) {
                 if (treat.value.doc._id == feedback.value.treatment) {
                   this.feedbacks.push(feedback);
-                  for (let interaction of treat.value.doc.interactions) {
-                    this.total = this.feedbacks.length;
-                    this.totalMax = interaction.params.long * interaction.params.iterations;
-                    this.percent = this.total * 100 / this.totalMax;
-                    if (this.percent > 100) {
-                      this.percent = 100;
-                      this.percents.push(this.percent)
-                    } else {
-                      this.percents.push(this.percent)
-                    }
+                  this.totalMax2 = this.arrayTotal.reduce((a, b) => a + b, 0);
+                  this.total = this.feedbacks.length;
+                  this.percent = this.total * 100 / this.totalMax;
+                  this.totalXPro = this.total * 100 / this.totalMax2;
+                  this.totalXPro = Math.round(this.totalXPro * 10) /10   
+                  if (this.percent > 100) {
+                    this.percent = 100;
+                    this.percents.push(this.percent)
+                  } else {
+                    this.percents.push(this.percent)
                   }
                 }else{
                   this.percent = 0;
                   this.percents.push(this.percent)
                 }
               }
+              
             }
           }
         })
