@@ -30,11 +30,11 @@
                 <div cdkDropList (cdkDropListDropped)="drop2($event)">
                     <div cdkDrag *ngFor="let post of program.posts; let i = index;">
                         <app-post [postId]="post._id" [resizable]="true" [removable]="true" (event)="delPost(i)"></app-post>
-                        <mat-form-field appearance="outline">
+                        <mat-form-field appearance="outline" style="width: calc(50% - 10px); margin-right: 20px;">
                             <mat-label>Día de inicio:</mat-label>
                             <input matInput type="number" min="1" [(ngModel)]="post.params.init">
                         </mat-form-field>
-                        <mat-form-field appearance="outline">
+                        <mat-form-field appearance="outline" style="width: calc(50% - 10px);">
                             <mat-label>Duración:</mat-label>
                             <input matInput type="number" min="1" [(ngModel)]="post.params.long">
                         </mat-form-field>

@@ -40,7 +40,7 @@ export class PasswordComponent implements OnInit {
 
   async cambiarPassword(){
     if (this.angForm.valid) {
-      await this.dataService.login(this.dataService.user.username, this.passwordActual).then((result:any) => {
+      await this.dataService.login(this.dataService.user.username, Md5.hashStr(this.passwordActual)).then((result:any) => {
         if(result.rows && result.rows[0] && result.rows[0].value){
           let user = result.rows[0].value;
           user.password = Md5.hashStr(this.passwordNueva);
