@@ -40,7 +40,7 @@
         <br><br>
       </div>
       <div *ngIf="!loadingGroups && !id">
-        <button mat-stroked-button *ngFor="let group of groups" routerLink="/patient/groups/{{group.value._id}}" routerLinkActive="false"
+        <button mat-button *ngFor="let group of groups" routerLink="/patient/groups/{{group.value._id}}" routerLinkActive="false"
           style="margin-bottom: 10px; width: 100%;">
           <div style="text-align: left;">
             <mat-card-title class="desktop">{{group.value.title}}</mat-card-title>

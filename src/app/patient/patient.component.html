@@ -40,7 +40,6 @@
               <!--NO-SLIDER ({{interaction.responses}} - {{interaction.params.iterations}})<br-->
               <mat-card-subtitle class="desktop">{{interaction.detail.subtitle}}</mat-card-subtitle>
               <mat-card-content>
-                {{interaction._id}}
                 <img style="width:60px; height:60px;" (click)="putPost(interaction.detail.post)" *ngIf="interaction.detail.image" src="{{interaction.detail.image | image}}" /><br class="desktop">
                 <button mat-raised-button class="cellphone" color="primary" (click)="responseInteraction(interaction, treatment)"><mat-icon>send</mat-icon></button>
                 <mat-card-subtitle class="cellphone">{{interaction.detail.subtitle}}</mat-card-subtitle>
