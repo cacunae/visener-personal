@@ -24,7 +24,34 @@
             <mat-form-field appearance="outline">
                 <mat-label>Ingrese el contenido:</mat-label>
                 <textarea matInput placeholder="" [(ngModel)]="post.content" cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="10"></textarea>
-            </mat-form-field>
+            </mat-form-field><br>
+            <button mat-stroked-button (click)="seleccionarPrograma()" *ngIf="!post.program">
+                <mat-icon>assignment</mat-icon> Seleccionar programa a invitar
+            </button>
+            <button mat-stroked-button (click)="quitarPost()" *ngIf="post.program">
+                <mat-icon>remove_circle_outline</mat-icon> Borrar programa "{{program.title}}"
+            </button> <br> <br>
+            <mat-card *ngIf="post.program" [class.compressedPost]="compressed">
+                <button class="compressedBtn" color="primary" (click)="compressed = !compressed">
+                    <mat-icon *ngIf="compressed" style="margin-top:7px; font-size: 14px;">expand_more</mat-icon>
+                    <mat-icon *ngIf="!compressed" style="margin-top:7px; font-size: 14px;">expand_less</mat-icon>
+                </button>
+                <mat-card-subtitle *ngIf="!compressed" style="float:right; color:#a0a0a0; font-size: 12px;">
+                    {{program.datetime | fechaFormateada}}
+                </mat-card-subtitle>
+                <mat-card-title [class.compressedPost]="compressed" style="padding-bottom: 10px;margin-bottom:0%;" *ngIf="program.title">
+                {{program.title}}</mat-card-title>
+                <mat-card-subtitle *ngIf="program.objective">{{programobjective}}</mat-card-subtitle>
+                <mat-card-content *ngIf="programcontent">{{program.content}}</mat-card-content>
+                <app-interaction [interaction]="interaction._id" [resizable]="true" [removable]="false"
+                    *ngFor="let interaction of program.interactions" origin="add-program"></app-interaction>
+                <div *ngFor="let post of posts">
+                    <app-post [postId]="post._id" [resizable]="true" [removable]="true" *ngFor="let post of program.posts">
+                    </app-post>
+                </div>
+                <br>
+            </mat-card>
+           
             <mat-divider></mat-divider>
             <mat-card-subtitle>Encuesta</mat-card-subtitle>
             <mat-label>¿Desea agregar una encuesta?</mat-label><br>

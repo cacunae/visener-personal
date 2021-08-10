@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { ViewTreatmentsComponent } from 'src/app/old-professional/view-treatments/view-treatments.component';
 
 @Component({
   selector: 'app-add-post',
@@ -25,6 +26,9 @@ export class AddPostComponent implements OnInit {
   public id: string = null;
   public loading: boolean = true;
   public actionLoading: boolean = false;
+  public program:any = {};
+  public compressed:any = false;
+  public resizable:boolean;
 
   constructor(public snackBar: MatSnackBar, public route: ActivatedRoute, public router: Router, private _fb: FormBuilder, public dataService: DataService, public dialog: MatDialog) {
     this.id = route.snapshot.paramMap.get('id');
@@ -42,6 +46,9 @@ export class AddPostComponent implements OnInit {
         }
         this.loading = false;
       });
+    }
+    if(this.resizable){
+      this.compressed = true;
     }
   }
 
@@ -103,21 +110,60 @@ export class AddPostComponent implements OnInit {
 
   publicar() {
     this.actionLoading = true;
+
     if (this.post.title && this.post.subtitle && (this.post.image || this.post.video) && this.post.content) {
       this.post.datetime = moment().format('YYYYMMDDHHmmss') //Date.now();
-      this.dataService.postData(this.post).then((result: any) => {
-        if (this.id) {
-          this.actionLoading = false;
-          this.snackBar.open('Post actualizado correctamente', 'OK', { duration: 3000 });
-        } else {
-          this.actionLoading = false;
-          this.snackBar.open('Post creado correctamente', 'OK', { duration: 3000 });
-        }
-        this.router.navigateByUrl("/professional/posts");
-      });
+      if (this.post.invitation == true) {
+          console.log(this.post);
+          this.dataService.postData(this.post).then((result2: any) => {
+            console.log(result2);
+            if (this.id) {
+              this.actionLoading = false;
+              this.snackBar.open('Post actualizado correctamente', 'OK', { duration: 3000 });
+            } else {
+              this.actionLoading = false;
+              this.snackBar.open('Post creado correctamente', 'OK', { duration: 3000 });
+            }
+            this.router.navigateByUrl("/professional/posts");
+          });
+      } else {
+        this.dataService.postData(this.post).then((result: any) => {
+          if (this.id) {
+            this.actionLoading = false;
+            this.snackBar.open('Post actualizado correctamente', 'OK', { duration: 3000 });
+          } else {
+            this.actionLoading = false;
+            this.snackBar.open('Post creado correctamente', 'OK', { duration: 3000 });
+          }
+          this.router.navigateByUrl("/professional/posts");
+        });
+      }
     } else {
       this.actionLoading = false;
       this.snackBar.open('Debe agregar una foto, un título y un contenido', 'ERROR', { duration: 3000 });
     }
+  }
+
+  seleccionarPrograma(){
+    const dialogRef = this.dialog.open(ViewTreatmentsComponent, {
+      width: '520px',
+      data: {text:'add-program'}
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        console.log('lol')
+        this.post.invitation = true;
+        this.post.program = result.id;
+        this.dataService.getData("/" + this.post.program).then((programDetail: any) => {
+          this.program = programDetail;
+        });
+      }
+    });
+  }
+
+  quitarPost(){
+    delete this.post.invitation;
+    delete this.post.program; 
+    delete this.program;
   }
 }

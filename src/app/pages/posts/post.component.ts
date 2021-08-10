@@ -5,8 +5,11 @@ import { CommentComponent } from '../dialog-comment/comment.component';
 import { DataService } from '../../services/data.service';
 import { AssociateComponent } from './associate.component';
 import * as moment from 'moment';
+import { PatientComponent } from '../../patient/patient.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
+  providers:[ PatientComponent ],
   selector: 'app-post',
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.css']
@@ -23,8 +26,10 @@ export class PostComponent implements OnInit {
   @Input() datetime:boolean;
   @Output() event = new EventEmitter<string>();
   public compressed:any = false;
+  public program:any = {}; 
+  public publication:any;
 
-  constructor(public dialog: MatDialog, public http: HttpClient, public dataService: DataService) {
+  constructor(public dialog: MatDialog, public http: HttpClient, public dataService: DataService, private comp: PatientComponent, public snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
@@ -145,6 +150,49 @@ export class PostComponent implements OnInit {
     });
   }
 
+  aceptar(postID){
+    let id = postID.value.program;
+    this.dataService.getData("/" + id).then((result:any) => {
+      this.program.entity = 'treatment';
+      this.program.state = 'active';
+      this.program.patient = this.dataService.user._id;
+      this.program.program = result._id;
+      this.program.startDate = moment().format('YYYY-MM-DD:HH:mm:ss');
+      this.program.endDate = moment(this.program.startDate).add(result.duration, 'days');
+      this.program.interactions = result.interactions;
+      this.program.datetime = moment().format('YYYYMMDDHHmmss');
+    }).then((v)  => {
+      this.dataService.postData(this.program).then((v2) => {
+        this.dataService.getData("/_design/view/_view/publications-by-patient?key=\"" + this.dataService.user._id + "\"").then((posts: any) => {
+          for(let pub of posts.rows) {
+            if (postID.doc._id == pub.value.doc.post) {
+              this.publication = pub.value.doc
+              this.publication.state = 'deleted'
+              this.dataService.postData(this.publication).then((result) =>{
+                this.snackBar.open('Gracias por aceptar.', 'OK', { duration: 3000 })
+              })
+            }
+          }
+        })
+      })
+    });
+  }
+
+  rechazar(publication) {
+    console.log(publication)
+    this.dataService.getData("/_design/view/_view/publications-by-patient?key=\"" + this.dataService.user._id + "\"").then((posts: any) => {
+      for(let pub of posts.rows) {
+        if (publication.doc._id == pub.value.doc.post) {
+          this.publication = pub.value.doc
+          this.publication.state = 'deleted'
+          this.dataService.postData(this.publication).then((result) =>{
+            this.snackBar.open('No volveremos a mostrarle este post.', 'OK', { duration: 3000 })
+          })
+        }
+      }
+    })
+  }
+  
   clickEvent(){
     this.event.emit("click");
   }
