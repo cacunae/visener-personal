@@ -40,10 +40,10 @@
         <br><br>
       </div>
       <div *ngIf="!loadingGroups && !id">
-        <button *ngFor="let group of groups" routerLink="/patient/groups/{{group.value._id}}" routerLinkActive="false"
-          style="background-color: #ffffff; margin-bottom: 10px;">
-          <div>
-            <mat-card-title class="desktop">{{group.value.name}}</mat-card-title>
+        <button mat-button *ngFor="let group of groups" routerLink="/patient/groups/{{group.value._id}}" routerLinkActive="false"
+          style="margin-bottom: 10px; width: 100%;">
+          <div style="text-align: left;">
+            <mat-card-title class="desktop">{{group.value.title}}</mat-card-title>
             <mat-card-content>{{group.value.content}}</mat-card-content>
           </div>
         </button>
