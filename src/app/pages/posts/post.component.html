@@ -16,11 +16,11 @@
         {{post.value.datetime | fechaFormateada}}
     </mat-card-subtitle>
     <mat-card-title [class.compressedPost]="compressed" *ngIf="post.value.title">{{post.value.title}}</mat-card-title>
-    <div align='center' style="padding-bottom: 20px;">
-        <button *ngIf="post.value.invitation" [disabled]="post.value.state=='accepted'" mat-stroked-button style="margin-left: 10px; font-size: 14px;" (click)="rechazar(post)">
+    <div align='center' style="padding-bottom: 20px;" id="bot" *ngIf="mostrar">
+        <button *ngIf="post.value.invitation" [disabled]="loading" mat-stroked-button style="margin-left: 10px; font-size: 14px;" (click)="rechazar(post)">
             Rechazar
         </button>
-        <button *ngIf="post.value.invitation" [disabled]="post.value.state=='accepted'" mat-raised-button style="margin-left: 10px; font-size: 14px;" (click)="aceptar(post)">
+        <button *ngIf="post.value.invitation" [disabled]="loading" mat-raised-button style="margin-left: 10px; font-size: 14px;" (click)="aceptar(post)">
             Aceptar
         </button>
     </div>

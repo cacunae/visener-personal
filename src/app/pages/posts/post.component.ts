@@ -28,6 +28,8 @@ export class PostComponent implements OnInit {
   public compressed:any = false;
   public program:any = {}; 
   public publication:any;
+  public loading:boolean = false;
+  public mostrar:boolean = true;
 
   constructor(public dialog: MatDialog, public http: HttpClient, public dataService: DataService, private comp: PatientComponent, public snackBar: MatSnackBar) {
   }
@@ -151,6 +153,7 @@ export class PostComponent implements OnInit {
   }
 
   aceptar(postID){
+    this.loading = true;
     let id = postID.value.program;
     this.dataService.getData("/" + id).then((result:any) => {
       this.program.entity = 'treatment';
@@ -168,7 +171,9 @@ export class PostComponent implements OnInit {
             if (postID.doc._id == pub.value.doc.post) {
               this.publication = pub.value.doc
               this.publication.state = 'deleted'
+              this.mostrar = false;
               this.dataService.postData(this.publication).then((result) =>{
+                this.loading = false;
                 this.snackBar.open('Gracias por aceptar.', 'OK', { duration: 3000 })
               })
             }
@@ -179,6 +184,7 @@ export class PostComponent implements OnInit {
   }
 
   rechazar(publication) {
+    this.loading = true;
     console.log(publication)
     this.dataService.getData("/_design/view/_view/publications-by-patient?key=\"" + this.dataService.user._id + "\"").then((posts: any) => {
       for(let pub of posts.rows) {
@@ -186,8 +192,9 @@ export class PostComponent implements OnInit {
           this.publication = pub.value.doc
           this.publication.state = 'deleted'
           this.dataService.postData(this.publication).then((result) =>{
+            this.loading = false;
             this.snackBar.open('No volveremos a mostrarle este post.', 'OK', { duration: 3000 })
-          })
+          }).then((v) => {window.location.reload()})
         }
       }
     })
