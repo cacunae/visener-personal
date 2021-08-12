@@ -22,7 +22,7 @@
         </mat-card-content>
     </mat-card>
     <div style="margin-top: 20px;">
-        <button mat-raised-button *ngIf="!uploading" routerLink="/professional/attachments" routerLinkActive="false">Cancelar</button>&nbsp;&nbsp;&nbsp;
+        <button mat-raised-button *ngIf="!uploading" routerLink="/professional/attachments" routerLinkActive="false">Volver</button>&nbsp;&nbsp;&nbsp;
         <button mat-raised-button *ngIf="!uploading && attachment.entity=='image' && attachment._id == null" color="primary" (click)="uploadFile(fileInput.files);">Subir Imagen</button>
         <button mat-raised-button *ngIf="!uploading && attachment.entity=='image' && attachment._id != null" color="primary" (click)="uploadFile(fileInput.files);">Actualizar Imagen</button>
         <button mat-raised-button *ngIf="!uploading && attachment.entity=='video' && attachment._id == null" color="primary" (click)="uploadFile(fileInput.files);">Subir Video</button>

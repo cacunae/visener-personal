@@ -52,7 +52,7 @@
     </mat-card>
     <mat-spinner *ngIf="loading"></mat-spinner>
     <div class="desktopbuttons">
-        <button mat-raised-button routerLink="/professional/asc-patients" routerLinkActive="false">Cancelar</button>&nbsp;&nbsp;&nbsp;
+        <button mat-raised-button routerLink="/professional/asc-patients" routerLinkActive="false">Volver</button>&nbsp;&nbsp;&nbsp;
         <button mat-raised-button *ngIf="!id" color="primary" [disabled]="actionLoading" (click)="publicar()">Asociar Tratamiento</button>
         <button mat-raised-button *ngIf="id" color="primary" [disabled]="actionLoading" (click)="publicar()">Actualizar Tratamiento</button>
     </div>

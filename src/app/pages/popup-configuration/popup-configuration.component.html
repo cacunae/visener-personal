@@ -1,5 +1,7 @@
+<br><br><br>
 <button *ngIf="user.entity=='patient'" mat-menu-item (click)="deshabilitarUsuario()"><mat-icon>person_off</mat-icon> Deshabilitar usuario</button>
 <button *ngIf="user.entity=='patient'" mat-menu-item (click)="solicitarInformacion()"><mat-icon>verified_user</mat-icon> Solicitar mi información</button>
 <button *ngIf="user.entity=='patient'" mat-menu-item (click)="delUser()"><mat-icon>verified_user</mat-icon> Eliminar Mi Cuenta</button>
-<mat-divider></mat-divider>
-<button mat-stroked-button (click)="onNoClick()" style="float:right" color="primary"><mat-icon>done</mat-icon><span>Volver</span></button>
+<button *ngIf="user.entity=='patient'" mat-menu-item (click)="terms()"><mat-icon>article</mat-icon>Condiciones y políticas</button>
+<br><br><br>
+<button mat-stroked-button (click)="onNoClick()" style="float:right" color="primary"><span>Volver</span></button>

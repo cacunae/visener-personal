@@ -10,6 +10,7 @@ import * as moment from 'moment';
 import { DialogDelPatientsComponent } from '../patients/dialog-del-patients.component';
 import { ChallengesComponent } from '../challenges/challenges.component';
 import { ViewChallengesComponent } from '../challenges/view-challenges.component';
+import { EnableComponent } from 'src/app/patient/enable.component';
 
 @Component({
   selector: 'app-popup-configuration',
@@ -107,4 +108,10 @@ export class PopupConfigurationComponent implements OnInit {
     this.popUpRef.close();
   }
 
+  terms(){
+    const dialogRef = this.dialog.open(EnableComponent, {
+      width: '530px',
+      data: {}
+    });
+  }
 }

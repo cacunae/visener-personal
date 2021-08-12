@@ -1,9 +1,13 @@
-<!--<button mat-menu-item><mat-icon>notifications_off</mat-icon><span>Disable alerts</span></button>-->
+<div style="margin-bottom: 20px;">
+
+    <span style="font-weight: 600; font-size: 15px;">{{user.name}}</span><br>
+    <span>{{user.username}}</span>
+</div>
 <button *ngFor="let feature of features" mat-menu-item routerLink="professional/{{feature.name}}" routerLinkActive="false" (click)="popUpRef.close();"><mat-icon>{{feature.icon}}</mat-icon><span>{{feature.title}}</span></button>
-<button *ngIf="user.entity=='patient'" mat-menu-item (click)="getChallenges()"><mat-icon>assessment</mat-icon> Desafíos</button>
 <button *ngIf="user.entity=='patient'" mat-menu-item routerLink="/favourites" (click)="getFavourites()"><mat-icon>bookmark</mat-icon> Mis Favoritos</button>
+<button *ngIf="user.entity=='patient'" mat-menu-item (click)="getChallenges()"><mat-icon>assessment</mat-icon> Mis desafíos</button>
 <button mat-menu-item (click)="cambiarPassword()"><mat-icon>lock</mat-icon> Cambiar password</button>
 <button mat-menu-item (click)="cerrarSesion()"><mat-icon>do_not_disturb_on</mat-icon> Cerrar sesión</button>
-<mat-divider></mat-divider>
+<br>
 <div style="float: left; color: #cccccc;">v0.0.13</div>
-<button mat-stroked-button (click)="onNoClick()" style="float:right" color="primary"><mat-icon>done</mat-icon><span>Volver</span></button>
+<button mat-stroked-button (click)="onNoClick()" style="float:right" color="primary"><span>Volver</span></button>

@@ -13,7 +13,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class EnableComponent implements OnInit {
   public terms:boolean = false;
   public politics:boolean = false;
-
+  public user:any = this.dataService.user;
   constructor(public router: Router, public dialog: MatDialog, public dataService: DataService, public snackBar:MatSnackBar) {
   }
 

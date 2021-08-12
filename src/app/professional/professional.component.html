@@ -507,11 +507,10 @@
                 </mat-tab>
             </mat-tab-group>
         </div>
-        <<div align="left" style="position: sticky; margin-top: 15px;">
-            <mat-checkbox class="desktop" style="padding-bottom: 8px;" [(ngModel)]="terms">Estoy de acuerdo con
-                los términos y condiciones de Visener.</mat-checkbox>
-            <mat-checkbox class="desktop" [(ngModel)]="politics">He leído y acepto
-                las políticas de privacidad de Visener.</mat-checkbox>
+        <div align="left" style="position: sticky; margin-top: 15px;" *ngIf="user.enabled=='false'">
+            <mat-checkbox style="padding-bottom: 8px;" [(ngModel)]="terms">He leído y acepto los términos y condiciones.</mat-checkbox>
+            <mat-checkbox [(ngModel)]="politics">He leído y acepto las políticas de privacidad.</mat-checkbox>
+            <br><br>
         </div>
         <div align="right">
             <button mat-button mat-dialog-close routerLink="/login">Cancelar</button>
