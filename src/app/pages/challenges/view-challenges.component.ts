@@ -44,6 +44,9 @@ export class ViewChallengesComponent implements OnInit {
           if(program.progress>100){
             program.progress = 100;
             this.programs2.push(program);
+          }else if(program.progress<0){
+            program.progress = 0;
+            this.programs2.push(program);
           }else{
             this.programs2.push(program);
           }

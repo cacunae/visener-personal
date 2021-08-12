@@ -10,6 +10,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { borderTopRightRadius } from 'html2canvas/dist/types/css/property-descriptors/border-radius';
 import { PopupConfigurationComponent } from '../pages/popup-configuration/popup-configuration.component';
+import { NgLocalization } from '@angular/common';
 
 @Component({
   selector: 'app-patient',
@@ -168,7 +169,7 @@ export class PatientComponent implements OnInit {
           if(now >= moment(treatment.startDate).add(post.params.init-1, 'day').format("YYYYMMDD") && now <= moment(treatment.startDate).add(post.params.init-1, 'day').add(post.params.long, 'day').format("YYYYMMDD")){
             this.dataService.getData("/" + post._id).then((result:any) => {
                 this.posts.push({comments: [], value: result, doc: {liked:false, likes: 0, value: result}});
-            });
+              });
           }
         }
       });
@@ -196,11 +197,13 @@ export class PatientComponent implements OnInit {
     this.http.post(this.dataService.databaseAPI, feedback).subscribe((result: any) => {
       if (result.ok) {
         this.getTreatments();
+        location.reload();
       }
     });
   }
 
   putPost(postId:string) {
+    console.log("postId", postId)
     let post:any = {};
     let temp:any[] = []
     var myDiv = document.getElementById('main');
@@ -235,16 +238,21 @@ export class PatientComponent implements OnInit {
 
   getMentions(){
     this.dataService.getData("/_design/view/_view/comments-by-mention?key=\""+this.dataService.user._id+"\"").then((mentions:any)=>{
-      console.log("ment:", mentions.rows)
       if(mentions.rows.length>0){
         this.mentions = mentions.rows;
-        console.log("mentions:", this.mentions)
         for(let mention of this.mentions){
+          console.log("metion:", mention)
+          if(mention.value.viewed){
+            this.hidden = true
+            console.log("true:", this.hidden)
+          }else{
+            this.hidden = false
+            console.log("false:", this.hidden)
+          }
           this.mention = mention;
           let datetime:any = new Date(mention.value.datetime);
          /* this.currentDay = moment().format('DDMMYYYY');*/
           this.dateTime = Math.floor((this.currentDay - datetime) / 1000 / 60 / 60 / 24);
-          console.log("current:",this.dateTime)
           this.dataService.getData("/"+mention.value.patient).then((patients:any)=>{
             this.patientName = patients.name;
           })
@@ -253,18 +261,19 @@ export class PatientComponent implements OnInit {
           })
         }
       }else{
-        this.mentions == [];  
-        console.log("llegó", this.mentions)
+        this.mentions.length == 0; 
       }
     })
   }
 
-  toggleBadgeVisibility() {
-    this.hidden = !this.hidden;
+  toggleBadgeVisibility(mention:any) {
+    this.hidden = false;
+    console.log("mention:", mention)
+    mention.value.viewed = true;
+    this.dataService.postData(mention.value);
   }
 
   viewComment(postId:any){
-    console.log("element:", postId)
     var myDiv = document.getElementById('main');
     myDiv.scrollTop = 0;
     let temp:any[] = [];

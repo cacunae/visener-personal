@@ -62,12 +62,14 @@
         <button mat-stroked-button style="margin-left: 10px; font-size: 12px;" (click)="openComment(post)">
             <mat-icon style="margin-top:7px; font-size: 14px;">comment</mat-icon> Comentar
         </button>
+        <button  mat-stroked-button style="margin-left: 10px; font-size: 12px;" [ngClass]="{'green' : toggle, 'red': !toggle}" (click)="saveFavourite(post)">
+            <mat-icon style="margin-top:-2px; font-size: 24px;">turned_in_not</mat-icon>
+        </button>
         <div style="float: right; margin-top: 10px; margin-left: 20px;" *ngIf="!post.comments || post.comments.length == 0">Sin comentarios.</div>
         <div style="float: right; margin-top: 10px; margin-left: 20px;" *ngIf="post.comments && post.comments.length == 1">{{post.comments.length}} comentario. </div>
         <div style="float: right; margin-top: 10px; margin-left: 20px;" *ngIf="post.comments && post.comments.length > 1">{{post.comments.length}} comentarios.</div>
-        <div style="float: right; margin-top: 10px;" *ngIf="post.likes && post.likes == 1">{{post.likes}} like. </div>
-        <div style="float: right; margin-top: 10px;" *ngIf="post.likes && post.likes > 1">{{post.likes}} likes.</div>
-        
+        <div style="float: right; margin-top: -5px;" *ngIf="post.likes && post.likes == 1">{{post.likes}} like. </div>
+        <div style="float: right; margin-top: -5px;" *ngIf="post.likes && post.likes > 1">{{post.likes}} likes.</div>
         <div *ngIf="post.comments && post.comments.length>0">
             <mat-divider></mat-divider>
             <div *ngFor="let comment of post.comments" class="comment">

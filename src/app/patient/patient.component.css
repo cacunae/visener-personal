@@ -3,6 +3,8 @@
   width: 260px;
 }
 
+
+
 .main{
   overflow-y: scroll;
   height: calc(100% - 5px);

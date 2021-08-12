@@ -107,5 +107,8 @@ export class PopupComponent implements OnInit {
     });
     this.popUpRef.close();
   }
+  getFavourites(){
+    this.popUpRef.close();
+  }
 
 }

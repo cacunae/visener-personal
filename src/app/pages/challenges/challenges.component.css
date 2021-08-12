@@ -29,6 +29,13 @@
     grid-gap: 5px;
     padding: 0px;
 }
+
+.grid-container3 {
+    display: grid;
+    grid-template-columns: 125px 121px 100px;
+    grid-gap: 55px;
+    padding: 0px;
+}
   
 .grid-container > div {
     text-align: center;
@@ -43,9 +50,3 @@
     font-size: 17px;
 }
 
-.contenido3{
-    position: absolute;
-    margin: 40px;
-    margin-left: -14px;
-    font-size: 17px;
-}

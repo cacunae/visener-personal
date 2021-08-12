@@ -24,12 +24,12 @@
       </div>
     </div>
   </div>
-  <mat-card-content style="height: 240px!important;">
-    <div class="grid-container">
-      <div style="text-align: left;">
-        <mat-card-subtitle class="contenido" *ngIf="programs.objective"><strong>Objetivo</strong><br>
+  <mat-card-content style="height: auto;">
+    <div>
+        <mat-card-subtitle *ngIf="programs.objective"><strong>Objetivo</strong><br>
           {{programs.objective}}</mat-card-subtitle>
-      </div>
+    </div>
+    <div class="grid-container3">
       <div style="text-align: left;">
         <div *ngFor="let id of programId">
           <div *ngIf="id == programs._id">
@@ -42,10 +42,7 @@
           </div>
         </div>
       </div>
-    </div>
-
-    <div class="grid-container">
-      <mat-card-subtitle class="contenido" *ngIf="programs.duration"><strong>Días de Duración:</strong><br>
+      <mat-card-subtitle class="contenido" *ngIf="programs.duration" style="margin-top: 0px;"><strong>Días de Duración:</strong><br>
         {{programs.duration}} días</mat-card-subtitle>
       <div style="text-align: left;">
         <div *ngFor="let id of programId">

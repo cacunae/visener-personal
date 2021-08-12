@@ -6,6 +6,7 @@ import { DataService } from '../../services/data.service';
 import { AssociateComponent } from './associate.component';
 import * as moment from 'moment';
 import { PatientComponent } from '../../patient/patient.component';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -30,9 +31,11 @@ export class PostComponent implements OnInit {
   public publication:any;
   public loading:boolean = false;
   public mostrar:boolean = true;
+  public favourite: any = {};
+  public toggle = true;
 
   constructor(public dialog: MatDialog, public http: HttpClient, public dataService: DataService, private comp: PatientComponent, public snackBar: MatSnackBar) {
-  }
+}
 
   ngOnInit(): void {
     if(this.postId){
@@ -130,6 +133,7 @@ export class PostComponent implements OnInit {
   }
 
   responsePost(post: any) {
+    console.log("post:", post)
     let responses: any[] = []; 
     let poll = { entity: "poll", post: post.value._id, patient: this.dataService.user._id, datetime: moment().format('YYYYMMDDHHmmss'), responses: responses };
     for (let question of post.value.poll) {
@@ -202,5 +206,15 @@ export class PostComponent implements OnInit {
   
   clickEvent(){
     this.event.emit("click");
+  }
+
+  saveFavourite(post:any){  
+    this.favourite.entity = "favourite";
+    this.favourite.post = post.doc.value._id;
+    this.favourite.patient = this.dataService.user._id;
+    this.favourite.datetime = moment().format("DDMMYYYY")
+    this.dataService.postData(this.favourite).then((favourite:any)=>{
+      this.snackBar.open('Añadido a tus favoritos', 'OK', {duration: 5000});
+    })
   }
 }

@@ -104,6 +104,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { ProgressChallengesComponent } from './pages/challenges/progress-challenges.component';
 import { RoundProgressModule } from 'angular-svg-round-progressbar';
 import { DatePipe } from '@angular/common';
+import { FavouritesComponent } from './pages/posts/favourites/favourites.component';
+import { ViewFavouritesComponent } from './pages/posts/view-favourites/view-favourites.component';
 
 @NgModule({
   declarations: [
@@ -169,6 +171,8 @@ import { DatePipe } from '@angular/common';
     ChallengesComponent,
     ViewChallengesComponent,
     ProgressChallengesComponent,
+    FavouritesComponent,
+    ViewFavouritesComponent,
   ],
   imports: [
     BrowserModule,

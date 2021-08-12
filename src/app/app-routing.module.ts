@@ -30,6 +30,8 @@ import { ViewPatientsComponent } from './pages/patients/view-patients.component'
 import { ViewPostsComponent } from './pages/posts/view-posts.component';
 import { GroupsComponent } from './patient/groups/groups.component';
 import { ViewChallengesComponent } from './pages/challenges/view-challenges.component';
+import { FavouritesComponent } from './pages/posts/favourites/favourites.component';
+import { ViewFavouritesComponent } from './pages/posts/view-favourites/view-favourites.component';
 
 const routes: Routes = [
   { path: "", component: LoginComponent, pathMatch: "full" },
@@ -73,6 +75,7 @@ const routes: Routes = [
     ]
   },
   { path: "patient", component: PatientComponent, pathMatch: "full"},
+  { path: "favourites", component: ViewFavouritesComponent},
   { path: "patient/groups", component: GroupsComponent, pathMatch: "full" },
   { path: "patient/groups/:id", component: GroupsComponent, pathMatch: "full" },
   { path: "login", component: LoginComponent, pathMatch: "full" },

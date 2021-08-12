@@ -1,0 +1,29 @@
+
+<mat-card *ngIf="post">
+    <button mat-icon-button (click)="delFav(favourites)"><mat-icon>bookmark_remove</mat-icon></button>
+   <mat-card-title style="text-align: center;">{{post.title}}</mat-card-title> 
+   <mat-card-subtitle style="text-align: center;" *ngIf="post.subtitle && !feedback">{{post.subtitle}}</mat-card-subtitle>
+   <img mat-card-image *ngIf="post.image" src="{{post.image | image}}" />
+   <video mat-card-image controls preload="auto" *ngIf="post.video">
+       <source src="{{post.video | video}}" />
+   </video>
+   <mat-card-content *ngIf="post.content">{{post.content}}</mat-card-content>
+   <div *ngIf="post.poll">
+       <div *ngFor="let question of post.poll">
+           <mat-card-subtitle *ngIf="question.question">{{question.question}}
+           </mat-card-subtitle>
+           <input matInput *ngIf="question.type=='text'" type="text" [(ngModel)]="question.response"
+               placeholder="Escriba su respuesta...">
+           <mat-radio-group *ngIf="question.type=='selection'" [(ngModel)]="question.response">
+               <mat-radio-button *ngFor="let option of question.options" [value]="option.description">
+                   {{option.description}}</mat-radio-button><br><br>
+           </mat-radio-group>
+           <mat-radio-group *ngIf="question.type=='multiple'" [(ngModel)]="question.response">
+               <mat-checkbox *ngFor="let option of question.options" [value]="option.description">
+                   {{option.description}}</mat-checkbox><br><br>
+           </mat-radio-group>
+       </div>
+   </div>
+</mat-card>
+
+<br>

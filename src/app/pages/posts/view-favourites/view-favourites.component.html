@@ -1,0 +1,55 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <button mat-button (click)="popup()" style="margin-left: -20px; margin-right: -10px;">
+      <mat-icon>menu</mat-icon>
+    </button>&nbsp;
+    <span class="logo"><img src="../../assets/logo.png"></span>
+    <span class="spacer"></span>
+    <button mat-icon-button>
+      <mat-icon style="color:#FFD628" routerLink="/patient">home</mat-icon>
+    </button>
+    <button mat-icon-button routerLink="/patient/groups" routerLinkActive="true">
+      <mat-icon>group</mat-icon>
+    </button>
+    <button mat-button *ngIf="mentions.length==0" [matMenuTriggerFor]="menu" (click)="getMentions()" #menuTrigger>
+      <mat-icon>notifications_none</mat-icon>
+    </button>
+    <button mat-button *ngIf="mentions.length>0" [matMenuTriggerFor]="menu" (click)="getMentions()" #menuTrigger>
+      <mat-icon matBadge="!" [matBadgeHidden]="hidden" (click)="toggleBadgeVisibility()" matBadgeColor="warn">
+        notifications_none</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <div *ngFor="let men of mentions">
+        <button *ngIf="mentions.length>0" (click)="viewComment(men.value.post)" mat-menu-item
+          style="font-size: 12px!important;height: 68px;"> <strong>{{patientName}}</strong> te etiquetó en un comentario
+          en el post <strong>"{{postTitle}}"</strong>:<strong>"{{men.value.text}}"</strong><br>
+          <div *ngIf="dateTime == 0"><i>HOY</i></div>
+          <div *ngIf="dateTime == 1"><i>AYER</i></div>
+          <div *ngIf="dateTime != 1 && dateTime != 0"><i> {{men.value.datetime | date:"dd/MM/YYYY"}} </i></div>
+        </button>
+        <mat-divider></mat-divider>
+      </div>
+      <button *ngIf="mentions.length==0" mat-menu-item><i>No hay menciones.</i></button>
+    </mat-menu>
+    <span class="desktop">&nbsp; {{user.name}}</span>
+    <button mat-button (click)="popupConfiguration()" style="margin-right: -20px; margin-left: -10px;">
+      <mat-icon>account_circle</mat-icon>
+    </button>&nbsp;
+  </mat-toolbar-row>
+</mat-toolbar>
+<br><br>
+<div class="main2">
+  <mat-card>
+    <mat-card-title style="text-align: center;"><strong><u>Mis Favoritos</u></strong></mat-card-title>
+    <br>
+    <mat-card-subtitle *ngIf="emptyFavourites==1" style="text-align: center;"><i>*No has agregado nada a tu Lista de
+        Favoritos</i></mat-card-subtitle>
+    <br>
+    <div *ngIf="emptyFavourites==0">
+      <div *ngFor="let post of posts">
+        <app-favourites [post]="post" [favourites]="favourites"></app-favourites>
+      </div>
+    </div>
+  </mat-card>
+
+</div>
