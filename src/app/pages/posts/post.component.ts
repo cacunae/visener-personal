@@ -33,6 +33,7 @@ export class PostComponent implements OnInit {
   public mostrar:boolean = true;
   public favourite: any = {};
   public toggle = true;
+  private reporte:string;
 
   constructor(public dialog: MatDialog, public http: HttpClient, public dataService: DataService, private comp: PatientComponent, public snackBar: MatSnackBar) {
 }
@@ -178,7 +179,7 @@ export class PostComponent implements OnInit {
               this.mostrar = false;
               this.dataService.postData(this.publication).then((result) =>{
                 this.loading = false;
-                this.snackBar.open('Gracias por aceptar.', 'OK', { duration: 3000 })
+                this.snackBar.open('¡Enhorabuena! este desafío se agregrá a tu lista.', 'OK', { duration: 5000 })
               })
             }
           }
@@ -216,5 +217,27 @@ export class PostComponent implements OnInit {
     this.dataService.postData(this.favourite).then((favourite:any)=>{
       this.snackBar.open('Añadido a tus favoritos', 'OK', {duration: 5000});
     })
+  }
+
+  report(template){
+    const dialogRef = this.dialog.open(template, {
+      width: '300px'
+    })
+  }
+
+  sendReport(post:any){
+    this.dataService.postData({
+      'entity': 'report',
+      'postName': post.value.title,
+      'postId': post.value._id,
+      'patientName': this.dataService.user.name,
+      'patientId': this.dataService.user._id,
+      'reason': this.reporte,
+    }).then(
+      (result) => {
+        console.log(result);
+        this.snackBar.open('Su reporte se ha enviado correctamente.','',  {duration:5000});
+      }
+    )
   }
 }
