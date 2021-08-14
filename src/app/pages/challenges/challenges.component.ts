@@ -67,7 +67,9 @@ export class ChallengesComponent implements OnInit {
                   this.feedbacks.push(feedback);
                   this.totalMax2 = this.arrayTotal.reduce((a, b) => a + b, 0);
                   this.total = this.feedbacks.length;
+                  console.log("percent:", this.feedbacks.length)
                   this.percent = this.total * 100 / this.totalMax;
+                  console.log("percent:", this.percent)
                   this.totalXPro = this.total * 100 / this.totalMax2;
                   this.totalXPro = Math.round(this.totalXPro * 10) /10   
                   if (this.percent > 100) {
@@ -76,6 +78,9 @@ export class ChallengesComponent implements OnInit {
                   } else {
                     this.percents.push(this.percent)
                   }
+                }else if(this.percent = 0){
+                  this.percent = 0;
+                  this.percents.push(this.percent)
                 }else{
                   this.percent = 0;
                   this.percents.push(this.percent)

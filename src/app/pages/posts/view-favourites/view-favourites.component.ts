@@ -32,7 +32,7 @@ export class ViewFavouritesComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.dataService.getData("/_design/view/_view/favourite-by-patients?key=\""+this.dataService.user._id+"\"").then((favourites:any)=>{
+    this.dataService.getData("/_design/view/_view/favourites-by-patient?key=\""+this.dataService.user._id+"\"").then((favourites:any)=>{
       console.log("fav:", favourites.rows.length)
       if(favourites.rows.length==0){
         this.emptyFavourites = 1;

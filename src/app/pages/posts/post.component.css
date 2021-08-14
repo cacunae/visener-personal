@@ -61,3 +61,11 @@ input:focus {
     display: table;
     padding: 2px 15px;
 }
+
+.green {
+    background-color: green;
+}
+
+.red {
+    background-color: red;
+}

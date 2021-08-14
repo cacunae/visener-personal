@@ -8,70 +8,87 @@ import * as moment from 'moment';
 import { PatientComponent } from '../../patient/patient.component';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
-  providers:[ PatientComponent ],
+  providers: [PatientComponent],
   selector: 'app-post',
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.css']
 })
 export class PostComponent implements OnInit {
-  @Input() post:any;
-  @Input() postId:string;
-  @Input() idMention:any;
-  @Input() resizable:boolean;
-  @Input() selectable:boolean;
-  @Input() removable:boolean;
-  @Input() multiple:boolean;
-  @Input() feedback:boolean;
-  @Input() datetime:boolean;
+  @Input() post: any;
+  @Input() postId: string;
+  @Input() idMention: any;
+  @Input() resizable: boolean;
+  @Input() selectable: boolean;
+  @Input() removable: boolean;
+  @Input() multiple: boolean;
+  @Input() feedback: boolean;
+  @Input() datetime: boolean;
   @Output() event = new EventEmitter<string>();
-  public compressed:any = false;
-  public program:any = {}; 
-  public publication:any;
-  public loading:boolean = false;
-  public mostrar:boolean = true;
+  public compressed: any = false;
+  public program: any = {};
+  public publication: any;
+  public loading: boolean = false;
+  public mostrar: boolean = true;
   public favourite: any = {};
   public toggle = true;
   private reporte:string;
 
-  constructor(public dialog: MatDialog, public http: HttpClient, public dataService: DataService, private comp: PatientComponent, public snackBar: MatSnackBar) {
-}
+  constructor(public dialog: MatDialog, public router: Router, public http: HttpClient, public dataService: DataService, private comp: PatientComponent, public snackBar: MatSnackBar) {
+  }
 
   ngOnInit(): void {
-    if(this.postId){
+    if (this.postId) {
       this.dataService.getData("/" + this.postId).then((post) => {
-        this.post = {value: post};
+        this.post = { value: post };
       });
     }
-    if(this.feedback){
+    if (this.feedback) {
       this.getComments(this.post);
       this.getLikes(this.post);
+      this.getFavourites(this.post);
     }
-    if(this.resizable){
+    if (this.resizable) {
       this.compressed = true;
     }
   }
 
-  getComments(post:any){
+  getComments(post: any) {
     this.dataService.getData("/_design/view/_view/comment-by-post?key=\"" + post.value._id + "\"").then((comments: any) => {
       post.comments = [];
-      comments.rows.sort((a:any, b:any) => { return Number(b.value.datetime) - Number(a.value.datetime) });
+      comments.rows.sort((a: any, b: any) => { return Number(b.value.datetime) - Number(a.value.datetime) });
       for (let comment of comments.rows) {
         post.comments.push({ name: comment.value.name, text: comment.value.text });
       }
     });
   }
 
-  getLikes(post:any){
+  getLikes(post: any) {
     this.dataService.getData("/_design/view/_view/like-by-post?key=\"" + post.value._id + "\"").then((likes: any) => {
       post.likes = likes.rows.length;
       post.liked = 'false';
       if (likes.rows.length > 0) {
-        for(let like of likes.rows){
-          if(like.value.patient == this.dataService.user._id){
+        for (let like of likes.rows) {
+          if (like.value.patient == this.dataService.user._id) {
             post.liked = 'true';
             post.like = { _id: like.value._id, _rev: like.value._rev };
+          }
+        }
+      }
+    });
+  }
+
+  getFavourites(post: any) {
+    this.dataService.getData("/_design/view/_view/favourites-by-post?key=\"" + post.value._id + "\"").then((favourites: any) => {
+      post.fav = favourites.rows.length;
+      post.favourite = 'false';
+      if (favourites.rows.length > 0) {
+        for (let fav of favourites.rows) {
+          if (fav.value.patient == this.dataService.user._id) {
+            post.favourite = 'true';
+            post.fav = { _id: fav.value._id, _rev: fav.value._rev };
           }
         }
       }
@@ -81,30 +98,31 @@ export class PostComponent implements OnInit {
   openComment(post: any) {
     const dialogRef = this.dialog.open(CommentComponent, {
       width: '400px',
-      data: { text: '', post:post.value._id }
+      data: { text: '', post: post.value._id }
     });
     dialogRef.afterClosed().subscribe((text) => {
       let comment = { entity: "comment", datetime: moment().format('YYYYMMDDHHmmss'), post: post.value._id, patient: this.dataService.user._id, name: this.dataService.user.name, text: text };
       if (text != null && text.trim() != "") {
-          this.dataService.postData(comment).then((result:any) => {    
-            post.comments.push({ name: this.dataService.user.name , text: text });
-          });
+        this.dataService.postData(comment).then((result: any) => {
+          post.comments.push({ name: this.dataService.user.name, text: text });
+        });
       }
-      if (!post.comments) { post.comments = []; } 
+      if (!post.comments) { post.comments = []; }
     });
+    this.router.navigateByUrl("/patient");
   }
 
   like(post: any) {
     if (post.liked == 'false') {
       let like = { entity: "like", post: post.value._id, patient: this.dataService.user._id, datetime: moment().format('YYYYMMDDHHmmss') };
-      this.dataService.postData(like).then((result:any) => {
+      this.dataService.postData(like).then((result: any) => {
         if (result.ok) {
           this.dataService.getData("/_design/view/_view/like-by-post?key=\"" + this.post.value._id + "\"").then((likes: any) => {
             this.post.likes = likes.rows.length;
             this.post.liked = 'false';
             if (likes.rows.length > 0) {
-              for(let like of likes.rows){
-                if(like.value.patient == this.dataService.user._id){
+              for (let like of likes.rows) {
+                if (like.value.patient == this.dataService.user._id) {
                   this.post.liked = 'true';
                   this.post.like = { _id: like.value._id, _rev: like.value._rev };
                 }
@@ -119,8 +137,8 @@ export class PostComponent implements OnInit {
         this.dataService.getData("/_design/view/_view/like-by-post?key=\"" + this.post.value._id + "\"").then((likes: any) => {
           this.post.likes = likes.rows.length;
           if (likes.rows.length > 0) {
-            for(let like of likes.rows){
-              if(like.value.patient == this.dataService.user._id){
+            for (let like of likes.rows) {
+              if (like.value.patient == this.dataService.user._id) {
                 this.post.liked = 'true';
                 this.post.like = { _id: like.value._id, _rev: like.value._rev };
               }
@@ -135,7 +153,7 @@ export class PostComponent implements OnInit {
 
   responsePost(post: any) {
     console.log("post:", post)
-    let responses: any[] = []; 
+    let responses: any[] = [];
     let poll = { entity: "poll", post: post.value._id, patient: this.dataService.user._id, datetime: moment().format('YYYYMMDDHHmmss'), responses: responses };
     for (let question of post.value.poll) {
       if (question.response) {
@@ -147,7 +165,7 @@ export class PostComponent implements OnInit {
     });
   }
 
-  selectPost(post: any){
+  selectPost(post: any) {
     const dialogRef = this.dialog.open(AssociateComponent, {
       width: '400px',
       data: { text: post.value._id }
@@ -157,10 +175,10 @@ export class PostComponent implements OnInit {
     });
   }
 
-  aceptar(postID){
+  aceptar(postID) {
     this.loading = true;
     let id = postID.value.program;
-    this.dataService.getData("/" + id).then((result:any) => {
+    this.dataService.getData("/" + id).then((result: any) => {
       this.program.entity = 'treatment';
       this.program.state = 'active';
       this.program.patient = this.dataService.user._id;
@@ -169,15 +187,15 @@ export class PostComponent implements OnInit {
       this.program.endDate = moment(this.program.startDate).add(result.duration, 'days');
       this.program.interactions = result.interactions;
       this.program.datetime = moment().format('YYYYMMDDHHmmss');
-    }).then((v)  => {
+    }).then((v) => {
       this.dataService.postData(this.program).then((v2) => {
         this.dataService.getData("/_design/view/_view/publications-by-patient?key=\"" + this.dataService.user._id + "\"").then((posts: any) => {
-          for(let pub of posts.rows) {
+          for (let pub of posts.rows) {
             if (postID.doc._id == pub.value.doc.post) {
               this.publication = pub.value.doc
               this.publication.state = 'deleted'
               this.mostrar = false;
-              this.dataService.postData(this.publication).then((result) =>{
+              this.dataService.postData(this.publication).then((result) => {
                 this.loading = false;
                 this.snackBar.open('¡Enhorabuena! este desafío se agregrá a tu lista.', 'OK', { duration: 5000 })
               })
@@ -192,31 +210,61 @@ export class PostComponent implements OnInit {
     this.loading = true;
     console.log(publication)
     this.dataService.getData("/_design/view/_view/publications-by-patient?key=\"" + this.dataService.user._id + "\"").then((posts: any) => {
-      for(let pub of posts.rows) {
+      for (let pub of posts.rows) {
         if (publication.doc._id == pub.value.doc.post) {
           this.publication = pub.value.doc
           this.publication.state = 'deleted'
-          this.dataService.postData(this.publication).then((result) =>{
+          this.dataService.postData(this.publication).then((result) => {
             this.loading = false;
             this.snackBar.open('No volveremos a mostrarle este post.', 'OK', { duration: 3000 })
-          }).then((v) => {window.location.reload()})
+          }).then((v) => { window.location.reload() })
         }
       }
     })
   }
-  
-  clickEvent(){
+
+  clickEvent() {
     this.event.emit("click");
   }
 
-  saveFavourite(post:any){  
-    this.favourite.entity = "favourite";
-    this.favourite.post = post.doc.value._id;
-    this.favourite.patient = this.dataService.user._id;
-    this.favourite.datetime = moment().format("DDMMYYYY")
-    this.dataService.postData(this.favourite).then((favourite:any)=>{
-      this.snackBar.open('Añadido a tus favoritos', 'OK', {duration: 5000});
-    })
+  saveFavourite(post: any) {
+    console.log(post.favourite)
+    if (post.favourite == 'false') {
+      let favourite = { entity: "favourite", post: post.value._id, patient: this.dataService.user._id, datetime: moment().format('YYYYMMDDHHmmss') };
+      this.dataService.postData(favourite).then((result: any) => {
+        if (result.ok) {
+          this.dataService.getData("/_design/view/_view/favourites-by-post?key=\"" + this.post.value._id + "\"").then((favourites: any) => {
+            this.post.fav = favourites.rows.length;
+            this.post.favourite = 'false';
+            if (favourites.rows.length > 0) {
+              for (let fav of favourites.rows) {
+                if (fav.value.patient == this.dataService.user._id) {
+                  this.post.favourite = 'true';
+                  this.post.fav = { _id: fav.value._id, _rev: fav.value._rev };
+                }
+              }
+            }
+          });
+        }
+      });
+    } else {
+      this.http.delete(this.dataService.databaseAPI + "/" + post.fav._id + "?rev=" + post.fav._rev).subscribe((result: any) => {
+        post.favourite = 'false';
+        this.dataService.getData("/_design/view/_view/favourites-by-post?key=\"" + this.post.value._id + "\"").then((favourites: any) => {
+          this.post.fav = favourites.rows.length;
+          if (favourites.rows.length > 0) {
+            for (let fav of favourites.rows) {
+              if (fav.value.patient == this.dataService.user._id) {
+                this.post.favourite = 'true';
+                this.post.fav = { _id: fav.value._id, _rev: fav.value._rev };
+              }
+            }
+          } else {
+            this.post.favourite = 'false';
+          }
+        });
+      });
+    }
   }
 
   report(template){

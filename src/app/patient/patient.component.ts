@@ -11,6 +11,7 @@ import { MatMenuTrigger } from '@angular/material/menu';
 import { borderTopRightRadius } from 'html2canvas/dist/types/css/property-descriptors/border-radius';
 import { PopupConfigurationComponent } from '../pages/popup-configuration/popup-configuration.component';
 import { NgLocalization } from '@angular/common';
+import { getMatIconNameNotFoundError } from '@angular/material/icon';
 
 @Component({
   selector: 'app-patient',
@@ -41,6 +42,7 @@ export class PatientComponent implements OnInit {
   dateTime:any;
 
   constructor(public http: HttpClient, public post: MatDialog, public dialog: MatDialog, public router: Router, public dataService: DataService, public zone: NgZone, public snackBar:MatSnackBar) {
+    this.getMentions();
     moment.locale('es');
     if (!this.dataService.user?._id) {
       this.router.navigateByUrl("/login");
@@ -112,8 +114,21 @@ export class PatientComponent implements OnInit {
     this.dataService.getData("/_design/view/_view/publications-by-patient?key=\"" + this.dataService.user._id + "\"&include_docs=true").then((posts: any) => {
       this.posts = posts.rows.sort((a:any, b:any) => { return Number(a.doc.datetime) - Number(b.doc.datetime) });
       for (let index in this.posts) {
-        this.posts[index].value = this.posts[index].doc;
-        console.log("post:",this.posts[index].value)
+        for(let post of this.posts){
+            if(post.value.doc.startDate>moment().format("DDMMYYYY")){
+              var indice = this.posts.indexOf(post.value.doc._id);
+              this.posts.splice(indice, 1);
+              console.log("sacó 1:", post)
+              this.posts[index].value = this.posts[index].doc;
+            }else if(post.value.doc.startDate==moment().format("DDMMYYYY")){
+                this.posts[index].value = this.posts[index].doc;
+                console.log("pasaron:", post)
+            }else if(post.value.doc.startDate<moment().format("DDMMYYYY")){
+              this.posts[index].value = this.posts[index].doc;
+            }else if(!post.value.doc.startDate){
+              this.posts[index].value = this.posts[index].doc;
+            }
+        } 
       }
     });
   }
@@ -241,17 +256,13 @@ export class PatientComponent implements OnInit {
       if(mentions.rows.length>0){
         this.mentions = mentions.rows;
         for(let mention of this.mentions){
-          console.log("metion:", mention)
           if(mention.value.viewed){
             this.hidden = true
-            console.log("true:", this.hidden)
           }else{
             this.hidden = false
-            console.log("false:", this.hidden)
           }
           this.mention = mention;
           let datetime:any = new Date(mention.value.datetime);
-         /* this.currentDay = moment().format('DDMMYYYY');*/
           this.dateTime = Math.floor((this.currentDay - datetime) / 1000 / 60 / 60 / 24);
           this.dataService.getData("/"+mention.value.patient).then((patients:any)=>{
             this.patientName = patients.name;
