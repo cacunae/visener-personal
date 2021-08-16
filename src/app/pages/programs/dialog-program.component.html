@@ -3,7 +3,8 @@
         <mat-icon *ngIf="compressed" style="margin-top:7px; font-size: 14px;">expand_more</mat-icon>
         <mat-icon *ngIf="!compressed" style="margin-top:7px; font-size: 14px;">expand_less</mat-icon>
     </button>
-    <button *ngIf="compressed" class="compressedBtn" color="primary" (click)="selectProgram(program)" [mat-dialog-close]="program">
+    <button *ngIf="compressed" class="compressedBtn" color="primary" (click)="selectProgram(program)"
+        [mat-dialog-close]="program">
         <mat-icon *ngIf="compressed" style="margin-top:7px; font-size: 14px;">add</mat-icon>
     </button>
     <button *ngIf="removable" (click)="clickEvent()" class="compressedBtn" color="primary">
@@ -12,15 +13,19 @@
     <mat-card-subtitle *ngIf="!compressed" style="float:right; color:#a0a0a0; font-size: 12px;">
         {{program.value.datetime | fechaFormateada}}
     </mat-card-subtitle>
-    <mat-card-title [class.compressedPost]="compressed" style="padding-bottom: 10px;margin-bottom:0%;" *ngIf="program.value.title">
-    {{program.value.title}}</mat-card-title>
+    <mat-card-title [class.compressedPost]="compressed" style="padding-bottom: 10px;margin-bottom:0%;"
+        *ngIf="program.value.title">
+        {{program.value.title}}</mat-card-title>
     <mat-card-subtitle *ngIf="program.value.objective">{{program.value.objective}}</mat-card-subtitle>
     <mat-card-content *ngIf="program.value.content">{{program.value.content}}</mat-card-content>
-    <app-interaction [interaction]="interaction._id" [resizable]="true" [removable]="false"
-        *ngFor="let interaction of program.value.interactions" origin="add-program"></app-interaction>
-    <div *ngFor="let post of posts">
-        <app-post [postId]="post._id" [resizable]="true" [removable]="true" *ngFor="let post of program.value.posts">
-        </app-post>
+    <div *ngIf="!compressed">
+        <app-interaction [interaction]="interaction._id" [resizable]="true" [removable]="false"
+            *ngFor="let interaction of program.value.interactions" origin="add-program"></app-interaction>
+        <div *ngFor="let post of posts">
+            <app-post [postId]="post._id" [feedback]="false" [resizable]="true" [removable]="true"
+                *ngFor="let post of program.value.posts">
+            </app-post>
+        </div>
     </div>
     <br>
     <div style="text-align: center;">

@@ -16,6 +16,7 @@ export interface DialogData {
 export class AssociateComponent implements OnInit {
   public patients:any[] = [];
   public idProfessional:string = "";
+  public patientId:any[] = [];
 
   constructor(public router: Router, public dataService: DataService, public dialogRef: MatDialogRef<AssociateComponent>, @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
 
@@ -25,6 +26,15 @@ export class AssociateComponent implements OnInit {
       this.patients = patients.rows;
     }); 
   }
+
+  toggle(event,id:any){
+    console.log(event, this.patientId);
+    if(event = true){
+      this.patientId.push(id);
+    }
+  }
+
+  
 
   onNoClick(){
     this.dialogRef.close();

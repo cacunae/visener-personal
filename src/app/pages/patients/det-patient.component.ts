@@ -45,6 +45,7 @@ export class DetPatientComponent implements OnInit {
   async getPosts(){
     await this.dataService.getData("/_design/view/_view/publications-by-patient?key=\"" + this.id + "\"").then((posts: any) => {
       this.posts = posts.rows;//.sort((a:any, b:any) => { return a.name.localeCompare(b.name) });
+      console.log("post:",this.posts)
     });
   }
 

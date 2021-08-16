@@ -37,21 +37,23 @@ export class ProgressChallengesComponent implements OnInit {
     this.dataService.getData("/_design/view/_view/treatments-by-patient?key=\""+this.dataService.user._id + "\"").then((treatments:any)=>{
       for(let treatment of treatments.rows){
         this.treatmentId.push(treatment.value.doc.program)
-        this.startDate = new Date(treatment.value.doc.startDate.substr(0, 10));
+       /* this.startDate = new Date(treatment.value.doc.startDate.substr(0, 10));
         this.datepipe.transform(treatment.value.doc.startDate, "dd/MM")
         console.log("date1:", this.datepipe.transform(treatment.value.doc.startDate, 'd'))
         console.log("date2:", this.datepipe.transform(treatment.value.doc.endDate, 'dd'))
         this.endDate = new Date(treatment.value.doc.endDate.substr(0, 10));
         this.end = this.datepipe.transform(treatment.value.doc.endDate, 'dd')
-        this.start = this.datepipe.transform(treatment.value.doc.startDate, 'd');
+        this.start = this.datepipe.transform(treatment.value.doc.startDate, 'd');*/
+        this.start = moment(treatment.value.doc.startDate).format("DD")
+        this.end = moment(treatment.value.doc.endDate).format("DD")
         console.log("start::", this.start, "end::", this.end)
         this.treatments.push(treatment);
         this.sampleRange = new DateRange((() => {
           let v = new Date();
-          console.log("getDate:", v.getDate())
           v.setDate(this.end);
           return v;
         })(), new Date());
+        console.log("getDate:", this.sampleRange)
       }
     })
   }

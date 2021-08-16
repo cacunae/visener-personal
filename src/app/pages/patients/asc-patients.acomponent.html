@@ -1,4 +1,5 @@
-<app-header title="Mis Pacientes" [event]="true" (rightEvent)="asociarPostMultiple()" [rightIcon]="'group_add'" [search]="true" (searchEvent)="buscar()"></app-header>
+<app-header title="Mis Pacientes" [event]="true" (rightEvent)="asociarPostMultiple(dialogTemplate)"
+    [rightIcon]="'group_add'" [search]="true" (searchEvent)="buscar()"></app-header>
 <div class="content" role="main">
     <input class="search" type="search" matInput (keyup)="applyFilter($event)" placeholder="Buscar" #input>
     <table mat-table [dataSource]="dataSource" matSort multiTemplateDataRows class="mat-elevation-z8">
@@ -17,7 +18,8 @@
             </ng-container>
             <ng-container matColumnDef="company">
                 <th mat-header-cell *matHeaderCellDef class="desktop">Redes</th>
-                <td mat-cell *matCellDef="let patient" class="desktop">Posts: {{patient.posts}} - Programas: {{patient.treatments}}</td>
+                <td mat-cell *matCellDef="let patient" class="desktop">Posts: {{patient.posts}} -
+                    Programas: {{patient.treatments}}</td>
             </ng-container>
             <ng-container matColumnDef="actions">
                 <th mat-header-cell *matHeaderCellDef>Acciones</th>
@@ -25,7 +27,8 @@
                     <button mat-icon-button (click)="asociarPost(element)" [disabled]="element.state=='disabled'">
                         <mat-icon>post_add</mat-icon>
                     </button>
-                    <button mat-icon-button routerLink="/professional/asc-program/{{element._id}}" routerLinkActive="false" [disabled]="element.state=='disabled'">
+                    <button mat-icon-button routerLink="/professional/asc-program/{{element._id}}"
+                        routerLinkActive="false" [disabled]="element.state=='disabled'">
                         <mat-icon>assignment</mat-icon>
                     </button>
                     <button mat-icon-button (click)="verPaciente(element)" [disabled]="element.state=='disabled'">
@@ -35,13 +38,32 @@
             </ng-container>
         </div>
         <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-        <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" [class.disabled]="element.state=='disabled'" class="example-element-row example-element-row-border"></tr>
+        <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" [class.disabled]="element.state=='disabled'"
+            class="example-element-row example-element-row-border"></tr>
     </table>
     <mat-paginator class="mat-elevation-z8" style="width: 100%;" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
 
     <mat-spinner *ngIf="loading"></mat-spinner>
     <div class="noitems" *ngIf="!loading && patients.length == 0">Aún no tienes pacientes asignados.</div>
     <div class="desktopbuttons">
-        <button mat-raised-button *ngIf="!loading && patients.length > 0" color="primary" (click)="asociarPostMultiple()">Asociar Post Masivo</button>
+        <button mat-raised-button *ngIf="!loading && patients.length > 0" color="primary"
+            (click)="asociarPostMultiple(dialogTemplate)">Asociar Post Masivo</button>
     </div>
 </div>
+
+<ng-template #dialogTemplate>
+    <mat-card-title>Elegir Fechas</mat-card-title><br>
+    <mat-form-field appearance="fill">
+        <mat-label>Seleccionar fechas</mat-label>
+        <mat-date-range-input [rangePicker]="picker">
+            <input matStartDate [(ngModel)]="post.startDate" placeholder="Fecha de Inicio">
+            <input matEndDate [(ngModel)]="post.endDate" placeholder="Fecha de Fin">
+        </mat-date-range-input>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+    <div mat-dialog-actions>
+        <button mat-stroked-button (click)="onNoClick()">Cancelar</button>
+        <button mat-raised-button color="primary" [mat-dialog-close]="post">Asignar</button>
+    </div>
+</ng-template>

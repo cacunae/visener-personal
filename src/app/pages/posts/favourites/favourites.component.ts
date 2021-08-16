@@ -80,7 +80,7 @@ export class FavouritesComponent implements OnInit {
         this.mentions == [];  
         console.log("llegó", this.mentions)
       }
-    })
+    });
   }
 
   delFav(fav:any){

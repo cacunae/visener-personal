@@ -93,6 +93,7 @@ export class AddProgramComponent implements OnInit {
   }
 
   publicar() {
+    console.log("program:", this.program)
     this.actionLoading = true;
     if (this.program.interactions.length > 0) {
       if(this.program.title.length == 0 || this.program.content.length == 0 || this.program.objective.length == 0) {
