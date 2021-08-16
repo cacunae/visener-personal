@@ -72,6 +72,7 @@ export class ProfessionalComponent implements OnInit {
     if(this.terms && this.politics){
       this.dataService.getData("/" + this.dataService.user._id).then((result:any)=>{
         result.granted = true;
+        result.enabled = 'true';
         this.dataService.postData(result).then(() => {
           this.snackBar.open('Condiciones aceptadas. Ingrese nuevamente.', 'OK', {duration: 5000});
           this.router.navigateByUrl("/login");

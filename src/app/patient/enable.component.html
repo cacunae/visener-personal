@@ -503,7 +503,7 @@
                 </mat-tab>
             </mat-tab-group>
         </div>
-        <div align="left" style="position: sticky; margin-top: 15px;" *ngIf="user.enabled=='false'">
+        <div align="left" style="position: sticky; margin-top: 15px;" *ngIf="!user.enabled || user.enabled=='false'">
             <mat-checkbox style="padding-bottom: 8px;" [(ngModel)]="terms">He leído y acepto los términos y condiciones.</mat-checkbox>
             <mat-checkbox [(ngModel)]="politics">He leído y acepto las políticas de privacidad.</mat-checkbox>
             <br><br>
@@ -513,7 +513,7 @@
             <mat-checkbox class="example-margin" [(ngModel)]="terms">He leído y acepto los términos y condiciones.</mat-checkbox> <br>
             <mat-checkbox class="example-margin" [(ngModel)]="terms">He leído y acepto las políticas de privacidad.</mat-checkbox> <br>
         </div>-->
-        <div align="right" *ngIf="user.enabled=='false'">
+        <div align="right" *ngIf="!user.enabled || user.enabled=='false'">
             <button mat-button mat-dialog-close routerLink="/login">Cancelar</button>
             <button mat-button [mat-dialog-close]="true" (click)="aceptar()">Aceptar</button>
         </div>

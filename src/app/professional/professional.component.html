@@ -4,11 +4,11 @@
 <!--app-header *ngIf="grantAccess" title="Visener"></app-header-->
 <div *ngIf="grantAccess" style="position: absolute; top: 0px; left: 0px; background-color: rgba(0,0,0,0.3); width: 100%; height: 100%;">
     <br><br>
-    <mat-card style="width: calc(100% - 20px); max-width: 600px; height: 80%; margin: auto;">
+    <mat-card style="width: calc(100% - 20px); max-width: 600px; height: 90%; margin: auto;">
         <h1>Acuerdo de Servicio</h1>
-        <div style="height: calc(100% - 145px); overflow: hidden; border: 1px solid #cccccc; padding: 10px;">
-            <mat-tab-group style="height: 100%;">
-                <mat-tab label="Términos y condiciones" class="mathead">
+        <div style="height: calc(100% - 165px); overflow: hidden; border: 1px solid #cccccc; padding: 10px;">
+            <mat-tab-group style="height:100%;">
+                <mat-tab label="Términos y condiciones">
                     <div style="text-align: justify; padding-right: 10px;">
                         <br />
                         <p>El acceso y uso de este sitio se rige por los Términos y Condiciones junto con nuestra Política de
@@ -507,14 +507,17 @@
                 </mat-tab>
             </mat-tab-group>
         </div>
-        <div align="left" style="position: sticky; margin-top: 15px;" *ngIf="user.enabled=='false'">
+        <div align="left" style="position: sticky; margin-top: 15px;" *ngIf="grantAccess">
             <mat-checkbox style="padding-bottom: 8px;" [(ngModel)]="terms">He leído y acepto los términos y condiciones.</mat-checkbox>
             <mat-checkbox [(ngModel)]="politics">He leído y acepto las políticas de privacidad.</mat-checkbox>
             <br><br>
         </div>
-        <div align="right">
+        <div align="right" *ngIf="grantAccess">
             <button mat-button mat-dialog-close routerLink="/login">Cancelar</button>
             <button mat-button [mat-dialog-close]="true" (click)="aceptar()">Aceptar</button>
+        </div>
+        <div *ngIf="!grantAccess" align="end" style="margin-top: 75px;">
+            <button mat-raised-button mat-dialog-close>Cerrar</button>
         </div>
     </mat-card>
 </div>

@@ -25,7 +25,8 @@ export class EnableComponent implements OnInit {
       this.dataService.getData("/" + this.dataService.user._id).then((result:any)=>{
         result.enabled = "true";
         this.dataService.postData(result).then(() => {
-          this.snackBar.open('Términos aceptados correctamente.', 'OK', {duration: 5000});
+          this.snackBar.open('Condiciones aceptadas. Ingrese nuevamente.', 'OK', {duration: 5000});
+          this.router.navigateByUrl("/login");
         });
       });
     }else{
