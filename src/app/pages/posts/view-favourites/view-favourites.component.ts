@@ -97,7 +97,7 @@ export class ViewFavouritesComponent implements OnInit {
         this.mentions == [];  
         console.log("llegó", this.mentions)
       }
-    })
+    });
   }
 
 }

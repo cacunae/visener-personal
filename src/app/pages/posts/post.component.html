@@ -29,8 +29,8 @@
     <video mat-card-image controls preload="auto" *ngIf="post.value.video && !compressed">
         <source src="{{post.value.video | video}}" />
     </video>
-    <mat-card-content *ngIf="post.value.content">{{post.value.content}}</mat-card-content>
-    <div *ngIf="post.value.poll">
+    <mat-card-content *ngIf="!compressed && post.value.content">{{post.value.content}}</mat-card-content>
+    <div *ngIf="!compressed && post.value.poll">
         <div *ngFor="let question of post.value.poll">
             <mat-card-subtitle *ngIf="question.question">{{question.question}}
             </mat-card-subtitle>

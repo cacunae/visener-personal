@@ -46,9 +46,9 @@ export class PostComponent implements OnInit {
       });
     }
     if (this.feedback) {
-      this.getComments(this.post);
-      this.getLikes(this.post);
-      this.getFavourites(this.post);
+      //this.getComments(this.post);
+      //this.getLikes(this.post);
+      //this.getFavourites(this.post);
     }
     if (this.resizable) {
       this.compressed = true;

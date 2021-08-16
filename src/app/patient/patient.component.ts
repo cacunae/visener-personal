@@ -251,6 +251,8 @@ export class PatientComponent implements OnInit {
   }
 
   getMentions() {
+    console.log("bloqueado 3");
+    /*
     this.dataService.getData("/_design/view/_view/comments-by-mention?key=\"" + this.dataService.user._id + "\"").then((mentions: any) => {
       if (mentions.rows.length > 0) {
         this.mentions = mentions.rows;
@@ -273,7 +275,8 @@ export class PatientComponent implements OnInit {
       } else {
         this.mentions.length == 0;
       }
-    })
+    });
+    */
   }
 
   toggleBadgeVisibility(mention: any) {
