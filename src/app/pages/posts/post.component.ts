@@ -46,9 +46,9 @@ export class PostComponent implements OnInit {
       });
     }
     if (this.feedback) {
-      //this.getComments(this.post);
-      //this.getLikes(this.post);
-      //this.getFavourites(this.post);
+      this.getComments(this.post);
+      this.getLikes(this.post);
+      this.getFavourites(this.post);
     }
     if (this.resizable) {
       this.compressed = true;
@@ -233,6 +233,7 @@ export class PostComponent implements OnInit {
       let favourite = { entity: "favourite", post: post.value._id, patient: this.dataService.user._id, datetime: moment().format('YYYYMMDDHHmmss') };
       this.dataService.postData(favourite).then((result: any) => {
         if (result.ok) {
+          this.snackBar.open("Publicación añadida a favoritos correctamente",'OK', { duration: 3000 })
           this.dataService.getData("/_design/view/_view/favourites-by-post?key=\"" + this.post.value._id + "\"").then((favourites: any) => {
             this.post.fav = favourites.rows.length;
             this.post.favourite = 'false';
@@ -240,7 +241,7 @@ export class PostComponent implements OnInit {
               for (let fav of favourites.rows) {
                 if (fav.value.patient == this.dataService.user._id) {
                   this.post.favourite = 'true';
-                  this.post.fav = { _id: fav.value._id, _rev: fav.value._rev };
+                  this.post.fav = { _id: fav.value._id, _rev: fav.value._rev };            
                 }
               }
             }
@@ -252,6 +253,7 @@ export class PostComponent implements OnInit {
         post.favourite = 'false';
         this.dataService.getData("/_design/view/_view/favourites-by-post?key=\"" + this.post.value._id + "\"").then((favourites: any) => {
           this.post.fav = favourites.rows.length;
+          this.snackBar.open("Publicación quitada de favoritos correctamente", 'ERR', { duration: 3000 })
           if (favourites.rows.length > 0) {
             for (let fav of favourites.rows) {
               if (fav.value.patient == this.dataService.user._id) {

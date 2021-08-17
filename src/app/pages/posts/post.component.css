@@ -62,10 +62,16 @@ input:focus {
     padding: 2px 15px;
 }
 
-.green {
-    background-color: green;
+.likes{
+    margin-top: -28px;
+    position: absolute;
+    margin-left: 31%;
 }
 
-.red {
-    background-color: red;
-}
+@media (max-width: 600px) {
+    .likes{
+        margin-top: -28px;
+        position: absolute;
+        margin-left: 36%;
+    }
+  }

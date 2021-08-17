@@ -42,7 +42,6 @@ export class PatientComponent implements OnInit {
   dateTime: any;
 
   constructor(public http: HttpClient, public post: MatDialog, public dialog: MatDialog, public router: Router, public dataService: DataService, public zone: NgZone, public snackBar: MatSnackBar) {
-    this.getMentions();
     moment.locale('es');
     if (!this.dataService.user?._id) {
       this.router.navigateByUrl("/login");
@@ -115,13 +114,16 @@ export class PatientComponent implements OnInit {
       this.posts = posts.rows.sort((a: any, b: any) => { return Number(a.doc.datetime) - Number(b.doc.datetime) });
       for (let index in this.posts) {
         for (let post of this.posts) {
-          console.log("sacó 1:", post)
+          console.log("post3:", post)
           if (post.value.doc) {
             if (post.value.doc.startDate > moment().format("DDMMYYYY")) {
+              console.log("IDD:", post.value.doc._id)
               var indice = this.posts.indexOf(post.value.doc._id);
               this.posts.splice(indice, 1);
               this.posts[index].value = this.posts[index].doc;
             } else if (post.value.doc.startDate == moment().format("DDMMYYYY")) {
+              this.posts[index].value = this.posts[index].doc;
+            }else{
               this.posts[index].value = this.posts[index].doc;
             }
           } else {
@@ -251,8 +253,6 @@ export class PatientComponent implements OnInit {
   }
 
   getMentions() {
-    console.log("bloqueado 3");
-    /*
     this.dataService.getData("/_design/view/_view/comments-by-mention?key=\"" + this.dataService.user._id + "\"").then((mentions: any) => {
       if (mentions.rows.length > 0) {
         this.mentions = mentions.rows;
@@ -276,7 +276,6 @@ export class PatientComponent implements OnInit {
         this.mentions.length == 0;
       }
     });
-    */
   }
 
   toggleBadgeVisibility(mention: any) {
