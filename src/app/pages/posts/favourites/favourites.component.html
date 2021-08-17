@@ -1,6 +1,6 @@
 
 <mat-card *ngIf="post">
-    <button mat-icon-button (click)="delFav(favourites)"><mat-icon>bookmark_remove</mat-icon></button>
+    <button mat-icon-button (click)="delFav(favourites)"><i class="fas fa-heart-broken"></i></button>
    <mat-card-title style="text-align: center;">{{post.title}}</mat-card-title> 
    <mat-card-subtitle style="text-align: center;" *ngIf="post.subtitle && !feedback">{{post.subtitle}}</mat-card-subtitle>
    <img mat-card-image *ngIf="post.image" src="{{post.image | image}}" />

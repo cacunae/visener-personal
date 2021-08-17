@@ -68,10 +68,23 @@ input:focus {
     margin-left: 31%;
 }
 
+.comments{
+    float: right;
+    margin-top: -29px;
+    margin-left: 206px;
+    position: absolute;
+}
+
 @media (max-width: 600px) {
     .likes{
         margin-top: -28px;
         position: absolute;
         margin-left: 36%;
+    }
+    .comments{
+        float: right;
+        margin-top: -29px;
+        margin-left: 196px;
+        position: absolute;
     }
   }

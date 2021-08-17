@@ -76,6 +76,7 @@ export class AddInteractionComponent implements OnInit {
   }
 
   publicar(){
+    console.log("inter:", this.interaction)
     this.actionLoading = true;
     if (this.interaction.series <= 0 || this.interaction.repetitions <= 0 || this.interaction.rest < 0 || this.interaction.iterations <= 0){
       this.actionLoading = false;
@@ -106,7 +107,7 @@ export class AddInteractionComponent implements OnInit {
       if(this.interaction.post && this.interaction.title && this.interaction.iterations > 0 &&
         this.interaction.subtitle && this.interaction.image && //this.interaction.content && 
         this.interaction.series > 0 && this.interaction.repetitions > 0 && this.interaction.rest >= 0){
-          this.dataService.postData(this.interaction).then((result: any) => {
+         this.dataService.postData(this.interaction).then((result: any) => {
             this.actionLoading = false;
             this.snackBar.open('Tarea creada correctamente', 'OK', { duration: 3000 });
             this.router.navigateByUrl("/professional/interactions");

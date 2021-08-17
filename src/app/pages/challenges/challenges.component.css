@@ -50,3 +50,116 @@
     font-size: 17px;
 }
 
+@media (max-width: 600px) {
+    .main1 {
+      width: 66%!important;
+    }
+  }
+
+  @media (max-width: 500px) {
+    .compressedPost2 {
+        height: 63px !important;
+        overflow-y: hidden;
+        margin-top: 0px;
+    }
+    .progress{
+        position: absolute;
+        margin-left: 218px;
+        margin-top: -5px;
+    }
+    .grid-container3{
+        display: grid;
+        grid-template-columns: 119px 143px;
+        grid-gap: 0px;
+        padding: 0px;
+    }
+    .percent{
+        position: absolute;
+        margin: 40px;
+        margin-left: 117px;
+        margin-top: 172px;
+        font-size: 17px;
+    }
+
+    .byday{
+        position: absolute;
+        margin-left: 0px!important;
+        margin-top: 121px;
+    }
+    .byday2{
+        position: absolute;
+        margin-left: 0px;
+        margin-top: 137px;
+    }
+    .roundprogress{
+        margin-left: 80px!important;
+        margin-top: 127px!important;
+        width: 100px;
+        height: 100px;
+        position: relative!important;
+    }
+    .percent2{
+        position: absolute;  
+        margin: 187px!important;
+        margin-left: 121px!important;
+        font-size: 17px;
+    }
+    .roundprogress2{
+        margin-left:87px;
+        position: absolute;
+        margin-top: -99px;
+      }
+  }
+
+  .percent{
+    position:absolute;
+    margin:40px;
+    margin-left:126px;
+    margin-top:4px;
+    font-size:17px
+  }
+
+  .percent2{
+    position:absolute;
+    margin:40px;
+    margin-left: 379px;
+    font-size:17px
+  }
+
+  .percent3{
+    position: absolute;
+    margin: 40px;
+    margin-left: 115px;
+    margin-top: 4px;
+    font-size: 17px;
+  }
+
+  .percent4{
+    position:absolute;
+    margin:187px;
+    margin-left: 111px;
+    font-size:17px
+  }
+
+  .byday{
+    position:absolute;
+    margin-left:236px
+  }
+
+  .roundprogress{
+    margin-left: 339px;
+    position: absolute;
+    margin-top: -35px;
+  }
+
+  .roundprogress2{
+    margin-left:87px;
+    position: absolute;
+    margin-top: -99px;
+  }
+
+  .roundprogress3{
+    margin-left:340px;
+    margin-top: 0px;
+  }
+

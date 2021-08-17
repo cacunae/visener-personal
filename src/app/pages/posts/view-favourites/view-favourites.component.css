@@ -28,3 +28,14 @@
   width: 100%;
   max-width: 560px;
 }
+
+@media (max-width: 600px) {
+  .main2 {
+    overflow-y: scroll;
+    height: calc(100% - 100px);
+    padding: 7px 5px 5px 5px;
+    margin-left: 0%;
+    width: 100%;
+    max-width: 560px;
+  }
+}

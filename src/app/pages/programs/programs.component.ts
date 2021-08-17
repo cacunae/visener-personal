@@ -42,11 +42,12 @@ export class ProgramsComponent implements OnInit {
       tmpPrograms = programs.rows.sort((a:any, b:any) => { return b.value.datetime.localeCompare(a.value.datetime) });
     });
     for(let program of tmpPrograms){
+      console.log("program:", program)
       let tmpPosts:any[] = []
       for(let post of program.value.posts){
-          //await this.dataService.getData("/" + post._id).then((post:any) =>{
-          //tmpPosts.push(post);
-          //});
+          await this.dataService.getData("/" + post._id).then((post:any) =>{
+          tmpPosts.push(post);
+          });
       }
       program.postsDetail = tmpPosts;
     }

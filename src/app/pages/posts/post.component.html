@@ -72,10 +72,11 @@
             <mat-icon style="margin-top:-2px; font-size: 24px;">favorite_border</mat-icon>
         </button>-->
         <div style="float: right;margin-top: -28px;margin-left: 206px;position: absolute;" *ngIf="!post.comments || post.comments.length == 0">Sin comentarios.</div>
-        <div style="float: right;margin-top: -29px;margin-left: 197px;position: absolute;" *ngIf="post.comments && post.comments.length == 1">{{post.comments.length}} comentario. </div>
-        <div style="float: right;margin-top: -29px;margin-left: 197px;position: absolute;" *ngIf="post.comments && post.comments.length > 1">{{post.comments.length}} comentarios.</div>
+        <div class="comments" *ngIf="post.comments && post.comments.length == 1">{{post.comments.length}} comentario. </div>
+        <div class="comments" *ngIf="post.comments && post.comments.length > 1">{{post.comments.length}} comentarios.</div>
         <div class="likes" *ngIf="post.likes && post.likes == 1">{{post.likes}} like. </div>
         <div class="likes" *ngIf="post.likes && post.likes > 1">{{post.likes}} likes.</div>
+        <div class="likes" *ngIf="!post.likes">0 likes.</div>
         <div *ngIf="post.comments && post.comments.length>0">
             <mat-divider></mat-divider>
             <div *ngFor="let comment of post.comments" class="comment">
