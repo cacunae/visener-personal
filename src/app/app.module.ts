@@ -74,7 +74,8 @@ import { PasswordComponent } from './pages/dialog-password/password.component';
 import { DisableComponent } from './pages/dialog-disable/disable.component';
 import { WeblogComponent } from './pages/dialog-weblog/weblog.component';
 import { GraphicsComponent } from './pages/graphics/graphics.component';
-
+import { Ng2ImgMaxModule } from 'ng2-img-max';
+//import { NgxImageCompressService } from 'ngx-image-compress';
 
 import { ProfessionalComponent } from './professional/professional.component';
 import { PdfComponent } from './old-professional/pdf/pdf.component';
@@ -175,6 +176,7 @@ import { ViewFavouritesComponent } from './pages/posts/view-favourites/view-favo
     ViewFavouritesComponent,
   ],
   imports: [
+    Ng2ImgMaxModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -222,7 +224,6 @@ import { ViewFavouritesComponent } from './pages/posts/view-favourites/view-favo
     MatProgressBarModule,
     RoundProgressModule
   ],
-  
   providers: [CookieService, MatSnackBar, DatePipe],
   bootstrap: [AppComponent]
 })

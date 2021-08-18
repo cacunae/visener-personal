@@ -114,10 +114,8 @@ export class PatientComponent implements OnInit {
       this.posts = posts.rows.sort((a: any, b: any) => { return Number(a.doc.datetime) - Number(b.doc.datetime) });
       for (let index in this.posts) {
         for (let post of this.posts) {
-          console.log("post3:", post)
           if (post.value.doc) {
             if (post.value.doc.startDate > moment().format("DDMMYYYY")) {
-              console.log("IDD:", post.value.doc._id)
               var indice = this.posts.indexOf(post.value.doc._id);
               this.posts.splice(indice, 1);
               this.posts[index].value = this.posts[index].doc;
@@ -246,9 +244,6 @@ export class PatientComponent implements OnInit {
       });
     } else if (this.user.enabled == undefined || this.user.enabled == null) {
       this.snackBar.open('Hemos hecho una actualización a nuestros términos y condiciones.', 'OK', { duration: 5000 });
-
-    } else {
-      console.log("acepted.")
     }
   }
 
@@ -280,7 +275,6 @@ export class PatientComponent implements OnInit {
 
   toggleBadgeVisibility(mention: any) {
     this.hidden = false;
-    console.log("mention:", mention)
     mention.value.viewed = true;
     this.dataService.postData(mention.value);
   }

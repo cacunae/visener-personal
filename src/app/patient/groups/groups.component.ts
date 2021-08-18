@@ -1,5 +1,5 @@
 import { Component, NgZone, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { PopupComponent } from '../../pages/popup/popup.component';
 import { DataService } from '../../services/data.service';
@@ -8,6 +8,9 @@ import * as moment from 'moment';
 import { AddGroupComponent } from './add-group.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ViewGroupsComponent } from './view-groups.component';
+import { Ng2ImgMaxService } from 'ng2-img-max';
+
+//import { NgxImageCompressService } from 'ngx-image-compress';
 
 @Component({
   selector: 'app-groups',
@@ -25,6 +28,8 @@ export class GroupsComponent implements OnInit {
   public group:any = {};
   public postContent:string = "";
   public postTitle:string = "";
+  public image:string;
+  public file:File;
 
   interaction:any;
   todayDate:Date = new Date();
@@ -32,7 +37,7 @@ export class GroupsComponent implements OnInit {
   n = this.d.getDay();
   day:any;
 
-  constructor(public route: ActivatedRoute, public snackBar:MatSnackBar, public http: HttpClient, public post: MatDialog, public dialog: MatDialog, public router: Router, public dataService: DataService, public zone: NgZone) {
+  constructor(private ng2ImgMax: Ng2ImgMaxService, /*public imageCompress: NgxImageCompressService,*/ public route: ActivatedRoute, public snackBar:MatSnackBar, public http: HttpClient, public post: MatDialog, public dialog: MatDialog, public router: Router, public dataService: DataService, public zone: NgZone) {
     moment.locale('es');
     this.id = this.route.snapshot.paramMap.get('id');
     if(this.id){
@@ -112,10 +117,22 @@ export class GroupsComponent implements OnInit {
     console.log(groupalPublication);
     this.dataService.postData(groupalPublication).then((response:any) => {
       if(response.ok){
-        this.postTitle = null;
-        this.postContent = null;
-        this.getPosts();
-        this.snackBar.open('Tu post ha sido publicado.', 'OK', {duration: 5000});
+        if(this.file){
+          let headers = new HttpHeaders().set("If-Match", response.rev);
+          this.http.put(this.dataService.databaseAPI + "/" + response.id + "/image", this.file, { headers: headers}).subscribe((result2) => {
+            this.postTitle = null;
+            this.postContent = null;
+            this.file = null;
+            this.image = null;
+            this.getPosts();
+            this.snackBar.open('Tu post ha sido publicado.', 'OK', {duration: 5000});
+          });
+        }else{
+          this.postTitle = null;
+          this.postContent = null;
+          this.getPosts();
+          this.snackBar.open('Tu post ha sido publicado.', 'OK', {duration: 5000});
+        }
       }else{
         this.snackBar.open('Ocurrió un error al publicar tu post. Vuelve a intentarlo.', 'ERROR', {duration: 5000});
       }
@@ -157,4 +174,38 @@ export class GroupsComponent implements OnInit {
       }
     });
   }
+
+  onFileChange(event:any) {
+    let image:File = event.target.files[0];
+    const reader = new FileReader();
+    console.warn("Original file:", image.size);
+    this.ng2ImgMax.resizeImage(image, 460, 10000).subscribe((result) => {
+      reader.readAsDataURL(result);
+      reader.onload = () => {
+        console.log("reading");
+        this.image = reader.result as string;
+        this.file = new File([result], result.name, {type: image.type});
+        console.log("Resized file:", this.file.size);
+      };
+    }, error => {
+      console.log('😢 Oh no!', error);
+    });
+  }
+
+  /*
+  compressFile() {
+    this.imageCompress.uploadFile().then(({image, orientation}) => {
+      this.imgResultBeforeCompress = image;
+      console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
+      this.imageCompress.compressFile(image, orientation, )
+      this.imageCompress.compressFile(image, orientation, 60, 80).then(
+        result => {
+          this.image = result;
+          console.warn('Size in bytes was:' + this.imageCompress.byteCount(image) + ' and now is: ' + this.imageCompress.byteCount(result));
+        }
+      );
+    }); 
+  }
+  */
+
 }

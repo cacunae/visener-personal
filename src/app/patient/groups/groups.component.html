@@ -12,9 +12,9 @@
       <mat-icon style="color:#FFD628">group</mat-icon>
     </button>
     <span class="desktop">&nbsp;{{user.name}}</span>
-    <!--button mat-icon-button>
-        <mat-icon>share</mat-icon>
-      </button-->
+    <button mat-icon-button (click)="popupConfiguration()" style="margin-left: 20px; margin-right: -5px;">
+      <mat-icon>account_circle</mat-icon>
+    </button>&nbsp;
   </mat-toolbar-row>
 </mat-toolbar>
 <div *ngIf="user.state=='enabled'" class="content" role="main">
@@ -64,13 +64,18 @@
             <mat-label>Escribe un título</mat-label>
             <input matInput placeholder="" [(ngModel)]="postTitle">
           </mat-form-field><br>
+          <button *ngIf="image" (click)="image=null" class="compressedBtn" color="primary" style="margin-right: 20px; z-index: 999; position: sticky; margin-bottom: -40px; margin-top: 10px !important;">
+            <mat-icon style="margin-top:7px; font-size: 14px;">remove</mat-icon>
+          </button>
+          <img [src]="image" *ngIf="image" style="width: calc(100% - 20px);" /><br *ngIf="image">
           <mat-form-field appearance="outline">
             <mat-label>Escribe lo que piensas...</mat-label>
             <textarea matInput [(ngModel)]="postContent" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
               cdkAutosizeMinRows="3" cdkAutosizeMaxRows="10"></textarea>
-          </mat-form-field>
-          <button mat-raised-button type="submit" [disabled]="!postContent || !postTitle" color="primary"
-            (click)="publicar()">Publicar</button>
+          </mat-form-field><br>
+          <input style="visibility: hidden; height: 0px; width: 0px;" #fileInput id="upload-input" type="file" [multiple]="false" accept="image/*" (change)="onFileChange($event)"/>
+          <label for="upload-input" *ngIf="!image"><div style="color: #444444; border: 1px solid #dddddd; border-radius: 30px; padding: 8px 15px; font-family: brown; font-weight: 500; margin-top: 2px; margin-right: 10px; display: inline-flex; vertical-align: middle; cursor: pointer;"><mat-icon style="margin-top: -4px; margin-left: 5px; margin-right: 5px;">image</mat-icon> Agregar imagen</div></label>          
+          <button mat-raised-button type="submit" [disabled]="!postContent || !postTitle" color="primary" (click)="publicar()">Publicar</button>
         </mat-card-content>
       </mat-card>
       <br>

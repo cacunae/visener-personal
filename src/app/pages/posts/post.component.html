@@ -16,7 +16,7 @@
         {{post.value.datetime | fechaFormateada}}
     </mat-card-subtitle>
     <mat-card-title [class.compressedPost]="compressed" *ngIf="post.value.title">{{post.value.title}}</mat-card-title>
-    <div align='center' style="padding-bottom: 20px;" id="bot" *ngIf="mostrar">
+    <div align="center" style="padding-bottom: 20px;" id="bot" *ngIf="mostrar && post.value.invitation">
         <button *ngIf="post.value.invitation" [disabled]="loading" mat-stroked-button style="margin-left: 10px; font-size: 14px;" (click)="rechazar(post)">
             Rechazar
         </button>
@@ -25,6 +25,7 @@
         </button>
     </div>
     <mat-card-subtitle *ngIf="post.value.subtitle && !feedback">{{post.value.subtitle}}</mat-card-subtitle>
+    <img mat-card-image *ngIf="post.value._attachments" src="{{post.value._id | image}}" />
     <img mat-card-image *ngIf="post.value.image && !compressed" src="{{post.value.image | image}}" />
     <video mat-card-image controls preload="auto" *ngIf="post.value.video && !compressed">
         <source src="{{post.value.video | video}}" />
