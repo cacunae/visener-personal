@@ -20,7 +20,8 @@
         <button *ngIf="post.value.invitation" [disabled]="loading" mat-stroked-button style="margin-left: 10px; font-size: 14px;" (click)="rechazar(post)">
             Rechazar
         </button>
-        <button *ngIf="post.value.invitation" [disabled]="loading" mat-raised-button style="margin-left: 10px; font-size: 14px;" (click)="aceptar(post)">
+        <button *ngIf="post.value.invitation" [disabled]="loading" mat-raised-button
+            style="margin-left: 10px; font-size: 14px;" (click)="aceptar(post)">
             Aceptar
         </button>
     </div>
@@ -80,10 +81,14 @@
         <div class="likes" *ngIf="!post.likes">0 likes.</div>
         <div *ngIf="post.comments && post.comments.length>0">
             <mat-divider></mat-divider>
-            <div *ngFor="let comment of post.comments" class="comment">
+            <div *ngFor="let comment of post.comments" class="comment" [matMenuTriggerFor]="menu">
                 <mat-card-content style="margin-bottom: 0px;">
                     <span style="font-weight: 500;">{{comment.name}}: </span>{{comment.text}}
                 </mat-card-content>
+                <mat-menu #menu="matMenu" xPosition="before" yPosition="above"
+                    style="width: 80px; height: 5px; min-width: none !important;">
+                    <button mat-menu-item (click)="report(template, comment.id)">Reportar</button>
+                </mat-menu>
             </div>
         </div>
     </div>
@@ -94,3 +99,35 @@
         <button mat-raised-button color="primary" (click)="selectPost(post)">Seleccionar Post</button>
     </div>
 </mat-card>
+<ng-template #template>
+    <mat-dialog-content>
+        <label id="example-radio-group-label">Díganos porqué quiere reportar este comentario:</label><br><br>
+        <mat-radio-group
+          aria-labelledby="example-radio-group-label"
+          class="example-radio-group"
+          [(ngModel)]="reporte">
+          <mat-radio-button class="example-radio-button" *ngFor="let season of razones" [value]="season" (click)="notVisible()">
+            {{season}}
+          </mat-radio-button>
+          <br>
+          <mat-radio-button class="example-radio-button" [value]="otro" (click)="visible()">
+            Otro
+          </mat-radio-button>
+        </mat-radio-group>
+        <div id="otros" style="display: none;">
+          <input style="margin-top: 10px;" matInput maxlength="30" placeholder="Escriba el motivo del reporte."
+          [(ngModel)]="reporte" #input appearance="outline">
+          <div align="end" style="margin-right: 20px;">
+              <mat-hint>{{input.value?.length || 0}}/30</mat-hint>
+          </div>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="center">
+        <button mat-stroked-button mat-dialog-close style="width: auto;" (click)="close()">
+            Cancelar
+        </button>
+        <button mat-stroked-button (click)="sendReport()" mat-dialog-close style="width: 90px;" [disabled]="!check">
+            Enviar
+        </button>
+    </mat-dialog-actions>
+</ng-template>

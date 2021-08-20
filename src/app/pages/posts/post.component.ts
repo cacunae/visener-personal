@@ -35,6 +35,10 @@ export class PostComponent implements OnInit {
   public favourite: any = {};
   public toggle = true;
   private reporte:string;
+  private obj:any;
+  razones: string[] = ['Lenguaje inapropiado', 'Lenguaje ofensivo', 'Desnudos', 'Violencia', 'Spam']
+  check: boolean = false;
+  
 
   constructor(public dialog: MatDialog, public router: Router, public http: HttpClient, public dataService: DataService, private comp: PatientComponent, public snackBar: MatSnackBar) {
   }
@@ -53,14 +57,22 @@ export class PostComponent implements OnInit {
     if (this.resizable) {
       this.compressed = true;
     }
+    console.log(this.post);
+    
   }
 
   getComments(post: any) {
     this.dataService.getData("/_design/view/_view/comment-by-post?key=\"" + post.value._id + "\"").then((comments: any) => {
+
+      
       post.comments = [];
       comments.rows.sort((a: any, b: any) => { return Number(b.value.datetime) - Number(a.value.datetime) });
       for (let comment of comments.rows) {
-        post.comments.push({ name: comment.value.name, text: comment.value.text });
+        if(comment.value.state && comment.value.state == 'deleted'){
+          
+        } else {
+          post.comments.push({ name: comment.value.name, text: comment.value.text, id:comment.value._id });
+        }
       }
     });
   }
@@ -197,7 +209,7 @@ export class PostComponent implements OnInit {
               this.mostrar = false;
               this.dataService.postData(this.publication).then((result) => {
                 this.loading = false;
-                this.snackBar.open('¡Enhorabuena! este desafío se agregrá a tu lista.', 'OK', { duration: 5000 })
+                this.snackBar.open('¡Enhorabuena! este desafío se agregrá a tu lista.', 'OK', { duration: 6000 })
               })
             }
           }
@@ -269,25 +281,44 @@ export class PostComponent implements OnInit {
     }
   }
 
-  report(template){
+  report(template, object){
+    this.obj = object;
+    
+    
     const dialogRef = this.dialog.open(template, {
       width: '300px'
     })
   }
 
-  sendReport(post:any){
+  sendReport(){
     this.dataService.postData({
       'entity': 'report',
-      'postName': post.value.title,
-      'postId': post.value._id,
+      'objeto': this.obj,
       'patientName': this.dataService.user.name,
       'patientId': this.dataService.user._id,
       'reason': this.reporte,
+      'datetime': new Date()
     }).then(
       (result) => {
         console.log(result);
-        this.snackBar.open('Su reporte se ha enviado correctamente.','',  {duration:5000});
+        this.snackBar.open('Su reporte se ha enviado correctamente. Un administrador hará una revisión.','',  {duration:5000});
+        this.close();
       }
     )
+  }
+
+  visible(){
+    document.getElementById("otros").style.display = 'block';
+    this.check = true;
+  }
+
+  notVisible(){
+    document.getElementById("otros").style.display = 'none';
+    this.check = true;
+  }
+
+  close(){
+    this.reporte = '';
+    this.check = false;
   }
 }

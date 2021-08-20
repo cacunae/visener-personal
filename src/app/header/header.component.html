@@ -5,10 +5,14 @@
         <button class="cellphone" *ngIf="backLink" mat-button [routerLink]="backLink" routerLinkActive="false"><mat-icon>arrow_back_ios_new</mat-icon></button>
         <div class="col-md-4 text-right"></div>
         <span>{{title}}</span>
-        <button *ngIf="notifications" mat-icon-button routerLink="/professional/notifications" routerLinkActive="false">
+        <span class="spacer"></span>
+        <button *ngIf="notifications" mat-icon-button [matMenuTriggerFor]="menu">
             <mat-icon [matBadge]="notifications" matBadgeColor="warn">notifications</mat-icon>
         </button>
-        <span class="spacer"></span>
+        <mat-menu #menu="matMenu" xPosition="before">
+            <button mat-menu-item routerLink="/professional/reportes" routerLinkActive="false">Ver reportes</button>
+            <button mat-menu-item routerLink="/professional/notifications" routerLinkActive="false">Ver requerimientos</button>
+          </mat-menu>
         <button class="cellphone" *ngIf="rightLink" mat-button [routerLink]="rightLink" routerLinkActive="false">
             <mat-icon *ngIf="rightIcon">{{rightIcon}} <span *ngIf="rightText">{{rightText}}</span></mat-icon>
         </button>

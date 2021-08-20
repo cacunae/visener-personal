@@ -32,6 +32,9 @@ import { GroupsComponent } from './patient/groups/groups.component';
 import { ViewChallengesComponent } from './pages/challenges/view-challenges.component';
 import { FavouritesComponent } from './pages/posts/favourites/favourites.component';
 import { ViewFavouritesComponent } from './pages/posts/view-favourites/view-favourites.component';
+import { SegmentosComponent } from './pages/patients/segmentos/segmentos.component';
+import { ReportsComponent } from './pages/reports/reports.component';
+
 
 const routes: Routes = [
   { path: "", component: LoginComponent, pathMatch: "full" },
@@ -71,9 +74,11 @@ const routes: Routes = [
       { path: "graphics", component: GraphicsComponent},
       { path: "companies", component: CompaniesComponent},
       { path: "add-company", component: AddCompanyComponent},
-      { path: "upd-company/:id", component: AddCompanyComponent}
+      { path: "upd-company/:id", component: AddCompanyComponent},
+      {path: "reportes", component: ReportsComponent}
     ]
   },
+  { path: "segments", component: SegmentosComponent},
   { path: "patient", component: PatientComponent, pathMatch: "full"},
   { path: "favourites", component: ViewFavouritesComponent},
   { path: "patient/groups", component: GroupsComponent, pathMatch: "full" },

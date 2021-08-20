@@ -107,6 +107,8 @@ import { RoundProgressModule } from 'angular-svg-round-progressbar';
 import { DatePipe } from '@angular/common';
 import { FavouritesComponent } from './pages/posts/favourites/favourites.component';
 import { ViewFavouritesComponent } from './pages/posts/view-favourites/view-favourites.component';
+import { SegmentosComponent } from './pages/patients/segmentos/segmentos.component';
+import { ReportsComponent } from './pages/reports/reports.component';
 
 @NgModule({
   declarations: [
@@ -174,6 +176,8 @@ import { ViewFavouritesComponent } from './pages/posts/view-favourites/view-favo
     ProgressChallengesComponent,
     FavouritesComponent,
     ViewFavouritesComponent,
+    SegmentosComponent,
+    ReportsComponent,
   ],
   imports: [
     Ng2ImgMaxModule,

@@ -43,7 +43,11 @@ export class PatientsComponent implements OnInit {
 
   getNotifications(){
     this.dataService.getData("/_design/view/_view/requests").then((notifications:any) => {
-      this.notifications = notifications.total_rows;
+      this.dataService.getData("/_design/view/_view/reports").then((reports:any) => {
+        
+        this.notifications = notifications.total_rows + reports.total_rows;
+
+      })
     });
   }
 

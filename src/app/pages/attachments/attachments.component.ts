@@ -13,6 +13,7 @@ export class AttachmentsComponent implements OnInit {
   public columnsToDisplay: string[] = ['id', 'image', 'tags', 'actions'];
   public dataSource;
   public loading:boolean = true;
+  public relacion:number = 0;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -38,9 +39,16 @@ export class AttachmentsComponent implements OnInit {
 
   delAttachment(element: any) {
     this.dataService.getData("/_design/view/_view/posts-by-attachment?key=\""+element._id+"\"&include_docs=true").then((attachments: any) => {
-      if(attachments && attachments.rows && attachments.rows.length>1){
+      for(let post of attachments.rows){
+        if (post.doc.state == 'deleted') {
+          
+        } else{
+          this.relacion = this.relacion + 1;
+        }
+      }
+      if(attachments && attachments.rows && this.relacion>1){
         alert("No se puede eliminar esta imagen porque está relacionado a " + attachments.rows.length + " posts o tareas.");
-      }else if(attachments && attachments.rows && attachments.rows.length>0){
+      }else if(attachments && attachments.rows && this.relacion>0){
         alert("No se puede eliminar esta imagen porque está relacionado a un post o tarea.");        
       }else{
         if(confirm("¿Estás seguro de eliminar la imagen?\nEsta acción no podrá deshacerse.")) {

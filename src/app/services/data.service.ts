@@ -60,6 +60,14 @@ export interface patientsTable {
   actions: string;
 }
 
+export interface reportTable {
+  id: string; 
+  patientName:string;
+  entity: string; 
+  datetime: string; 
+  actions: string
+}
+
 export interface professionalsTable {
   id: number;
   name: string;
