@@ -20,7 +20,13 @@
 <div *ngIf="user.state=='enabled'" class="content" role="main">
   <div class="column">
     <mat-card class="treatments">
-      <mat-card-title class="titleTareas">Mis grupos</mat-card-title><br>
+      <div *ngIf="id">
+        <button mat-raised-button (click)="leftGroup()"><!-- routerLink="/patient/groups" routerLinkActive="false">-->
+          <mat-icon>highlight_off</mat-icon> Salir del grupo
+        </button>
+        <br><br>
+      </div>
+      <mat-card-title *ngIf="!id" class="titleTareas">Mis grupos</mat-card-title><br>
       <div *ngIf="loadingGroups" style="display: inline-block;">
         <mat-spinner></mat-spinner>
       </div>

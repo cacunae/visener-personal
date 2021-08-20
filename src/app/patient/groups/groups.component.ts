@@ -192,6 +192,30 @@ export class GroupsComponent implements OnInit {
     });
   }
 
+  leftGroup(){
+    this.dataService.getData("/_design/view/_view/member-by-patient-group?key=[\"" + this.dataService.user._id + "\",\"" + this.id + "\"]").then((member:any) => {
+      if(member && member.rows && member.rows[0]){
+        member = member.rows[0].value;
+        member.state = "canceled";
+        this.dataService.postData(member).then((result:any) => {
+          if(result.ok){
+            this.snackBar.open('Has dejado este grupo.', 'OK', {duration: 5000});
+            this.router.navigateByUrl("/patient/groups");
+          }
+        });
+      }else{
+        this.group.state = "canceled";
+        this.dataService.postData(this.group).then((result:any) => {
+          if(result.ok){
+            this.snackBar.open('Has cancelado este grupo.', 'OK', {duration: 5000});
+            this.router.navigateByUrl("/patient/groups");
+          }
+        });
+        //this.snackBar.open('No puedes dejar este grupo porque eres fundador.', 'ERR', {duration: 5000});
+      }
+    });
+  }
+
   /*
   compressFile() {
     this.imageCompress.uploadFile().then(({image, orientation}) => {
