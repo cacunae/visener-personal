@@ -128,7 +128,7 @@ export class PatientComponent implements OnInit {
               this.posts[index].value = this.posts[index].doc;
             } else if (post.value.doc.startDate == moment().format("DDMMYYYY")) {
               this.posts[index].value = this.posts[index].doc;
-            }else{
+            } else {
               this.posts[index].value = this.posts[index].doc;
             }
           } else {
@@ -136,7 +136,17 @@ export class PatientComponent implements OnInit {
           }
         }
       }
-    });
+    }).then((a) => {
+      console.log(this.posts);
+      for (let iterator of this.posts) {
+        if (iterator.doc.invitation) {
+          console.log(iterator.doc.title);
+          
+          this.posts.unshift(this.posts.splice(this.posts.findIndex(item => item._id === iterator.value._id), 1)[0]); 
+        }
+      } 
+      console.log(this.posts); 
+    })
   }
 
   async getTreatments() {
@@ -196,7 +206,7 @@ export class PatientComponent implements OnInit {
       });
     }
 
-    this.posts.sort((a: any, b: any) => { return Number(a.doc.datetime) - Number(b.doc.datetime) });
+    //this.posts.sort((a: any, b: any) => { return Number(a.doc.datetime) - Number(b.doc.datetime) });
 
   }
 
@@ -344,4 +354,19 @@ export class PatientComponent implements OnInit {
       })
   }
 
+  removePost(postID){
+    let temp:any[] = [];
+    this.dataService.getData("/" + postID).then((response) => {
+      for(let index in this.posts) {
+        if(this.posts[index].value._id === postID){
+          temp.push(this.posts[index].value._id)
+        }
+      }
+      if(temp.includes(postID)){
+        this.posts.unshift(this.posts.splice(this.posts.findIndex(item => item.value._id === postID), 1)[0]);
+      } else {
+        this.posts.unshift({value: response});
+      }
+    });
+  }
 }

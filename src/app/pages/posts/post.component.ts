@@ -282,6 +282,8 @@ export class PostComponent implements OnInit {
   }
 
   report(template, object){
+    console.log(object);
+    
     this.obj = object;
     
     

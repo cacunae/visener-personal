@@ -73,14 +73,23 @@ export class InteractionsComponent implements OnInit {
   }
 
   delInteraction(element: any) {
-    if(confirm("¿Estás seguro de eliminar la Tarea " + element.title + "?\nEsta acción no podrá deshacerse.")) {
-      //this.dataService.deleteById(element.value._id + "?rev=" + element.value._rev).then(() => {
-      element.state = "deleted";
-      this.dataService.postData(element).then(() => {
-        this.snackBar.open('Tarea eliminada correctamente', 'OK', {duration: 5000});
-        this.getInteractions();
-      });
-    }
+    this.dataService.getData("/_design/view/_view/program-by-interaction?key=\"" + element._id + "\"&include_docs=true").then((programs: any) => {
+      if (programs.rows.length == 0) {
+         if(confirm("¿Estás seguro de eliminar la Tarea " + element.title + "?\nEsta acción no podrá deshacerse.")) {
+          //this.dataService.deleteById(element.value._id + "?rev=" + element.value._rev).then(() => {
+          element.state = "deleted";
+          this.dataService.postData(element).then(() => {
+            this.snackBar.open('Tarea eliminada correctamente', 'OK', {duration: 5000});
+            this.getInteractions();
+          });
+        } 
+      } else if (programs.rows.length == 1) {
+        alert('No se puede eliminar esta tarea porque está asociada a un programa.')
+      } else {
+        alert('No se puede eliminar esta tarea porque está asociada a ' + programs.rows.length + ' programas.')
+      }
+      
+    })
   }
 
   applyFilter(event: Event) {

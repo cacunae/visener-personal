@@ -11,7 +11,7 @@
             </ng-container>
             <ng-container matColumnDef="patientName">
                 <th mat-header-cell *matHeaderCellDef>Persona que reporta </th>
-                <td mat-cell *matCellDef="let report" (click)="expElem = expElem === report ? null : report;">
+                <td mat-cell *matCellDef="let report" >
                     <span>
                         {{report.patientName}}
                     </span>
@@ -20,24 +20,22 @@
             <ng-container matColumnDef="entity">
                 <th mat-header-cell *matHeaderCellDef class="desktop">Objeto reportado</th>
                 <td mat-cell *matCellDef="let report"
-                    (click)="expElem = expElem === report ? null : report;" class="desktop">
+                     class="desktop">
                     <span *ngIf="report.objeto.entity == 'comment'">Comentario</span>
                 </td>
             </ng-container>
             <ng-container matColumnDef="datetime">
-                <th mat-header-cell *matHeaderCellDef class="desktop">Hora: </th>
+                <th mat-header-cell *matHeaderCellDef class="desktop">Fecha/Hora </th>
                 <td mat-cell *matCellDef="let report"
-                    (click)="expElem = expElem === report ? null : report;" class="desktop">
+                     class="desktop">
                     <span>{{report.datetime | date:'short'}}</span></td>
             </ng-container>
             <ng-container matColumnDef="actions">
                 <th mat-header-cell *matHeaderCellDef>Acciones</th>
                 <td mat-cell *matCellDef="let report">
-                    <button mat-icon-button (click)="ignore(report)">
-                        <mat-icon>remove_circle</mat-icon>
-                    </button>
-                    <button mat-icon-button (click)="delete(report)">
-                        <mat-icon>delete</mat-icon>
+                    <button mat-icon-button (click)="expElem = expElem === report ? null : report;">
+                        <mat-icon *ngIf="expElem === report">expand_less</mat-icon>
+                        <mat-icon *ngIf="expElem !== report">expand_more</mat-icon>
                     </button>
                 </td>
             </ng-container>
@@ -47,17 +45,25 @@
                 <div class="example-element-detail"
                     [@detailExpand]="report == expElem ? 'expanded' : 'collapsed'">
                     <div class="example-element-description">
-                        <div class="inputImitation">
+                        <div class="inputImitation" style="width: 48%; display: inline-block; margin-right: 4%;">
                             <div>Autor del comentario:</div>
                             <div>{{report.objeto.name}}</div>
+                        </div>
+                        <div class="inputImitation" style="width: 48%; display: inline-block;" >
+                            <div>Motivo:</div>
+                            <div>{{report.reason}}</div>
                         </div>
                         <div class="inputImitation">
                             <div>Comentario:</div>
                             <div>{{report.objeto.text}}</div>
                         </div>
-                        <div class="inputImitation" >
-                            <div>Motivo:</div>
-                            <div>{{report.reason}}</div>
+                        <div align="center" style="margin: 10px;">
+                            <button mat-raised-button (click)="ignore(report)" style="margin-right: 10px;">
+                                Conservar
+                            </button>
+                            <button mat-raised-button (click)="delete(report)">
+                                Eliminar
+                            </button>
                         </div>
                     </div>
                 </div>

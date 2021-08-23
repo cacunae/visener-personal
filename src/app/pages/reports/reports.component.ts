@@ -42,6 +42,8 @@ export class ReportsComponent implements OnInit {
     this.loading = true;
     let temp: any = [];
     this.dataService.getData("/_design/view/_view/reports").then((reportes: any) => {
+      console.log(reportes);
+      
       reportes = reportes.rows.sort((a: any, b: any) => { return a.value.patientName.trim().localeCompare(b.value.patientName.trim()) });
       for (let rep of reportes) {
         if (rep.value.state && rep.value.state == 'deleted') {

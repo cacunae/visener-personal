@@ -23,6 +23,7 @@ export class PostsComponent implements OnInit {
   public columnsToDisplay: string[] = ['id', 'image' ,'titulo', 'datetime' ,'actions'];
   public loading:boolean = true;
   public dataSource;
+  public relation: number = 0;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('htmlData') htmlData:ElementRef;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -48,16 +49,29 @@ export class PostsComponent implements OnInit {
   }
 
   delete(element: any) {
-    if(confirm("¿Estás seguro de eliminar el Post " + element.title + "?\nEsta acción no podrá deshacerse.")) {
-      //this.dataService.deleteById(element.value._id + "?rev=" + element.value._rev).then(() => {
-      element.state = "deleted";
-      this.loading = true;
-      this.dataService.postData(element).then(() => {
-        this.snackBar.open('Post eliminado correctamente', 'OK', {duration: 5000});
-        this.loading = false;
-        this.getPosts();
-      });
+    this.relation = 0;
+    this.dataService.getData("/_design/view/_view/program-by-posts?key=\""+element._id+"\"&include_docs=true").then((program: any) =>{
+      this.relation = this.relation + program.rows.length
+      console.log(this.relation)
+      
+    })
+    this.dataService.getData("/_design/view/_view/posts-by-interaction?key=\""+element._id+"\"&include_docs=true").then((interactions: any) =>{
+      
+      if (interactions.rows.length > 0 || this.relation > 0) {
+        alert('No se puede eliminar este post porque está relacionado a alguna publicación, tarea o programa.')
+      } else if(interactions.rows.length == 0){
+      if(confirm("¿Estás seguro de eliminar el Post " + element.title + "?\nEsta acción no podrá deshacerse.")) {
+        //this.dataService.deleteById(element.value._id + "?rev=" + element.value._rev).then(() => {
+        element.state = "deleted";
+        this.loading = true;
+        this.dataService.postData(element).then(() => {
+          this.snackBar.open('Post eliminado correctamente', 'OK', {duration: 5000});
+          this.loading = false;
+          this.getPosts();
+        });
+      }
     }
+    }) 
   }
 
   applyFilter(event: Event) {

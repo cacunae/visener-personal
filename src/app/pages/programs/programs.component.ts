@@ -73,12 +73,21 @@ export class ProgramsComponent implements OnInit {
   }
 
   delProgram(element: any) {
-    if(confirm("¿Estás seguro de eliminar el programa " + element.title + "?\nEsta acción no podrá deshacerse.")) {
-      this.dataService.deleteById(element._id + "?rev=" + element._rev).then(() => {
-        this.snackBar.open('Programa eliminado correctamente', 'OK', {duration: 5000});
-        this.getPrograms();
-      });
-    }
+    this.dataService.getData("/_design/view/_view/treatments-by-programs?key=\"" + element._id + "\"&include_docs=true").then((treatment: any) =>{
+      console.log(treatment);
+      if (treatment.rows.length == 0) {
+         if(confirm("¿Estás seguro de eliminar el programa " + element.title + "?\nEsta acción no podrá deshacerse.")) {
+          this.dataService.deleteById(element._id + "?rev=" + element._rev).then(() => {
+            this.snackBar.open('Programa eliminado correctamente', 'OK', {duration: 5000});
+            this.getPrograms();
+          });
+        } 
+      } else if(treatment.rows.length == 1) {
+        alert('No se puede eliminar este programa porque está asociado a un tratamiento')
+      } else {
+        alert('No se puede eliminar este programa porque está asociado a ' + treatment.rows.length + ' tratamientos.')
+      }
+    })
   }
 
   applyFilter(event: Event) {
