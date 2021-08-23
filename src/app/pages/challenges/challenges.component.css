@@ -25,9 +25,16 @@
 
 .grid-container2 {
     display: grid;
-    grid-template-columns: 320px 0px;
+    grid-template-columns: 320px 154px;
     grid-gap: 5px;
     padding: 0px;
+}
+
+.compressedPost {
+  height: 60px !important;
+  overflow-y: initial!important;
+  margin-top: 0px;
+  width: 75%;
 }
 
 .grid-container3 {
@@ -109,6 +116,23 @@
         position: absolute;
         margin-top: -99px;
       }
+      .percent4{
+        position: absolute;
+        margin: 187px!important;
+        margin-left: 112px!important;
+        font-size: 17px;
+        margin-top: 186px!important;
+      }
+      .staticText{
+        margin: 0px!important;
+        width: 257px!important;
+        height: 56px!important;
+        border: 0px!important;
+        font-family: Roboto, "Helvetica Neue", sans-serif;
+        font-weight: 200;
+        resize: none;
+        background-color: white;
+      }
   }
 
   .percent{
@@ -135,10 +159,11 @@
   }
 
   .percent4{
-    position:absolute;
-    margin:187px;
-    margin-left: 111px;
-    font-size:17px
+    position: absolute;
+    margin: 187px;
+    margin-left: 374px;
+    font-size: 17px;
+    margin-top: 41px;
   }
 
   .byday{
@@ -162,4 +187,16 @@
     margin-left:340px;
     margin-top: 0px;
   }
+
+  .staticText{
+    margin: 0px!important;
+    width: 475px;
+    height: 56px;
+    border: 0px!important;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-weight: 200;
+    resize: none;
+    background-color: white;
+  }
+
 

@@ -109,6 +109,7 @@ import { FavouritesComponent } from './pages/posts/favourites/favourites.compone
 import { ViewFavouritesComponent } from './pages/posts/view-favourites/view-favourites.component';
 import { SegmentosComponent } from './pages/patients/segmentos/segmentos.component';
 import { ReportsComponent } from './pages/reports/reports.component';
+import { ShareChallengesComponent } from './pages/challenges/share-challenges/share-challenges.component';
 
 @NgModule({
   declarations: [
@@ -178,6 +179,7 @@ import { ReportsComponent } from './pages/reports/reports.component';
     ViewFavouritesComponent,
     SegmentosComponent,
     ReportsComponent,
+    ShareChallengesComponent,
   ],
   imports: [
     Ng2ImgMaxModule,
@@ -226,7 +228,7 @@ import { ReportsComponent } from './pages/reports/reports.component';
       animationDuration: 300,
     }),
     MatProgressBarModule,
-    RoundProgressModule
+    RoundProgressModule,
   ],
   providers: [CookieService, MatSnackBar, DatePipe],
   bootstrap: [AppComponent]

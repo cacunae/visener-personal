@@ -55,30 +55,53 @@
     </div>
     <br>
     <div *ngIf="feedback">
-        <button *ngIf="post.liked=='true'" mat-raised-button style="font-size: 12px;background-color: #e3e4e5!important;" color="primary" (click)="like(post)">
-            <mat-icon style="margin-top:1px; font-size: 20px;color:#FF4081">thumb_up</mat-icon> 
+        <button *ngIf="post.liked=='true'" mat-raised-button style="font-size: 12px;
+        border: 0px;
+        box-shadow: none;
+        background-color: transparent!important;
+        margin-left: -8px;" color="primary" (click)="like(post)">
+            <mat-icon style="margin-top: 1px;
+            font-size: 24px;
+            text-align: left;
+            margin-left: -18px;color:#FDD62A">thumb_up</mat-icon><div class="likes" *ngIf="post.likes && post.likes == 1">{{post.likes}}</div><div class="likes" *ngIf="post.likes && post.likes > 1" style="margin-top: -36px!important;">{{post.likes}}</div>
         </button>
-        <button *ngIf="post.liked=='false'" mat-stroked-button style="font-size: 12px;" (click)="like(post)">
-            <mat-icon style="margin-top:1px; font-size: 20px;">thumb_up</mat-icon> 
+        <button *ngIf="post.liked=='false'" mat-stroked-button style="font-size: 12px;
+        border: 0px;
+        box-shadow: none;
+        background-color: white;
+        margin-left: -8px;" (click)="like(post)">
+            <mat-icon style="margin-top: 1px;
+            font-size: 24px;
+            text-align: left;
+            margin-left: -18px;">thumb_up</mat-icon><div class="likes" *ngIf="post.likes && post.likes == 1">{{post.likes}}</div><div class="likes" *ngIf="post.likes && post.likes > 1">{{post.likes}}</div> <div class="likes" *ngIf="!post.likes">0</div>
         </button>
-        <button mat-stroked-button style="margin-left: 10px; font-size: 18px;" (click)="openComment(post)">
-            <mat-icon style="margin-top:3px; font-size: 20px;">comment</mat-icon> 
+        <button mat-stroked-button style="margin-left: -10px;
+        font-size: 12px;
+        text-align: left;
+        border: 0px;
+        box-shadow: none;
+        background: transparent;" (click)="openComment(post)">
+            <mat-icon style="margin-top: 3px;
+            font-size: 24px;
+            margin-left: -3px;">comment</mat-icon><div style="float: right;margin-top: -28px;margin-left: 206px;position: absolute;" *ngIf="!post.comments || post.comments.length == 0">0</div>
+            <div class="comments" *ngIf="post.comments && post.comments.length == 1">{{post.comments.length}}</div>
+            <div class="comments" *ngIf="post.comments && post.comments.length > 1">{{post.comments.length}}</div> 
         </button>
-        <button *ngIf="post.favourite=='true'" mat-raised-button style="background-color: #e3e4e5!important;float:right;margin-left: 10px; font-size: 12px;" color="primary" (click)="saveFavourite(post)">
-            <mat-icon style="margin-top:1px; font-size: 24px;color:#FF4081">favorite</mat-icon> 
+        <button *ngIf="post.favourite=='true'" mat-raised-button style="border:0px;color:#FF4081;background-color: transparent!important;float:right;margin-left: 10px; font-size: 12px;border:0px;" color="primary" (click)="saveFavourite(post)">
+            <mat-icon style="margin-top:1px; font-size: 24px;color:#FF4081!important">favorite</mat-icon> 
         </button>
-        <button *ngIf="post.favourite=='false'" mat-stroked-button style="font-size: 12px;float:right" (click)="saveFavourite(post)">
-            <mat-icon style="margin-top:-2px; font-size: 24px;">favorite</mat-icon> 
+        <button *ngIf="post.favourite=='false'" mat-stroked-button style="border:0px;font-size: 12px;float:right" (click)="saveFavourite(post)">
+            <mat-icon style="margin-top:-2px; font-size: 24px;color:#FF4081!important">favorite</mat-icon> 
         </button>
        <!-- <button  mat-stroked-button style="float:right;margin-left: 10px; font-size: 12px;" (click)="saveFavourite(post)" >
             <mat-icon style="margin-top:-2px; font-size: 24px;">favorite_border</mat-icon>
         </button>-->
-        <div style="float: right;margin-top: -28px;margin-left: 206px;position: absolute;" *ngIf="!post.comments || post.comments.length == 0">Sin comentarios.</div>
+      <!--  <div style="float: right;margin-top: -28px;margin-left: 206px;position: absolute;" *ngIf="!post.comments || post.comments.length == 0">Sin comentarios.</div>
         <div class="comments" *ngIf="post.comments && post.comments.length == 1">{{post.comments.length}} comentario. </div>
         <div class="comments" *ngIf="post.comments && post.comments.length > 1">{{post.comments.length}} comentarios.</div>
         <div class="likes" *ngIf="post.likes && post.likes == 1">{{post.likes}} like. </div>
         <div class="likes" *ngIf="post.likes && post.likes > 1">{{post.likes}} likes.</div>
-        <div class="likes" *ngIf="!post.likes">0 likes.</div>
+        <div class="likes" *ngIf="!post.likes">0 likes.</div>-->
         <div *ngIf="post.comments && post.comments.length>0">
             <mat-divider></mat-divider>
             <div *ngFor="let comment of post.comments" class="comment" [matMenuTriggerFor]="menu">

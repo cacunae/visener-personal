@@ -4,6 +4,7 @@ import { throwToolbarMixedModesError } from '@angular/material/toolbar';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { borderTopRightRadius } from 'html2canvas/dist/types/css/property-descriptors/border-radius';
 import { Label, MultiDataSet } from 'ng2-charts';
+import { ShareChallengesComponent } from 'src/app/pages/challenges/share-challenges/share-challenges.component';
 import { DataService } from 'src/app/services/data.service';
 import { DialogInteractionComponent } from '../dialog-interaction/dialog-interaction.component';
 import { ProgressChallengesComponent } from './progress-challenges.component';
@@ -67,11 +68,9 @@ export class ChallengesComponent implements OnInit {
                   this.feedbacks.push(feedback);
                   this.totalMax2 = this.arrayTotal.reduce((a, b) => a + b, 0);
                   this.total = this.feedbacks.length;
-                  console.log("percent:", this.feedbacks.length)
                   this.percent = this.total * 100 / this.totalMax;
-                  console.log("percent:", this.percent)
                   this.totalXPro = this.total * 100 / this.totalMax2;
-                  this.totalXPro = Math.round(this.totalXPro * 10) /10   
+                  this.totalXPro = Math.round(this.totalXPro * 10)/10   
                   if (this.percent > 100) {
                     this.percent = 100;
                     this.percents.push(this.percent)
@@ -91,7 +90,6 @@ export class ChallengesComponent implements OnInit {
           }
         })
       });
-
     })
   }
 
@@ -103,6 +101,13 @@ export class ChallengesComponent implements OnInit {
     const dialogRef = this.dialog.open(ProgressChallengesComponent, {
       width: '570px',
       data: element
+    });
+  }
+
+  share(programs:any){
+    const dialogRef = this.dialog.open(ShareChallengesComponent, {
+      width: '350px',
+      data: programs
     });
   }
 

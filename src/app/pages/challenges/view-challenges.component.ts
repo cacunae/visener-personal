@@ -1,5 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { getMatIconNameNotFoundError } from '@angular/material/icon';
+import * as moment from 'moment';
 import { DialogData } from 'src/app/patient/groups/add-group.component';
 import { DataService } from 'src/app/services/data.service';
 
@@ -22,6 +24,10 @@ export class ViewChallengesComponent implements OnInit {
   iterations: any[] = [];
   interactions: any[] = [];
   totalInteractions: any[] = [];
+  actualDate:any;
+  actual: any;
+  end:any;
+  start:any;
 
   constructor(public dataService: DataService, @Inject(MAT_DIALOG_DATA) public data: DialogData) {
   }
@@ -34,18 +40,24 @@ export class ViewChallengesComponent implements OnInit {
     this.dataService.getData("/_design/view/_view/treatments-by-patient?key=\"" + this.dataService.user._id + "\"").then((treatments: any) => {
       for (let treatment of treatments.rows) {
         this.dataService.getData("/" + treatment.value.doc.program).then((program: any) => {
+          this.actual = Date.now();
+          this.actualDate = moment(this.actual).format("DD");
+          this.end = moment(this.endDate).format("DD")
+          this.start = moment(this.startDate).format("DD")
           this.startDate = new Date(treatment.value.doc.startDate.substr(0, 10));
           this.endDate = new Date(treatment.value.doc.endDate.substr(0, 10));
           this.dateVal2 = new Date();
           this.dateVal = Math.floor((this.dateVal2 - this.startDate) / 1000 / 60 / 60 / 24);
+          program.startDate = this.startDate;
+          program.endDate = this.endDate;
+          program.actualDate = this.actualDate - this.start;
+          console.log(this.actualDate - this.start)
           program.progress = this.dateVal * 100 / program.duration;
           program.progress = Math.floor(program.progress * 10) / 10;  
-          console.log("progress:", Math.floor(program.progress * 10) / 10)
           if(program.progress>100){
             program.progress = 100;
             this.programs2.push(program);
           }else if(program.progress<0){
-            program.progress = 0;
             this.programs2.push(program);
           }else{
             this.programs2.push(program);

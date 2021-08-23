@@ -1,0 +1,25 @@
+<div>
+    <mat-card-title>Compartir con mis redes</mat-card-title>
+    <div>
+        <mat-card-subtitle style="margin:0px;">Mis redes</mat-card-subtitle>
+        <div *ngFor="let patient of patients">
+            <mat-checkbox name="patient" [(ngModel)]="patient.selected" [value]="patient._id" ngDefaultControl
+                style="display: block">
+                {{patient.name}}
+            </mat-checkbox>
+        </div>
+    <div>
+        <br>
+        <mat-card-subtitle style="margin:0px;">Mis Grupos</mat-card-subtitle>
+        <div *ngFor="let group of groups">
+            <mat-checkbox name="group" [(ngModel)]="group.selected" [value]="group._id" ngDefaultControl>
+                Compartir con: <strong> {{group.title}} </strong>
+            </mat-checkbox>
+        </div>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-stroked-button (click)="onNoClick()">Cancelar</button>
+        <button mat-raised-button color="primary" (click)="save()">Guardar</button>
+    </div>
+    </div>
+</div>

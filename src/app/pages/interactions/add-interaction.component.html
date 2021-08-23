@@ -61,7 +61,7 @@
                 <br>
                 <mat-form-field appearance="outline" *ngIf="interaction.poll.type=='slider'|| interaction.poll.type=='slider2'">
                     <mat-label>Pregunta:</mat-label>
-                    <input matInput placeholder="Ej: ¿Cuánto dolor sentiste?" [(ngModel)]="interaction.poll.question">
+                    <input matInput placeholder="Ej: ¿Cuánto dolor sentiste?" [(ngModel)]="interaction.poll.question" maxlength="30">
                 </mat-form-field>
                 <mat-form-field appearance="outline">
                     <mat-label>Tipo de feedback:</mat-label>

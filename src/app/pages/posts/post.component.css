@@ -62,20 +62,39 @@ input:focus {
     padding: 2px 15px;
 }
 
-.likes{
+/*.likes{
     margin-top: -28px;
     position: absolute;
     margin-left: 31%;
+}*/
+/*.likes{
+    margin-top: -34px;
+    position: absolute;
+    font-size: 15px;
+    margin-left: 44%;
+}*/
+.likes{
+    margin-top: -33px;
+    position: absolute;
+    font-size: 17px;
+    margin-left: 25px;
 }
 
-.comments{
+/*.comments{
     float: right;
     margin-top: -29px;
     margin-left: 206px;
     position: absolute;
+}*/
+.comments{
+    float: right;
+    margin-top: -34px;
+    margin-left: 26px;
+    position: absolute;
+    font-size: 17px;
 }
 
-@media (max-width: 600px) {
+/*@media (max-width: 600px) {
     .likes{
         margin-top: -28px;
         position: absolute;
@@ -87,4 +106,4 @@ input:focus {
         margin-left: 196px;
         position: absolute;
     }
-  }
+  }*/

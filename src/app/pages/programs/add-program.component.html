@@ -12,11 +12,11 @@
             </mat-form-field>
             <mat-form-field appearance="outline">
                 <mat-label>Detalle del Programa:</mat-label>
-                <textarea matInput [(ngModel)]="program.content" cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="10"></textarea>
+                <textarea matInput [(ngModel)]="program.content" cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="10" ></textarea>
             </mat-form-field>
             <mat-form-field appearance="outline">
                 <mat-label>Objetivo:</mat-label>
-                <textarea matInput [(ngModel)]="program.objective" cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="10"></textarea>
+                <textarea matInput [(ngModel)]="program.objective" cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="10" maxlength="80"></textarea>
             </mat-form-field>
             <mat-form-field appearance="outline">
                 <mat-label>Duración del Programa (En días)</mat-label>

@@ -6,6 +6,9 @@
   <button *ngIf="selectable" (click)="progress(programs)" class="compressedBtn" color="primary">
     <mat-icon style="margin-top:7px; font-size: 14px;">visibility</mat-icon>
   </button>
+  <button class="compressedBtn" color="primary">
+    <mat-icon style="margin-top:7px; font-size: 14px;margin-left: -7px!important;" (click)="share(programs)">share</mat-icon>
+  </button>
   <div [class.compressedPost]="compressed">
     <mat-card-title style="font-size:18px;margin-bottom: 10px;" *ngIf="programs.title">{{programs.title}}
     </mat-card-title>
@@ -16,7 +19,7 @@
             <div *ngIf="treatment.value.doc.program == programs._id">
               <div class="grid-container2" style="margin-bottom:20px;">
                 <mat-progress-bar class="main1" mode="determinate" color="#FFD628" value="{{programs.progress}}"></mat-progress-bar>
-                <strong class="progress">{{programs.progress}}%</strong>
+                <a class="desktop" style="margin-top:-5px">{{programs.actualDate}}/{{programs.duration}} Días</a>
               </div>
             </div>
           </div>
@@ -25,10 +28,9 @@
     </div>
   </div>
   <mat-card-content style="height: auto;">
-    <div>
-        <mat-card-subtitle *ngIf="programs.objective"><strong>Objetivo</strong><br>
-          {{programs.objective}}</mat-card-subtitle>
-    </div>
+        <mat-card-subtitle *ngIf="programs.objective" style="margin-bottom:0px"><strong>Objetivo</strong><br></mat-card-subtitle>
+         <textarea class="staticText" readonly="readonly" disabled>{{programs.objective}}</textarea>
+    <br>
     <div class="grid-container3">
       <div style="text-align: left;">
         <div *ngFor="let id of programId">

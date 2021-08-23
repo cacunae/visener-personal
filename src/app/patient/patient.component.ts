@@ -40,7 +40,12 @@ export class PatientComponent implements OnInit {
   hidden: boolean = false;
   currentDay: any = new Date();
   dateTime: any;
-
+  programs:any[] = [];
+  invitations: any[] = [];
+  patients:any[] = [];
+  treatment:any = {};
+  interactions:any[] = [];
+  
   constructor(public http: HttpClient, public post: MatDialog, public dialog: MatDialog, public router: Router, public dataService: DataService, public zone: NgZone, public snackBar: MatSnackBar) {
     moment.locale('es');
     if (!this.dataService.user?._id) {
@@ -65,6 +70,7 @@ export class PatientComponent implements OnInit {
     this.mensaje();
     this.getEnable();
     this.getMentions();
+    this.getChallenges()
   }
 
   mensaje() {
@@ -113,6 +119,7 @@ export class PatientComponent implements OnInit {
     this.dataService.getData("/_design/view/_view/publications-by-patient?key=\"" + this.dataService.user._id + "\"&include_docs=true").then((posts: any) => {
       this.posts = posts.rows.sort((a: any, b: any) => { return Number(a.doc.datetime) - Number(b.doc.datetime) });
       for (let index in this.posts) {
+        console.log("post:",this.posts)
         for (let post of this.posts) {
           if (post.value.doc) {
             if (post.value.doc.startDate > moment().format("DDMMYYYY")) {
@@ -247,6 +254,47 @@ export class PatientComponent implements OnInit {
     }
   }
 
+  toggleBadgeVisibility(mention: any) {
+    this.hidden = false;
+    mention.value.viewed = true;
+    this.dataService.postData(mention.value);
+  }
+
+  viewComment(postId: any) {
+    var myDiv = document.getElementById('main');
+    myDiv.scrollTop = 0;
+    let temp: any[] = [];
+    this.dataService.getData("/" + postId).then((response) => {
+      for (let index in this.posts) {
+        if (this.posts[index].value._id === postId) {
+          temp.push(this.posts[index].value._id)
+        }
+      }
+      if (temp.includes(postId)) {
+        this.posts.unshift(this.posts.splice(this.posts.findIndex(item => item.value._id === postId), 1)[0]);
+      } else {
+        this.posts.unshift({ value: response });
+      }
+    });
+  }
+
+  getChallenges(){
+    this.dataService.getData("/_design/view/_view/challenges-invitation?key=\"" + this.dataService.user._id + "\"").then((invitations:any)=>{
+      this.invitations = invitations.rows;
+      if(this.invitations){
+        for(let invitation of invitations.rows){
+          this.dataService.getData("/"+invitation.value.program).then((programs:any)=>{
+            this.programs.push(programs);
+          })
+          this.dataService.getData("/"+invitation.value.patient).then((patient:any)=>{
+            this.patients.push(patient);
+            console.log("sss:", this.patients)
+          })
+        }
+      }
+    })
+  }
+
   getMentions() {
     this.dataService.getData("/_design/view/_view/comments-by-mention?key=\"" + this.dataService.user._id + "\"").then((mentions: any) => {
       if (mentions.rows.length > 0) {
@@ -272,29 +320,28 @@ export class PatientComponent implements OnInit {
       }
     });
   }
-
-  toggleBadgeVisibility(mention: any) {
-    this.hidden = false;
-    mention.value.viewed = true;
-    this.dataService.postData(mention.value);
+  acceptChallenge(invitation:any){
+    console.log("DATE:", invitation)
+    this.dataService.getData("/"+invitation.value.program).then((data:any)=>{
+      console.log("data:", data)
+      this.interactions = data.interactions;
+      this.treatment = {entity:"treatment", state:"active", program: invitation.value.program, patient:this.dataService.user._id,startDate: new Date(), endDate: moment().format("2021-08-31T15:43:24.000Z"),interactions:data.interactions ,datetime: Date.now()}
+      this.dataService.postData(this.treatment).then((result:any)=>{
+      this.snackBar.open("Invitación Aceptada Correctamente");
+      this.dataService.deleteById(invitation.value._id + "?rev=" + invitation.value._rev).then((result:any)=>{
+        location.reload();
+      })
+      console.log("ACCEPT;", result)
+    })
+    })
   }
 
-  viewComment(postId: any) {
-    var myDiv = document.getElementById('main');
-    myDiv.scrollTop = 0;
-    let temp: any[] = [];
-    this.dataService.getData("/" + postId).then((response) => {
-      for (let index in this.posts) {
-        if (this.posts[index].value._id === postId) {
-          temp.push(this.posts[index].value._id)
-        }
-      }
-      if (temp.includes(postId)) {
-        this.posts.unshift(this.posts.splice(this.posts.findIndex(item => item.value._id === postId), 1)[0]);
-      } else {
-        this.posts.unshift({ value: response });
-      }
-    });
+  rejectChallenge(invitation:any){
+    console.log("program", invitation)
+      this.dataService.deleteById(invitation.value._id + "?rev=" + invitation.value._rev).then((result:any)=>{
+        this.snackBar.open("Invitación rechazada correctamente")
+        location.reload();
+      })
   }
 
 }

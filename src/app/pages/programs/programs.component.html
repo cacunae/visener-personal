@@ -53,7 +53,7 @@
                     <div class="example-element-description">
                         <div class="inputImitation" *ngIf="program.objective">
                             <div>Objetivo:</div>
-                            <div>{{program.objective}}</div>
+                            <textarea readonly="readonly" disabled class="objectiveContent">{{program.objective}}</textarea>
                         </div>
                         <div class="inputImitation" *ngIf="program.content">
                             <div>Descripción:</div>

@@ -193,3 +193,7 @@
     white-space:initial!important;
     line-height: 16px!important;
   }
+
+  ::ng-deep .mat-menu-panel{
+    margin-left: -193px;
+  }

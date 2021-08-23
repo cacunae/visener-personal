@@ -1,6 +1,6 @@
 <mat-card>
     <mat-card-title>
-        <mat-icon [mat-dialog-close] style="color:black">arrow_back</mat-icon>  {{arreglo.title}}
+        <mat-icon [mat-dialog-close] style="color:black">arrow_back</mat-icon> {{arreglo.title}}
     </mat-card-title>
 </mat-card>
 <br>
@@ -8,7 +8,8 @@
     <div *ngIf="id == arreglo._id">
         <div *ngFor="let treatment of treatments">
             <div *ngIf="treatment.value.doc.program == arreglo._id">
-                <mat-card-subtitle style="text-align: right;margin-bottom:0%">Progreso al día: {{date}} </mat-card-subtitle>
+                <mat-card-subtitle style="text-align: right;margin-bottom:0%">Progreso al día: {{date}}
+                </mat-card-subtitle>
                 <br>
                 <mat-card-subtitle style="margin-bottom: 0%;text-align: center;"><strong>Avance total del
                         desafío</strong></mat-card-subtitle>
@@ -27,9 +28,21 @@
     </div>
 </div>
 <div>
-   <!--<mat-calendar [selected]="this.sampleRange">
+    <!--<mat-calendar [selected]="this.sampleRange">
     </mat-calendar>-->
-    
-    <mat-calendar [selected]="this.sampleRange" 
-    (selectedChange)="this.onChange($event)"></mat-calendar>
+
+    <!--  <mat-calendar [selected]="this.sampleRange"
+    [comparisonStart]="this.sampleRange.start"
+    [comparisonStart]="this.sampleRange.end"
+    (selectedChange)="this.onChange($event)"></mat-calendar>-->
+    <div *ngFor="let id of treatmentId">
+        <div *ngIf="id == arreglo._id">
+            <div *ngFor="let treatment of treatments">
+                <div *ngIf="treatment.value.doc.program == arreglo._id">
+    <mat-calendar *ngIf="arreglo.interactions" [selected]="selectedDateRange">
+    </mat-calendar>
+</div>
+</div>
+</div>
+</div>
 </div>

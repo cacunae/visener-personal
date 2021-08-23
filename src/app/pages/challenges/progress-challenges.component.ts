@@ -22,6 +22,7 @@ export class ProgressChallengesComponent implements OnInit {
   treatmentId: any[] = [];
   date:any;
   public sampleRange: DateRange<Date>;
+  selectedDateRange: DateRange<Date>;
   @Input() startDate: Date;
   @Input() endDate:Date;
   start: any;
@@ -29,6 +30,7 @@ export class ProgressChallengesComponent implements OnInit {
 
   constructor(public datepipe: DatePipe,public dataService: DataService, @Inject(MAT_DIALOG_DATA) public data: DialogData, public dialogRef: MatDialogRef<ProgressChallengesComponent>) {
     this.arreglo = data;
+    console.log(data)
     this.date = moment().format('DD/MM/YYYY') 
     this.refreshDR();
    }
@@ -37,24 +39,17 @@ export class ProgressChallengesComponent implements OnInit {
     this.dataService.getData("/_design/view/_view/treatments-by-patient?key=\""+this.dataService.user._id + "\"").then((treatments:any)=>{
       for(let treatment of treatments.rows){
         this.treatmentId.push(treatment.value.doc.program)
-       /* this.startDate = new Date(treatment.value.doc.startDate.substr(0, 10));
-        this.datepipe.transform(treatment.value.doc.startDate, "dd/MM")
-        console.log("date1:", this.datepipe.transform(treatment.value.doc.startDate, 'd'))
-        console.log("date2:", this.datepipe.transform(treatment.value.doc.endDate, 'dd'))
-        this.endDate = new Date(treatment.value.doc.endDate.substr(0, 10));
-        this.end = this.datepipe.transform(treatment.value.doc.endDate, 'dd')
-        this.start = this.datepipe.transform(treatment.value.doc.startDate, 'd');*/
-        this.start = moment(treatment.value.doc.startDate).format("DD")
-        this.end = moment(treatment.value.doc.endDate).format("DD")
-        console.log("start::", this.start, "end::", this.end)
-        this.treatments.push(treatment);
-        this.sampleRange = new DateRange((() => {
-          let v = new Date();
-          v.setDate(this.end);
-          return v;
-        })(), new Date());
-        console.log("getDate:", this.sampleRange)
-      }
+        if(treatment.value.doc.program==this.arreglo._id){
+          this.start = moment(treatment.value.doc.startDate).format("DD")
+          this.end = moment(treatment.value.doc.endDate).format("DD")
+          this.treatments.push(treatment);
+          this.selectedDateRange = new DateRange((() => {
+            let v = new Date();
+            v.setDate(this.start);
+            console.log("getDate:", v)
+            return v;
+          })(), new Date());
+        }      }
     })
   }
 
