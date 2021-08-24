@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { DataService, reportTable } from 'src/app/services/data.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -87,13 +88,27 @@ export class ReportsComponent implements OnInit {
   }
 
   delete(report: any) {
-    if (confirm("Esto eliminará el comentario y quitará el reporte de la lista. " + "\nEsta acción no podrá deshacerse.")) {
+    if(window.confirm('Esta acción eliminará el reporte y el comentario')){
       report.objeto.state = 'deleted'
-      this.dataService.postData(report.objeto).then((res) => {
-        console.log(res);
-        this.ignore(report)
+      this.dataService.postData(report.objeto)
+      report.state = 'deleted';
+      report.objeto = report.objeto._id;
+      this.dataService.postData(report).then((res) => {
+          this.getReports();
+          console.log(res);
+        }).then((a) => {
+          this.snackBar.open('El reporte se ha eliminado.', 'OK', {duration: 5000})
       })
     }
+
+      /* report.objeto.state = 'deleted'
+      this.dataService.postData(report.objeto).then((res) => {
+        report.state = 'deleted';
+        report.objeto = report.objeto._id;
+        this.dataService.postData(report)
+        //this.dataSource.data = [...this.dataSource.data];
+        this
+      }) */
   }
 
   applyFilter(event: Event) {
