@@ -83,7 +83,11 @@
         background: transparent;" (click)="openComment(post)">
             <mat-icon style="margin-top: 3px;
             font-size: 24px;
-            margin-left: -3px;">comment</mat-icon><div style="float: right;margin-top: -28px;margin-left: 206px;position: absolute;" *ngIf="!post.comments || post.comments.length == 0">0</div>
+            margin-left: -3px;">comment</mat-icon><div style="float: right;
+    margin-top: -33px;
+    margin-left: 29px;
+    font-size: 17px;
+    position: absolute;" *ngIf="!post.comments || post.comments.length == 0">0</div>
             <div class="comments" *ngIf="post.comments && post.comments.length == 1">{{post.comments.length}}</div>
             <div class="comments" *ngIf="post.comments && post.comments.length > 1">{{post.comments.length}}</div> 
         </button>

@@ -26,8 +26,9 @@ export class ViewChallengesComponent implements OnInit {
   totalInteractions: any[] = [];
   actualDate:any;
   actual: any;
-  end:any;
+  end:string;
   start:any;
+  actualTotal:any;
 
   constructor(public dataService: DataService, @Inject(MAT_DIALOG_DATA) public data: DialogData) {
   }
@@ -41,17 +42,17 @@ export class ViewChallengesComponent implements OnInit {
       for (let treatment of treatments.rows) {
         this.dataService.getData("/" + treatment.value.doc.program).then((program: any) => {
           this.actual = Date.now();
-          this.actualDate = moment(this.actual).format("DD");
-          this.end = moment(this.endDate).format("DD")
-          this.start = moment(this.startDate).format("DD")
+          this.actualDate = moment(this.actual).format("DD");     
           this.startDate = new Date(treatment.value.doc.startDate.substr(0, 10));
           this.endDate = new Date(treatment.value.doc.endDate.substr(0, 10));
+          this.end = moment(this.endDate).format("DD");;
+          this.start = moment(this.startDate).format("DD")
+          this.actualTotal = parseInt(this.start) + 1; 
           this.dateVal2 = new Date();
           this.dateVal = Math.floor((this.dateVal2 - this.startDate) / 1000 / 60 / 60 / 24);
           program.startDate = this.startDate;
           program.endDate = this.endDate;
-          program.actualDate = this.actualDate - this.start;
-          console.log(this.actualDate - this.start)
+          program.actualDate =  parseInt(this.actualDate) - this.actualTotal;
           program.progress = this.dateVal * 100 / program.duration;
           program.progress = Math.floor(program.progress * 10) / 10;  
           if(program.progress>100){
