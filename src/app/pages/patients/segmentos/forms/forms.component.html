@@ -251,7 +251,7 @@
                         
                         </div>
                     <hr>
-                    <app-comunes></app-comunes>
+                    <app-comunes ></app-comunes>
                 </mat-tab>
                 <!----------------------------------FORMULARIO RODILLA------------------------------------------->
                 <mat-tab  *ngIf="toggleRodilla" >
@@ -2053,9 +2053,12 @@
     <!--<mat-spinner ></mat-spinner>-->
     <div class="desktopbuttons">
         <button (click)="cancelarForm()" mat-stroked-button routerLink="/professional/asc-segmentos" routerLinkActive="false">Volver</button>&nbsp;&nbsp;&nbsp;
-        <button (click)="sumarValores(_determinante, _condicion, _edema, _extension, _flexion , _nivel, _ortopedia)" (click)="copiarRegistros()" mat-raised-button  >Copiar Resumen Médico</button>&nbsp;&nbsp;&nbsp;
-        <button  mat-raised-button  >Copiar Resumen Kinésico</button>&nbsp;&nbsp;&nbsp;
-        <button (click)="multiplePost()" mat-raised-button  >Siguiente</button>&nbsp;&nbsp;&nbsp;
+        <button (click)="sumarValores(_determinante, _condicion, _edema, _extension, _flexion , _nivel, _ortopedia)" (click)="copiarRegistros()" mat-raised-button  >Copiar registro de categorizacion</button>&nbsp;&nbsp;&nbsp;
+        <button (click)="copiarRegistrosEvolutivos()" mat-raised-button  >Copiar Registro evolutivo</button>&nbsp;&nbsp;&nbsp;
+        <button (click)="botonDebug()" mat-raised-button  >Siguiente</button>&nbsp;&nbsp;&nbsp;
     </div>
 </div>
+
+
+
 

@@ -32,6 +32,10 @@
         <source src="{{post.value.video | video}}" />
     </video>
     <mat-card-content *ngIf="!compressed && post.value.content">{{post.value.content}}</mat-card-content>
+    <div *ngIf="post.value.url">
+        <mat-card-subtitle>Previsualización: </mat-card-subtitle>
+        <iframe width="360" height="260" [src]="url2"></iframe><br>
+    </div>
     <div *ngIf="!compressed && post.value.poll">
         <div *ngFor="let question of post.value.poll">
             <mat-card-subtitle *ngIf="question.question">{{question.question}}
@@ -84,10 +88,10 @@
             <mat-icon style="margin-top: 3px;
             font-size: 24px;
             margin-left: -3px;">comment</mat-icon><div style="float: right;
-    margin-top: -33px;
-    margin-left: 29px;
-    font-size: 17px;
-    position: absolute;" *ngIf="!post.comments || post.comments.length == 0">0</div>
+            margin-top: -33px;
+            margin-left: 29px;
+            font-size: 17px;
+            position: absolute;" *ngIf="!post.comments || post.comments.length == 0">0</div>
             <div class="comments" *ngIf="post.comments && post.comments.length == 1">{{post.comments.length}}</div>
             <div class="comments" *ngIf="post.comments && post.comments.length > 1">{{post.comments.length}}</div> 
         </button>

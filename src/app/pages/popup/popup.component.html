@@ -7,7 +7,6 @@
 <button *ngIf="user.entity=='patient'" mat-menu-item routerLink="/favourites" (click)="getFavourites()"><mat-icon>bookmark</mat-icon> Mis Favoritos</button>
 <button *ngIf="user.entity=='patient'" mat-menu-item (click)="getChallenges()"><mat-icon>assessment</mat-icon> Mis desafíos</button>
 
-<button *ngIf="user.entity=='professional'" routerLink="professional/reportes" mat-menu-item (click)="popUpRef.close()"><mat-icon>announcement</mat-icon> Reportes</button>
 <button *ngIf="user.entity=='professional'" mat-menu-item (click)="cerrarSesion()"><mat-icon>do_not_disturb_on</mat-icon> Cerrar sesión</button>
 <br>
 <div style="float: left; color: #cccccc;">v0.0.15</div>
