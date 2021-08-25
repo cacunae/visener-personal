@@ -1,0 +1,13 @@
+#comunes{
+    height: 350px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    width: 50%;
+}
+
+mat-form-field{
+    
+    padding-right: 10px;
+    transform: scale(0.98);
+}

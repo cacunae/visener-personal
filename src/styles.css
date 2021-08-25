@@ -1,19 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
 @font-face {
   font-family: brown;
-  src: url(assets/fonts/Brown-Light.otf);
+  src: url('/assets/fonts/Brown-Light.otf');
   font-weight: 100;
 }
 
 @font-face {
   font-family: brown;
-  src: url(assets/fonts/Brown-Regular.otf);
+  src: url('/assets/fonts/Brown-Regular.otf');
   font-weight: 300;
 }
 
 @font-face {
   font-family: brown;
-  src: url(assets/fonts/Brown-Bold.otf);
+  src: url('/assets/fonts/Brown-Bold.otf');
   font-weight: 500;
 }
 
@@ -417,3 +417,5 @@ mat-card-title.compressedPost{
   border-radius: 30px !important;
   float: right !important;
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
