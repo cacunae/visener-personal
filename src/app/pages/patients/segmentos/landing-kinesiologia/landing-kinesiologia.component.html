@@ -1,0 +1,68 @@
+<app-header title="Visener" [backLink]="'/professional/asc-patients'"></app-header>
+<div id = "content" role="main">
+
+    <mat-card>
+        <div id= "buttonHeader">
+
+            <mat-label id = "tlt">Hola Rodrigo, ¿que necesitas hacer hoy?</mat-label>
+            <div id = "buttons">
+                <div routerLink="/professional/buscar-paciente" id = "button1" class="btn">
+                    <mat-icon>library_add</mat-icon>
+                    <mat-label>Agenda de ingreso</mat-label>
+                </div>
+                <div  id = "button2" class="btn">
+                    
+                        <mat-icon>groups</mat-icon>
+                        <mat-label>Agenda de tratamiento</mat-label> 
+                    
+                </div>
+                <div  id = "button3" class ="btn">
+                    <mat-icon>feed</mat-icon>
+                    <mat-label>Mi contenido</mat-label>
+                </div>
+            </div>  
+        
+            <br>
+            <br>
+    
+            <div id= "mid">
+                <mat-label>Avance de tratamiento de pacientes</mat-label>
+                <!--TABLA-->
+                <div id = midTable>
+                    <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                        <!-- Position Column -->
+                        <ng-container matColumnDef="position">
+                          <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+                          <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
+                        </ng-container>
+                      
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="name">
+                          <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+                          <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+                        </ng-container>
+                      
+                        <!-- Weight Column -->
+                        <ng-container matColumnDef="weight">
+                          <mat-header-cell *matHeaderCellDef> Weight </mat-header-cell>
+                          <mat-cell *matCellDef="let element"> {{element.weight}} </mat-cell>
+                        </ng-container>
+                      
+                        <!-- Symbol Column -->
+                        <ng-container matColumnDef="symbol">
+                          <mat-header-cell *matHeaderCellDef> Symbol </mat-header-cell>
+                          <mat-cell *matCellDef="let element"> {{element.symbol}} </mat-cell>
+                        </ng-container>
+                      
+                        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                      </mat-table>
+                </div>
+    
+            </div>
+            
+        </div>
+    </mat-card>
+    
+
+</div>

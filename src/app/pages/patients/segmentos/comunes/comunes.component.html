@@ -1,0 +1,49 @@
+<div id ="comunes">
+    <mat-form-field appearance="outline">
+        <mat-label>Orientación del plan terapéutico (*)</mat-label>
+        <mat-select [(ngModel)]="formu.orientacionPlanTerapeutico">
+            <mat-option *ngFor="let Orientacion of Orientaciones" [value]="Orientacion.viewValue">
+            {{Orientacion.viewValue}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>   
+    <br>
+    <mat-form-field appearance="outline">
+        <mat-label>Objetivos/Plan Terapeutico (*)</mat-label>
+        <input [(ngModel)]="formu.objetivosPlanTerapeutico" matInput placeholder="" >
+    </mat-form-field>
+    
+    <br>
+    <mat-form-field appearance="outline">
+        <mat-label>Desempeño funcional (*)</mat-label>
+        <mat-select [(ngModel)]="formu.desempenoFuncional">
+            <mat-option *ngFor="let Desempeno of Desempenos" [value]="Desempeno.viewValue">
+            {{Desempeno.viewValue}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="outline">
+        <mat-label>Necesidad de asistencia interdiciplinaria</mat-label>
+        <mat-select [(ngModel)]="formu.necesidadesAsistenciaInterdiciplinaria">
+            <mat-option *ngFor="let Necesidad of Necesidades" [value]="Necesidad.viewValue">
+            {{Necesidad.viewValue}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="outline">
+        <textarea [(ngModel)]="formu.justificacion" matInput placeholder="Justificación"></textarea>
+    
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="outline">
+        <mat-label>Valoración del riesgo de caídas</mat-label>
+        <input [(ngModel)]="formu.valoracionRiesgoCaidas" matInput placeholder="" >
+    </mat-form-field>      
+    <br>
+    <mat-form-field appearance="outline">
+        <mat-label>Consideraciones generales</mat-label>
+        <input [(ngModel)]="formu.consideracionesGenerales" matInput placeholder="" >
+    </mat-form-field> 
+</div>

@@ -49,6 +49,8 @@ import { TreatmentComponent } from './pages/treatment/treatment.component';
 import { PatientsComponent } from './pages/patients/patients.component';
 import { AddPatientComponent } from './pages/patients/add-patient.component';
 import { AssociatedPatientsComponent } from './pages/patients/asc-patients.component';
+
+
 import { DialogDelPatientsComponent } from './pages/patients/dialog-del-patients.component';
 import { DetPatientComponent } from './pages/patients/det-patient.component';
 import { ViewPatientsComponent } from './pages/patients/view-patients.component';
@@ -108,6 +110,11 @@ import { DatePipe } from '@angular/common';
 import { FavouritesComponent } from './pages/posts/favourites/favourites.component';
 import { ViewFavouritesComponent } from './pages/posts/view-favourites/view-favourites.component';
 import { SegmentosComponent } from './pages/patients/segmentos/segmentos.component';
+import { BuscarPacienteComponent } from './pages/patients/segmentos/buscar-paciente/buscar-paciente.component';
+import { DatosPacienteComponent } from './pages/patients/segmentos/datos-paciente/datos-paciente.component';
+import { FormsComponent } from './pages/patients/segmentos/forms/forms.component';
+import { ComunesComponent } from './pages/patients/segmentos/comunes/comunes.component';
+import { LandingKinesiologiaComponent } from './pages/patients/segmentos/landing-kinesiologia/landing-kinesiologia.component';
 import { ReportsComponent } from './pages/reports/reports.component';
 import { ShareChallengesComponent } from './pages/challenges/share-challenges/share-challenges.component';
 
@@ -178,6 +185,11 @@ import { ShareChallengesComponent } from './pages/challenges/share-challenges/sh
     FavouritesComponent,
     ViewFavouritesComponent,
     SegmentosComponent,
+    BuscarPacienteComponent,
+    DatosPacienteComponent,
+    FormsComponent,
+    LandingKinesiologiaComponent,
+    ComunesComponent,
     ReportsComponent,
     ShareChallengesComponent,
   ],

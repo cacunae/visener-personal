@@ -1,0 +1,2061 @@
+<app-header title="Visener" [backLink]="'/professional/asc-patients'"></app-header>
+<div class="content" role="main">
+    <mat-card>
+        <div>
+            <mat-card-title>Evaluación por segmento</mat-card-title>
+            <hr>
+            <br>
+            <div id="titles">
+                <div id = "nombre">
+                    <mat-card-subtitle style="margin-bottom: 0px;" class="smallTlt">Nombre del paciente</mat-card-subtitle>
+                    <mat-card-subtitle style="margin-bottom: 0px;" class="Tlt">Cristobal Acuña</mat-card-subtitle>
+                </div>
+                <div id = "edad">
+                    <mat-card-subtitle style="margin-bottom: 0px;" class="smallTlt">Edad</mat-card-subtitle>
+                    <mat-card-subtitle style="margin-bottom: 0px;" class="Tlt">22</mat-card-subtitle>
+                </div>
+                <div id = "diagnostico">
+                    <mat-card-subtitle style="margin-bottom: 0px;" class="smallTlt">Diagnóstico</mat-card-subtitle>
+                    <mat-card-subtitle style="margin-bottom: 0px;" class="Tlt">Lesión de Muñeca Izquierda</mat-card-subtitle>   
+                </div>
+                <div id = "prexistencia">   
+                    <mat-card-subtitle style="margin-bottom: 0px;" class="smallTlt">Pre-Existencia</mat-card-subtitle>
+                    <mat-card-subtitle style="margin-bottom: 0px;" class="Tlt">Fractura pie izquierdo</mat-card-subtitle>
+                </div>
+                    
+            </div>
+            <br>
+            <br>
+
+            <mat-tab-group color="#f7e202" styles="border-radius:50px;" mat-align-tabs="center" mat-stretch-tabs class="mat-elevation-z2">
+
+                <!----------------------------------FORMULARIO TOBILLO-PIE------------------------------------------->
+                <mat-tab *ngIf="toggleTobillo" >
+                    <ng-template mat-tab-label>
+                        <span style= "color:black">Tobillo Pie</span>
+                        <mat-icon style= "margin-left:30px;"  >visibility</mat-icon>
+                    </ng-template>
+                    <br>
+
+                    <div class ="formstyles" >
+                        <mat-form-field  id ="formulario"   appearance="outline">
+                            <mat-label>Profesión, oficio, o tipo de trabajo (*)</mat-label>
+                            <input  [(ngModel)]="formu.prof" matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <textarea [(ngModel)]="formu.diagnosticoCondicionSalud" matInput placeholder="Diagnóstico o condición de salud"></textarea>
+
+                        </mat-form-field>
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Antecedentes (*)</mat-label>
+                            <input [(ngModel)]= "formu.antecedentes"matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Determinante de riesgo</mat-label>
+                            <mat-select [(value)] = "_determinante" [(ngModel)]="formu.determinanteRiesgo" (selectionChange)="convertirDeterminante($event.value.viewValue)" >
+                                <mat-option *ngFor="let Determinante of Determinantes" [value]="Determinante">
+                                {{Determinante.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Condición adicional de salud (*)</mat-label>
+                            <mat-select [(value)] = "_condicion" [(ngModel)]="formu.condicionSalud" (selectionChange)="convertirCondicion($event.value.viewValue)">
+                                <mat-option *ngFor="let Condicion of condiciones" [value]="Condicion" >
+                                {{Condicion.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Uso de ortopedia</mat-label>
+                            <mat-select [(value)] = "_ortopedia" [(ngModel)]="formu.usoOrtopedia" (selectionChange)="convertirOrtopedia($event.value.viewValue)">
+                                <mat-option *ngFor="let Ortopedia of Ortopedias" [value]="Ortopedia">
+                                {{Ortopedia.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Edema (*)</mat-label>
+                            <mat-select [(value)] = "_edema" [(ngModel)]="formu.edema" (selectionChange)="convertirEdema($event.value.viewValue)">
+                                <mat-option *ngFor="let Edema of edemas" [value]="Edema">
+                                {{Edema.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                            </mat-form-field>
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Cicatriz</mat-label>
+                            <mat-select [(ngModel)]="formu.cicatriz"> 
+                                <mat-option *ngFor="let Cicatriz of Cicatrices" [value]="Cicatriz.viewValue">
+                                {{Cicatriz.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Sensibilidad</mat-label>
+                            <input [(ngModel)]="formu.sensibilidad" matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Nivel de dolor a la movilidad o a la carga (*)</mat-label>
+                            <mat-select [(value)] = "_nivel" [(ngModel)]="formu.nivelDolorMovilidad" (selectionChange)="convertirNivel($event.value.viewValue)">
+                                <mat-option *ngFor="let Nivel of Niveles" [value]="Nivel">
+                                {{Nivel.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Movilidad de ortejos</mat-label>
+                            <mat-select [(ngModel)]= "formu.movilidadOrtejos">
+                                <mat-option *ngFor="let Movilidad of movilidades" [value]="Movilidad.viewValue">
+                                {{Movilidad.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Extensión pasiva del primer ortejo</mat-label>
+                            <mat-select [(value)] = "_extension" [(ngModel)]="formu.extensionPasivaPrimerOrtejo" (selectionChange)= "convertirExtension($event.value.viewValue)">
+                                <mat-option *ngFor="let Extension of Extensiones" [value]="Extension">
+                                {{Extension.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Movilidad subtalar</mat-label>
+                            <mat-select [(ngModel)]="formu.movilidadSubtalar">
+                                <mat-option *ngFor="let MovilidadS of movilidadesS" [value]="MovilidadS.viewValue">
+                                {{MovilidadS.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>    
+                        <br>
+
+                        <div style = "display: flex; flex-direction: column; justify-content: space-around;" >
+                            <mat-label style="padding-bottom: 10px; padding-left:8px;" >Prom. FD/FP (*)</mat-label>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Izquierda</mat-label>
+                                <input [(ngModel)]="formu.promFdFpIzquierda" matInput placeholder="" >
+                            </mat-form-field>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Derecha</mat-label>
+                                <input [(ngModel)]="formu.promFdFpDerecha" matInput placeholder="" >
+                            </mat-form-field>
+                        </div>
+                        <br> 
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Flexión dorsal activa o con carga</mat-label>
+                            <mat-select [(value)] = "_flexion" [(ngModel)]="formu.flexionDorsalActiva" (selectionChange)="convertirFlexion($event.value.viewValue)">
+                                <mat-option *ngFor="let Flexion of Flexiones" [value]="Flexion">
+                                {{Flexion.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br> 
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Fuerza Muscular Dorsiflexores</mat-label>
+                            <mat-select  [(ngModel)]="formu.fuerzaMuscularDorsiflexores">
+                                <mat-option *ngFor="let fuerzaMuscular of FuerzasMusculares" [value]="fuerzaMuscular.viewValue">
+                                {{fuerzaMuscular.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Fuerza muscular plantiflexores</mat-label>
+                            <mat-select [(ngModel)]="formu.fuerzaMuscularPlantiflexores">
+                                <mat-option *ngFor="let Fuerza of Fuerzas" [value]="Fuerza.viewValue">
+                                {{Fuerza.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+                        
+                        <mat-form-field appearance="outline">
+                            <mat-label>Equilibrio unipodal</mat-label>
+                            <mat-select [(ngModel)]="formu.equilibrioUnipodal">
+                                <mat-option *ngFor="let Equilibrio of Equilibrios" [value]="Equilibrio.viewValue">
+                                {{Equilibrio.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <textarea [(ngModel)]="formu.patronMarcha" matInput placeholder="Patrón de marcha (*)"></textarea>
+
+                        </mat-form-field>
+                        <br> 
+                        
+                        <mat-form-field appearance="outline">
+                            <textarea matInput [(ngModel)]="formu.evaluacionesComplementarias" placeholder="Evaluaciones complementarias"></textarea>
+
+                        </mat-form-field>
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Seleccione una opción</mat-label>
+                            <mat-select [(ngModel)]="formu.seleccionEvaluacionComplementaria">
+                                <mat-option *ngFor="let EvaluacionesComplementaria of EvaluacionesComplementarias" [value]="EvaluacionesComplementaria.viewValue">
+                                {{EvaluacionesComplementaria.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>                    
+                       
+                        <mat-form-field appearance="outline">
+                            <textarea [(ngModel)]="formu.diagnosticoKinesiologico" matInput placeholder="Diagnóstico Kinesiológico"></textarea>
+
+                        </mat-form-field>
+                        <br>
+                    
+                        <mat-form-field appearance="outline">
+                            <mat-label>{{_puntaje.valueOf()}}</mat-label>
+                            <input [(ngModel)]="formu.puntajeCriteriosGravedad"  matInput placeholder="" >
+                            
+                        </mat-form-field>
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>{{_sugerencia}}</mat-label>
+                            <input [(ngModel)]="formu.riesgoCitacionesSugeridas" matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+
+
+                        
+                        </div>
+                    <hr>
+                    <app-comunes></app-comunes>
+                </mat-tab>
+                <!----------------------------------FORMULARIO RODILLA------------------------------------------->
+                <mat-tab  *ngIf="toggleRodilla" >
+
+                    <ng-template mat-tab-label>
+                        <span style= "color:black">Rodilla</span>
+                        <mat-icon  style=" margin-left:30px;"  >visibility</mat-icon>
+                    </ng-template>
+
+                    <br>
+                    <div class ="formstyles" >
+                        <mat-form-field appearance="outline">
+                            <mat-label>Profesión, oficio, o tipo de trabajo</mat-label>
+                            <input [(ngModel)]="formu2.prof" matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <textarea [(ngModel)]="formu2.diagnosticoCondicionSalud" matInput placeholder="Diagnóstico o condición de salud"></textarea>
+
+                        </mat-form-field>
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Antecedentes</mat-label>
+                            <input [(ngModel)]= "formu2.antecedentes"matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Trofismo Muscular</mat-label>
+                            <input [(ngModel)]="formu2.trofismoMuscular" matInput placeholder="">
+                        </mat-form-field>  
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Edema</mat-label>
+                            <mat-select [(ngModel)]="formu2.edema">
+                                <mat-option *ngFor="let Edema of edemas" [value]="Edema.viewValue">
+                                {{Edema.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                            </mat-form-field>
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Cicatriz</mat-label>
+                            <mat-select [(ngModel)]="formu2.cicatriz"> 
+                                <mat-option *ngFor="let Cicatriz of Cicatrices" [value]="Cicatriz.viewValue">
+                                {{Cicatriz.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Sensibilidad</mat-label>
+                            <input [(ngModel)]="formu2.sensibilidad" matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Nivel de dolor a la movilidad o a la carga</mat-label>
+                            <mat-select [(ngModel)]="formu2.nivelDolorMovilidad">
+                                <mat-option *ngFor="let Nivel of Niveles" [value]="Nivel.viewValue">
+                                {{Nivel.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Movilidad Patelar</mat-label>
+                            <mat-select [(ngModel)]= "formu2.movilidadPatelar">
+                                <mat-option *ngFor="let MovilidadP of movilidadesP" [value]="MovilidadP.viewValue">
+                                {{MovilidadP.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Extensión de rodilla terminal</mat-label>
+                            <mat-select [(ngModel)]="formu2.extensionRodillaTerminal">
+                                <mat-option *ngFor="let ExtensionR of ExtensionesR" [value]="ExtensionR.viewValue">
+                                {{ExtensionR.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Flexión Activa/Pasiva</mat-label>
+                            <mat-select [(ngModel)]="formu2.flexionActivaPasiva">
+                                <mat-option *ngFor="let FlexionR of FlexionesR" [value]="FlexionR.viewValue">
+                                {{FlexionR.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>    
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Rango ART. F/E</mat-label>
+                            <input [(ngModel)]="formu2.rangoArtFE" matInput placeholder="" >
+                         </mat-form-field>
+                        
+                        <br> 
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Elevación de pierna extendida</mat-label>
+                            <mat-select [(ngModel)]="formu2.elevacionPiernaExtendida">
+                                <mat-option *ngFor="let Elevacion of Elevaciones" [value]="Elevacion.viewValue">
+                                {{Elevacion.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br> 
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Fuerza Muscular Extensores</mat-label>
+                            <mat-select  [(ngModel)]="formu2.fuerzaMuscularExtensores">
+                                <mat-option *ngFor="let fuerzaMuscular of FuerzasMusculares" [value]="fuerzaMuscular.viewValue">
+                                {{fuerzaMuscular.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Fuerza Muscular Flexores</mat-label>
+                            <mat-select [(ngModel)]="formu2.fuerzaMuscularFlexores">
+                                <mat-option *ngFor="let Fuerza of Fuerzas" [value]="Fuerza.viewValue">
+                                {{Fuerza.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+                        
+                        <mat-form-field appearance="outline">
+                            <mat-label>Equilibrio unipodal</mat-label>
+                            <mat-select [(ngModel)]="formu2.equilibrioUnipodal">
+                                <mat-option *ngFor="let Equilibrio of Equilibrios" [value]="Equilibrio.viewValue">
+                                {{Equilibrio.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <textarea [(ngModel)]="formu2.patronMarcha" matInput placeholder="Patrón de marcha"></textarea>
+
+                        </mat-form-field>
+                        <br> 
+                        
+                        <mat-form-field appearance="outline">
+                            <textarea matInput [(ngModel)]="formu2.evaluacionesComplementarias" placeholder="Evaluaciones complementarias"></textarea>
+
+                        </mat-form-field>
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Seleccione una opción</mat-label>
+                            <mat-select [(ngModel)]="formu2.seleccionEvaluacionComplementaria">
+                                <mat-option *ngFor="let EvaluacionesComplementaria of EvaluacionesComplementarias" [value]="EvaluacionesComplementaria.viewValue">
+                                {{EvaluacionesComplementaria.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>                    
+                       
+                        <mat-form-field appearance="outline">
+                            <textarea [(ngModel)]="formu2.diagnosticoKinesiologico" matInput placeholder="Diagnóstico Kinesiológico"></textarea>
+
+                        </mat-form-field>
+                        <br>
+                    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Puntaje de criterios de gravedad</mat-label>
+                            <input [(ngModel)]="formu2.puntajeCriteriosGravedad"  matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Riesgo y citaciones sugeridas</mat-label>
+                            <input [(ngModel)]="formu2.riesgoCitacionesSugeridas" matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+                    </div>
+                        <hr>
+                        <app-comunes></app-comunes>
+                </mat-tab>
+                <!----------------------------------FORMULARIO CADERA------------------------------------------->
+                <mat-tab *ngIf="toggleCadera" >
+                    <ng-template mat-tab-label>
+                        <span style= "color:black">Cadera</span>
+                        <mat-icon style= "margin-left:30px;">visibility</mat-icon>
+                    </ng-template>
+                    <br>
+
+                    <div class="formstyles">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Profesión, oficio, o tipo de trabajo</mat-label>
+                            <input [(ngModel)]="formu3.prof" matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <textarea [(ngModel)]="formu3.diagnosticoCondicionSalud" matInput placeholder="Diagnóstico o condición de salud"></textarea>
+
+                        </mat-form-field>
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Antecedentes</mat-label>
+                            <input [(ngModel)]= "formu3.antecedentes"matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Trofismo Muscular</mat-label>
+                            <input [(ngModel)]="formu3.trofismoMuscular" matInput placeholder="">
+                        </mat-form-field>  
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Edema</mat-label>
+                            <mat-select [(ngModel)]="formu3.edema">
+                                <mat-option *ngFor="let Edema of edemas" [value]="Edema.viewValue">
+                                {{Edema.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                            </mat-form-field>
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Cicatriz</mat-label>
+                            <mat-select [(ngModel)]="formu3.cicatriz"> 
+                                <mat-option *ngFor="let Cicatriz of Cicatrices" [value]="Cicatriz.viewValue">
+                                {{Cicatriz.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Sensibilidad</mat-label>
+                            <input [(ngModel)]="formu3.sensibilidad" matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Nivel de dolor a la movilidad o a la carga</mat-label>
+                            <mat-select [(ngModel)]="formu3.nivelDolorMovilidad">
+                                <mat-option *ngFor="let Nivel of Niveles" [value]="Nivel.viewValue">
+                                {{Nivel.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Arco de rotación</mat-label>
+                            <mat-select [(ngModel)]= "formu3.arcoRotacion">
+                                <mat-option *ngFor="let Extension of Extensiones" [value]="Extension.viewValue">
+                                {{Extension.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Rango Articular de flexión</mat-label>
+                            <input [(ngModel)]="formu3.rangoFlexion" matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Rango Articular de abducción</mat-label>
+                            <input [(ngModel)]="formu3.rangoAbduccion" matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Elevacion de pierna extendida</mat-label>
+                            <mat-select [(ngModel)]="formu3.elevacionPiernaExtendida">
+                                <mat-option *ngFor="let Elevacion of Elevaciones" [value]="Elevacion.viewValue">
+                                {{Elevacion.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Fuerza Muscular Flexores</mat-label>
+                            <mat-select [(ngModel)]="formu3.fuerzaMuscularFlexores">
+                                <mat-option *ngFor="let Fuerza of Fuerzas" [value]="Fuerza.viewValue">
+                                {{Fuerza.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Fuerza Muscular Abductores</mat-label>
+                            <mat-select [(ngModel)]="formu3.fuerzaMuscularAbductores">
+                                <mat-option *ngFor="let Fuerza of Fuerzas" [value]="Fuerza.viewValue">
+                                {{Fuerza.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Fuerza Muscular Extensores</mat-label>
+                            <mat-select  [(ngModel)]="formu3.fuerzaMuscularExtensores">
+                                <mat-option *ngFor="let fuerzaMuscular of FuerzasMusculares" [value]="fuerzaMuscular.viewValue">
+                                {{fuerzaMuscular.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+                        
+                        <mat-form-field appearance="outline">
+                            <mat-label>Equilibrio unipodal</mat-label>
+                            <mat-select [(ngModel)]="formu3.equilibrioUnipodal">
+                                <mat-option *ngFor="let Equilibrio of Equilibrios" [value]="Equilibrio.viewValue">
+                                {{Equilibrio.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <textarea [(ngModel)]="formu3.patronMarcha" matInput placeholder="Patrón de marcha"></textarea>
+
+                        </mat-form-field>
+                        <br> 
+                        
+                        <mat-form-field appearance="outline">
+                            <textarea matInput [(ngModel)]="formu3.evaluacionesComplementarias" placeholder="Evaluaciones complementarias"></textarea>
+
+                        </mat-form-field>
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Seleccione una opción</mat-label>
+                            <mat-select [(ngModel)]="formu3.seleccionEvaluacionComplementaria">
+                                <mat-option *ngFor="let EvaluacionesComplementaria of EvaluacionesComplementarias" [value]="EvaluacionesComplementaria.viewValue">
+                                {{EvaluacionesComplementaria.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>                    
+                       
+                        <mat-form-field appearance="outline">
+                            <textarea [(ngModel)]="formu3.diagnosticoKinesiologico" matInput placeholder="Diagnóstico Kinesiológico"></textarea>
+
+                        </mat-form-field>
+                        <br>
+                    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Puntaje de criterios de gravedad</mat-label>
+                            <input [(ngModel)]="formu3.puntajeCriteriosGravedad"  matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Riesgo y citaciones sugeridas</mat-label>
+                            <input [(ngModel)]="formu3.riesgoCitacionesSugeridas" matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+                    </div>
+                        
+
+
+                        <hr>
+                        <app-comunes></app-comunes>
+                </mat-tab>
+                <!----------------------------------FORMULARIO HOMBRO------------------------------------------->
+                <mat-tab *ngIf="toggleHombro" >
+                    <ng-template mat-tab-label>
+                        <span style= "color:black">Hombro</span>
+                        <mat-icon style= "margin-left:30px; ">visibility</mat-icon>
+                    </ng-template>
+                    <br>
+
+                    <div class="formstyles" >
+                        <mat-form-field appearance="outline">
+                            <mat-label>Profesión, oficio, o tipo de trabajo (*)</mat-label>
+                            <input [(ngModel)]="formu4.prof" matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <textarea [(ngModel)]="formu4.diagnosticoCondicionSalud" matInput placeholder="Diagnóstico o condición de salud (*)"></textarea>
+
+                        </mat-form-field>
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Antecedentes (*)</mat-label>
+                            <input [(ngModel)]= "formu4.antecedentes"matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Lateralidad (*)</mat-label>
+                            <mat-select [(ngModel)]="formu4.lateralidad">
+                                <mat-option *ngFor="let Lateralidad of lateralidades" [value]="Lateralidad.viewValue">
+                                {{Lateralidad.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Edema</mat-label>
+                            <mat-select [(ngModel)]="formu4.edema">
+                                <mat-option *ngFor="let Edema of edemas" [value]="Edema.viewValue">
+                                {{Edema.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                            </mat-form-field>
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Cicatriz</mat-label>
+                            <mat-select [(ngModel)]="formu4.cicatriz"> 
+                                <mat-option *ngFor="let Cicatriz of Cicatrices" [value]="Cicatriz.viewValue">
+                                {{Cicatriz.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Trofismo/Activación muscular</mat-label>
+                            <input [(ngModel)]="formu4.trofismoActivacionMuscular" matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Sensibilidad</mat-label>
+                            <input [(ngModel)]="formu4.sensibilidad" matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Nivel de dolor a la movilidad o a la carga (*)</mat-label>
+                            <mat-select [(ngModel)]="formu4.nivelDolorMovilidad">
+                                <mat-option *ngFor="let Nivel of Niveles" [value]="Nivel.viewValue">
+                                {{Nivel.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Rango Art. (*)</mat-label>
+                            <mat-select [(ngModel)]="formu4.rangoArt">
+                                <mat-option *ngFor="let RangoArt of rangosArt" [value]="RangoArt.viewValue">
+                                {{RangoArt.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Flexión </mat-label>
+                            <input [(ngModel)]="formu4.flexion" matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Abducción</mat-label>
+                            <input [(ngModel)]="formu4.abduccion" matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Rot. Externa</mat-label>
+                            <input [(ngModel)]="formu4.rotExterna" matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Flexión anterior pasiva/activa</mat-label>
+                            <mat-select [(ngModel)]= "formu4.flexionAnterior">
+                                <mat-option *ngFor="let FlexionA of FlexionesA" [value]="FlexionA.viewValue">
+                                {{FlexionA.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Rot. externa pasiva/activa</mat-label>
+                            <mat-select [(ngModel)]= "formu4.rotExternaActivaPasiva">
+                                <mat-option *ngFor="let FlexionA of FlexionesA" [value]="FlexionA.viewValue">
+                                {{FlexionA.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Fuerza M. elevación anterior: </mat-label>
+                            <mat-select [(ngModel)]= "formu4.fuerzaMElevacionAnterior">
+                                <mat-option *ngFor="let FlexionA of FlexionesA" [value]="FlexionA.viewValue">
+                                {{FlexionA.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Fuerza M. rotacion externa: </mat-label>
+                            <mat-select [(ngModel)]= "formu4.fuerzaMRotacionExterna">
+                                <mat-option *ngFor="let Fuerza of Fuerzas" [value]="Fuerza.viewValue">
+                                {{Fuerza.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <br>
+
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Apley superior (*)</mat-label>
+                            <mat-select [(ngModel)]="formu4.apleySuperior">
+                                <mat-option *ngFor="let ApleySuperior of ApleySuperiores" [value]="ApleySuperior.viewValue">
+                                {{ApleySuperior.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Apley inferior (*)</mat-label>
+                            <mat-select [(ngModel)]="formu4.apleyInferior">
+                                <mat-option *ngFor="let ApleyInferior of ApleyInferiores" [value]="ApleyInferior.viewValue">
+                                {{ApleyInferior.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+
+
+                        <mat-form-field appearance="outline">
+                            <textarea matInput [(ngModel)]="formu4.evaluacionesComplementariasHombro" placeholder="Evaluaciones complementarias"></textarea>
+
+                        </mat-form-field>
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Seleccione una opción</mat-label>
+                            <mat-select [(ngModel)]="formu4.seleccionEvaluacionComplementariaHombro">
+                                <mat-option *ngFor="let EvaluacionesComplementariaHombro of EvaluacionesComplementariasHombro" [value]="EvaluacionesComplementariaHombro.viewValue">
+                                {{EvaluacionesComplementariaHombro.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>                    
+                        
+                        <mat-form-field appearance="outline">
+                            <textarea [(ngModel)]="formu4.movimientoPosicionEscapular" matInput placeholder="Movimiento/Posición escapular"></textarea>
+
+                        </mat-form-field>
+                        <br> 
+
+                        <mat-form-field appearance="outline">
+                            <textarea [(ngModel)]="formu4.diagnosticoKinesiologico" matInput placeholder="Diagnóstico Kinesiológico"></textarea>
+
+                        </mat-form-field>
+                        <br>
+                    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Puntaje de criterios de gravedad</mat-label>
+                            <input [(ngModel)]="formu4.puntajeCriteriosGravedad"  matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Riesgo y citaciones sugeridas</mat-label>
+                            <input [(ngModel)]="formu4.riesgoCitacionesSugeridas" matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+                    </div>
+                    <hr>
+                    <app-comunes></app-comunes>
+                </mat-tab>
+                <!----------------------------------FORMULARIO CODO------------------------------------------->
+                <mat-tab *ngIf="toggleCodo" >
+                    <ng-template mat-tab-label>
+                        <span style= "color:black">Codo</span>
+                        <mat-icon style= "margin-left:30px;">visibility</mat-icon>
+                    </ng-template>
+                        
+                        <br>    
+
+                    <div class="formstyles">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Profesión, oficio, o tipo de trabajo</mat-label>
+                            <input [(ngModel)]="formu5.prof" matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <textarea [(ngModel)]="formu5.diagnosticoCondicionSalud" matInput placeholder="Diagnóstico o condición de salud"></textarea>
+
+                        </mat-form-field>
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Antecedentes</mat-label>
+                            <input [(ngModel)]= "formu5.antecedentes"matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Lateralidad</mat-label>
+                            <mat-select [(ngModel)]="formu5.lateralidad">
+                                <mat-option *ngFor="let Lateralidad of lateralidades" [value]="Lateralidad.viewValue">
+                                {{Lateralidad.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Edema</mat-label>
+                            <mat-select [(ngModel)]="formu5.edema">
+                                <mat-option *ngFor="let Edema of edemas" [value]="Edema.viewValue">
+                                {{Edema.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                            </mat-form-field>
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Cicatriz</mat-label>
+                            <mat-select [(ngModel)]="formu5.cicatriz"> 
+                                <mat-option *ngFor="let Cicatriz of Cicatrices" [value]="Cicatriz.viewValue">
+                                {{Cicatriz.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Trofismo/Activación muscular</mat-label>
+                            <input [(ngModel)]="formu5.trofismoActivacionMuscular" matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Sensibilidad</mat-label>
+                            <input [(ngModel)]="formu5.sensibilidad" matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Nivel de dolor a la movilidad o a la carga</mat-label>
+                            <mat-select [(ngModel)]="formu5.nivelDolorMovilidad">
+                                <mat-option *ngFor="let Nivel of Niveles" [value]="Nivel.viewValue">
+                                {{Nivel.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+                        
+                        <mat-form-field appearance="outline">
+                            <mat-label>Rango Art.</mat-label>
+                            <mat-select [(ngModel)]="formu5.rangoArt">
+                                <mat-option *ngFor="let RangoArt of rangosArt" [value]="RangoArt.viewValue">
+                                {{RangoArt.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Flexo/Extension</mat-label>
+                            <input [(ngModel)]="formu5.flexoExtension" matInput placeholder="" >
+                        </mat-form-field>
+
+                        <br>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Prono/Supinación</mat-label>
+                            <input [(ngModel)]="formu5.pronoSupinacion" matInput placeholder="" >
+                        </mat-form-field>
+
+                        <br>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Arco de mov. Flexo/Extensión</mat-label>
+                            <mat-select [(ngModel)]="formu5.arcoMovFlexoExtension">
+                                <mat-option *ngFor="let FlexionA of FlexionesA" [value]="FlexionA.viewValue">
+                                {{FlexionA.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Arco de mov. Prono/supinación</mat-label>
+                            <mat-select [(ngModel)]="formu5.arcoMovPronoSupinacion">
+                                <mat-option *ngFor="let FlexionA of FlexionesA" [value]="FlexionA.viewValue">
+                                {{FlexionA.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Fuerza M. Flexión</mat-label>
+                            <mat-select [(ngModel)]="formu5.fuerzaMFlexion">
+                                <mat-option *ngFor="let Fuerza of Fuerzas" [value]="Fuerza.viewValue">
+                                {{Fuerza.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Fuerza M. Supinación</mat-label>
+                            <mat-select [(ngModel)]="formu5.fuerzaMSupinacion">
+                                <mat-option *ngFor="let Fuerza of Fuerzas" [value]="Fuerza.viewValue">
+                                {{Fuerza.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Ev. función proximal ext. Sup</mat-label>
+                            <input [(ngModel)]="formu5.evFuncionProximal" matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Ev. función distal ext. Sup</mat-label>
+                            <input [(ngModel)]="formu5.evFuncionDistal" matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+
+                        
+                        <mat-form-field appearance="outline">
+                            <textarea matInput [(ngModel)]="formu5.evaluacionesComplementariasCodo" placeholder="Evaluaciones complementarias"></textarea>
+
+                        </mat-form-field>
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Seleccione una opción</mat-label>
+                            <mat-select [(ngModel)]="formu5.seleccionEvaluacionComplementariaCodo">
+                                <mat-option *ngFor="let EvaluacionesComplementariaCodo of EvaluacionesComplementariasCodo" [value]="EvaluacionesComplementariaCodo.viewValue">
+                                {{EvaluacionesComplementariaCodo.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>                    
+                        
+                        <mat-form-field appearance="outline">
+                            <textarea [(ngModel)]="formu5.diagnosticoKinesiologico" matInput placeholder="Diagnóstico Kinesiológico"></textarea>
+
+                        </mat-form-field>
+                        <br>
+                    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Puntaje de criterios de gravedad</mat-label>
+                            <input [(ngModel)]="formu5.puntajeCriteriosGravedad"  matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Riesgo y citaciones sugeridas</mat-label>
+                            <input [(ngModel)]="formu5.riesgoCitacionesSugeridas" matInput placeholder="" >
+                        </mat-form-field>
+                    </div>
+                    
+                        <br>
+
+                        <hr>
+                        <app-comunes></app-comunes>
+                </mat-tab>
+                <!----------------------------------FORMULARIO MUÑECA------------------------------------------>
+                <mat-tab *ngIf="toggleMuneca" >
+                    <ng-template mat-tab-label>
+                        <span style= "color:black">Muñeca</span>
+                        <mat-icon style= "margin-left:30px;" >visibility</mat-icon>
+                    </ng-template>
+                    <br>
+
+                    <div class="formstyles">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Profesión, oficio, o tipo de trabajo</mat-label>
+                            <input [(ngModel)]="formu6.prof" matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <textarea [(ngModel)]="formu6.diagnosticoCondicionSalud" matInput placeholder="Diagnóstico o condición de salud"></textarea>
+    
+                        </mat-form-field>
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Antecedentes</mat-label>
+                            <input [(ngModel)]= "formu6.antecedentes"matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Lateralidad</mat-label>
+                            <mat-select [(ngModel)]="formu6.lateralidad">
+                                <mat-option *ngFor="let Lateralidad of lateralidades" [value]="Lateralidad.viewValue">
+                                {{Lateralidad.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Edema</mat-label>
+                            <mat-select [(ngModel)]="formu6.edema">
+                                <mat-option *ngFor="let Edema of edemas" [value]="Edema.viewValue">
+                                {{Edema.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                            </mat-form-field>
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Cicatriz</mat-label>
+                            <mat-select [(ngModel)]="formu6.cicatriz"> 
+                                <mat-option *ngFor="let Cicatriz of Cicatrices" [value]="Cicatriz.viewValue">
+                                {{Cicatriz.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Trofismo/Activación muscular</mat-label>
+                            <input [(ngModel)]="formu6.trofismoActivacionMuscular" matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Sensibilidad</mat-label>
+                            <input [(ngModel)]="formu6.sensibilidad" matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Nivel de dolor a la movilidad o a la carga</mat-label>
+                            <mat-select [(ngModel)]="formu6.nivelDolorMovilidad">
+                                <mat-option *ngFor="let Nivel of Niveles" [value]="Nivel.viewValue">
+                                {{Nivel.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+                        
+                        <mat-form-field appearance="outline">
+                            <mat-label>Rango Art.</mat-label>
+                            <mat-select [(ngModel)]="formu6.rangoArt">
+                                <mat-option *ngFor="let RangoArt of rangosArt" [value]="RangoArt.viewValue">
+                                {{RangoArt.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+    
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>.F/E</mat-label>
+                            <input [(ngModel)]="formu6.fE" matInput placeholder="" >
+                        </mat-form-field>
+    
+                        <br>
+                        <mat-form-field appearance="outline">
+                            <mat-label>.R/U</mat-label>
+                            <input [(ngModel)]="formu6.rU" matInput placeholder="" >
+                        </mat-form-field>
+    
+                        <br>
+                        <mat-form-field appearance="outline">
+                            <mat-label>.P/S</mat-label>
+                            <input [(ngModel)]="formu6.pS" matInput placeholder="" >
+                        </mat-form-field>
+    
+                        <br>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Extensión activa</mat-label>
+                            <mat-select [(ngModel)]="formu6.extensionActiva">
+                                <mat-option *ngFor="let FlexionR of FlexionesR" [value]="FlexionR.viewValue">
+                                {{FlexionR.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Supinación activa</mat-label>
+                            <mat-select [(ngModel)]="formu6.supinacionActiva">
+                                <mat-option *ngFor="let FlexionR of FlexionesR" [value]="FlexionR.viewValue">
+                                {{FlexionR.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+    
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Puño</mat-label>
+                            <mat-select [(ngModel)]="formu6.puno">
+                                <mat-option *ngFor="let Puno of Punos" [value]="Puno.viewValue">
+                                {{Puno.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>DPP</mat-label>
+                            <input [(ngModel)]="formu6.dpp" matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Kapandji</mat-label>
+                            <mat-select [(ngModel)]="formu6.kapandji">
+                                <mat-option *ngFor="let Nivel of Niveles" [value]="Nivel.viewValue">
+                                {{Nivel.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Fuerza Prensil</mat-label>
+                            <input [(ngModel)]="formu6.fuerzaPrensil" matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Fuerza M. Flexión</mat-label>
+                            <mat-select [(ngModel)]="formu6.fuerzaMFlexion">
+                                <mat-option *ngFor="let Fuerza of Fuerzas" [value]="Fuerza.viewValue">
+                                {{Fuerzas.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br> 
+                        
+                        <mat-form-field appearance="outline">
+                            <mat-label>Fuerza M. Extension</mat-label>
+                            <mat-select [(ngModel)]="formu6.fuerzaMExtension">
+                                <mat-option *ngFor="let Fuerza of Fuerzas" [value]="Fuerza.viewValue">
+                                {{Fuerzas.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br> 
+                        
+                        <mat-form-field appearance="outline">
+                            <textarea matInput [(ngModel)]="formu6.evaluacionesComplementariasMuneca" placeholder="Evaluaciones complementarias"></textarea>
+    
+                        </mat-form-field>
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Seleccione una opción</mat-label>
+                            <mat-select [(ngModel)]="formu6.seleccionEvaluacionComplementariaMuneca">
+                                <mat-option *ngFor="let EvaluacionesComplementariaMuneca of EvaluacionesComplementariasMuneca" [value]="EvaluacionesComplementariaMuneca.viewValue">
+                                {{EvaluacionesComplementariaMuneca.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>                    
+                       
+                        <mat-form-field appearance="outline">
+                            <textarea [(ngModel)]="formu6.diagnosticoKinesiologico" matInput placeholder="Diagnóstico Kinesiológico"></textarea>
+    
+                        </mat-form-field>
+                        <br>
+                    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Puntaje de criterios de gravedad</mat-label>
+                            <input [(ngModel)]="formu6.puntajeCriteriosGravedad"  matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Riesgo y citaciones sugeridas</mat-label>
+                            <input [(ngModel)]="formu6.riesgoCitacionesSugeridas" matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+                    </div>
+                    
+
+                    <hr>
+                    <app-comunes></app-comunes>
+                </mat-tab>
+                <!----------------------------------FORMULARIO DEDOS------------------------------------------->
+                <mat-tab *ngIf="toggleDedos" >
+                    <ng-template mat-tab-label>
+                        <span style= "color:black">Dedos</span>
+                        <mat-icon style= "margin-left:30px;" >visibility</mat-icon>
+                    </ng-template>
+                    <br>
+
+                    <div class="formstyles">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Profesión, oficio, o tipo de trabajo</mat-label>
+                            <input [(ngModel)]="formu7.prof" matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <textarea [(ngModel)]="formu7.diagnosticoCondicionSalud" matInput placeholder="Diagnóstico o condición de salud"></textarea>
+    
+                        </mat-form-field>
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Antecedentes</mat-label>
+                            <input [(ngModel)]= "formu7.antecedentes"matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Lateralidad</mat-label>
+                            <mat-select [(ngModel)]="formu7.lateralidad">
+                                <mat-option *ngFor="let Lateralidad of lateralidades" [value]="Lateralidad.viewValue">
+                                {{Lateralidad.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Edema</mat-label>
+                            <mat-select [(ngModel)]="formu7.edema">
+                                <mat-option *ngFor="let Edema of edemas" [value]="Edema.viewValue">
+                                {{Edema.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                            </mat-form-field>
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Cicatriz</mat-label>
+                            <mat-select [(ngModel)]="formu7.cicatriz"> 
+                                <mat-option *ngFor="let Cicatriz of Cicatrices" [value]="Cicatriz.viewValue">
+                                {{Cicatriz.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Trofismo/Activación muscular</mat-label>
+                            <input [(ngModel)]="formu7.trofismoActivacionMuscular" matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Sensibilidad</mat-label>
+                            <input [(ngModel)]="formu7.sensibilidad" matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Nivel de dolor a la movilidad o a la carga</mat-label>
+                            <mat-select [(ngModel)]="formu7.nivelDolorMovilidad">
+                                <mat-option *ngFor="let Nivel of Niveles" [value]="Nivel.viewValue">
+                                {{Nivel.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+                        
+                        <mat-form-field appearance="outline">
+                            <mat-label>Rango Art.</mat-label>
+                            <mat-select [(ngModel)]="formu7.rangoArt">
+                                <mat-option *ngFor="let RangoArt of rangosArt" [value]="RangoArt.viewValue">
+                                {{RangoArt.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field appearance="outline">
+                            <textarea [(ngModel)]="formu7.rom" matInput placeholder="ROM"></textarea>
+    
+                        </mat-form-field>
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>TAM %</mat-label>
+                            <input [(ngModel)]="formu7.tam" matInput placeholder="" >
+                        </mat-form-field>
+    
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Clasificación</mat-label>
+                            <input [(ngModel)]="formu7.clasificacion" matInput placeholder="" >
+                        </mat-form-field>
+    
+                        <div id = "TAMSano">   
+    
+                            <mat-form-field appearance="outline">
+                                <mat-label>Flexión MTCF</mat-label>
+                                <input [(ngModel)]="formu7.flexionMtcf" matInput placeholder="" >
+                            </mat-form-field>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Flexión IFP</mat-label>
+                                <input [(ngModel)]="formu7.flexionIfp" matInput placeholder="" >
+                            </mat-form-field>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Flexión IFD</mat-label>
+                                <input [(ngModel)]="formu7.flexionIfd" matInput placeholder="" >
+                            </mat-form-field>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Def.Extensión MTCF</mat-label>
+                                <input [(ngModel)]="formu7.defExtensionMtcf" matInput placeholder="" >
+                            </mat-form-field>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Def.Extensión IFP</mat-label>
+                                <input [(ngModel)]="formu7.defExtensionIfp" matInput placeholder="" >
+                            </mat-form-field>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Def.Extensión IFD</mat-label>
+                                <input [(ngModel)]="formu7.defExtensionIfd" matInput placeholder="" >
+                            </mat-form-field>
+                            
+                        </div>
+    
+                        <div id = "TAMRecuperación">   
+    
+                            <mat-form-field appearance="outline">
+                                <mat-label>Flexión MTCF</mat-label>
+                                <input [(ngModel)]="formu7.RflexionMtcf" matInput placeholder="" >
+                            </mat-form-field>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Flexión IFP</mat-label>
+                                <input [(ngModel)]="formu7.RflexionIfp" matInput placeholder="" >
+                            </mat-form-field>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Flexión IFD</mat-label>
+                                <input [(ngModel)]="formu7.RflexionIfd" matInput placeholder="" >
+                            </mat-form-field>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Def.Extensión MTCF</mat-label>
+                                <input [(ngModel)]="formu7.RdefExtensionMtcf" matInput placeholder="" >
+                            </mat-form-field>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Def.Extensión IFP</mat-label>
+                                <input [(ngModel)]="formu7.RdefExtensionIfp" matInput placeholder="" >
+                            </mat-form-field>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Def.Extensión IFD</mat-label>
+                                <input [(ngModel)]="formu7.RdefExtensionIfd" matInput placeholder="" >
+                            </mat-form-field>
+                            
+                        </div>
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Puño</mat-label>
+                            <mat-select [(ngModel)]="formu7.puno">
+                                <mat-option *ngFor="let Puno of Punos" [value]="Puno.viewValue">
+                                {{Puno.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>DPP</mat-label>
+                            <input [(ngModel)]="formu7.dpp" matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Kapandji</mat-label>
+                            <mat-select [(ngModel)]="formu7.kapandji">
+                                <mat-option *ngFor="let Nivel of Niveles" [value]="Nivel.viewValue">
+                                {{Nivel.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Fuerza Prensil</mat-label>
+                            <input [(ngModel)]="formu7.fuerzaPrensil" matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+                        
+                        <mat-form-field appearance="outline">
+                            <textarea matInput [(ngModel)]="formu7.evaluacionesComplementariasDedos" placeholder="Evaluaciones complementarias"></textarea>
+    
+                        </mat-form-field>
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Seleccione una opción</mat-label>
+                            <mat-select [(ngModel)]="formu7.seleccionEvaluacionComplementariaDedos">
+                                <mat-option *ngFor="let EvaluacionesComplementariasDedo of EvaluacionesComplementariasDedos" [value]="EvaluacionesComplementariasDedo.viewValue">
+                                {{EvaluacionesComplementariasDedo.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>                    
+                       
+                        <mat-form-field appearance="outline">
+                            <textarea [(ngModel)]="formu7.diagnosticoKinesiologico" matInput placeholder="Diagnóstico Kinesiológico"></textarea>
+    
+                        </mat-form-field>
+                        <br>
+                    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Puntaje de criterios de gravedad</mat-label>
+                            <input [(ngModel)]="formu7.puntajeCriteriosGravedad"  matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Riesgo y citaciones sugeridas</mat-label>
+                            <input [(ngModel)]="formu7.riesgoCitacionesSugeridas" matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+                    </div>
+                    
+                    <hr>
+                    <app-comunes></app-comunes>
+                </mat-tab>
+                <!----------------------------------FORMULARIO PULGAR------------------------------------------>
+                <mat-tab *ngIf="togglePulgar" >
+                    <ng-template mat-tab-label>
+                        <span style= "color:black">Pulgar</span>
+                        <mat-icon style= "margin-left:30px;" >visibility</mat-icon>
+                    </ng-template>
+                    <br>
+
+                    <div class="formstyles">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Profesión, oficio, o tipo de trabajo</mat-label>
+                            <input [(ngModel)]="formu8.prof" matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <textarea [(ngModel)]="formu8.diagnosticoCondicionSalud" matInput placeholder="Diagnóstico o condición de salud"></textarea>
+    
+                        </mat-form-field>
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Antecedentes</mat-label>
+                            <input [(ngModel)]= "formu8.antecedentes"matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Lateralidad</mat-label>
+                            <mat-select [(ngModel)]="formu8.lateralidad">
+                                <mat-option *ngFor="let Lateralidad of lateralidades" [value]="Lateralidad.viewValue">
+                                {{Lateralidad.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Edema</mat-label>
+                            <mat-select [(ngModel)]="formu8.edema">
+                                <mat-option *ngFor="let Edema of edemas" [value]="Edema.viewValue">
+                                {{Edema.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                            </mat-form-field>
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Cicatriz</mat-label>
+                            <mat-select [(ngModel)]="formu8.cicatriz"> 
+                                <mat-option *ngFor="let Cicatriz of Cicatrices" [value]="Cicatriz.viewValue">
+                                {{Cicatriz.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Trofismo/Activación muscular</mat-label>
+                            <input [(ngModel)]="formu8.trofismoActivacionMuscular" matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Sensibilidad</mat-label>
+                            <input [(ngModel)]="formu8.sensibilidad" matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Nivel de dolor a la movilidad o a la carga</mat-label>
+                            <mat-select [(ngModel)]="formu8.nivelDolorMovilidad">
+                                <mat-option *ngFor="let Nivel of Niveles" [value]="Nivel.viewValue">
+                                {{Nivel.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+                        
+                        <mat-form-field appearance="outline">
+                            <mat-label>Rango Art.</mat-label>
+                            <mat-select [(ngModel)]="formu8.rangoArt">
+                                <mat-option *ngFor="let RangoArt of rangosArt" [value]="RangoArt.viewValue">
+                                {{RangoArt.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+    
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>F/E MTCF</mat-label>
+                            <input [(ngModel)]="formu8.fEMT" matInput placeholder="" >
+                        </mat-form-field>
+    
+                        <br>
+                        <mat-form-field appearance="outline">
+                            <mat-label>F/E IF</mat-label>
+                            <input [(ngModel)]="formu8.fEIF" matInput placeholder="" >
+                        </mat-form-field>
+    
+                        <br>
+                        <mat-form-field appearance="outline">
+                            <mat-label>ABD Radial/Palmar</mat-label>
+                            <input [(ngModel)]="formu8.abdRadial" matInput placeholder="" >
+                        </mat-form-field>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Puño</mat-label>
+                            <mat-select [(ngModel)]="formu8.puno">
+                                <mat-option *ngFor="let Puno of Punos" [value]="Puno.viewValue">
+                                {{Puno.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>DPP</mat-label>
+                            <input [(ngModel)]="formu8.dpp" matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Pinza (TTI, STL PD)</mat-label>
+                            <mat-select [(ngModel)]="formu8.pinza">
+                                <mat-option *ngFor="let Pinza of Pinzas" [value]="Pinza.viewValue">
+                                {{Pinza.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Kapandji</mat-label>
+                            <mat-select [(ngModel)]="formu8.kapandji">
+                                <mat-option *ngFor="let Nivel of Niveles" [value]="Nivel.viewValue">
+                                {{Nivel.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Fuerza Prensil</mat-label>
+                            <input [(ngModel)]="formu8.fuerzaPrensil" matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+    
+             
+                        <mat-form-field appearance="outline">
+                            <textarea matInput [(ngModel)]="formu8.evaluacionesComplementariasPulgar" placeholder="Evaluaciones complementarias"></textarea>
+    
+                        </mat-form-field>
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Seleccione una opción</mat-label>
+                            <mat-select [(ngModel)]="formu8.seleccionEvaluacionComplementariaPulgar">
+                                <mat-option *ngFor="let EvaluacionesComplementariaDedos of EvaluacionesComplementariasDedos" [value]="EvaluacionesComplementariaDedos.viewValue">
+                                {{EvaluacionesComplementariaDedos.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>                    
+                       
+                        <mat-form-field appearance="outline">
+                            <textarea [(ngModel)]="formu8.diagnosticoKinesiologico" matInput placeholder="Diagnóstico Kinesiológico"></textarea>
+    
+                        </mat-form-field>
+                        <br>
+                    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Puntaje de criterios de gravedad</mat-label>
+                            <input [(ngModel)]="formu8.puntajeCriteriosGravedad"  matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Riesgo y citaciones sugeridas</mat-label>
+                            <input [(ngModel)]="formu8.riesgoCitacionesSugeridas" matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+                    </div>
+                    
+
+                    <hr>
+                    <app-comunes></app-comunes>
+                </mat-tab>
+                <!----------------------------FORMULARIO COLUMNA DORSOLUMBAR---------------------------------->
+                <mat-tab *ngIf="toggleColumnaDL" >
+                    <ng-template mat-tab-label>
+                        <span style= "color:black">Columna Dorsolumbar</span>
+                        <mat-icon style= "margin-left:10px; ">visibility</mat-icon>
+                    </ng-template>
+                    <br>    
+
+                    <div class="formstyles">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Profesión, oficio, o tipo de trabajo</mat-label>
+                            <input [(ngModel)]="formu9.prof" matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <textarea [(ngModel)]="formu9.diagnosticoCondicionSalud" matInput placeholder="Diagnóstico o condición de salud"></textarea>
+    
+                        </mat-form-field>
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Antecedentes</mat-label>
+                            <input [(ngModel)]= "formu9.antecedentes"matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Uso de ortopedia</mat-label>
+                            <mat-select [(ngModel)]="formu9.usoOrtopedia">
+                                <mat-option *ngFor="let UsoOrtopedia of UsoOrtopedias" [value]="UsoOrtopedia.viewValue">
+                                {{UsoOrtopedia.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Cicatriz</mat-label>
+                            <mat-select [(ngModel)]="formu9.cicatriz"> 
+                                <mat-option *ngFor="let Cicatriz of Cicatrices" [value]="Cicatriz.viewValue">
+                                {{Cicatriz.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Tono Muscular</mat-label>
+                            <input [(ngModel)]= "formu9.tonoMuscular"matInput placeholder="" >
+                        </mat-form-field>
+                        <br>                    
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Sensibilidad</mat-label>
+                            <input [(ngModel)]="formu9.sensibilidad" matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Dolor en reposo</mat-label>
+                            <mat-select [(ngModel)]="formu9.dolorReposo">
+                                <mat-option *ngFor="let Nivel of Niveles" [value]="Nivel.viewValue">
+                                {{Nivel.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Dolor a la movilidad o a la carga</mat-label>
+                            <mat-select [(ngModel)]="formu9.dolorMovilidadCarga">
+                                <mat-option *ngFor="let Nivel of Niveles" [value]="Nivel.viewValue">
+                                {{Nivel.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <textarea [(ngModel)]="formu9.movilidadDorsoLumbar" matInput placeholder="Movilidad Dorsolumbar"></textarea>
+    
+                        </mat-form-field>
+                        <br>
+                        
+                        <mat-form-field appearance="outline">
+                            <mat-label>Flexión multisegmentaria</mat-label>
+                            <mat-select [(ngModel)]="formu9.flexionMulti">
+                                <mat-option *ngFor="let FlexionMulti of FlexionesMulti" [value]="FlexionMulti.viewValue">
+                                {{FlexionMulti.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Rotación multisegmentaria</mat-label>
+                            <mat-select [(ngModel)]="formu9.rotacionMulti">
+                                <mat-option *ngFor="let FlexionMulti of FlexionesMulti" [value]="FlexionMulti.viewValue">
+                                {{FlexionMulti.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Activacion muscular core stb</mat-label>
+                            <mat-select [(ngModel)]="formu9.activacionMuscular">
+                                <mat-option *ngFor="let ActivacionMuscular of ActivacionesMusculares" [value]="ActivacionMuscular.viewValue">
+                                {{ActivacionMuscular.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Logro de avd</mat-label>
+                            <mat-select [(ngModel)]="formu9.logroAvd">
+                                <mat-option *ngFor="let Logro of Logros" [value]="Logro.viewValue">
+                                {{Logro.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>C/Dificultad</mat-label>
+                            <mat-select [(ngModel)]="formu9.dificultad">
+                                <mat-option *ngFor="let Dificultad of Dificultades" [value]="Dificultad.viewValue">
+                                {{Dificultad.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <br>
+                        
+                        <mat-form-field appearance="outline">
+                            <mat-label>Equilibrio unipodal</mat-label>
+                            <mat-select [(ngModel)]="formu9.equilibrioUnipodal">
+                                <mat-option *ngFor="let Equilibrio of Equilibrios" [value]="Equilibrio.viewValue">
+                                {{Equilibrio.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+                        
+                        <mat-form-field appearance="outline">
+                            <textarea [(ngModel)]="formu9.patronMarcha" matInput placeholder="Patron de marcha"></textarea>
+    
+                        </mat-form-field>
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <textarea matInput [(ngModel)]="formu9.evaluacionesComplementariasColumnaDL" placeholder="Evaluaciones complementarias"></textarea>
+    
+                        </mat-form-field>
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Seleccione una opción</mat-label>
+                            <mat-select [(ngModel)]="formu9.seleccionEvaluacionComplementariaColumnaDL">
+                                <mat-option *ngFor="let EvaluacionesComplementariaColumnaDL of EvaluacionesComplementariasColumnaDL" [value]="EvaluacionesComplementariaColumnaDL.viewValue">
+                                {{EvaluacionesComplementariaColumnaDL.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>                    
+                       
+                        <mat-form-field appearance="outline">
+                            <textarea [(ngModel)]="formu9.diagnosticoKinesiologico" matInput placeholder="Diagnóstico Kinesiológico"></textarea>
+    
+                        </mat-form-field>
+                        <br>
+                    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Puntaje de criterios de gravedad</mat-label>
+                            <input [(ngModel)]="formu9.puntajeCriteriosGravedad"  matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Riesgo y citaciones sugeridas</mat-label>
+                            <input [(ngModel)]="formu9.riesgoCitacionesSugeridas" matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+                    </div>
+                    
+
+                    <hr>
+                    <app-comunes></app-comunes>
+                </mat-tab>
+                <!-----------------------------FORMULARIO COLUMNA CERVICAL----------------------------------------->
+                <mat-tab *ngIf="toggleColumnaCerv" >
+                    <ng-template mat-tab-label>
+                        <span style= "color:black">Columna Cervical</span>
+                        <mat-icon style= "margin-left:30px;">visibility</mat-icon>
+                    </ng-template>
+                    <br>    
+
+                    <div class="formstyles">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Profesión, oficio, o tipo de trabajo</mat-label>
+                            <input [(ngModel)]="formu10.prof" matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <textarea [(ngModel)]="formu10.diagnosticoCondicionSalud" matInput placeholder="Diagnóstico o condición de salud"></textarea>
+    
+                        </mat-form-field>
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Antecedentes</mat-label>
+                            <input [(ngModel)]= "formu10.antecedentes"matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Uso de ortopedia</mat-label>
+                            <mat-select [(ngModel)]="formu10.usoOrtopedia">
+                                <mat-option *ngFor="let UsoOrtopedia of UsoOrtopedias" [value]="UsoOrtopedia.viewValue">
+                                {{UsoOrtopedia.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Cicatriz</mat-label>
+                            <mat-select [(ngModel)]="formu10.cicatriz"> 
+                                <mat-option *ngFor="let Cicatriz of Cicatrices" [value]="Cicatriz.viewValue">
+                                {{Cicatriz.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Tono Muscular</mat-label>
+                            <input [(ngModel)]= "formu10.tonoMuscular"matInput placeholder="" >
+                        </mat-form-field>
+                        <br>                    
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Sensibilidad</mat-label>
+                            <input [(ngModel)]="formu10.sensibilidad" matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Dolor en reposo</mat-label>
+                            <mat-select [(ngModel)]="formu10.dolorReposo">
+                                <mat-option *ngFor="let Nivel of Niveles" [value]="Nivel.viewValue">
+                                {{Nivel.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Dolor a la movilidad o a la carga</mat-label>
+                            <mat-select [(ngModel)]="formu10.dolorMovilidadCarga">
+                                <mat-option *ngFor="let Nivel of Niveles" [value]="Nivel.viewValue">
+                                {{Nivel.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <textarea [(ngModel)]="formu10.movilidadCervical" matInput placeholder="Movilidad Cervical"></textarea>
+    
+                        </mat-form-field>
+                        <br>
+                        
+                        <mat-form-field appearance="outline">
+                            <mat-label>Flexión multisegmentaria</mat-label>
+                            <mat-select [(ngModel)]="formu10.flexionMulti">
+                                <mat-option *ngFor="let FlexionMulti of FlexionesMulti" [value]="FlexionMulti.viewValue">
+                                {{FlexionMulti.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Rotación multisegmentaria</mat-label>
+                            <mat-select [(ngModel)]="formu10.rotacionMulti">
+                                <mat-option *ngFor="let FlexionMulti of FlexionesMulti" [value]="FlexionMulti.viewValue">
+                                {{FlexionMulti.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Flexión Craneocervical</mat-label>
+                            <mat-select [(ngModel)]="formu10.flexionCraneo">
+                                <mat-option *ngFor="let FlexionC of FlexionesC" [value]="FlexionC.viewValue">
+                                {{FlexionC.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Logro de avd</mat-label>
+                            <mat-select [(ngModel)]="formu10.logroAvd">
+                                <mat-option *ngFor="let Logro of Logros" [value]="Logro.viewValue">
+                                {{Logro.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>C/Dificultad</mat-label>
+                            <mat-select [(ngModel)]="formu10.dificultad">
+                                <mat-option *ngFor="let Dificultad of Dificultades" [value]="Dificultad.viewValue">
+                                {{Dificultad.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <br>
+                        
+                
+    
+                        <mat-form-field appearance="outline">
+                            <textarea matInput [(ngModel)]="formu10.evaluacionesComplementariasColumnaCervical" placeholder="Evaluaciones complementarias"></textarea>
+    
+                        </mat-form-field>
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Seleccione una opción</mat-label>
+                            <mat-select [(ngModel)]="formu10.seleccionEvaluacionComplementariaColumnaCervical">
+                                <mat-option *ngFor="let EvaluacionesComplementariaColumnaCervical of EvaluacionesComplementariasColumnaCervical" [value]="EvaluacionesComplementariaColumnaCervical.viewValue">
+                                {{EvaluacionesComplementariaColumnaCervical.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>  
+                        <br>                    
+                       
+                        <mat-form-field appearance="outline">
+                            <textarea [(ngModel)]="formu10.diagnosticoKinesiologico" matInput placeholder="Diagnóstico Kinesiológico"></textarea>
+    
+                        </mat-form-field>
+                        <br>
+                    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Puntaje de criterios de gravedad</mat-label>
+                            <input [(ngModel)]="formu10.puntajeCriteriosGravedad"  matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Riesgo y citaciones sugeridas</mat-label>
+                            <input [(ngModel)]="formu10.riesgoCitacionesSugeridas" matInput placeholder="" >
+                        </mat-form-field>
+                        <br>
+                    </div>
+                    
+
+                    <hr>
+                    <app-comunes></app-comunes>
+                </mat-tab>
+
+            </mat-tab-group>
+
+        </div>
+    </mat-card>
+    <!--<mat-spinner ></mat-spinner>-->
+    <div class="desktopbuttons">
+        <button (click)="cancelarForm()" mat-stroked-button routerLink="/professional/asc-segmentos" routerLinkActive="false">Volver</button>&nbsp;&nbsp;&nbsp;
+        <button (click)="sumarValores(_determinante, _condicion, _edema, _extension, _flexion , _nivel, _ortopedia)" (click)="copiarRegistros()" mat-raised-button  >Copiar Resumen Médico</button>&nbsp;&nbsp;&nbsp;
+        <button  mat-raised-button  >Copiar Resumen Kinésico</button>&nbsp;&nbsp;&nbsp;
+        <button (click)="multiplePost()" mat-raised-button  >Siguiente</button>&nbsp;&nbsp;&nbsp;
+    </div>
+</div>
+
