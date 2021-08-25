@@ -9,6 +9,7 @@ import { AddGroupComponent } from './add-group.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ViewGroupsComponent } from './view-groups.component';
 import { Ng2ImgMaxService } from 'ng2-img-max';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 //import { NgxImageCompressService } from 'ngx-image-compress';
 
@@ -30,14 +31,15 @@ export class GroupsComponent implements OnInit {
   public postTitle:string = "";
   public image:string;
   public file:File;
-
+  url2:any;
+  videoUrl:string;
   interaction:any;
   todayDate:Date = new Date();
   d = new Date();
   n = this.d.getDay();
   day:any;
 
-  constructor(private ng2ImgMax: Ng2ImgMaxService, /*public imageCompress: NgxImageCompressService,*/ public route: ActivatedRoute, public snackBar:MatSnackBar, public http: HttpClient, public post: MatDialog, public dialog: MatDialog, public router: Router, public dataService: DataService, public zone: NgZone) {
+  constructor(private _sanitizer: DomSanitizer, private ng2ImgMax: Ng2ImgMaxService, /*public imageCompress: NgxImageCompressService,*/ public route: ActivatedRoute, public snackBar:MatSnackBar, public http: HttpClient, public post: MatDialog, public dialog: MatDialog, public router: Router, public dataService: DataService, public zone: NgZone) {
     moment.locale('es');
     this.id = this.route.snapshot.paramMap.get('id');
     if(this.id){
@@ -64,6 +66,15 @@ export class GroupsComponent implements OnInit {
   ngOnInit(): void {
     this.getPosts();
     this.getGroups();
+  }
+
+  
+  modelChanged($event){
+    $event = $event.slice(0,-19) + "embed/" + $event.slice(32);
+    this.url2 = this._sanitizer.bypassSecurityTrustResourceUrl($event);
+    if($event.empty){
+      console.log("event:", $event)
+    }
   }
 
   popup() {
@@ -113,7 +124,7 @@ export class GroupsComponent implements OnInit {
   }
 
   publicar() {
-    let groupalPublication:any = {group: this.id, entity: "groupal-publication", state: "active", title: this.postTitle, content: this.postContent, datetime: moment().format('YYYYMMDDHHmmss') };
+    let groupalPublication:any = {group: this.id, entity: "groupal-publication", state: "active", title: this.postTitle, content: this.postContent, datetime: moment().format('YYYYMMDDHHmmss'), url:this.url2 };
     console.log(groupalPublication);
     this.dataService.postData(groupalPublication).then((response:any) => {
       if(response.ok){

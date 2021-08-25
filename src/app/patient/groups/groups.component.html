@@ -21,7 +21,8 @@
   <div class="column">
     <mat-card class="treatments">
       <div *ngIf="id">
-        <button mat-raised-button (click)="leftGroup()"><!-- routerLink="/patient/groups" routerLinkActive="false">-->
+        <button mat-raised-button (click)="leftGroup()">
+          <!-- routerLink="/patient/groups" routerLinkActive="false">-->
           <mat-icon>highlight_off</mat-icon> Salir del grupo
         </button>
         <br><br>
@@ -46,8 +47,8 @@
         <br><br>
       </div>
       <div *ngIf="!loadingGroups && !id">
-        <button mat-button *ngFor="let group of groups" routerLink="/patient/groups/{{group.value._id}}" routerLinkActive="false"
-          style="margin-bottom: 10px; width: 100%;">
+        <button mat-button *ngFor="let group of groups" routerLink="/patient/groups/{{group.value._id}}"
+          routerLinkActive="false" style="margin-bottom: 10px; width: 100%;">
           <div style="text-align: left;">
             <mat-card-title class="desktop">{{group.value.title}}</mat-card-title>
             <mat-card-content>{{group.value.content}}</mat-card-content>
@@ -70,7 +71,8 @@
             <mat-label>Escribe un título</mat-label>
             <input matInput placeholder="" [(ngModel)]="postTitle">
           </mat-form-field><br>
-          <button *ngIf="image" (click)="image=null" class="compressedBtn" color="primary" style="margin-right: 20px; z-index: 999; position: sticky; margin-bottom: -40px; margin-top: 10px !important;">
+          <button *ngIf="image" (click)="image=null" class="compressedBtn" color="primary"
+            style="margin-right: 20px; z-index: 999; position: sticky; margin-bottom: -40px; margin-top: 10px !important;">
             <mat-icon style="margin-top:7px; font-size: 14px;">remove</mat-icon>
           </button>
           <img [src]="image" *ngIf="image" style="width: calc(100% - 20px);" /><br *ngIf="image">
@@ -79,14 +81,27 @@
             <textarea matInput [(ngModel)]="postContent" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
               cdkAutosizeMinRows="3" cdkAutosizeMaxRows="10"></textarea>
           </mat-form-field><br>
-          <input style="visibility: hidden; height: 0px; width: 0px;" #fileInput id="upload-input" type="file" [multiple]="false" accept="image/*" (change)="onFileChange($event)"/>
-          <label for="upload-input" *ngIf="!image"><div style="color: #444444; border: 1px solid #dddddd; border-radius: 30px; padding: 8px 15px; font-family: brown; font-weight: 500; margin-top: 2px; margin-right: 10px; display: inline-flex; vertical-align: middle; cursor: pointer;"><mat-icon style="margin-top: -4px; margin-left: 5px; margin-right: 5px;">image</mat-icon> Agregar imagen</div></label>          
-          <button mat-raised-button type="submit" [disabled]="!postContent || !postTitle" color="primary" (click)="publicar()">Publicar</button>
+          <mat-form-field appearance="outline">
+            <input matInput placeholder="Añadir URL" (ngModelChange)="modelChanged($event)" [(ngModel)]="videoUrl">
+          </mat-form-field>
+          <a>Previsualización:</a>
+          <iframe *ngIf="!url2" width="360" height="260" [src]="">No hay visualización</iframe><br>
+          <iframe *ngIf="url2" width="360" height="260" [src]="url2"></iframe><br>
+          <input style="visibility: hidden; height: 0px; width: 0px;" #fileInput id="upload-input" type="file"
+            [multiple]="false" accept="image/*" (change)="onFileChange($event)" />
+          <label for="upload-input" *ngIf="!image">
+            <div
+              style="color: #444444; border: 1px solid #dddddd; border-radius: 30px; padding: 8px 15px; font-family: brown; font-weight: 500; margin-top: 2px; margin-right: 10px; display: inline-flex; vertical-align: middle; cursor: pointer;">
+              <mat-icon style="margin-top: -4px; margin-left: 5px; margin-right: 5px;">image</mat-icon> Agregar imagen
+            </div>
+          </label>
+          <button mat-raised-button type="submit" [disabled]="!postContent || !postTitle" color="primary"
+            (click)="publicar()">Publicar</button>
         </mat-card-content>
       </mat-card>
       <br>
     </div>
-    <app-post *ngFor="let post of posts" [post]="post" [feedback]="true" [datetime]="true"></app-post>
+    <app-post *ngFor="let post of posts" [post]="post" [feedback]="true" [datetime]="true" [url2]="url2"></app-post>
   </div>
 </div>
 <mat-menu #menu="matMenu"></mat-menu>
