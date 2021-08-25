@@ -17,6 +17,7 @@ export class PatientsComponent implements OnInit {
   public dataSource:any;
   public loading:boolean = true;
   public notifications:number = 0;
+  public notReports:number = 0;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -45,8 +46,9 @@ export class PatientsComponent implements OnInit {
     this.dataService.getData("/_design/view/_view/requests").then((notifications:any) => {
       this.dataService.getData("/_design/view/_view/reports").then((reports:any) => {
         
-        this.notifications = notifications.total_rows + reports.total_rows;
-
+        this.notifications = notifications.total_rows;  
+        this.notReports = reports.total_rows;
+        
       })
     });
   }

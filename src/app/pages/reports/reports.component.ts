@@ -44,7 +44,7 @@ export class ReportsComponent implements OnInit {
     let temp: any = [];
     this.dataService.getData("/_design/view/_view/reports").then((reportes: any) => {
       console.log(reportes);
-      
+
       reportes = reportes.rows.sort((a: any, b: any) => { return a.value.patientName.trim().localeCompare(b.value.patientName.trim()) });
       for (let rep of reportes) {
         if (rep.value.state && rep.value.state == 'deleted') {
@@ -77,38 +77,67 @@ export class ReportsComponent implements OnInit {
   }
 
   ignore(report: any) {
+    if (this.reports.length <= 1) {
       report.state = 'deleted';
       report.objeto = report.objeto._id;
       this.dataService.postData(report).then((res) => {
         this.getReports();
         console.log(res);
       }).then((a) => {
-        this.snackBar.open('El reporte se ha eliminado.', 'OK', {duration: 5000})
-      })
-  }
-
-  delete(report: any) {
-    if(window.confirm('Esta acción eliminará el reporte y el comentario')){
-      report.objeto.state = 'deleted'
-      this.dataService.postData(report.objeto)
+        document.location.reload();
+        this.snackBar.open('El reporte se ha eliminado.', 'OK', { duration: 5000 })
+      })  
+    } else{
       report.state = 'deleted';
       report.objeto = report.objeto._id;
       this.dataService.postData(report).then((res) => {
+        this.getReports();
+        console.log(res);
+      }).then((a) => {
+        this.snackBar.open('El reporte se ha eliminado.', 'OK', { duration: 5000 })
+      })
+    }
+  }
+
+  delete(report: any) {
+    if (this.reports.length <= 1) {
+      console.log('aaaa');
+      if (window.confirm('Esta acción eliminará el reporte y el comentario')) {
+        report.objeto.state = 'deleted'
+        this.dataService.postData(report.objeto)
+        report.state = 'deleted';
+        report.objeto = report.objeto._id;
+        this.dataService.postData(report).then((res) => {
           this.getReports();
           console.log(res);
         }).then((a) => {
-          this.snackBar.open('El reporte se ha eliminado.', 'OK', {duration: 5000})
-      })
-    }
-
-      /* report.objeto.state = 'deleted'
-      this.dataService.postData(report.objeto).then((res) => {
+          document.location.reload();
+          this.snackBar.open('El reporte se ha eliminado.', 'OK', { duration: 5000 })
+        })
+      }
+    } else {
+      if (window.confirm('Esta acción eliminará el reporte y el comentario')) {
+        report.objeto.state = 'deleted'
+        this.dataService.postData(report.objeto)
         report.state = 'deleted';
         report.objeto = report.objeto._id;
-        this.dataService.postData(report)
-        //this.dataSource.data = [...this.dataSource.data];
-        this
-      }) */
+        this.dataService.postData(report).then((res) => {
+          this.getReports();
+          console.log(res);
+        }).then((a) => {
+          this.snackBar.open('El reporte se ha eliminado.', 'OK', { duration: 5000 })
+        })
+      }
+    }
+
+    /* report.objeto.state = 'deleted'
+    this.dataService.postData(report.objeto).then((res) => {
+      report.state = 'deleted';
+      report.objeto = report.objeto._id;
+      this.dataService.postData(report)
+      //this.dataSource.data = [...this.dataSource.data];
+      this
+    }) */
   }
 
   applyFilter(event: Event) {

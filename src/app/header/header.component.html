@@ -7,11 +7,18 @@
         <span>{{title}}</span>
         <span class="spacer"></span>
         <button *ngIf="notifications" mat-icon-button [matMenuTriggerFor]="menu">
-            <mat-icon [matBadge]="notifications" matBadgeColor="warn">notifications</mat-icon>
+            <mat-icon [matBadge]="notReports + notifications" matBadgeColor="warn">notifications</mat-icon>
         </button>
         <mat-menu #menu="matMenu" xPosition="before">
-            <button mat-menu-item routerLink="/professional/reportes" routerLinkActive="false">Ver reportes</button>
-            <button mat-menu-item routerLink="/professional/notifications" routerLinkActive="false">Ver requerimientos</button>
+            <button mat-menu-item routerLink="/professional/reportes" routerLinkActive="false">
+                <mat-icon>announcement</mat-icon>{{notReports}} reportes
+            </button>
+            <button *ngIf="notifications <= 1" mat-menu-item routerLink="/professional/notifications" routerLinkActive="false">
+                <mat-icon>picture_as_pdf</mat-icon> {{notifications}} requerimiento
+            </button>
+            <button *ngIf="notifications > 1" mat-menu-item routerLink="/professional/notifications" routerLinkActive="false">
+                <mat-icon>picture_as_pdf</mat-icon> {{notifications}} requerimientos
+            </button>
           </mat-menu>
         <button class="cellphone" *ngIf="rightLink" mat-button [routerLink]="rightLink" routerLinkActive="false">
             <mat-icon *ngIf="rightIcon">{{rightIcon}} <span *ngIf="rightText">{{rightText}}</span></mat-icon>
