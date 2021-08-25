@@ -75,7 +75,7 @@ const routes: Routes = [
       { path: "companies", component: CompaniesComponent},
       { path: "add-company", component: AddCompanyComponent},
       { path: "upd-company/:id", component: AddCompanyComponent},
-      {path: "reportes", component: ReportsComponent}
+      {path: "reportes", component: ReportsComponent, canActivate: [RoleGuard]}
     ]
   },
   { path: "segments", component: SegmentosComponent},
