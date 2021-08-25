@@ -1,13 +1,13 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { throwToolbarMixedModesError } from '@angular/material/toolbar';
 import * as moment from 'moment';
 import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-share-challenges',
-  templateUrl: './share-challenges.component.html',
-  styleUrls: ['./share-challenges.component.css']
+  templateUrl: './share-challenges.component.html'
 })
 export class ShareChallengesComponent implements OnInit {
   arreglo:any;
@@ -18,7 +18,6 @@ export class ShareChallengesComponent implements OnInit {
 
   constructor(public snackBar: MatSnackBar, public dataService: DataService, public dialogRef: MatDialogRef<ShareChallengesComponent>, @Inject(MAT_DIALOG_DATA) data) { 
     this.arreglo = data;
-    console.log("data:", data)
   }
 
   ngOnInit(): void {
@@ -37,7 +36,6 @@ export class ShareChallengesComponent implements OnInit {
                   if(patient._id != this.dataService.user._id){
                     if(this.patients.find((pa) => pa._id == patient._id) === undefined){
                       this.patients.push(patient);
-                      console.log("PATIENTS:", this.patients)
                     }                   
                   }
                 })
@@ -46,7 +44,6 @@ export class ShareChallengesComponent implements OnInit {
           }
           this.dataService.getData("/"+member.value.group).then((group:any)=>{
             this.groups.push(group);
-            console.log("groups", this.groups)
           })
         }
       }
@@ -74,6 +71,21 @@ export class ShareChallengesComponent implements OnInit {
     for(let group of this.groups){
       if(group.selected){
         console.log("POST REALIZADO", group)
+        this.dataService.getData("/_design/view/_view/members-by-group?key=\""+group._id+"\"").then((members:any)=>{
+          for(let member of members.rows ){
+            if(member.value.patient != this.dataService.user._id){
+              console.log("result:", member)
+              this.dataService.postData({ entity: "challenge-invitation", patient:this.dataService.user._id , guest: member.value.patient, program: this.arreglo._id, datetime: moment().format('YYYYMMDDHHmmss') }).then((result:any) => {
+                if(result.ok){
+                  this.dialogRef.close("ok");
+                  this.snackBar.open('Desafío compartido con el grupo correctamente', 'OK', { duration: 3000 });
+                }else{
+                  this.dialogRef.close("err");
+                }
+              })
+            }
+          }
+        })
       }
     }
   }
