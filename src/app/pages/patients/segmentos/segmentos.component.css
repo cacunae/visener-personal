@@ -100,7 +100,10 @@ mat-card-title{
 @media (max-height:740px){
     .desktopbuttons{
         width: 550px;
-        margin-left: 140px!important;
+        display: block;
+        margin-right: auto;
+        margin-left: auto;
+        padding-left: 0px!important;
         overflow: hidden;
     }
     .content{
@@ -114,15 +117,15 @@ mat-card-title{
 }
 
 button{
-    width: 190px;
+    width: 170px;
 }
 
 .desktopbuttons{
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    padding-left: 230px;
     
-    margin-left: 250px;
     
 }
 .smallTlt{
