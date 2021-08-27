@@ -30,23 +30,40 @@ mat-card-title{
     position: relative;
     width: 430px;
     height:80px;
-    left: 260px;
+    left: 240px;
     bottom: 250px;
+}
+
+#trenSuperiorBtn{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    flex-direction:column-reverse;
+}
+#trenInferiorBtn{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    flex-direction:row-reverse;
+    
+
 }
 
 #trenSuperiorBtn, #trenInferiorBtn{
 
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    flex-direction: row-reverse;
+    
     width: 430px;
     height:80px;
 
 
 }
 
-::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-ripple .mat-ripple-element 
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-ripple .mat-ripple-element {
+    background-color: #F6A127;
+}
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background{
+    background-color: #F6A127;
+}
 
 #trenSuperiorBtn{
     position: relative;
@@ -80,15 +97,24 @@ mat-card-title{
 
 }
 
-@media (max-width:740px){
+@media (max-height:740px){
     .desktopbuttons{
-        display:block;
-        margin-right: auto;
-        margin-left:auto;
+        width: 550px;
+        margin-left: 140px!important;
+        overflow: hidden;
     }
     .content{
-        height: 550px!important
+        height: 550px!important;
+        overflow: hidden;
     }
+
+    #human{
+        bottom: 30px;
+    }
+}
+
+button{
+    width: 190px;
 }
 
 .desktopbuttons{
