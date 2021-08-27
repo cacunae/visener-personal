@@ -1,33 +1,42 @@
-<mat-card>
+<mat-card [class.compressedPost]="compressed">
     <div *ngIf="treatment && program && !loading">
-        <button mat-raised-button style="float: right;" color="primary" routerLink="/professional/upd-treatment/{{treatment._id}}" routerLinkActive="false">
-            <mat-icon *ngIf="!compressed" style="margin-top:7px; font-size: 14px;">visibility</mat-icon> Ver Tratamiento
-        </button>   
-        <button *ngIf="removable" (click)="clickEvent()" class="compressedBtn" style="margin-top: 0px !important;margin-right:15px !important" color="primary">
-            <mat-icon style="margin-top:7px; font-size: 14px;">remove</mat-icon>
+        <button *ngIf="resizable" class="compressedBtn" style="margin-top: 0px !important;margin-right:10px !important"
+            color="primary" (click)="compressed = !compressed">
+            <mat-icon *ngIf="compressed" style="margin-top:7px; font-size: 14px;">expand_more</mat-icon>
+            <mat-icon *ngIf="!compressed" style="margin-top:7px; font-size: 14px;">expand_less</mat-icon>
         </button>
-        <mat-card-title style="margin-bottom: 20px;">{{program.title}}</mat-card-title>
+        <button mat-raised-button style="float: right;" color="primary"
+                routerLink="/professional/upd-treatment/{{treatment._id}}" routerLinkActive="false">
+                <mat-icon style="margin-top:7px; font-size: 14px;">visibility</mat-icon> Ver Tratamiento
+            </button>
+        <mat-card-title style="margin-bottom: 40px; font-size: 20px !important;">{{program.title}}</mat-card-title>
         <div class="inputImitation">
             <div>Contenido:</div>
             <div>{{program.content}}</div>
         </div>
         <div class="inputImitation">
-            <div>Objetivo:</div>    
+            <div>Objetivo:</div>
             <div>{{program.objective}}</div>
         </div>
-        <div class="inputImitation">
+        <div class="inputImitation" style="width: 48%; display: inline-block; margin-right: 4%;">
             <div>Asignación</div>
             <div>{{treatment.datetime | fechaFormateada}}</div>
         </div>
-        <div class="inputImitation">
+        <div class="inputImitation" style="width: 48%; display: inline-block;">
             <div>Duración</div>
             <div>{{treatment.startDate | fechaFormateadaCorta}} - {{treatment.endDate | fechaFormateadaCorta}}</div>
         </div>
-        <app-interaction [interaction]="interaction._id" [resizable]="true" *ngFor="let interaction of program.interactions" origin="add-program"></app-interaction>
+        <!-- <app-interaction [interaction]="interaction._id" [resizable]="true"
+            *ngFor="let interaction of program.interactions" origin="add-program"></app-interaction>
         <div *ngFor="let post of program.posts">
             <app-post [postId]="post._id" [resizable]="true"></app-post>
+        </div> -->
+        <div align="right">
+            <button *ngIf="removable && !compressed" (click)="clickEvent()" class="compressedBtn"
+            style="margin-top: 0px !important;margin-right:10px !important; float: unset !important;" color="primary">
+            <mat-icon style=" font-size: 14px;">delete</mat-icon>
+        </button>
         </div>
-        
     </div>
 </mat-card>
 <br>

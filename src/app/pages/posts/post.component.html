@@ -3,9 +3,6 @@
         <mat-icon *ngIf="compressed" style="margin-top:7px; font-size: 14px;">expand_more</mat-icon>
         <mat-icon *ngIf="!compressed" style="margin-top:7px; font-size: 14px;">expand_less</mat-icon>
     </button>
-    <button *ngIf="removable" (click)="clickEvent()" class="compressedBtn" color="primary">
-        <mat-icon style="margin-top:7px; font-size: 14px;">remove</mat-icon>
-    </button>
     <button *ngIf="compressed && selectable" class="compressedBtn" color="primary" [mat-dialog-close]="post">
         <mat-icon *ngIf="compressed" style="margin-top:7px; font-size: 14px;">add</mat-icon>
     </button>
@@ -16,7 +13,7 @@
         {{post.value.datetime | fechaFormateada}}
     </mat-card-subtitle>
     <mat-card-title [class.compressedPost]="compressed" *ngIf="post.value.title">{{post.value.title}}</mat-card-title>
-    <div align="center" style="padding-bottom: 20px;" id="bot" *ngIf="mostrar && post.value.invitation">
+    <div align="center" style="padding-bottom: 20px;" id="bot" *ngIf="mostrar && post.value.invitation && dataService.user.entity == 'patient'">
         <button *ngIf="post.value.invitation" [disabled]="loading" mat-stroked-button style="margin-left: 10px; font-size: 14px;" (click)="rechazar(post)">
             Rechazar
         </button>
@@ -57,6 +54,9 @@
             </button>
         </div>
     </div>
+    <button *ngIf="removable" (click)="clickEvent()" class="compressedBtn" color="primary">
+        <mat-icon style="margin-top:7px; font-size: 14px;">delete</mat-icon>
+    </button>
     <br>
     <div *ngIf="feedback">
         <button *ngIf="post.liked=='true'" mat-raised-button style="font-size: 12px;

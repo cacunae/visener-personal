@@ -96,7 +96,7 @@
                 <button mat-stroked-button (click)="interaction.post=null" *ngIf="interaction.post">
                     <mat-icon>remove_circle_outline</mat-icon> Borrar post "{{postName}}"
                 </button>
-                <app-post *ngIf="interaction.post" [post]="interaction.post" origin="add-program"></app-post>
+                <app-post *ngIf="interaction.post" [post]="interaction.post._id" origin="add-program" [resizable]="true"></app-post>
             </mat-tab>
         </mat-tab-group>
     </mat-card>
