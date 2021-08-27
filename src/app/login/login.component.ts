@@ -46,6 +46,7 @@ export class LoginComponent implements OnInit {
                   tmpFeatures.push(feature);
                 };
               }
+              console.log(this.dataService.user);
               if (tmpFeatures.length > 0) {
                 result.rows[0].value.features = tmpFeatures;
                 this.dataService.setUser(result.rows[0].value);

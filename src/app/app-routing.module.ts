@@ -34,6 +34,11 @@ import { FavouritesComponent } from './pages/posts/favourites/favourites.compone
 import { ViewFavouritesComponent } from './pages/posts/view-favourites/view-favourites.component';
 import { SegmentosComponent } from './pages/patients/segmentos/segmentos.component';
 import { ReportsComponent } from './pages/reports/reports.component';
+import { BuscarPacienteComponent } from './pages/patients/segmentos/buscar-paciente/buscar-paciente.component'
+import { DatosPacienteComponent } from './pages/patients/segmentos/datos-paciente/datos-paciente.component';
+import { FormsComponent } from './pages/patients/segmentos/forms/forms.component';
+import { LandingKinesiologiaComponent } from './pages/patients/segmentos/landing-kinesiologia/landing-kinesiologia.component'
+
 
 
 const routes: Routes = [
@@ -47,6 +52,11 @@ const routes: Routes = [
       { path: "add-patient", component: AddPatientComponent, canActivate: [RoleGuard]},
       { path: "upd-patient/:id", component: AddPatientComponent, canActivate: [RoleGuard]},
       { path: "asc-patients", component: AssociatedPatientsComponent, canActivate: [RoleGuard]},
+      { path: "asc-segmentos", component: SegmentosComponent },
+      { path: "buscar-paciente", component: BuscarPacienteComponent},
+      { path: "datos-paciente", component: DatosPacienteComponent},
+      { path: "asc-forms", component: FormsComponent},
+      { path: "asc-kinesiologia", component: LandingKinesiologiaComponent},
       { path: "view-patient/:id", component: ViewPatientsComponent},
       { path: "det-patient/:id", component: DetPatientComponent, canActivate: [RoleGuard]},
       { path: "professionals", component: ProfessionalsComponent, canActivate: [RoleGuard]},

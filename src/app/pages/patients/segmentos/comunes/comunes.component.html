@@ -1,0 +1,49 @@
+<div id ="comunes">
+    <mat-form-field appearance="outline">
+        <mat-label>Orientación del plan terapéutico (*)</mat-label>
+        <mat-select [(ngModel)]="formu.orientacionPlanTerapeutico" (selectionChange)="capturarOrientacion($event.value.viewValue)">
+            <mat-option *ngFor="let Orientacion of Orientaciones" [value]="Orientacion">
+            {{Orientacion.viewValue}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>   
+    <br>
+    <mat-form-field appearance="outline">
+        <mat-label>Objetivos/Plan Terapeutico (*)</mat-label>
+        <input [(ngModel)]="formu.objetivosPlanTerapeutico" matInput placeholder="" (input)="capturarObjetivos()" >
+    </mat-form-field>
+    
+    <br>
+    <mat-form-field appearance="outline">
+        <mat-label>Desempeño funcional (*)</mat-label>
+        <mat-select [(ngModel)]="formu.desempenoFuncional" (selectionChange)="capturarDesempeno($event.value.viewValue)">
+            <mat-option *ngFor="let Desempeno of Desempenos" [value]="Desempeno">
+            {{Desempeno.viewValue}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="outline">
+        <mat-label>Necesidad de asistencia interdiciplinaria</mat-label>
+        <mat-select [(ngModel)]="formu.necesidadesAsistenciaInterdiciplinaria" (selectionChange)="capturarNecesidad($event.value.viewValue)">
+            <mat-option *ngFor="let Necesidad of Necesidades" [value]="Necesidad">
+            {{Necesidad.viewValue}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="outline">
+        <textarea [(ngModel)]="formu.justificacion" matInput placeholder="Justificación" (input)="capturarJustificacion()"></textarea>
+    
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="outline">
+        <mat-label>Valoración del riesgo de caídas</mat-label>
+        <input [(ngModel)]="formu.valoracionRiesgoCaidas" matInput placeholder="" >
+    </mat-form-field>      
+    <br>
+    <mat-form-field appearance="outline">
+        <mat-label>Consideraciones generales</mat-label>
+        <input [(ngModel)]="formu.consideracionesGenerales" matInput placeholder="" (input)="capturarConsideraciones()" >
+    </mat-form-field> 
+</div>
