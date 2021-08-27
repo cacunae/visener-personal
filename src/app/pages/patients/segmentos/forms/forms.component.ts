@@ -3,7 +3,16 @@ import { ConnService } from 'src/app/services/conn.service';
 import { BooleanosService } from 'src/app/services/booleanos.service'
 import { Subscription } from 'rxjs';
 import { Clipboard } from '@angular/cdk/clipboard';
-import { isThisTypeNode } from 'typescript';
+import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
+import {ErrorStateMatcher} from '@angular/material/core';
+
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 
 interface FormularioTobilloPie {
   prof: string;
@@ -445,6 +454,22 @@ interface Pinza{
 
 export class FormsComponent implements OnInit {
 
+  numberFormControl = new FormControl('',[
+    Validators.required,
+    Validators.pattern("^(0|[1-9][0-9]*)$" )
+  ]);
+
+  textFormControl = new FormControl('',[
+    Validators.required
+  ]);
+  selected = new FormControl('valid', [
+    Validators.required
+  ])
+
+  
+
+  matcher = new MyErrorStateMatcher();
+
   suscription: Subscription;
 
   registros:string;
@@ -471,7 +496,7 @@ export class FormsComponent implements OnInit {
   }
 
   ngOnInit(){ 
-
+    
 
     this.suscription = this.booleanos.boton1.subscribe((flag: boolean) =>{
       this.toggleTobillo = flag
@@ -508,9 +533,7 @@ export class FormsComponent implements OnInit {
 
   sumarValores(n1:any, n2:any, n3:any, n4:any, n5:any, n6: any, n7:any){
 
-    
-    
-
+  
 
     this._puntaje = n1.value+n2.value+n3.value+n4.value+n5.value+n6.value+n7.value;
 
