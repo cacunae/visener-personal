@@ -95,11 +95,11 @@
             <div class="comments" *ngIf="post.comments && post.comments.length == 1">{{post.comments.length}}</div>
             <div class="comments" *ngIf="post.comments && post.comments.length > 1">{{post.comments.length}}</div> 
         </button>
-        <button *ngIf="post.favourite=='true'" mat-raised-button style="border:0px;color:#FF4081;background-color: transparent!important;float:right;margin-left: 10px; font-size: 12px;border:0px;" color="primary" (click)="saveFavourite(post)">
+        <button *ngIf="post.favourite=='true'" mat-raised-button style="border:0px;color:#FF4081;background-color: transparent!important;float:right;margin-left: 10px; font-size: 12px;border:0px;" class="mat-elevation-z0" color="primary" (click)="saveFavourite(post)">
             <mat-icon style="margin-top:1px; font-size: 24px;color:#FF4081!important">favorite</mat-icon> 
         </button>
         <button *ngIf="post.favourite=='false'" mat-stroked-button style="border:0px;font-size: 12px;float:right" (click)="saveFavourite(post)">
-            <mat-icon style="margin-top:-2px; font-size: 24px;color:#FF4081!important">favorite</mat-icon> 
+            <mat-icon style="margin-top:-2px; font-size: 24px;">favorite</mat-icon> 
         </button>
        <!-- <button  mat-stroked-button style="float:right;margin-left: 10px; font-size: 12px;" (click)="saveFavourite(post)" >
             <mat-icon style="margin-top:-2px; font-size: 24px;">favorite_border</mat-icon>
