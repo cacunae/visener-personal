@@ -48,7 +48,7 @@
     <br>
     <mat-form-field appearance="outline">
         <mat-label>Valoración del riesgo de caídas</mat-label>
-        <input [(ngModel)]="formu.valoracionRiesgoCaidas" matInput placeholder="" >
+        <input [(ngModel)]="formu.valoracionRiesgoCaidas" matInput placeholder="" (input)="capturarValoracion()" >
     </mat-form-field>      
     <br>
     <mat-form-field appearance="outline">

@@ -22,6 +22,9 @@ import { Subscription } from 'rxjs';
 })
 export class SegmentosComponent implements OnInit {
 
+  constructor(public json: ConnService, public booleanos: BooleanosService) { 
+  
+  };
 
 
   suscription:Subscription;
@@ -31,21 +34,37 @@ export class SegmentosComponent implements OnInit {
 
   
   ngOnInit() {
-    this.booleanos.boton1.subscribe((flag: boolean) =>{
+    this.suscription = this.booleanos.boton1.subscribe((flag: boolean) =>{
       this.toggleTobillo = flag
-      this.toggleRodilla = flag
+    })
+    this.suscription = this.booleanos.boton2.subscribe((flag: boolean) =>{
       this.toggleCadera = flag
+    })
+    this.suscription = this.booleanos.boton3.subscribe((flag: boolean) =>{
       this.toggleHombro = flag
+    })
+    this.suscription = this.booleanos.boton4.subscribe((flag: boolean) =>{
+      this.toggleRodilla = flag
+    })
+    this.suscription = this.booleanos.boton5.subscribe((flag: boolean) =>{
       this.toggleCodo = flag
+    })
+    this.suscription = this.booleanos.boton6.subscribe((flag: boolean) =>{
       this.toggleMuneca = flag
+    })
+    this.suscription = this.booleanos.boton7.subscribe((flag: boolean) =>{
       this.toggleDedos = flag
+    })
+    this.suscription = this.booleanos.boton8.subscribe((flag: boolean) =>{
       this.togglePulgar = flag
+    })
+    this.suscription = this.booleanos.boton9.subscribe((flag: boolean) =>{
       this.toggleColumnaDL = flag
+    })
+    this.suscription = this.booleanos.boton10.subscribe((flag: boolean) =>{
       this.toggleColumnaCerv = flag
     })
   }
-
-  
 
   updateTobillo(){
     this.booleanos.updateStateTobillo(true)
@@ -79,10 +98,7 @@ export class SegmentosComponent implements OnInit {
   }
   
 
-  constructor(public json: ConnService, public booleanos: BooleanosService) { 
   
-  };
-
   
 
   toggleTobillo:boolean ;
