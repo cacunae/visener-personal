@@ -7,7 +7,8 @@
     <mat-icon style="margin-top:7px; font-size: 14px;">visibility</mat-icon>
   </button>
   <button class="compressedBtn" color="primary">
-    <mat-icon style="margin-top:7px; font-size: 14px;margin-left: -7px!important;" (click)="share(programs)">share</mat-icon>
+    <mat-icon style="margin-top:7px; font-size: 14px;margin-left: -7px!important;" (click)="share(programs)">share
+    </mat-icon>
   </button>
   <div [class.compressedPost]="compressed">
     <mat-card-title style="font-size:18px;margin-bottom: 10px;" *ngIf="programs.title">{{programs.title}}
@@ -17,9 +18,10 @@
         <div *ngIf="id == programs._id">
           <div *ngFor="let treatment of treatments">
             <div *ngIf="treatment.value.doc.program == programs._id">
-              <div class="grid-container2" style="margin-bottom:20px;">
-                <mat-progress-bar class="main1" mode="determinate" color="#FFD628" value="{{programs.progress}}"></mat-progress-bar>
-                <a class="desktop" style="margin-top:-5px">{{programs.actualDate}}/{{programs.duration}} Días</a>
+                <div class="grid-container2" style="margin-bottom:20px;">
+                  <mat-progress-bar class="main1" mode="determinate" color="#FFD628" value="{{programs.progress}}">
+                  </mat-progress-bar>
+                  <a class="desktop" style="margin-top:-5px">{{programs.actualDate}}/{{programs.duration}} Días</a>
               </div>
             </div>
           </div>
@@ -28,8 +30,9 @@
     </div>
   </div>
   <mat-card-content style="height: auto;">
-        <mat-card-subtitle *ngIf="programs.objective" style="margin-bottom:0px"><strong>Objetivo</strong><br></mat-card-subtitle>
-         <textarea class="staticText" readonly="readonly" disabled>{{programs.objective}}</textarea>
+    <mat-card-subtitle *ngIf="programs.objective" style="margin-bottom:0px"><strong>Objetivo</strong><br>
+    </mat-card-subtitle>
+    <textarea class="staticText" readonly="readonly" disabled>{{programs.objective}}</textarea>
     <br>
     <div class="grid-container3">
       <div style="text-align: left;">
@@ -44,7 +47,8 @@
           </div>
         </div>
       </div>
-      <mat-card-subtitle class="contenido" *ngIf="programs.duration" style="margin-top: 0px;"><strong>Días de Duración:</strong><br>
+      <mat-card-subtitle class="contenido" *ngIf="programs.duration" style="margin-top: 0px;"><strong>Días de
+          Duración:</strong><br>
         {{programs.duration}} días</mat-card-subtitle>
       <div style="text-align: left;">
         <div *ngFor="let id of programId">
@@ -73,19 +77,19 @@
                 <div>
                   <mat-card-subtitle class="byday">Desafíos por día:</mat-card-subtitle>
                   <a class="percent4"><strong>{{percent}}%</strong></a>
-                  <round-progress style="margin-left:86px;position: absolute;margin-top: 3px;" [current]="total" [max]="totalMax2" [color]="'#FFD628'"
-                    [background]="'#E4E4E4'" [radius]="50" [stroke]="10" [semicircle]="false" [rounded]="true"
-                    [clockwise]="false" [responsive]="false" [duration]="800" [animation]="'easeInOutQuart'"
-                    [animationDelay]="0">
+                  <round-progress style="margin-left:86px;position: absolute;margin-top: 3px;" [current]="total"
+                    [max]="totalMax2" [color]="'#FFD628'" [background]="'#E4E4E4'" [radius]="50" [stroke]="10"
+                    [semicircle]="false" [rounded]="true" [clockwise]="false" [responsive]="false" [duration]="800"
+                    [animation]="'easeInOutQuart'" [animationDelay]="0">
                   </round-progress>
                 </div>
                 <div>
                   <mat-card-subtitle>Desafío total:</mat-card-subtitle>
                   <a class="percent3"><strong>{{totalXPro}}%</strong></a>
-                  <round-progress class="roundprogress" [current]="total" [max]="totalMax"
-                    [color]="'#FFD628'" [background]="'#E4E4E4'" [radius]="50" [stroke]="10" [semicircle]="false"
-                    [rounded]="true" [clockwise]="false" [responsive]="false" [duration]="800"
-                    [animation]="'easeInOutQuart'" [animationDelay]="0">
+                  <round-progress class="roundprogress" [current]="total" [max]="totalMax" [color]="'#FFD628'"
+                    [background]="'#E4E4E4'" [radius]="50" [stroke]="10" [semicircle]="false" [rounded]="true"
+                    [clockwise]="false" [responsive]="false" [duration]="800" [animation]="'easeInOutQuart'"
+                    [animationDelay]="0">
                   </round-progress>
                 </div>
               </div>
@@ -100,7 +104,7 @@
                   </round-progress>
                 </div>
                 <div>
-                  <mat-card-subtitle  >Desafío total:</mat-card-subtitle>
+                  <mat-card-subtitle>Desafío total:</mat-card-subtitle>
                   <a class="percent"><strong>{{percent}}%</strong></a>
                   <round-progress class="roundprogress" [current]="0" [max]="100" [color]="'#FFD628'"
                     [background]="'#E4E4E4'" [radius]="50" [stroke]="10" [semicircle]="false" [rounded]="true"

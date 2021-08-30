@@ -417,5 +417,15 @@ mat-card-title.compressedPost{
   border-radius: 30px !important;
   float: right !important;
 }
+
+.objectiveContent{
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  margin: 0px;
+  width: 651px!important;
+  height: 36px!important;
+  background-color: white;
+  border-color: white;
+}
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

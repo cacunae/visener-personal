@@ -1,9 +1,17 @@
 <div>
     <h1 style="text-align: center;"><strong>Mis Desafíos</strong></h1>
         <div *ngFor="let programs of programs">
+            <div *ngIf="programs.actualDate<=programs.duration">
                 <app-challenges
                 [programs]="programs" [treatments]="treatments" [feedbacks]="feedbacks" [resizable]="true" [selectable]="true" [feedback]="false">
-            </app-challenges> <br>
+                </app-challenges> <br>
+            </div>
+            <div *ngIf="programs && !programs.actualDate">
+                <app-challenges
+                [programs]="programs" [treatments]="treatments" [feedbacks]="feedbacks" [resizable]="true" [selectable]="true" [feedback]="false">
+                </app-challenges> <br>
+            </div>
         </div>
   </div>
-  <button mat-raised-button mat-dialog-close>Volver</button>
+  <button style="position: absolute;
+  margin-top: 317px;" mat-raised-button mat-dialog-close>Volver</button>
