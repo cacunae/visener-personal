@@ -9,6 +9,7 @@ import { PatientComponent } from '../../patient/patient.component';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   providers: [PatientComponent],
@@ -26,6 +27,7 @@ export class PostComponent implements OnInit {
   @Input() multiple: boolean;
   @Input() feedback: boolean;
   @Input() datetime: boolean;
+  url2:any;
   @Output() event = new EventEmitter<string>();
   public compressed: any = false;
   public program: any = {};
@@ -40,7 +42,7 @@ export class PostComponent implements OnInit {
   check: boolean = false;
   
 
-  constructor(public dialog: MatDialog, public router: Router, public http: HttpClient, public dataService: DataService, private comp: PatientComponent, public snackBar: MatSnackBar) {
+  constructor(private _sanitizer: DomSanitizer, public dialog: MatDialog, public router: Router, public http: HttpClient, public dataService: DataService, private comp: PatientComponent, public snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
@@ -58,6 +60,11 @@ export class PostComponent implements OnInit {
       this.compressed = true;
     }
     console.log(this.post);
+    if(this.post.value.url){
+      this.url2 = this._sanitizer.bypassSecurityTrustResourceUrl(this.post.value.url.changingThisBreaksApplicationSecurity);
+    }else{
+      this.url2 = "";
+    }
     
   }
 

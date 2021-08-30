@@ -3,6 +3,7 @@
     flex-direction: column;
     width:50%;
     flex-wrap: wrap;
+<<<<<<< HEAD
     height: 1155px;
 
 
@@ -11,6 +12,15 @@
 :host ::ng-deep .mat-tab-label-active{
     border-color: #F6A127;
     color:#F6A127;
+=======
+    height: 1100px;
+
+
+}
+:host ::ng-deep .mat-tab-label-active{
+    border-color: #f7e202;
+    color:#f7e202;
+>>>>>>> 9f6c91a195dbd0d913f355b1792d7949678fd06d
     border-style: solid;
     border-radius: 30px;
     
@@ -38,7 +48,11 @@
 
 
 .smallTlt{
+<<<<<<< HEAD
     color:#F6A127;
+=======
+    color:tomato;
+>>>>>>> 9f6c91a195dbd0d913f355b1792d7949678fd06d
     font-size: 11px;
 }
 
@@ -54,6 +68,7 @@
     color:white;
 }
 
+<<<<<<< HEAD
 #containerEval{
     position: absolute;
     display: block;
@@ -91,6 +106,8 @@
     background-color: #F6A127;
 }
 
+=======
+>>>>>>> 9f6c91a195dbd0d913f355b1792d7949678fd06d
 
 
 mat-form-field{

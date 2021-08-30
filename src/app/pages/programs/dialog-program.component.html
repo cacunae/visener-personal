@@ -19,12 +19,16 @@
     <mat-card-subtitle *ngIf="program.value.objective">{{program.value.objective}}</mat-card-subtitle>
     <mat-card-content *ngIf="program.value.content">{{program.value.content}}</mat-card-content>
     <div *ngIf="!compressed">
-        <app-interaction [interaction]="interaction._id" [resizable]="true" [removable]="false"
-            *ngFor="let interaction of program.value.interactions" origin="add-program"></app-interaction>
-        <div *ngFor="let post of posts">
-            <app-post [postId]="post._id" [feedback]="false" [resizable]="true" [removable]="true"
-                *ngFor="let post of program.value.posts">
-            </app-post>
+        <div><mat-card-subtitle>Tareas:</mat-card-subtitle><br>
+            <app-interaction [interaction]="interaction._id" [resizable]="true" [removable]="false"
+                *ngFor="let interaction of program.value.interactions" origin="add-program"></app-interaction>
+        </div>
+        <div><mat-card-subtitle>Post:</mat-card-subtitle><br>
+            <div *ngFor="let post of posts">
+                <app-post [postId]="post._id" [feedback]="false" [resizable]="true" [removable]="true"
+                    *ngFor="let post of program.value.posts">
+                </app-post>
+            </div>
         </div>
     </div>
     <br>

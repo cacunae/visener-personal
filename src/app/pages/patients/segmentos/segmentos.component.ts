@@ -22,6 +22,7 @@ import { Subscription } from 'rxjs';
 })
 export class SegmentosComponent implements OnInit {
 
+<<<<<<< HEAD
   constructor(public json: ConnService, public booleanos: BooleanosService) { 
   
   };
@@ -62,10 +63,36 @@ export class SegmentosComponent implements OnInit {
       this.toggleColumnaDL = flag
     })
     this.suscription = this.booleanos.boton10.subscribe((flag: boolean) =>{
+=======
+
+
+  suscription:Subscription;
+
+  flag: boolean;
+
+
+  
+  ngOnInit() {
+    this.booleanos.boton1.subscribe((flag: boolean) =>{
+      this.toggleTobillo = flag
+      this.toggleRodilla = flag
+      this.toggleCadera = flag
+      this.toggleHombro = flag
+      this.toggleCodo = flag
+      this.toggleMuneca = flag
+      this.toggleDedos = flag
+      this.togglePulgar = flag
+      this.toggleColumnaDL = flag
+>>>>>>> 9f6c91a195dbd0d913f355b1792d7949678fd06d
       this.toggleColumnaCerv = flag
     })
   }
 
+<<<<<<< HEAD
+=======
+  
+
+>>>>>>> 9f6c91a195dbd0d913f355b1792d7949678fd06d
   updateTobillo(){
     this.booleanos.updateStateTobillo(true)
   }
@@ -98,7 +125,14 @@ export class SegmentosComponent implements OnInit {
   }
   
 
+<<<<<<< HEAD
   
+=======
+  constructor(public json: ConnService, public booleanos: BooleanosService) { 
+  
+  };
+
+>>>>>>> 9f6c91a195dbd0d913f355b1792d7949678fd06d
   
 
   toggleTobillo:boolean ;

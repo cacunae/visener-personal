@@ -12,11 +12,13 @@ export class TreatmentComponent implements OnInit {
   @Input() treatment:any;
   @Input() origin:string;
   @Input() removable:boolean;
+  @Input() resizable:boolean;
   @Output() event = new EventEmitter<string>();
   public interact:boolean = true;
   public loading:boolean = true;
   public program:any;
   public posts:any;
+  public compressed: any = true;
 
   constructor(public dialog: MatDialog, public http: HttpClient, public dataService: DataService) {
   }

@@ -3,9 +3,6 @@
         <mat-icon *ngIf="compressed" style="margin-top:7px; font-size: 14px;">expand_more</mat-icon>
         <mat-icon *ngIf="!compressed" style="margin-top:7px; font-size: 14px;">expand_less</mat-icon>
     </button>
-    <button *ngIf="removable" (click)="clickEvent()" class="compressedBtn" color="primary">
-        <mat-icon style="margin-top:7px; font-size: 14px;">remove</mat-icon>
-    </button>
     <button *ngIf="compressed && selectable" class="compressedBtn" color="primary" [mat-dialog-close]="post">
         <mat-icon *ngIf="compressed" style="margin-top:7px; font-size: 14px;">add</mat-icon>
     </button>
@@ -16,7 +13,7 @@
         {{post.value.datetime | fechaFormateada}}
     </mat-card-subtitle>
     <mat-card-title [class.compressedPost]="compressed" *ngIf="post.value.title">{{post.value.title}}</mat-card-title>
-    <div align="center" style="padding-bottom: 20px;" id="bot" *ngIf="mostrar && post.value.invitation">
+    <div align="center" style="padding-bottom: 20px;" id="bot" *ngIf="mostrar && post.value.invitation && dataService.user.entity == 'patient'">
         <button *ngIf="post.value.invitation" [disabled]="loading" mat-stroked-button style="margin-left: 10px; font-size: 14px;" (click)="rechazar(post)">
             Rechazar
         </button>
@@ -32,6 +29,10 @@
         <source src="{{post.value.video | video}}" />
     </video>
     <mat-card-content *ngIf="!compressed && post.value.content">{{post.value.content}}</mat-card-content>
+    <div *ngIf="post.value.url">
+        <mat-card-subtitle>Previsualización: </mat-card-subtitle>
+        <iframe width="360" height="260" [src]="url2"></iframe><br>
+    </div>
     <div *ngIf="!compressed && post.value.poll">
         <div *ngFor="let question of post.value.poll">
             <mat-card-subtitle *ngIf="question.question">{{question.question}}
@@ -53,6 +54,9 @@
             </button>
         </div>
     </div>
+    <button *ngIf="removable" (click)="clickEvent()" class="compressedBtn" color="primary">
+        <mat-icon style="margin-top:7px; font-size: 14px;">delete</mat-icon>
+    </button>
     <br>
     <div *ngIf="feedback">
         <button *ngIf="post.liked=='true'" mat-raised-button style="font-size: 12px;
@@ -83,15 +87,19 @@
         background: transparent;" (click)="openComment(post)">
             <mat-icon style="margin-top: 3px;
             font-size: 24px;
-            margin-left: -3px;">comment</mat-icon><div style="float: right;margin-top: -28px;margin-left: 206px;position: absolute;" *ngIf="!post.comments || post.comments.length == 0">0</div>
+            margin-left: -3px;">comment</mat-icon><div style="float: right;
+            margin-top: -33px;
+            margin-left: 29px;
+            font-size: 17px;
+            position: absolute;" *ngIf="!post.comments || post.comments.length == 0">0</div>
             <div class="comments" *ngIf="post.comments && post.comments.length == 1">{{post.comments.length}}</div>
             <div class="comments" *ngIf="post.comments && post.comments.length > 1">{{post.comments.length}}</div> 
         </button>
-        <button *ngIf="post.favourite=='true'" mat-raised-button style="border:0px;color:#FF4081;background-color: transparent!important;float:right;margin-left: 10px; font-size: 12px;border:0px;" color="primary" (click)="saveFavourite(post)">
+        <button *ngIf="post.favourite=='true'" mat-raised-button style="border:0px;color:#FF4081;background-color: transparent!important;float:right;margin-left: 10px; font-size: 12px;border:0px;" class="mat-elevation-z0" color="primary" (click)="saveFavourite(post)">
             <mat-icon style="margin-top:1px; font-size: 24px;color:#FF4081!important">favorite</mat-icon> 
         </button>
         <button *ngIf="post.favourite=='false'" mat-stroked-button style="border:0px;font-size: 12px;float:right" (click)="saveFavourite(post)">
-            <mat-icon style="margin-top:-2px; font-size: 24px;color:#FF4081!important">favorite</mat-icon> 
+            <mat-icon style="margin-top:-2px; font-size: 24px;">favorite</mat-icon> 
         </button>
        <!-- <button  mat-stroked-button style="float:right;margin-left: 10px; font-size: 12px;" (click)="saveFavourite(post)" >
             <mat-icon style="margin-top:-2px; font-size: 24px;">favorite_border</mat-icon>

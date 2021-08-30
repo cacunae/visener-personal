@@ -13,7 +13,7 @@
         <mat-card-subtitle style="margin:0px;">Mis Grupos</mat-card-subtitle>
         <div *ngFor="let group of groups">
             <mat-checkbox name="group" [(ngModel)]="group.selected" [value]="group._id" ngDefaultControl>
-                Compartir con: <strong> {{group.title}} </strong>
+                Compartir con: <strong>{{group.title}}</strong>
             </mat-checkbox>
         </div>
     </div>

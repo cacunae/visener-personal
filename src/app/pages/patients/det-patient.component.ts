@@ -19,6 +19,8 @@ export class DetPatientComponent implements OnInit {
   public loading:boolean = true;
   public posts:any[] = [];
   public treatments:any[] = [];
+  public startDate:any;
+  public endDate:any;
 
   constructor(public route: ActivatedRoute, public snackBar: MatSnackBar, public router: Router, private _fb: FormBuilder, public dataService: DataService, public dialog: MatDialog) {
   }

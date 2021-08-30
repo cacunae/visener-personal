@@ -1,7 +1,7 @@
 <app-header title="Detalle de paciente" [backLink]="'/professional/asc-patients'"></app-header>
 <div class="content" role="main">
     <mat-card>
-        <div *ngIf="!loading" >
+        <div *ngIf="!loading">
             <mat-card-title>{{patient.name}}</mat-card-title>
             <mat-card-subtitle style="margin-bottom: 0px;">{{patient.username}}</mat-card-subtitle>
             <br>
@@ -14,19 +14,37 @@
                 <mat-tab label="Programas">
                     <br>
                     <div *ngFor="let treatment of treatments" style="padding-left: 5px; padding-right: 5px;">
-                        <app-treatment *ngIf="{start: treatment.value.doc.startDate, end:treatment.value.doc.endDate} | treatmentActivePipe" [treatment]="treatment.value.doc._id" origin="add-program" [removable]="true" (event)="removeProgram(treatment.value.doc)"></app-treatment>
+                        <app-treatment *ngIf="{start: treatment.value.doc.startDate, end:treatment.value.doc.endDate} | treatmentActivePipe" [resizable]="true" [treatment]="treatment.value.doc._id" origin="add-program" [removable]="true" (event)="removeProgram(treatment.value.doc)"></app-treatment>
                     </div>
                 </mat-tab>
                 <mat-tab label="Posts">
                     <br>
+                    <h3><strong>Post Asociados:</strong></h3>
                     <div *ngFor="let post of posts" style="padding-left: 5px;">
-                        <app-post [postId]="post.value.doc.post" [resizable]="true" [removable]="true" (event)="removePost(post.value.doc)"></app-post>
+                        <div *ngIf="!post.value.doc.startDate">
+                            <app-post [postId]="post.value.doc.post" [resizable]="true" [removable]="true"
+                                (event)="removePost(post.value.doc)"> </app-post>
+                        </div>
+                    </div>
+                    <h3><strong>Post Masivos:</strong></h3>
+                    <div *ngFor="let post of posts" style="padding-left: 5px;">
+                        <div *ngIf="post.value.doc.startDate">
+                            <a style="position: absolute;
+                            z-index: 100;
+                            margin-top: 35px;
+                            margin-left: 17px;"><strong>Inicio:</strong> {{post.value.doc.startDate}} / <strong>Termino:</strong> {{post.value.doc.endDate}} </a>
+                            <app-post [postId]="post.value.doc.post" [resizable]="true" [removable]="true"
+                                (event)="removePost(post.value.doc)"> </app-post>
+                        </div>
                     </div>
                 </mat-tab>
                 <mat-tab label="Inactivo">
                     <br>
                     <div *ngFor="let treatment of treatments" style="padding-left: 5px; padding-right: 5px;">
-                        <app-treatment *ngIf="! ({start: treatment.value.doc.startDate, end: treatment.value.doc.endDate} | treatmentActivePipe)" [treatment]="treatment.value.doc._id" origin="add-program" [removable]="true" (event)="removeProgram(treatment.value.doc)"></app-treatment>
+                        <app-treatment
+                            *ngIf="! ({start: treatment.value.doc.startDate, end: treatment.value.doc.endDate} | treatmentActivePipe)"
+                            [treatment]="treatment.value.doc._id" origin="add-program" [removable]="true"
+                            (event)="removeProgram(treatment.value.doc)"></app-treatment>
                     </div>
                 </mat-tab>
             </mat-tab-group>
@@ -34,6 +52,7 @@
     </mat-card>
     <mat-spinner *ngIf="loading"></mat-spinner>
     <div class="desktopbuttons">
-        <button mat-raised-button routerLink="/professional/asc-patients" routerLinkActive="false">Volver</button>&nbsp;&nbsp;&nbsp;
+        <button mat-raised-button routerLink="/professional/asc-patients"
+            routerLinkActive="false">Volver</button>&nbsp;&nbsp;&nbsp;
     </div>
 </div>
