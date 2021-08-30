@@ -62,6 +62,8 @@ export class PostComponent implements OnInit {
     console.log(this.post);
     if(this.post.value.url){
       this.url2 = this._sanitizer.bypassSecurityTrustResourceUrl(this.post.value.url.changingThisBreaksApplicationSecurity);
+    }else{
+      this.url2 = "";
     }
     
   }
