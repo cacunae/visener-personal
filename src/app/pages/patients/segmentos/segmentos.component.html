@@ -31,8 +31,16 @@
             <br>
 
             <div id = "human">
-                
-
+                <div *ngIf="toggleColumnaDL" (click)="updateColumnaDL()" id ="ColumnaDL"  class="pelotita" ></div>
+                <div *ngIf="toggleColumnaCerv" (click)="updateColumnaCerv()" id ="ColumnaCerv" class="pelotita" ></div>
+                <div *ngIf="toggleCodo" (click)="updateCodo()" id ="Codo" class="pelotita" ></div>
+                <div *ngIf="toggleHombro" (click)="updateHombro()" id ="Hombro" class="pelotita" ></div>
+                <div *ngIf="togglePulgar" (click)="updatePulgar()" id ="Pulgar" class="pelotita" ></div>
+                <div *ngIf="toggleMuneca" (click)="updateMuneca()" id ="Muneca" class="pelotita" ></div>
+                <div *ngIf="toggleDedos" (click)="updateDedos()" id ="Dedos" class="pelotita" ></div>
+                <div *ngIf="toggleTobillo" (click)="updateTobillo()" id ="TobilloPie" class="pelotita" ></div>
+                <div *ngIf="toggleRodilla" (click)="updateRodilla()" id ="Rodilla" class="pelotita" ></div>
+                <div *ngIf="toggleCadera" (click)="updateCadera()" id ="Cadera" class="pelotita" ></div>
             </div>
             
 

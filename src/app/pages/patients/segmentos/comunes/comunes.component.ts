@@ -60,17 +60,18 @@ export class ComunesComponent  {
   _necesidad:string;
   _justificacion:string;
   _consideraciones:string;
+  _valoracion:string;
 
   capturarOrientacion(orientacion:any){
     this._orientacion = orientacion;
     localStorage.setItem("ori",this._orientacion)
-    console.log(this._orientacion);
   }
+
   capturarObjetivos(){
     this._objetivos = this.formu.objetivosPlanTerapeutico;
-    console.log(this._objetivos);
     localStorage.setItem("obj",this._objetivos)
   }
+
   capturarDesempeno(desempeno:any){
     this._desempeno = desempeno;
     localStorage.setItem("des", this._desempeno);
@@ -86,8 +87,13 @@ export class ComunesComponent  {
   }
   capturarConsideraciones(){
     this._consideraciones = this.formu.consideracionesGenerales;
-    console.log(this._consideraciones);
     localStorage.setItem("cons",this._consideraciones);
+  }
+  capturarValoracion(){
+    this._valoracion = this.formu.valoracionRiesgoCaidas;
+    localStorage.setItem("val",this._valoracion)
+
+
   }
 
 

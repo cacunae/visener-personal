@@ -117,6 +117,8 @@ import { ComunesComponent } from './pages/patients/segmentos/comunes/comunes.com
 import { LandingKinesiologiaComponent } from './pages/patients/segmentos/landing-kinesiologia/landing-kinesiologia.component';
 import { ReportsComponent } from './pages/reports/reports.component';
 import { ShareChallengesComponent } from './pages/challenges/share-challenges/share-challenges.component';
+import { DialogElementComponent } from './pages/patients/segmentos/forms/dialog-element/dialog-element.component';
+import { DialogWarningComponent } from './pages/patients/segmentos/forms/dialog-warning/dialog-warning.component';
 
 @NgModule({
   declarations: [
@@ -192,6 +194,8 @@ import { ShareChallengesComponent } from './pages/challenges/share-challenges/sh
     ComunesComponent,
     ReportsComponent,
     ShareChallengesComponent,
+    DialogElementComponent,
+    DialogWarningComponent,
   ],
   imports: [
     Ng2ImgMaxModule,
