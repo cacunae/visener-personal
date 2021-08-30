@@ -5,6 +5,10 @@ import { Subscription } from 'rxjs';
 import { Clipboard } from '@angular/cdk/clipboard';
 import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
+import {MatDialog} from '@angular/material/dialog';
+import { DialogElementComponent } from './dialog-element/dialog-element.component';
+import { DialogWarningComponent } from './dialog-warning/dialog-warning.component';
+
 
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -26,7 +30,6 @@ interface FormularioTobilloPie {
   promFdFpDerecha:string;
   fuerzaMuscularDorsiflexores: string;
   equilibrioUnipodal: string;
-  evaluacionesComplementarias:string;
   seleccionEvaluacionComplementaria:string;
   determinanteRiesgo: string;
   diagnosticoKinesiologico: string;
@@ -446,58 +449,20 @@ interface Pinza{
   viewValue: string;
 }
 
+
 @Component({
   selector: 'app-forms',
   templateUrl: './forms.component.html',
   styleUrls: ['./forms.component.css']
 })
-
 export class FormsComponent implements OnInit {
 
-  numberFormControl = new FormControl('',[
-    Validators.required,
-    Validators.pattern("^(0|[1-9][0-9]*)$" )
-  ]);
-
-  textFormControl = new FormControl('',[
-    Validators.required
-  ]);
-  selected = new FormControl('valid', [
-    Validators.required
-  ])
-
-  
-
-  matcher = new MyErrorStateMatcher();
-
-  suscription: Subscription;
-
-  registros:string;
-
-  flag:boolean;
-
-  _puntaje:number = 0;
-  _sugerencia:string;
-  
-  _determinante:number;
-  _condicion:number;
-  _ortopedia:number;
-  _edema:number;
-  _nivel:number;
-  _extension:number;
-  _flexion:number;
-
-
-
-
-
-  constructor(public json: ConnService, public booleanos: BooleanosService, private clipboard: Clipboard) { 
+  constructor(public json: ConnService, public booleanos: BooleanosService, private clipboard: Clipboard, public dialog: MatDialog) { 
 
   }
 
   ngOnInit(){ 
     
-
     this.suscription = this.booleanos.boton1.subscribe((flag: boolean) =>{
       this.toggleTobillo = flag
     })
@@ -531,16 +496,67 @@ export class FormsComponent implements OnInit {
       
   }
 
-  sumarValores(n1:any, n2:any, n3:any, n4:any, n5:any, n6: any, n7:any){
+
+  numberFormControl1 = new FormControl('',[
+    Validators.required,
+    Validators.pattern("^(0|[1-9][0-9]*)$" )
+  ]);
+  numberFormControl2 = new FormControl('',[
+    Validators.required,
+    Validators.pattern("^(0|[1-9][0-9]*)$" )
+  ]);
+
+  textFormControl1 = new FormControl('',[
+    Validators.required
+  ]);
+  textFormControl2 = new FormControl('',[
+    Validators.required
+  ]);
+  textFormControl3 = new FormControl('',[
+    Validators.required
+  ]);
+  textFormControl4 = new FormControl('',[
+    Validators.required
+  ]);
+
+  selected1 = new FormControl('valid', [
+    Validators.required
+  ])
+  selected2 = new FormControl('valid', [
+    Validators.required
+  ])
+  selected3 = new FormControl('valid', [
+    Validators.required
+  ])
+  selected4 = new FormControl('valid', [
+    Validators.required
+  ])
+
+  matcher = new MyErrorStateMatcher();
+
+  suscription: Subscription;
+
+  registros:string;
+
+  flag:boolean;
+
+  _puntaje:number = 0;
+  _sugerencia:string;
+  
+  _determinante:number;
+  _condicion:number;
+  _ortopedia:number;
+  _edema:number;
+  _nivel:number;
+  _extension:number;
+  _flexion:number;
 
   
+  sumarValores(n1:any, n2:any, n3:any, n4:any, n5:any, n6: any, n7:any){
 
     this._puntaje = n1.value+n2.value+n3.value+n4.value+n5.value+n6.value+n7.value;
-
-
     console.log(this._puntaje);
-    
-
+  
     this.formu.puntajeCriteriosGravedad = this._puntaje.toString();
     
     this.categorizarRiesgo();
@@ -625,6 +641,32 @@ export class FormsComponent implements OnInit {
     
   }
 
+  camposVaciosConfirmar(){
+   
+    if(this.toggleTobillo){
+      if(this.formu.prof == '' || this.formu.antecedentes == '' || this.formu.diagnosticoCondicionSalud == '' || this.formu.edema == '' || this.formu.usoOrtopedia == '' || this.formu.nivelDolorMovilidad == '' || this.formu.promFdFpDerecha == ''  || this.formu.promFdFpIzquierda == '' || this.formu.patronMarcha == ''  ){
+        this.dialog.open(DialogElementComponent)
+      }
+      
+    }
+     
+    if(this.toggleHombro){
+      if(this.formu4.prof == '' || this.formu4.antecedentes == '' || this.formu4.diagnosticoCondicionSalud == '' || this.formu4.lateralidad == '' || this.formu4.nivelDolorMovilidad == '' || this.formu4.rangoArt == ''  || this.formu4.apleyInferior == '' || this.formu4.apleySuperior == ''  ){
+        this.dialog.open(DialogElementComponent)
+      }
+      
+    }
+  }
+
+  cancelarForm(){
+
+    if(this.booleanos.boton1 || this.booleanos.boton2 || this.booleanos.boton3 || this.booleanos.boton4|| this.booleanos.boton5 || this.booleanos.boton6 || this.booleanos.boton7 || this.booleanos.boton8 || this.booleanos.boton9 || this.booleanos.boton10){
+      this.dialog.open(DialogWarningComponent)
+    
+    }
+  
+  }
+
   public toggleTobillo:boolean = false;
   public toggleRodilla:boolean = false;
   public toggleCadera:boolean = false;
@@ -636,19 +678,7 @@ export class FormsComponent implements OnInit {
   public toggleColumnaDL:boolean = false;
   public toggleColumnaCerv:boolean = false;
 
-  cancelarForm(){
-    this.booleanos.updateStateTobillo(false)
-    this.booleanos.updateStateRodilla(false)
-    this.booleanos.updateStateHombro(false)
-    this.booleanos.updateStateCadera(false)
-    this.booleanos.updateStateCodo(false)
-    this.booleanos.updateStateMuneca(false)
-    this.booleanos.updateStateDedos(false)
-    this.booleanos.updateStatePulgar(false)
-    this.booleanos.updateStateColumnaDL(false)
-    this.booleanos.updateStateColumnaCerv(false)
-
-  }
+  
 
 
   public detRiesgo: any;
@@ -686,40 +716,74 @@ export class FormsComponent implements OnInit {
   
   
   copiarRegistros(){
-    this.clipboard.copy("Registro de categorizacion del segmento Pierna, tobillo-pie\n° DETERMINANTE DE RIESGO: " + this.detRiesgo
-                                                                                  +"\n° CONDICION ADICIONAL DE SALUD: "+ this.condicionSalud
-                                                                                  +"\n° USO DE ORTOPEDIA: " + this.usoOrtopediaChar 
-                                                                                  +"\n° EDEMA: " + this.edemaChar
-                                                                                  +"\n° NIVEL DE DOLOR A LA MOVILIDAD O A LA CARGA: " + this.nivelDolor
-                                                                                  +"\n° EXTENSIÓN PASIVA DEL PRIMER ORTEJO: " + this.extensionPasiva 
-                                                                                  +"\n° FLEXIÓN DORSAL PASIVA O ACTIVA: "+ this.extensionPasiva
-                                                                                  +"\n° PUNTAJE CRITERIOS DE GRAVEDAD: " + this.formu.puntajeCriteriosGravedad 
-                                                                                  +"\n° SUGERENCIA: " + this._sugerencia );
+    this.clipboard.copy("Registro de categorizacion del segmento Pierna, tobillo-pie"
+                        +"\n° DETERMINANTE DE RIESGO: " + this.detRiesgo
+                        +"\n° CONDICION ADICIONAL DE SALUD: "+ this.condicionSalud
+                        +"\n° USO DE ORTOPEDIA: " + this.usoOrtopediaChar 
+                        +"\n° EDEMA: " + this.edemaChar
+                        +"\n° NIVEL DE DOLOR A LA MOVILIDAD O A LA CARGA: " + this.nivelDolor
+                        +"\n° EXTENSIÓN PASIVA DEL PRIMER ORTEJO: " + this.extensionPasiva 
+                        +"\n° FLEXIÓN DORSAL PASIVA O ACTIVA: "+ this.extensionPasiva
+                        +"\n° PUNTAJE CRITERIOS DE GRAVEDAD: " + this.formu.puntajeCriteriosGravedad 
+                        +"\n° SUGERENCIA: " + this._sugerencia );
 
   }
 
 
   copiarRegistrosEvolutivos(){
-    this.clipboard.copy("Registro de evaluación osteomuscular del segmento Pierna, tobillo-pie\n° DIAGNOSTICO O CONDICION DE SALUD: " + this.formu.diagnosticoCondicionSalud
-                                                                                  +"\n° EDEMA: " + this.edemaChar
-                                                                                  +"\n° CICATRIZ: "+ this.formu.cicatriz
-                                                                                  +"\n° SENSIBILIDAD: "+ this.formu.sensibilidad
-                                                                                  +"\n° NIVEL DE DOLOR A LA MOVILIDAD O A LA CARGA: " + this.nivelDolor
-                                                                                  +"\n° MOVILIDAD DE ORTEJOS: " + this.formu.movilidadOrtejos
-                                                                                  +"\n° MOVILIDAD SUBTALAR: " + this.formu.movilidadSubtalar
-                                                                                  +"\n° RANGO ARTICULAR FD/FP:      * DER: " + this.formu.promFdFpDerecha + " * IZQ: " + this.formu.promFdFpIzquierda
-                                                                                  +"\n° FUERZA MUSCULAR DORSIFLEXORES: " + this.formu.fuerzaMuscularDorsiflexores
-                                                                                  +"\n° FUERZA MUSCULAR PLANTIFLEXORES: " + this.formu.fuerzaMuscularPlantiflexores
-                                                                                  +"\n° EQUILIBRIO UNIPODAL: " + this.formu.equilibrioUnipodal
-                                                                                  +"\n° PATRON DE MARCHA: " + this.formu.patronMarcha
-                                                                                  +"\n° EVALUACIONES COMPLEMENTARIAS :" + this.formu.seleccionEvaluacionComplementaria
-                                                                                  +"\n° DIAGNOSTICO KINESIOLÓGICO: " + this.formu.diagnosticoKinesiologico
-                                                                                  +"\n° ORIENTACIÓN DEL PLAN TERAPÉUTICO (PRIORIDAD): " + localStorage.getItem("ori")
-                                                                                  +"\n° OBJETIVOS / PLAN TERAPÉUTICO: " + localStorage.getItem("obj")
-                                                                                  +"\n° DESEMPEÑO FUNCIONAL: " + localStorage.getItem("des") 
-                                                                                  +"\n° NECESIDADES DE ASISTENCIA INTERDISCIPLINARIA: " + localStorage.getItem("nec")
-                                                                                  +"\n° JUSTIFICACIÓN: " + localStorage.getItem("jus")
-                                                                                  +"\n° CONSIDERACIONES GENERALES: " + localStorage.getItem("cons")  );
+    this.clipboard.copy("Registro de evaluación osteomuscular del segmento Pierna, tobillo-pie"
+                        +"\n° DIAGNOSTICO O CONDICION DE SALUD: " + this.formu.diagnosticoCondicionSalud
+                        +"\n° EDEMA: " + this.edemaChar
+                        +"\n° CICATRIZ: "+ this.formu.cicatriz
+                        +"\n° SENSIBILIDAD: "+ this.formu.sensibilidad
+                        +"\n° NIVEL DE DOLOR A LA MOVILIDAD O A LA CARGA: " + this.nivelDolor
+                        +"\n° MOVILIDAD DE ORTEJOS: " + this.formu.movilidadOrtejos
+                        +"\n° MOVILIDAD SUBTALAR: " + this.formu.movilidadSubtalar
+                        +"\n° RANGO ARTICULAR FD/FP:      * DER: " + this.formu.promFdFpDerecha + " * IZQ: " + this.formu.promFdFpIzquierda
+                        +"\n° FUERZA MUSCULAR DORSIFLEXORES: " + this.formu.fuerzaMuscularDorsiflexores
+                        +"\n° FUERZA MUSCULAR PLANTIFLEXORES: " + this.formu.fuerzaMuscularPlantiflexores
+                        +"\n° EQUILIBRIO UNIPODAL: " + this.formu.equilibrioUnipodal
+                        +"\n° PATRON DE MARCHA: " + this.formu.patronMarcha
+                        +"\n° EVALUACIONES COMPLEMENTARIAS :" + this.formu.seleccionEvaluacionComplementaria
+                        +"\n° DIAGNOSTICO KINESIOLÓGICO: " + this.formu.diagnosticoKinesiologico
+                        +"\n° ORIENTACIÓN DEL PLAN TERAPÉUTICO (PRIORIDAD): " + localStorage.getItem("ori")
+                        +"\n° OBJETIVOS / PLAN TERAPÉUTICO: " + localStorage.getItem("obj")
+                        +"\n° DESEMPEÑO FUNCIONAL: " + localStorage.getItem("des") 
+                        +"\n° NECESIDADES DE ASISTENCIA INTERDISCIPLINARIA: " + localStorage.getItem("nec")
+                        +"\n° JUSTIFICACIÓN: " + localStorage.getItem("jus")
+                        +"\n° CONSIDERACIONES GENERALES: " + localStorage.getItem("cons")  );
+  }
+
+  copiarRegistrosCompletos(){
+    this.clipboard.copy("Registro de evaluación osteomuscular del segmento Pierna, tobillo-pie"
+                        +"\n° PROFESIÓN, OFICIO O TIPO DE TRABAJO: " + this.formu.prof
+                        +"\n° DIAGNOSTICO O CONDICION DE SALUD: " + this.formu.diagnosticoCondicionSalud
+                        +"\n° EDEMA: " + this.edemaChar
+                        +"\n° CICATRIZ: "+ this.formu.cicatriz
+                        +"\n° SENSIBILIDAD: "+ this.formu.sensibilidad
+                        +"\n° NIVEL DE DOLOR A LA MOVILIDAD O A LA CARGA: " + this.nivelDolor
+                        +"\n° MOVILIDAD DE ORTEJOS: " + this.formu.movilidadOrtejos
+                        +"\n° MOVILIDAD SUBTALAR: " + this.formu.movilidadSubtalar
+                        +"\n° RANGO ARTICULAR FD/FP:      * DER: " + this.formu.promFdFpDerecha + " * IZQ: " + this.formu.promFdFpIzquierda
+                        +"\n° FUERZA MUSCULAR DORSIFLEXORES: " + this.formu.fuerzaMuscularDorsiflexores
+                        +"\n° FUERZA MUSCULAR PLANTIFLEXORES: " + this.formu.fuerzaMuscularPlantiflexores
+                        +"\n° EQUILIBRIO UNIPODAL: " + this.formu.equilibrioUnipodal
+                        +"\n° PATRON DE MARCHA: " + this.formu.patronMarcha
+                        +"\n° EVALUACIONES COMPLEMENTARIAS :" + this.formu.seleccionEvaluacionComplementaria
+                        +"\n° DIAGNOSTICO KINESIOLÓGICO: " + this.formu.diagnosticoKinesiologico
+                        +"\n° PUNTAJE CRITERIOS DE GRAVEDAD: " + this.formu.puntajeCriteriosGravedad
+                        +"\n° ORIENTACIÓN DEL PLAN TERAPÉUTICO (PRIORIDAD): " + localStorage.getItem("ori")
+                        +"\n° OBJETIVOS / PLAN TERAPÉUTICO: " + localStorage.getItem("obj")
+                        +"\n° DESEMPEÑO FUNCIONAL: " + localStorage.getItem("des") 
+                        +"\n° NECESIDADES DE ASISTENCIA INTERDISCIPLINARIA: " + localStorage.getItem("nec")
+                        +"\n° JUSTIFICACIÓN: " + localStorage.getItem("jus")
+                        +"\n° CONSIDERACIONES GENERALES: " + localStorage.getItem("cons")
+                        +"\n° VALORACIÓN DEL RIESGO DE CAÍDAS: "  + localStorage.getItem("val")  );
+
+
+
+
+
   }
 
   formu: FormularioTobilloPie = {
@@ -734,7 +798,6 @@ export class FormsComponent implements OnInit {
     promFdFpDerecha: '',
     fuerzaMuscularDorsiflexores: '',
     equilibrioUnipodal: '',
-    evaluacionesComplementarias:'',
     seleccionEvaluacionComplementaria:'',
     diagnosticoKinesiologico: '',
     diagnosticoCondicionSalud: '',

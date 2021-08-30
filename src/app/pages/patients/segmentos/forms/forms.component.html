@@ -40,16 +40,16 @@
                     <div class ="formstyles" >
                         <mat-form-field  id ="formulario"   appearance="outline">
                             <mat-label>Profesión, oficio, o tipo de trabajo (*)</mat-label>
-                            <input  [(ngModel)]="formu.prof" matInput placeholder="" [formControl]="textFormControl"  >
-                            <mat-error *ngIf="textFormControl.hasError('required')">
+                            <input  [(ngModel)]="formu.prof" matInput placeholder="" [formControl]="textFormControl1"  >
+                            <mat-error *ngIf="textFormControl1.hasError('required')">
                                 El campo es <strong>obligatorio</strong>
                             </mat-error>
                         </mat-form-field>
                         <br>
 
                         <mat-form-field appearance="outline">
-                            <textarea [(ngModel)]="formu.diagnosticoCondicionSalud" matInput placeholder="Diagnóstico o condición de salud" [formControl]="textFormControl"></textarea>
-                            <mat-error *ngIf="textFormControl.hasError('required')">
+                            <textarea [(ngModel)]="formu.diagnosticoCondicionSalud" matInput placeholder="Diagnóstico o condición de salud" [formControl]="textFormControl2"></textarea>
+                            <mat-error *ngIf="textFormControl2.hasError('required')">
                                 El campo es <strong>obligatorio</strong>
                             </mat-error>
                         </mat-form-field>
@@ -57,8 +57,8 @@
 
                         <mat-form-field appearance="outline">
                             <mat-label>Antecedentes (*)</mat-label>
-                            <input [(ngModel)]= "formu.antecedentes"matInput placeholder="" [formControl]="textFormControl" >
-                            <mat-error *ngIf="textFormControl.hasError('required')">
+                            <input [(ngModel)]= "formu.antecedentes"matInput placeholder="" [formControl]="textFormControl3" >
+                            <mat-error *ngIf="textFormControl3.hasError('required')">
                                 El campo es <strong>obligatorio</strong>
                             </mat-error>
                         </mat-form-field>
@@ -97,11 +97,11 @@
 
                         <mat-form-field appearance="outline">
                             <mat-label>Edema (*)</mat-label>
-                            <mat-select [(value)] = "_edema" [(ngModel)]="formu.edema" (selectionChange)="convertirEdema($event.value.viewValue)" [formControl]="selected" [errorStateMatcher]="matcher">
+                            <mat-select [(value)] = "_edema" [(ngModel)]="formu.edema" (selectionChange)="convertirEdema($event.value.viewValue)" [formControl]="selected1" [errorStateMatcher]="matcher">
                                 <mat-option *ngFor="let Edema of edemas" [value]="Edema">
                                 {{Edema.viewValue}}
                                 </mat-option>
-                                <mat-error *ngIf="selected.hasError('required') && !formu.edema == ''">
+                                <mat-error *ngIf="selected1.hasError('required') && formu.edema == ''">
                                    El campo es <strong>obligatorio</strong>
                                 </mat-error>
                             </mat-select>
@@ -110,7 +110,7 @@
 
                         <mat-form-field appearance="outline">
                             <mat-label>Cicatriz</mat-label>
-                            <mat-select [(ngModel)]="formu.cicatriz"> 
+                            <mat-select [(ngModel)]="formu.cicatriz" multiple> 
                                 <mat-option *ngFor="let Cicatriz of Cicatrices" [value]="Cicatriz.viewValue">
                                 {{Cicatriz.viewValue}}
                                 </mat-option>
@@ -126,11 +126,11 @@
 
                         <mat-form-field appearance="outline">
                             <mat-label>Nivel de dolor a la movilidad o a la carga (*)</mat-label>
-                            <mat-select [(value)] = "_nivel" [(ngModel)]="formu.nivelDolorMovilidad" (selectionChange)="convertirNivel($event.value.viewValue)"[formControl]="selected" [errorStateMatcher]="matcher" >
+                            <mat-select [(value)] = "_nivel" [(ngModel)]="formu.nivelDolorMovilidad" (selectionChange)="convertirNivel($event.value.viewValue)"[formControl]="selected2" [errorStateMatcher]="matcher" >
                                 <mat-option *ngFor="let Nivel of Niveles" [value]="Nivel">
                                 {{Nivel.viewValue}}
                                 </mat-option>
-                                <mat-error *ngIf="selected.hasError('required') && !formu.edema == ''">
+                                <mat-error *ngIf="selected2.hasError('required') && formu.nivelDolorMovilidad == ''">
                                     El campo es <strong>obligatorio</strong>
                                  </mat-error>
                             </mat-select>
@@ -171,21 +171,21 @@
                             <mat-label style="padding-bottom: 10px; padding-left:8px;" >Prom. FD/FP (*)</mat-label>
                             <mat-form-field appearance="outline">
                                 <mat-label>Izquierda</mat-label>
-                                <input type="text" [(ngModel)]="formu.promFdFpIzquierda" [formControl]="numberFormControl" [errorStateMatcher]="matcher" matInput placeholder="" >
-                                <mat-error *ngIf="numberFormControl.hasError('text') && !numberFormControl.hasError('required')">
+                                <input type="text" [(ngModel)]="formu.promFdFpIzquierda" [formControl]="numberFormControl1" [errorStateMatcher]="matcher" matInput placeholder="" >
+                                <mat-error *ngIf="numberFormControl1.hasError('text') && !numberFormControl.hasError('required')">
                                     Porfavor ingrese valores numéricos
                                 </mat-error>
-                                <mat-error *ngIf="numberFormControl.hasError('required')">
+                                <mat-error *ngIf="numberFormControl1.hasError('required')">
                                     El campo es <strong>obligatorio</strong>
                                 </mat-error>
                             </mat-form-field>
                             <mat-form-field appearance="outline">
                                 <mat-label>Derecha</mat-label>
-                                <input type="text" [(ngModel)]="formu.promFdFpDerecha" [formControl]="numberFormControl" [errorStateMatcher]="matcher" matInput placeholder="" >
-                                <mat-error *ngIf="numberFormControl.hasError('text') && !numberFormControl.hasError('required')">
+                                <input type="text" [(ngModel)]="formu.promFdFpDerecha" [formControl]="numberFormControl2" [errorStateMatcher]="matcher" matInput placeholder="" >
+                                <mat-error *ngIf="numberFormControl2.hasError('text') && !numberFormControl.hasError('required')">
                                     Porfavor ingrese valores numéricos
                                 </mat-error>
-                                <mat-error *ngIf="numberFormControl.hasError('required')">
+                                <mat-error *ngIf="numberFormControl2.hasError('required')">
                                     El campo es <strong>obligatorio</strong>
                                 </mat-error>
                             </mat-form-field>
@@ -233,20 +233,14 @@
                         <br>
 
                         <mat-form-field appearance="outline">
-                            <textarea [(ngModel)]="formu.patronMarcha" matInput placeholder="Patrón de marcha (*)" [formControl]="textFormControl"></textarea>
-                            <mat-error *ngIf="textFormControl.hasError('required')">
+                            <textarea [(ngModel)]="formu.patronMarcha" matInput placeholder="Patrón de marcha (*)" [formControl]="textFormControl4"></textarea>
+                            <mat-error *ngIf="textFormControl4.hasError('required')">
                                 El campo es <strong>obligatorio</strong>
                             </mat-error>
                         </mat-form-field>
                         <br> 
                         
-                        <mat-form-field appearance="outline">
-                            <textarea matInput [(ngModel)]="formu.evaluacionesComplementarias" placeholder="Evaluaciones complementarias"></textarea>
-
-                        </mat-form-field>
-                        <br>
-
-                        <mat-form-field appearance="outline">
+                        <!-- <mat-form-field appearance="outline">
                             <mat-label>Seleccione una opción</mat-label>
                             <mat-select [(ngModel)]="formu.seleccionEvaluacionComplementaria">
                                 <mat-option *ngFor="let EvaluacionesComplementaria of EvaluacionesComplementarias" [value]="EvaluacionesComplementaria.viewValue">
@@ -254,7 +248,8 @@
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>  
-                        <br>                    
+                        <br> -->
+                                        
                        
                         <mat-form-field appearance="outline">
                             <textarea [(ngModel)]="formu.diagnosticoKinesiologico" matInput placeholder="Diagnóstico Kinesiológico"></textarea>
@@ -273,13 +268,30 @@
                             <mat-label>{{_sugerencia}}</mat-label>
                             <input [(ngModel)]="formu.riesgoCitacionesSugeridas" matInput placeholder="" >
                         </mat-form-field>
-                        <br>
+                        <br>   
+
+                        
+
+                        <div id ="containerEval">
+                            <hr>
+                            <mat-label id ="labelEval" >Evaluaciones complementarias</mat-label>
+                            <div id= "checks">
+                                <p><mat-checkbox >SF-12</mat-checkbox></p>
+                                <p><mat-checkbox >LEFS</mat-checkbox></p>
+                                <p><mat-checkbox >DN4</mat-checkbox></p>
+                                <p><mat-checkbox >SDRC</mat-checkbox></p>
+                                <p><mat-checkbox >Riesgo de caidas</mat-checkbox></p>
+                            </div>
+
+                            <button id ="btnGuardar" mat-raised-button  >Guardar</button>&nbsp;&nbsp;&nbsp;
+
+                        </div>
+
 
 
                         
-                        </div>
-                    <hr>
-                    <app-comunes></app-comunes>
+                    </div>
+                    
                 </mat-tab>
                 <!----------------------------------FORMULARIO RODILLA------------------------------------------->
                 <mat-tab  *ngIf="toggleRodilla" >
@@ -669,28 +681,39 @@
                     <div class="formstyles" >
                         <mat-form-field appearance="outline">
                             <mat-label>Profesión, oficio, o tipo de trabajo (*)</mat-label>
-                            <input [(ngModel)]="formu4.prof" matInput placeholder="" >
+                            <input [(ngModel)]="formu4.prof" matInput placeholder=""  [formControl]="textFormControl1" >
+                            <mat-error *ngIf="textFormControl1.hasError('required')">
+                                El campo es <strong>obligatorio</strong>
+                            </mat-error>
                         </mat-form-field>
                         <br>
 
                         <mat-form-field appearance="outline">
-                            <textarea [(ngModel)]="formu4.diagnosticoCondicionSalud" matInput placeholder="Diagnóstico o condición de salud (*)"></textarea>
-
+                            <textarea [(ngModel)]="formu4.diagnosticoCondicionSalud" matInput placeholder="Diagnóstico o condición de salud (*)" [formControl]="textFormControl2"></textarea>
+                            <mat-error *ngIf="textFormControl2.hasError('required')">
+                                El campo es <strong>obligatorio</strong>
+                            </mat-error>
                         </mat-form-field>
                         <br>
 
                         <mat-form-field appearance="outline">
                             <mat-label>Antecedentes (*)</mat-label>
-                            <input [(ngModel)]= "formu4.antecedentes"matInput placeholder="" >
+                            <input [(ngModel)]= "formu4.antecedentes"matInput placeholder="" [formControl]="textFormControl3" >
+                            <mat-error *ngIf="textFormControl3.hasError('required')">
+                                El campo es <strong>obligatorio</strong>
+                            </mat-error>
                         </mat-form-field>
                         <br>
 
                         <mat-form-field appearance="outline">
                             <mat-label>Lateralidad (*)</mat-label>
-                            <mat-select [(ngModel)]="formu4.lateralidad">
+                            <mat-select [(ngModel)]="formu4.lateralidad" [formControl]="selected1">
                                 <mat-option *ngFor="let Lateralidad of lateralidades" [value]="Lateralidad.viewValue">
                                 {{Lateralidad.viewValue}}
                                 </mat-option>
+                                <mat-error *ngIf="selected1.hasError('required') && formu4.lateralidad == ''">
+                                    El campo es <strong>obligatorio</strong>
+                                 </mat-error>
                             </mat-select>
                         </mat-form-field>  
                         <br>
@@ -739,10 +762,13 @@
 
                         <mat-form-field appearance="outline">
                             <mat-label>Rango Art. (*)</mat-label>
-                            <mat-select [(ngModel)]="formu4.rangoArt">
+                            <mat-select [(ngModel)]="formu4.rangoArt" [formControl]="selected2">
                                 <mat-option *ngFor="let RangoArt of rangosArt" [value]="RangoArt.viewValue">
                                 {{RangoArt.viewValue}}
                                 </mat-option>
+                                <mat-error *ngIf="selected2.hasError('required') && formu4.rangoArt == ''">
+                                    El campo es <strong>obligatorio</strong>
+                                 </mat-error>
                             </mat-select>
                         </mat-form-field>
                         <br>
@@ -807,20 +833,26 @@
 
                         <mat-form-field appearance="outline">
                             <mat-label>Apley superior (*)</mat-label>
-                            <mat-select [(ngModel)]="formu4.apleySuperior">
+                            <mat-select [(ngModel)]="formu4.apleySuperior" [formControl]="selected3">
                                 <mat-option *ngFor="let ApleySuperior of ApleySuperiores" [value]="ApleySuperior.viewValue">
                                 {{ApleySuperior.viewValue}}
                                 </mat-option>
+                                <mat-error *ngIf="selected3.hasError('required')">
+                                    El campo es <strong>obligatorio</strong>
+                                </mat-error>
                             </mat-select>
                         </mat-form-field>  
                         <br>
 
                         <mat-form-field appearance="outline">
                             <mat-label>Apley inferior (*)</mat-label>
-                            <mat-select [(ngModel)]="formu4.apleyInferior">
+                            <mat-select [(ngModel)]="formu4.apleyInferior" [formControl]="selected4">
                                 <mat-option *ngFor="let ApleyInferior of ApleyInferiores" [value]="ApleyInferior.viewValue">
                                 {{ApleyInferior.viewValue}}
                                 </mat-option>
+                                <mat-error *ngIf="selected4.hasError('required')">
+                                    El campo es <strong>obligatorio</strong>
+                                </mat-error>
                             </mat-select>
                         </mat-form-field>  
                         <br>
@@ -2080,10 +2112,11 @@
     </mat-card>
     <!--<mat-spinner ></mat-spinner>-->
     <div class="desktopbuttons">
-        <button (click)="cancelarForm()" mat-stroked-button routerLink="/professional/asc-segmentos" routerLinkActive="false">Volver</button>&nbsp;&nbsp;&nbsp;
-        <button (click)="sumarValores(_determinante, _condicion, _edema, _extension, _flexion , _nivel, _ortopedia)" (click)="copiarRegistros()" mat-raised-button  >Copiar Resumen Médico</button>&nbsp;&nbsp;&nbsp;
-        <button  mat-raised-button  >Copiar Resumen Kinésico</button>&nbsp;&nbsp;&nbsp;
-        <button (click)="multiplePost()" mat-raised-button  >Siguiente</button>&nbsp;&nbsp;&nbsp;
+        <button (click)="cancelarForm()" mat-stroked-button >Volver</button>&nbsp;&nbsp;&nbsp;
+        <button (click)="sumarValores(_determinante, _condicion, _edema, _extension, _flexion , _nivel, _ortopedia)" (click)="copiarRegistros()" mat-raised-button  >Copiar resumen</button>&nbsp;&nbsp;&nbsp;
+        <button (click)="copiarRegistrosEvolutivos()" mat-raised-button  >Copiar Reg. Evolutivos</button>&nbsp;&nbsp;&nbsp;
+        <button (click)="copiarRegistrosCompletos()" mat-raised-button  >Copiar Reg. completo</button>&nbsp;&nbsp;&nbsp;
+        <button (click)="camposVaciosConfirmar()" mat-raised-button  >Siguiente</button>&nbsp;&nbsp;&nbsp;
     </div>
 </div>
 

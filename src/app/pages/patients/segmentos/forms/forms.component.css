@@ -3,13 +3,14 @@
     flex-direction: column;
     width:50%;
     flex-wrap: wrap;
-    height: 1100px;
+    height: 1155px;
 
 
 }
+
 :host ::ng-deep .mat-tab-label-active{
-    border-color: #f7e202;
-    color:#f7e202;
+    border-color: #F6A127;
+    color:#F6A127;
     border-style: solid;
     border-radius: 30px;
     
@@ -37,7 +38,7 @@
 
 
 .smallTlt{
-    color:tomato;
+    color:#F6A127;
     font-size: 11px;
 }
 
@@ -51,6 +52,43 @@
 
 .tabs{
     color:white;
+}
+
+#containerEval{
+    position: absolute;
+    display: block;
+    bottom: 1.5px;
+    height: 120px;
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+#labelEval{
+    display: block;
+    margin-right: auto;
+    margin-left: 10px;
+}
+
+#checks{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin-top: 15px;
+
+}
+
+#btnGuardar{
+    display:block;
+    margin-left:auto;
+    margin-right: 15px;
+}
+
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-ripple .mat-ripple-element {
+    background-color: #F6A127;
+}
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background{
+    background-color: #F6A127;
 }
 
 
