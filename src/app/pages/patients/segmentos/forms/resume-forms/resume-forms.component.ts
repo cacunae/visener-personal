@@ -20,7 +20,7 @@ export class ResumeFormsComponent implements OnInit {
     html2canvas(DATA).then(canvas => {
         
         let fileWidth = 208;
-        let fileHeight = 1020 * fileWidth / canvas.width;
+        let fileHeight = canvas.height * fileWidth / canvas.width;
         
         const FILEURI = canvas.toDataURL('image/png')
         let PDF = new jsPDF('p', 'mm', 'a4');
@@ -31,6 +31,5 @@ export class ResumeFormsComponent implements OnInit {
     });     
   }
 
-  
 
 }

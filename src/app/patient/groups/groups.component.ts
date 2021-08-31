@@ -140,6 +140,7 @@ export class GroupsComponent implements OnInit {
             this.image = null;
             this.getPosts();
             this.snackBar.open('Tu post ha sido publicado.', 'OK', {duration: 5000});
+            this.router.navigateByUrl("/patient/groups")
           });
         }else{
           this.postTitle = null;
