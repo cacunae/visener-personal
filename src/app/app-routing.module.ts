@@ -40,6 +40,7 @@ import { FormsComponent } from './pages/patients/segmentos/forms/forms.component
 import { LandingKinesiologiaComponent } from './pages/patients/segmentos/landing-kinesiologia/landing-kinesiologia.component'
 import { UserViewComponent } from './pages/patients/segmentos/user-view/user-view.component';
 import { ResumeFormsComponent } from './pages/patients/segmentos/forms/resume-forms/resume-forms.component';
+import { PlanTerapeuticoComponent } from './pages/patients/segmentos/forms/plan-terapeutico/plan-terapeutico.component';
 
 
 
@@ -58,6 +59,7 @@ const routes: Routes = [
       { path: "buscar-paciente", component: BuscarPacienteComponent},
       { path: "datos-paciente", component: DatosPacienteComponent},
       { path: "asc-forms", component: FormsComponent},
+      { path: "plan", component: PlanTerapeuticoComponent},
       { path: "asc-kinesiologia", component: LandingKinesiologiaComponent},
       { path: "resume-forms", component: ResumeFormsComponent},
       { path: "user-view", component: UserViewComponent},

@@ -3,6 +3,7 @@ import { Component, OnInit, Inject, Output, Input } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import * as moment from 'moment';
 import { now } from 'moment';
+import { ThemeService } from 'ng2-charts';
 import { withLatestFrom } from 'rxjs-compat/operator/withLatestFrom';
 import { DataService } from 'src/app/services/data.service';
 

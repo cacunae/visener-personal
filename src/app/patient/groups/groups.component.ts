@@ -69,11 +69,14 @@ export class GroupsComponent implements OnInit {
   }
 
   
-  modelChanged($event){
-    $event = $event.slice(0,-19) + "embed/" + $event.slice(32);
-    this.url2 = this._sanitizer.bypassSecurityTrustResourceUrl($event);
-    if($event.empty){
-      console.log("event:", $event)
+  modelChanged(event){
+    if(event != ""){
+      console.log("event:", event)
+      event = event.slice(0,-19) + "embed/" + event.slice(32);
+      this.url2 = this._sanitizer.bypassSecurityTrustResourceUrl(event);
+    }else{
+      this.url2 = "";
+      console.log("acá:", event)
     }
   }
 
@@ -187,6 +190,7 @@ export class GroupsComponent implements OnInit {
   }
 
   onFileChange(event:any) {
+    console.log("event:", event)
     let image:File = event.target.files[0];
     const reader = new FileReader();
     console.warn("Original file:", image.size);

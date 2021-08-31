@@ -1,12 +1,21 @@
 .formstyles{
     display: flex;
     flex-direction: column;
-    width:50%;
+    width:auto;
     flex-wrap: wrap;
-    height: 1155px;
-
-
+    height: 1055px;
 }
+
+::ng-deep .mat-tab-body-content{
+    overflow: hidden!important;
+}
+
+#container{
+    overflow: hidden;
+}
+
+
+
 
 :host ::ng-deep .mat-tab-label-active{
     border-color: #F6A127;
@@ -55,7 +64,6 @@
 }
 
 #containerEval{
-    position: absolute;
     display: block;
     bottom: 1.5px;
     height: 120px;
@@ -91,22 +99,15 @@
     background-color: #F6A127;
 }
 
-
-
-mat-form-field{
-    
-    padding-right: 10px;
-    transform: scale(0.98);
+::ng-deep .mat-tab-body{
+    overflow: hidden!important;
 }
 
-/*::ng-deep .mat-tab-body.mat-tab-body-active{
-    margin-bottom: 71px;
-}*/
 
-::ng-deep .mat-tab-body-content{
-    height:107%!important;
+::ng-deep .mat-form-field{   
+    width: 53%!important;
+    border:none!important;
 }
-
 
 
 

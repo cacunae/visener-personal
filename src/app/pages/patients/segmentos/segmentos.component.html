@@ -20,8 +20,8 @@
                     <mat-card-subtitle style="margin-bottom: 0px;" class="Tlt">Lesión de Muñeca Izquierda</mat-card-subtitle>   
                 </div>
                 <div id = "prexistencia">   
-                    <mat-card-subtitle style="margin-bottom: 0px;" class="smallTlt">Pre-Existencia</mat-card-subtitle>
-                    <mat-card-subtitle style="margin-bottom: 0px;" class="Tlt">Fractura pie izquierdo</mat-card-subtitle>
+                    <mat-card-subtitle style="margin-bottom: 0px;" class="smallTlt">Ocupación</mat-card-subtitle>
+                    <mat-card-subtitle style="margin-bottom: 0px;" class="Tlt">Chofer</mat-card-subtitle>
                 </div>
                 
                 
@@ -47,22 +47,22 @@
             <div id = "trenSuperior">  
                 <mat-label id= "trenSuperiorLabel">Tren Superior</mat-label>
                 <div id = "trenSuperiorBtn">
-                    <p><mat-checkbox (click)="updateColumnaCerv()" >Columna Cervical</mat-checkbox></p>
-                    <p><mat-checkbox (click)="updateColumnaDL()">Columna DL</mat-checkbox></p>
+                    <p><mat-checkbox (click)="updateColumnaCerv()" disabled >Columna Cervical</mat-checkbox></p>
+                    <p><mat-checkbox (click)="updateColumnaDL()" disabled>Columna DL</mat-checkbox></p>
                     <p><mat-checkbox (click)="updateHombro()">Hombro</mat-checkbox></p>
-                    <p><mat-checkbox (click)="updateCodo()">Codo</mat-checkbox></p>
-                    <p><mat-checkbox (click)="updateMuneca()">Muñeca</mat-checkbox></p>
-                    <p><mat-checkbox (click)="updatePulgar()">Pulgar</mat-checkbox></p>
-                    <p><mat-checkbox (click)="updateDedos()">Dedos D2-5</mat-checkbox></p>
+                    <p><mat-checkbox (click)="updateCodo()" disabled>Codo</mat-checkbox></p>
+                    <p><mat-checkbox (click)="updateMuneca()" disabled>Muñeca</mat-checkbox></p>
+                    <p><mat-checkbox (click)="updatePulgar()" disabled>Pulgar</mat-checkbox></p>
+                    <p><mat-checkbox (click)="updateDedos()" disabled>Dedos D2-5</mat-checkbox></p>
                 </div>
                 
             </div>
             <div id = "trenInferior">
                 <mat-label id= "trenInferiorLabel">Tren Inferior</mat-label>
                 <div id = "trenInferiorBtn">
-                    <p><mat-checkbox (click)="updateCadera()">Cadera</mat-checkbox></p>
-                    <p><mat-checkbox (click)="updateRodilla()">Rodilla</mat-checkbox></p>
-                    <p><mat-checkbox (click)="updateTobillo()" >Tobillo-Pie</mat-checkbox></p>
+                    <p><mat-checkbox (click)="updateCadera()" disabled>Cadera</mat-checkbox></p>
+                    <p><mat-checkbox (click)="updateRodilla()" disabled>Rodilla</mat-checkbox></p>
+                    <p><mat-checkbox (click)="updateTobillo()">Tobillo-Pie</mat-checkbox></p>
                 </div>
             </div>
             
@@ -74,8 +74,8 @@
     
 </div>
 
-<div class="desktopbuttons">
-    <button mat-stroked-button routerLink="/professional/datos-paciente" >Volver</button>&nbsp;&nbsp;&nbsp;
-    <button mat-raised-button routerLink="/professional/asc-forms" >Siguiente</button>&nbsp;&nbsp;&nbsp;
+<div align="center" style="width: 70%;">
+    <button mat-stroked-button routerLink="/professional/datos-paciente">VOLVER</button>&nbsp;&nbsp;&nbsp;
+    <button style="float: right;" mat-raised-button routerLink="/professional/asc-forms">SIGUIENTE</button>&nbsp;&nbsp;&nbsp;
 </div>
 
