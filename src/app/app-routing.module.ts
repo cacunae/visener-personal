@@ -38,11 +38,8 @@ import { BuscarPacienteComponent } from './pages/patients/segmentos/buscar-pacie
 import { DatosPacienteComponent } from './pages/patients/segmentos/datos-paciente/datos-paciente.component';
 import { FormsComponent } from './pages/patients/segmentos/forms/forms.component';
 import { LandingKinesiologiaComponent } from './pages/patients/segmentos/landing-kinesiologia/landing-kinesiologia.component'
-<<<<<<< HEAD
-=======
 import { UserViewComponent } from './pages/patients/segmentos/user-view/user-view.component';
 import { ResumeFormsComponent } from './pages/patients/segmentos/forms/resume-forms/resume-forms.component';
->>>>>>> 9f6c91a195dbd0d913f355b1792d7949678fd06d
 
 
 
@@ -62,11 +59,6 @@ const routes: Routes = [
       { path: "datos-paciente", component: DatosPacienteComponent},
       { path: "asc-forms", component: FormsComponent},
       { path: "asc-kinesiologia", component: LandingKinesiologiaComponent},
-<<<<<<< HEAD
-=======
-      { path: "resume-forms", component: ResumeFormsComponent},
-      { path: "user-view", component: UserViewComponent},
->>>>>>> 9f6c91a195dbd0d913f355b1792d7949678fd06d
       { path: "view-patient/:id", component: ViewPatientsComponent},
       { path: "det-patient/:id", component: DetPatientComponent, canActivate: [RoleGuard]},
       { path: "professionals", component: ProfessionalsComponent, canActivate: [RoleGuard]},

@@ -40,40 +40,27 @@
                     <div class ="formstyles" >
                         <mat-form-field  id ="formulario"   appearance="outline">
                             <mat-label>Profesión, oficio, o tipo de trabajo (*)</mat-label>
-<<<<<<< HEAD
                             <input  [(ngModel)]="formu.prof" matInput placeholder="" [formControl]="textFormControl1"  >
                             <mat-error *ngIf="textFormControl1.hasError('required')">
                                 El campo es <strong>obligatorio</strong>
                             </mat-error>
-=======
-                            <input  [(ngModel)]="formu.prof" matInput placeholder="" >
->>>>>>> 9f6c91a195dbd0d913f355b1792d7949678fd06d
                         </mat-form-field>
                         <br>
 
                         <mat-form-field appearance="outline">
-<<<<<<< HEAD
                             <textarea [(ngModel)]="formu.diagnosticoCondicionSalud" matInput placeholder="Diagnóstico o condición de salud" [formControl]="textFormControl2"></textarea>
                             <mat-error *ngIf="textFormControl2.hasError('required')">
                                 El campo es <strong>obligatorio</strong>
                             </mat-error>
-=======
-                            <textarea [(ngModel)]="formu.diagnosticoCondicionSalud" matInput placeholder="Diagnóstico o condición de salud"></textarea>
-
->>>>>>> 9f6c91a195dbd0d913f355b1792d7949678fd06d
                         </mat-form-field>
                         <br>
 
                         <mat-form-field appearance="outline">
                             <mat-label>Antecedentes (*)</mat-label>
-<<<<<<< HEAD
                             <input [(ngModel)]= "formu.antecedentes"matInput placeholder="" [formControl]="textFormControl3" >
                             <mat-error *ngIf="textFormControl3.hasError('required')">
                                 El campo es <strong>obligatorio</strong>
                             </mat-error>
-=======
-                            <input [(ngModel)]= "formu.antecedentes"matInput placeholder="" >
->>>>>>> 9f6c91a195dbd0d913f355b1792d7949678fd06d
                         </mat-form-field>
                         <br>
 
@@ -110,7 +97,6 @@
 
                         <mat-form-field appearance="outline">
                             <mat-label>Edema (*)</mat-label>
-<<<<<<< HEAD
                             <mat-select [(value)] = "_edema" [(ngModel)]="formu.edema" (selectionChange)="convertirEdema($event.value.viewValue)" [formControl]="selected1" [errorStateMatcher]="matcher">
                                 <mat-option *ngFor="let Edema of edemas" [value]="Edema">
                                 {{Edema.viewValue}}
@@ -118,23 +104,13 @@
                                 <mat-error *ngIf="selected1.hasError('required') && formu.edema == ''">
                                    El campo es <strong>obligatorio</strong>
                                 </mat-error>
-=======
-                            <mat-select [(value)] = "_edema" [(ngModel)]="formu.edema" (selectionChange)="convertirEdema($event.value.viewValue)">
-                                <mat-option *ngFor="let Edema of edemas" [value]="Edema">
-                                {{Edema.viewValue}}
-                                </mat-option>
->>>>>>> 9f6c91a195dbd0d913f355b1792d7949678fd06d
                             </mat-select>
                             </mat-form-field>
                         <br>
 
                         <mat-form-field appearance="outline">
                             <mat-label>Cicatriz</mat-label>
-<<<<<<< HEAD
                             <mat-select [(ngModel)]="formu.cicatriz" multiple> 
-=======
-                            <mat-select [(ngModel)]="formu.cicatriz"> 
->>>>>>> 9f6c91a195dbd0d913f355b1792d7949678fd06d
                                 <mat-option *ngFor="let Cicatriz of Cicatrices" [value]="Cicatriz.viewValue">
                                 {{Cicatriz.viewValue}}
                                 </mat-option>
@@ -150,7 +126,6 @@
 
                         <mat-form-field appearance="outline">
                             <mat-label>Nivel de dolor a la movilidad o a la carga (*)</mat-label>
-<<<<<<< HEAD
                             <mat-select [(value)] = "_nivel" [(ngModel)]="formu.nivelDolorMovilidad" (selectionChange)="convertirNivel($event.value.viewValue)"[formControl]="selected2" [errorStateMatcher]="matcher" >
                                 <mat-option *ngFor="let Nivel of Niveles" [value]="Nivel">
                                 {{Nivel.viewValue}}
@@ -158,12 +133,6 @@
                                 <mat-error *ngIf="selected2.hasError('required') && formu.nivelDolorMovilidad == ''">
                                     El campo es <strong>obligatorio</strong>
                                  </mat-error>
-=======
-                            <mat-select [(value)] = "_nivel" [(ngModel)]="formu.nivelDolorMovilidad" (selectionChange)="convertirNivel($event.value.viewValue)">
-                                <mat-option *ngFor="let Nivel of Niveles" [value]="Nivel">
-                                {{Nivel.viewValue}}
-                                </mat-option>
->>>>>>> 9f6c91a195dbd0d913f355b1792d7949678fd06d
                             </mat-select>
                         </mat-form-field>  
                         <br>
@@ -202,7 +171,6 @@
                             <mat-label style="padding-bottom: 10px; padding-left:8px;" >Prom. FD/FP (*)</mat-label>
                             <mat-form-field appearance="outline">
                                 <mat-label>Izquierda</mat-label>
-<<<<<<< HEAD
                                 <input type="text" [(ngModel)]="formu.promFdFpIzquierda" [formControl]="numberFormControl1" [errorStateMatcher]="matcher" matInput placeholder="" >
                                 <mat-error *ngIf="numberFormControl1.hasError('text') && !numberFormControl.hasError('required')">
                                     Porfavor ingrese valores numéricos
@@ -220,13 +188,6 @@
                                 <mat-error *ngIf="numberFormControl2.hasError('required')">
                                     El campo es <strong>obligatorio</strong>
                                 </mat-error>
-=======
-                                <input [(ngModel)]="formu.promFdFpIzquierda" matInput placeholder="" >
-                            </mat-form-field>
-                            <mat-form-field appearance="outline">
-                                <mat-label>Derecha</mat-label>
-                                <input [(ngModel)]="formu.promFdFpDerecha" matInput placeholder="" >
->>>>>>> 9f6c91a195dbd0d913f355b1792d7949678fd06d
                             </mat-form-field>
                         </div>
                         <br> 
@@ -272,7 +233,6 @@
                         <br>
 
                         <mat-form-field appearance="outline">
-<<<<<<< HEAD
                             <textarea [(ngModel)]="formu.patronMarcha" matInput placeholder="Patrón de marcha (*)" [formControl]="textFormControl4"></textarea>
                             <mat-error *ngIf="textFormControl4.hasError('required')">
                                 El campo es <strong>obligatorio</strong>
@@ -281,20 +241,6 @@
                         <br> 
                         
                         <!-- <mat-form-field appearance="outline">
-=======
-                            <textarea [(ngModel)]="formu.patronMarcha" matInput placeholder="Patrón de marcha (*)"></textarea>
-
-                        </mat-form-field>
-                        <br> 
-                        
-                        <mat-form-field appearance="outline">
-                            <textarea matInput [(ngModel)]="formu.evaluacionesComplementarias" placeholder="Evaluaciones complementarias"></textarea>
-
-                        </mat-form-field>
-                        <br>
-
-                        <mat-form-field appearance="outline">
->>>>>>> 9f6c91a195dbd0d913f355b1792d7949678fd06d
                             <mat-label>Seleccione una opción</mat-label>
                             <mat-select [(ngModel)]="formu.seleccionEvaluacionComplementaria">
                                 <mat-option *ngFor="let EvaluacionesComplementaria of EvaluacionesComplementarias" [value]="EvaluacionesComplementaria.viewValue">
@@ -302,12 +248,8 @@
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>  
-<<<<<<< HEAD
                         <br> -->
                                         
-=======
-                        <br>                    
->>>>>>> 9f6c91a195dbd0d913f355b1792d7949678fd06d
                        
                         <mat-form-field appearance="outline">
                             <textarea [(ngModel)]="formu.diagnosticoKinesiologico" matInput placeholder="Diagnóstico Kinesiológico"></textarea>
@@ -326,7 +268,6 @@
                             <mat-label>{{_sugerencia}}</mat-label>
                             <input [(ngModel)]="formu.riesgoCitacionesSugeridas" matInput placeholder="" >
                         </mat-form-field>
-<<<<<<< HEAD
                         <br>   
 
                         
@@ -351,15 +292,6 @@
                         
                     </div>
                     
-=======
-                        <br>
-
-
-                        
-                        </div>
-                    <hr>
-                    <app-comunes ></app-comunes>
->>>>>>> 9f6c91a195dbd0d913f355b1792d7949678fd06d
                 </mat-tab>
                 <!----------------------------------FORMULARIO RODILLA------------------------------------------->
                 <mat-tab  *ngIf="toggleRodilla" >
@@ -749,46 +681,32 @@
                     <div class="formstyles" >
                         <mat-form-field appearance="outline">
                             <mat-label>Profesión, oficio, o tipo de trabajo (*)</mat-label>
-<<<<<<< HEAD
                             <input [(ngModel)]="formu4.prof" matInput placeholder=""  [formControl]="textFormControl1" >
                             <mat-error *ngIf="textFormControl1.hasError('required')">
                                 El campo es <strong>obligatorio</strong>
                             </mat-error>
-=======
-                            <input [(ngModel)]="formu4.prof" matInput placeholder="" >
->>>>>>> 9f6c91a195dbd0d913f355b1792d7949678fd06d
                         </mat-form-field>
                         <br>
 
                         <mat-form-field appearance="outline">
-<<<<<<< HEAD
                             <textarea [(ngModel)]="formu4.diagnosticoCondicionSalud" matInput placeholder="Diagnóstico o condición de salud (*)" [formControl]="textFormControl2"></textarea>
                             <mat-error *ngIf="textFormControl2.hasError('required')">
                                 El campo es <strong>obligatorio</strong>
                             </mat-error>
-=======
-                            <textarea [(ngModel)]="formu4.diagnosticoCondicionSalud" matInput placeholder="Diagnóstico o condición de salud (*)"></textarea>
-
->>>>>>> 9f6c91a195dbd0d913f355b1792d7949678fd06d
                         </mat-form-field>
                         <br>
 
                         <mat-form-field appearance="outline">
                             <mat-label>Antecedentes (*)</mat-label>
-<<<<<<< HEAD
                             <input [(ngModel)]= "formu4.antecedentes"matInput placeholder="" [formControl]="textFormControl3" >
                             <mat-error *ngIf="textFormControl3.hasError('required')">
                                 El campo es <strong>obligatorio</strong>
                             </mat-error>
-=======
-                            <input [(ngModel)]= "formu4.antecedentes"matInput placeholder="" >
->>>>>>> 9f6c91a195dbd0d913f355b1792d7949678fd06d
                         </mat-form-field>
                         <br>
 
                         <mat-form-field appearance="outline">
                             <mat-label>Lateralidad (*)</mat-label>
-<<<<<<< HEAD
                             <mat-select [(ngModel)]="formu4.lateralidad" [formControl]="selected1">
                                 <mat-option *ngFor="let Lateralidad of lateralidades" [value]="Lateralidad.viewValue">
                                 {{Lateralidad.viewValue}}
@@ -796,12 +714,6 @@
                                 <mat-error *ngIf="selected1.hasError('required') && formu4.lateralidad == ''">
                                     El campo es <strong>obligatorio</strong>
                                  </mat-error>
-=======
-                            <mat-select [(ngModel)]="formu4.lateralidad">
-                                <mat-option *ngFor="let Lateralidad of lateralidades" [value]="Lateralidad.viewValue">
-                                {{Lateralidad.viewValue}}
-                                </mat-option>
->>>>>>> 9f6c91a195dbd0d913f355b1792d7949678fd06d
                             </mat-select>
                         </mat-form-field>  
                         <br>
@@ -850,7 +762,6 @@
 
                         <mat-form-field appearance="outline">
                             <mat-label>Rango Art. (*)</mat-label>
-<<<<<<< HEAD
                             <mat-select [(ngModel)]="formu4.rangoArt" [formControl]="selected2">
                                 <mat-option *ngFor="let RangoArt of rangosArt" [value]="RangoArt.viewValue">
                                 {{RangoArt.viewValue}}
@@ -858,12 +769,6 @@
                                 <mat-error *ngIf="selected2.hasError('required') && formu4.rangoArt == ''">
                                     El campo es <strong>obligatorio</strong>
                                  </mat-error>
-=======
-                            <mat-select [(ngModel)]="formu4.rangoArt">
-                                <mat-option *ngFor="let RangoArt of rangosArt" [value]="RangoArt.viewValue">
-                                {{RangoArt.viewValue}}
-                                </mat-option>
->>>>>>> 9f6c91a195dbd0d913f355b1792d7949678fd06d
                             </mat-select>
                         </mat-form-field>
                         <br>
@@ -928,7 +833,6 @@
 
                         <mat-form-field appearance="outline">
                             <mat-label>Apley superior (*)</mat-label>
-<<<<<<< HEAD
                             <mat-select [(ngModel)]="formu4.apleySuperior" [formControl]="selected3">
                                 <mat-option *ngFor="let ApleySuperior of ApleySuperiores" [value]="ApleySuperior.viewValue">
                                 {{ApleySuperior.viewValue}}
@@ -936,19 +840,12 @@
                                 <mat-error *ngIf="selected3.hasError('required')">
                                     El campo es <strong>obligatorio</strong>
                                 </mat-error>
-=======
-                            <mat-select [(ngModel)]="formu4.apleySuperior">
-                                <mat-option *ngFor="let ApleySuperior of ApleySuperiores" [value]="ApleySuperior.viewValue">
-                                {{ApleySuperior.viewValue}}
-                                </mat-option>
->>>>>>> 9f6c91a195dbd0d913f355b1792d7949678fd06d
                             </mat-select>
                         </mat-form-field>  
                         <br>
 
                         <mat-form-field appearance="outline">
                             <mat-label>Apley inferior (*)</mat-label>
-<<<<<<< HEAD
                             <mat-select [(ngModel)]="formu4.apleyInferior" [formControl]="selected4">
                                 <mat-option *ngFor="let ApleyInferior of ApleyInferiores" [value]="ApleyInferior.viewValue">
                                 {{ApleyInferior.viewValue}}
@@ -956,12 +853,6 @@
                                 <mat-error *ngIf="selected4.hasError('required')">
                                     El campo es <strong>obligatorio</strong>
                                 </mat-error>
-=======
-                            <mat-select [(ngModel)]="formu4.apleyInferior">
-                                <mat-option *ngFor="let ApleyInferior of ApleyInferiores" [value]="ApleyInferior.viewValue">
-                                {{ApleyInferior.viewValue}}
-                                </mat-option>
->>>>>>> 9f6c91a195dbd0d913f355b1792d7949678fd06d
                             </mat-select>
                         </mat-form-field>  
                         <br>
@@ -2221,7 +2112,6 @@
     </mat-card>
     <!--<mat-spinner ></mat-spinner>-->
     <div class="desktopbuttons">
-<<<<<<< HEAD
         <button (click)="cancelarForm()" mat-stroked-button >Volver</button>&nbsp;&nbsp;&nbsp;
         <button (click)="sumarValores(_determinante, _condicion, _edema, _extension, _flexion , _nivel, _ortopedia)" (click)="copiarRegistros()" mat-raised-button  >Copiar resumen</button>&nbsp;&nbsp;&nbsp;
         <button (click)="copiarRegistrosEvolutivos()" mat-raised-button  >Copiar Reg. Evolutivos</button>&nbsp;&nbsp;&nbsp;
@@ -2230,15 +2120,3 @@
     </div>
 </div>
 
-=======
-        <button (click)="cancelarForm()" mat-stroked-button routerLink="/professional/asc-segmentos" routerLinkActive="false">Volver</button>&nbsp;&nbsp;&nbsp;
-        <button (click)="sumarValores(_determinante, _condicion, _edema, _extension, _flexion , _nivel, _ortopedia)" (click)="copiarRegistros()" mat-raised-button  >Copiar registro de categorizacion</button>&nbsp;&nbsp;&nbsp;
-        <button (click)="copiarRegistrosEvolutivos()" mat-raised-button  >Copiar Registro evolutivo</button>&nbsp;&nbsp;&nbsp;
-        <button (click)="botonDebug()" mat-raised-button  >Siguiente</button>&nbsp;&nbsp;&nbsp;
-    </div>
-</div>
-
-
-
-
->>>>>>> 9f6c91a195dbd0d913f355b1792d7949678fd06d

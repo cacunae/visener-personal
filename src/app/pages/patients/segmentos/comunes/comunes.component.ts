@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
@@ -11,15 +10,6 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   }
 }
 
-=======
-import { Input } from '@angular/core';
-import { Inject } from '@angular/core';
-import { Component, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatDialogRef } from '@angular/material/dialog';
-
-
->>>>>>> 9f6c91a195dbd0d913f355b1792d7949678fd06d
 interface Formulario{
 
   orientacionPlanTerapeutico: string;
@@ -56,7 +46,6 @@ export class ComunesComponent  {
 
   constructor() { }
 
-<<<<<<< HEAD
   textFormControl = new FormControl('',[
     Validators.required
   ]);
@@ -110,51 +99,6 @@ export class ComunesComponent  {
 
 
   formu: Formulario = {
-=======
-
-  orientaciones: string;
-  objetivos: string
-  desempeno: string;
-  necesidad: string;
-  justificacion: string;
-  consideraciones: string;
-
-  capturarOrientacion(orienta: any){
-    this.orientaciones = orienta;
-    localStorage.setItem("ori",this.orientaciones);
-  
-  }
-  capturarObjetivos(obj: any){
-    this.objetivos = obj.target.value;
-    console.log(this.objetivos)
-    localStorage.setItem("obj",this.objetivos);
-  }
-
-  capturarDesempeno(desem: any){
-    this.desempeno = desem;
-    localStorage.setItem("des", this.desempeno);
-  }
-
-  capturarNecesidad(nece: any){
-    this.necesidad = nece
-    localStorage.setItem("nec", this.necesidad);
-  }
-
-  capturarJustificacion(just: any){
-    this.justificacion = just;
-    console.log(this.justificacion)
-    localStorage.setItem("jus", this.justificacion)
-  }
-  capturarConsideraciones(consi: any){
-    this.consideraciones = consi.target.value; 
-    localStorage.setItem("cons", this.consideraciones);
-  }
-
-
-
-
-  formu1: Formulario = {
->>>>>>> 9f6c91a195dbd0d913f355b1792d7949678fd06d
 
     orientacionPlanTerapeutico: '',
     objetivosPlanTerapeutico: '',

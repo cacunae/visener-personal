@@ -417,8 +417,6 @@ mat-card-title.compressedPost{
   border-radius: 30px !important;
   float: right !important;
 }
-<<<<<<< HEAD
-=======
 
 .objectiveContent{
   font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -429,6 +427,5 @@ mat-card-title.compressedPost{
   border-color: white;
 }
 
->>>>>>> 9f6c91a195dbd0d913f355b1792d7949678fd06d
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
