@@ -117,13 +117,18 @@ import { ComunesComponent } from './pages/patients/segmentos/comunes/comunes.com
 import { LandingKinesiologiaComponent } from './pages/patients/segmentos/landing-kinesiologia/landing-kinesiologia.component';
 import { ReportsComponent } from './pages/reports/reports.component';
 import { ShareChallengesComponent } from './pages/challenges/share-challenges/share-challenges.component';
+import { DialogElementComponent } from './pages/patients/segmentos/forms/dialog-element/dialog-element.component';
+import { DialogWarningComponent } from './pages/patients/segmentos/forms/dialog-warning/dialog-warning.component';
+import { ResumeFormsComponent } from './pages/patients/segmentos/forms/resume-forms/resume-forms.component';
 import { UserViewComponent } from './pages/patients/segmentos/user-view/user-view.component';
-import { ResumeFormsComponent } from './pages/patients/segmentos/forms/resume-forms/resume-forms.component'
+
 
 @NgModule({
   declarations: [
     AppComponent,
     CommentComponent,
+    ResumeFormsComponent,
+    UserViewComponent,
     PasswordComponent,
     DialogAttachmentComponent,
     DialogInteractionComponent,
@@ -194,8 +199,8 @@ import { ResumeFormsComponent } from './pages/patients/segmentos/forms/resume-fo
     ComunesComponent,
     ReportsComponent,
     ShareChallengesComponent,
-    UserViewComponent,
-    ResumeFormsComponent
+    DialogElementComponent,
+    DialogWarningComponent,
   ],
   imports: [
     Ng2ImgMaxModule,

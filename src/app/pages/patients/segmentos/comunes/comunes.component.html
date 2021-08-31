@@ -1,33 +1,40 @@
 <div id ="comunes">
     <mat-form-field appearance="outline">
         <mat-label>Orientación del plan terapéutico (*)</mat-label>
-        <mat-select [(ngModel)]="formu1.orientacionPlanTerapeutico" (selectionChange)="capturarOrientacion($event.value.viewValue)">
+        <mat-select [(ngModel)]="formu.orientacionPlanTerapeutico" (selectionChange)="capturarOrientacion($event.value.viewValue)"  [formControl]="selected" [errorStateMatcher]="matcher">
             <mat-option *ngFor="let Orientacion of Orientaciones" [value]="Orientacion">
             {{Orientacion.viewValue}}
             </mat-option>
+            <mat-error *ngIf="selected.hasError('required')">
+                El campo es <strong>obligatorio</strong>
+            </mat-error>
         </mat-select>
     </mat-form-field>   
-
-   
     <br>
     <mat-form-field appearance="outline">
         <mat-label>Objetivos/Plan Terapeutico (*)</mat-label>
-        <input [(ngModel)]="formu1.objetivosPlanTerapeutico" matInput placeholder="" (input)="capturarObjetivos($event)" >
+        <input [(ngModel)]="formu.objetivosPlanTerapeutico" matInput placeholder="" (input)="capturarObjetivos()" [formControl]="textFormControl">
+        <mat-error *ngIf="textFormControl.hasError('required')">
+            El campo es <strong>obligatorio</strong>
+        </mat-error>
     </mat-form-field>
     
     <br>
     <mat-form-field appearance="outline">
         <mat-label>Desempeño funcional (*)</mat-label>
-        <mat-select [(ngModel)]="formu1.desempenoFuncional" (selectionChange)="capturarDesempeno($event.value.viewValue)">
+        <mat-select [(ngModel)]="formu.desempenoFuncional" (selectionChange)="capturarDesempeno($event.value.viewValue)" [formControl]="selected" [errorStateMatcher]="matcher">
             <mat-option *ngFor="let Desempeno of Desempenos" [value]="Desempeno">
             {{Desempeno.viewValue}}
             </mat-option>
+            <mat-error *ngIf="selected.hasError('required')">
+                El campo es <strong>obligatorio</strong>
+            </mat-error>
         </mat-select>
     </mat-form-field>
     <br>
     <mat-form-field appearance="outline">
         <mat-label>Necesidad de asistencia interdiciplinaria</mat-label>
-        <mat-select [(ngModel)]="formu1.necesidadesAsistenciaInterdiciplinaria" (selectionChange)="capturarNecesidad($event.value.viewValue)">
+        <mat-select [(ngModel)]="formu.necesidadesAsistenciaInterdiciplinaria" (selectionChange)="capturarNecesidad($event.value.viewValue)">
             <mat-option *ngFor="let Necesidad of Necesidades" [value]="Necesidad">
             {{Necesidad.viewValue}}
             </mat-option>
@@ -35,17 +42,17 @@
     </mat-form-field>
     <br>
     <mat-form-field appearance="outline">
-        <textarea [(ngModel)]="formu1.justificacion" matInput placeholder="Justificación" (input)="capturarJustificacion($event.data)"></textarea>
+        <textarea [(ngModel)]="formu.justificacion" matInput placeholder="Justificación" (input)="capturarJustificacion()"></textarea>
     
     </mat-form-field>
     <br>
     <mat-form-field appearance="outline">
         <mat-label>Valoración del riesgo de caídas</mat-label>
-        <input [(ngModel)]="formu1.valoracionRiesgoCaidas" matInput placeholder="" >
+        <input [(ngModel)]="formu.valoracionRiesgoCaidas" matInput placeholder="" (input)="capturarValoracion()" >
     </mat-form-field>      
     <br>
     <mat-form-field appearance="outline">
         <mat-label>Consideraciones generales</mat-label>
-        <input [(ngModel)]="formu1.consideracionesGenerales" matInput placeholder="" (input)="capturarConsideraciones($event)" >
+        <input [(ngModel)]="formu.consideracionesGenerales" matInput placeholder="" (input)="capturarConsideraciones()" >
     </mat-form-field> 
 </div>

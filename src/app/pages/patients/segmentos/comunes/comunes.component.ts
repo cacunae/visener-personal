@@ -1,9 +1,14 @@
-import { Input } from '@angular/core';
-import { Inject } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatDialogRef } from '@angular/material/dialog';
+import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
+import {ErrorStateMatcher} from '@angular/material/core';
 
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 
 interface Formulario{
 
@@ -41,49 +46,59 @@ export class ComunesComponent  {
 
   constructor() { }
 
+  textFormControl = new FormControl('',[
+    Validators.required
+  ]);
+  selected = new FormControl('valid', [
+    Validators.required
+  ])
+  matcher = new MyErrorStateMatcher();
 
-  orientaciones: string;
-  objetivos: string
-  desempeno: string;
-  necesidad: string;
-  justificacion: string;
-  consideraciones: string;
+  _orientacion:string;
+  _objetivos:string;
+  _desempeno:string;
+  _necesidad:string;
+  _justificacion:string;
+  _consideraciones:string;
+  _valoracion:string;
 
-  capturarOrientacion(orienta: any){
-    this.orientaciones = orienta;
-    localStorage.setItem("ori",this.orientaciones);
-  
-  }
-  capturarObjetivos(obj: any){
-    this.objetivos = obj.target.value;
-    console.log(this.objetivos)
-    localStorage.setItem("obj",this.objetivos);
-  }
-
-  capturarDesempeno(desem: any){
-    this.desempeno = desem;
-    localStorage.setItem("des", this.desempeno);
+  capturarOrientacion(orientacion:any){
+    this._orientacion = orientacion;
+    localStorage.setItem("ori",this._orientacion)
   }
 
-  capturarNecesidad(nece: any){
-    this.necesidad = nece
-    localStorage.setItem("nec", this.necesidad);
+  capturarObjetivos(){
+    this._objetivos = this.formu.objetivosPlanTerapeutico;
+    localStorage.setItem("obj",this._objetivos)
   }
 
-  capturarJustificacion(just: any){
-    this.justificacion = just;
-    console.log(this.justificacion)
-    localStorage.setItem("jus", this.justificacion)
-  }
-  capturarConsideraciones(consi: any){
-    this.consideraciones = consi.target.value; 
-    localStorage.setItem("cons", this.consideraciones);
+  capturarDesempeno(desempeno:any){
+    this._desempeno = desempeno;
+    localStorage.setItem("des", this._desempeno);
   }
 
+  capturarNecesidad(necesidad:any){
+    this._necesidad = necesidad;
+    localStorage.setItem("nec",this._necesidad);
+  }
+  capturarJustificacion(){
+    this._justificacion = this.formu.justificacion;
+    localStorage.setItem("jus",this._justificacion)
+  }
+  capturarConsideraciones(){
+    this._consideraciones = this.formu.consideracionesGenerales;
+    localStorage.setItem("cons",this._consideraciones);
+  }
+  capturarValoracion(){
+    this._valoracion = this.formu.valoracionRiesgoCaidas;
+    localStorage.setItem("val",this._valoracion)
+
+
+  }
 
 
 
-  formu1: Formulario = {
+  formu: Formulario = {
 
     orientacionPlanTerapeutico: '',
     objetivosPlanTerapeutico: '',
