@@ -11,6 +11,8 @@ export class DialogWarningComponent  {
   constructor(public booleanos: BooleanosService) { }
 
   cancelar(){
+    
+    
     this.booleanos.updateStateTobillo(false)
     this.booleanos.updateStateRodilla(false)
     this.booleanos.updateStateHombro(false)

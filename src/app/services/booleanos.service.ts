@@ -7,7 +7,6 @@ import { Subject } from 'rxjs/internal/Subject';
 })
 export class BooleanosService {
 
-  
 
   private _boton1: Subject<boolean>;
   private _boton2: Subject<boolean>;

@@ -8,6 +8,8 @@ import {ErrorStateMatcher} from '@angular/material/core';
 import {MatDialog} from '@angular/material/dialog';
 import { DialogElementComponent } from './dialog-element/dialog-element.component';
 import { DialogWarningComponent } from './dialog-warning/dialog-warning.component';
+import { String, StringBuilder } from 'typescript-string-operations';
+import { CdkHeaderRowDef } from '@angular/cdk/table';
 
 
 
@@ -535,9 +537,7 @@ export class FormsComponent implements OnInit {
 
   suscription: Subscription;
 
-  registros:string;
-
-  flag:boolean;
+  
 
   _puntaje:number = 0;
   _sugerencia:string;
@@ -553,7 +553,7 @@ export class FormsComponent implements OnInit {
   
   sumarValores(n1:any, n2:any, n3:any, n4:any, n5:any, n6: any, n7:any){
 
-    this._puntaje = n1.value+n2.value+n3.value+n4.value+n5.value+n6.value+n7.value;
+    this._puntaje = n1.value + n2.value + n3.value + n4.value + n5.value + n6.value + n7.value;
     console.log(this._puntaje);
   
     this.formu.puntajeCriteriosGravedad = this._puntaje.toString();
@@ -661,7 +661,10 @@ export class FormsComponent implements OnInit {
 
     if(this.booleanos.boton1 || this.booleanos.boton2 || this.booleanos.boton3 || this.booleanos.boton4|| this.booleanos.boton5 || this.booleanos.boton6 || this.booleanos.boton7 || this.booleanos.boton8 || this.booleanos.boton9 || this.booleanos.boton10){
       this.dialog.open(DialogWarningComponent)
-    
+      if(this.booleanos.boton1){
+        localStorage.setItem("form1.antecedentes", this.formu.antecedentes);
+      }
+      
     }
   
   }
@@ -677,7 +680,6 @@ export class FormsComponent implements OnInit {
   public toggleColumnaDL:boolean = false;
   public toggleColumnaCerv:boolean = false;
 
-  
 
 
   public detRiesgo: any;
@@ -753,10 +755,53 @@ export class FormsComponent implements OnInit {
   }
 
   copiarRegistrosCompletos(){
-    this.clipboard.copy("Registro de evaluación osteomuscular del segmento Pierna, tobillo-pie"
-                        +"\n° PROFESIÓN, OFICIO O TIPO DE TRABAJO: " + this.formu.prof
-                        +"\n° DIAGNOSTICO O CONDICION DE SALUD: " + this.formu.diagnosticoCondicionSalud
-                        +"\n° EDEMA: " + this.edemaChar
+    var cadenaPt1 = new StringBuilder("Registro de evaluación osteomuscular del segmento Pierna, tobillo-pie "
+                                    +"\n° PROFESIÓN, OFICIO O TIPO DE TRABAJO: " + this.formu.prof
+                                    +"\n° DIAGNOSTICO O CONDICION DE SALUD: " + this.formu.diagnosticoCondicionSalud
+                                    +"\n° ANTECEDENTES: " + this.formu.antecedentes
+                                    +"\n° EDEMA: " + this.edemaChar
+                                    +"\n° NIVEL DE DOLOR A LA MOVILIDAD O A LA CARGA: " + this.nivelDolor
+                                    +"\n° PROM. FD/FP:  * DER: " + this.formu.promFdFpDerecha + " * IZQ: " + this.formu.promFdFpIzquierda
+                                    +"\n° PATRON DE MARCHA: " + this.formu.patronMarcha
+                                    );
+     
+    if (this.formu.cicatriz.toString() !== ''){
+      cadenaPt1.Append("\n° CICATRIZ: "+ this.formu.cicatriz.toString())
+    }
+    if(this.formu.sensibilidad !== ''){
+      cadenaPt1.Append("\n° SENSIBILIDAD: "+ this.formu.sensibilidad)
+    }
+    if(this.formu.movilidadOrtejos !== ''){
+      cadenaPt1.Append("\n° MOVILIDAD DE ORTEJOS: " + this.formu.movilidadOrtejos)
+    }
+    if(this.formu.movilidadSubtalar !== ''){
+      cadenaPt1.Append("\n° MOVILIDAD SUBTALAR: " + this.formu.movilidadSubtalar)
+    }
+    if(this.formu.fuerzaMuscularDorsiflexores !== ''){
+      cadenaPt1.Append("\n° FUERZA MUSCULAR DORSIFLEXORES: " + this.formu.fuerzaMuscularDorsiflexores)
+    }
+    if(this.formu.fuerzaMuscularPlantiflexores !== ''){
+      cadenaPt1.Append("\n° FUERZA MUSCULAR PLANTIFLEXORES: " + this.formu.fuerzaMuscularPlantiflexores)
+    }
+    if(this.formu.equilibrioUnipodal !== ''){
+      cadenaPt1.Append("\n° EQUILIBRIO UNIPODAL: " + this.formu.equilibrioUnipodal)
+    }
+    if(this.formu.seleccionEvaluacionComplementaria !== ''){
+      cadenaPt1.Append("\n° EVALUACIONES COMPLEMENTARIAS :" + this.formu.seleccionEvaluacionComplementaria)
+    }
+    if(this.formu.diagnosticoKinesiologico !== ''){
+      cadenaPt1.Append("\n° DIAGNOSTICO KINESIOLÓGICO: " + this.formu.diagnosticoKinesiologico)
+    }
+    if(localStorage.getItem("ori") !== ''){
+      cadenaPt1.Append("\n° ORIENTACIÓN DEL PLAN TERAPÉUTICO (PRIORIDAD): " + localStorage.getItem("ori"))
+    }
+    
+    this.clipboard.copy(cadenaPt1.ToString())
+
+
+
+    /* this.clipboard.copy("Registro de evaluación osteomuscular del segmento Pierna, tobillo-pie"
+                        
                         +"\n° CICATRIZ: "+ this.formu.cicatriz
                         +"\n° SENSIBILIDAD: "+ this.formu.sensibilidad
                         +"\n° NIVEL DE DOLOR A LA MOVILIDAD O A LA CARGA: " + this.nivelDolor
@@ -776,7 +821,7 @@ export class FormsComponent implements OnInit {
                         +"\n° NECESIDADES DE ASISTENCIA INTERDISCIPLINARIA: " + localStorage.getItem("nec")
                         +"\n° JUSTIFICACIÓN: " + localStorage.getItem("jus")
                         +"\n° CONSIDERACIONES GENERALES: " + localStorage.getItem("cons")
-                        +"\n° VALORACIÓN DEL RIESGO DE CAÍDAS: "  + localStorage.getItem("val")  );
+                        +"\n° VALORACIÓN DEL RIESGO DE CAÍDAS: "  + localStorage.getItem("val")  ); */
 
 
 

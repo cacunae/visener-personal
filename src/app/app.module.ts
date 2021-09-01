@@ -198,6 +198,8 @@ import { ResumeFormsComponent } from './pages/patients/segmentos/forms/resume-fo
     ShareChallengesComponent,
     DialogElementComponent,
     DialogWarningComponent,
+    UserViewComponent,
+    ResumeFormsComponent
   ],
   imports: [
     Ng2ImgMaxModule,

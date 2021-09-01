@@ -1,10 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ConnService } from 'src/app/services/conn.service'; 
-import { ComunesComponent } from './comunes/comunes.component'
-import { StringMap } from '@angular/compiler/src/compiler_facade_interface';
-import { MatTabChangeEvent } from '@angular/material/tabs';
-import { subscriptionLogsToBeFn } from 'rxjs/internal/testing/TestScheduler';
-import { FormsComponent } from './forms/forms.component';
 import { BooleanosService } from '../../../services/booleanos.service'
 import { Subscription } from 'rxjs';
 //----------------------------------------INTERFACES PARA LA CREACION DE LOS MENUS DESPLEGABLES---------------------------------------------
@@ -38,13 +33,13 @@ export class SegmentosComponent implements OnInit {
       this.toggleTobillo = flag
     })
     this.suscription = this.booleanos.boton2.subscribe((flag: boolean) =>{
-      this.toggleCadera = flag
+      this.toggleRodilla = flag
     })
     this.suscription = this.booleanos.boton3.subscribe((flag: boolean) =>{
       this.toggleHombro = flag
     })
     this.suscription = this.booleanos.boton4.subscribe((flag: boolean) =>{
-      this.toggleRodilla = flag
+      this.toggleCadera = flag
     })
     this.suscription = this.booleanos.boton5.subscribe((flag: boolean) =>{
       this.toggleCodo = flag
@@ -67,40 +62,97 @@ export class SegmentosComponent implements OnInit {
   }
 
   updateTobillo(){
-    this.booleanos.updateStateTobillo(true)
+    if(this.toggleTobillo == false){
+      this.booleanos.updateStateTobillo(true)
+    }
+    else{
+      this.booleanos.updateStateTobillo(false)
+    }
+    
   }
   updateCadera(){
-    this.booleanos.updateStateCadera(true)
+    if(this.toggleCadera == false){
+      this.booleanos.updateStateCadera(true)
+    }
+    else{
+      this.booleanos.updateStateCadera(false)
+    }
   }
   updateHombro(){
-    this.booleanos.updateStateHombro(true)
+    if(this.toggleHombro == false){
+      this.booleanos.updateStateHombro(true)
+    }
+    else{
+      this.booleanos.updateStateHombro(false);
+    }
   }
+
   updateRodilla(){
-    this.booleanos.updateStateRodilla(true)
+    if(this.toggleRodilla == false){
+      this.booleanos.updateStateRodilla(true)
+    }
+    else{
+      this.booleanos.updateStateRodilla(false);
+    }
+    
   }
   updateCodo(){
-    this.booleanos.updateStateCodo(true)
+    if(this.toggleCodo == false){
+      this.booleanos.updateStateCodo(true)
+    }
+    else{
+      this.booleanos.updateStateCodo(false)
+    }
+    
   }
   updateMuneca(){
-    this.booleanos.updateStateMuneca(true)
+    if(this.toggleMuneca == false){
+      this.booleanos.updateStateMuneca(true)
+    }
+    else{
+      this.booleanos.updateStateMuneca(false)
+    }
+    
   }
   updateDedos(){
-    this.booleanos.updateStateDedos(true)
+    if(this.toggleDedos == false){
+      this.booleanos.updateStateDedos(true)
+    }
+    else{
+      this.booleanos.updateStateDedos(false)
+    }
+    
+    
   }
   updatePulgar(){
-    this.booleanos.updateStatePulgar(true)
+    if(this.togglePulgar == false){
+      this.booleanos.updateStatePulgar(true)
+    }
+    else{
+      this.booleanos.updateStatePulgar(false)
+    }
+    
+    
   }
   updateColumnaDL(){
-    this.booleanos.updateStateColumnaDL(true)
+    if(this.toggleColumnaDL == false){
+      this.booleanos.updateStateColumnaDL(true)
+    }
+    else{
+      this.booleanos.updateStateColumnaDL(false)
+    }
+    
+    
   }
   updateColumnaCerv(){
-    this.booleanos.updateStateColumnaCerv(true)
+    if(this.toggleColumnaCerv == false){
+      this.booleanos.updateStateColumnaCerv(true)
+    }
+    else{
+      this.booleanos.updateStateColumnaCerv(false)
+    }
   }
   
-
-  
-  
-
   toggleTobillo:boolean ;
   toggleRodilla:boolean;
   toggleCadera:boolean;

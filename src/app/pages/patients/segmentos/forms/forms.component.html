@@ -1,7 +1,7 @@
 <app-header title="Visener" [backLink]="'/professional/asc-patients'"></app-header>
 <div class="content" role="main">
     <mat-card>
-        <div>
+        <div id="container">
             <mat-card-title>Evaluación por segmento</mat-card-title>
             <hr>
             <br>
@@ -38,7 +38,7 @@
                     <br>
 
                     <div class ="formstyles" >
-                        <mat-form-field  id ="formulario"   appearance="outline">
+                        <mat-form-field  id ="formulario" appearance="outline">
                             <mat-label>Profesión, oficio, o tipo de trabajo (*)</mat-label>
                             <input  [(ngModel)]="formu.prof" matInput placeholder="" [formControl]="textFormControl1"  >
                             <mat-error *ngIf="textFormControl1.hasError('required')">
@@ -258,15 +258,16 @@
                         <br>
                     
                         <mat-form-field appearance="outline">
-                            <mat-label>{{_puntaje.valueOf()}}</mat-label>
-                            <input [(ngModel)]="formu.puntajeCriteriosGravedad"  matInput placeholder="" >
-                            
+                            <mat-label>Puntaje Criterios de gravedad</mat-label>
+                            <input [(ngModel)]="formu.puntajeCriteriosGravedad" disabled matInput placeholder="" >
+                            <p>{{_puntaje.valueOf()}}</p>
                         </mat-form-field>
                         <br>
 
                         <mat-form-field appearance="outline">
-                            <mat-label>{{_sugerencia}}</mat-label>
-                            <input [(ngModel)]="formu.riesgoCitacionesSugeridas" matInput placeholder="" >
+                            <mat-label>Citaciones Sugeridas</mat-label>
+                            <input [(ngModel)]="formu.riesgoCitacionesSugeridas" disabled matInput placeholder="" >
+                            <p>{{_sugerencia}}</p>
                         </mat-form-field>
                         <br>   
 
@@ -2111,12 +2112,12 @@
         </div>
     </mat-card>
     <!--<mat-spinner ></mat-spinner>-->
-    <div class="desktopbuttons">
+    <div align="center" style="width: 70%;">
         <button (click)="cancelarForm()" mat-stroked-button >Volver</button>&nbsp;&nbsp;&nbsp;
-        <button (click)="sumarValores(_determinante, _condicion, _edema, _extension, _flexion , _nivel, _ortopedia)" (click)="copiarRegistros()" mat-raised-button  >Copiar resumen</button>&nbsp;&nbsp;&nbsp;
-        <button (click)="copiarRegistrosEvolutivos()" mat-raised-button  >Copiar Reg. Evolutivos</button>&nbsp;&nbsp;&nbsp;
-        <button (click)="copiarRegistrosCompletos()" mat-raised-button  >Copiar Reg. completo</button>&nbsp;&nbsp;&nbsp;
-        <button (click)="camposVaciosConfirmar()" mat-raised-button  >Siguiente</button>&nbsp;&nbsp;&nbsp;
+        <!-- <button (click)="sumarValores(_determinante, _condicion, _edema, _extension, _flexion , _nivel, _ortopedia)" (click)="copiarRegistros()" mat-raised-button  >Copiar resumen</button>&nbsp;&nbsp;&nbsp; -->
+        <!-- <button (click)="copiarRegistrosEvolutivos()" mat-raised-button  >Copiar Reg. Evolutivos</button>&nbsp;&nbsp;&nbsp; -->
+        <!-- <button (click)="copiarRegistrosCompletos()" mat-raised-button  >Copiar Reg. completo</button>&nbsp;&nbsp;&nbsp; -->
+        <button style= "float: right;"  (click)="camposVaciosConfirmar()" mat-raised-button  >Siguiente</button>&nbsp;&nbsp;&nbsp;
     </div>
 </div>
 
