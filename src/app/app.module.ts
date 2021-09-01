@@ -120,7 +120,8 @@ import { ShareChallengesComponent } from './pages/challenges/share-challenges/sh
 import { DialogElementComponent } from './pages/patients/segmentos/forms/dialog-element/dialog-element.component';
 import { DialogWarningComponent } from './pages/patients/segmentos/forms/dialog-warning/dialog-warning.component';
 import { UserViewComponent } from './pages/patients/segmentos/user-view/user-view.component';
-import { ResumeFormsComponent } from './pages/patients/segmentos/forms/resume-forms/resume-forms.component'
+import { ResumeFormsComponent } from './pages/patients/segmentos/forms/resume-forms/resume-forms.component';
+import { PlanTerapeuticoComponent } from './pages/patients/segmentos/forms/plan-terapeutico/plan-terapeutico.component'
 
 @NgModule({
   declarations: [
@@ -199,7 +200,8 @@ import { ResumeFormsComponent } from './pages/patients/segmentos/forms/resume-fo
     DialogElementComponent,
     DialogWarningComponent,
     UserViewComponent,
-    ResumeFormsComponent
+    ResumeFormsComponent,
+    PlanTerapeuticoComponent
   ],
   imports: [
     Ng2ImgMaxModule,

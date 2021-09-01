@@ -68,11 +68,19 @@ export class SegmentosComponent implements OnInit {
     else{
       this.booleanos.updateStateTobillo(false)
     }
+<<<<<<< HEAD
     
   }
   updateCadera(){
     if(this.toggleCadera == false){
       this.booleanos.updateStateCadera(true)
+=======
+
+  }
+  updateCadera(){
+    if(this.toggleCadera == false){
+      this.booleanos.updateStateCadera(false)
+>>>>>>> c8e3d1341bbd7f255cc11de8fd4e6c53ca9f4fa3
     }
     else{
       this.booleanos.updateStateCadera(false)
@@ -89,7 +97,11 @@ export class SegmentosComponent implements OnInit {
 
   updateRodilla(){
     if(this.toggleRodilla == false){
+<<<<<<< HEAD
       this.booleanos.updateStateRodilla(true)
+=======
+      this.booleanos.updateStateRodilla(false)
+>>>>>>> c8e3d1341bbd7f255cc11de8fd4e6c53ca9f4fa3
     }
     else{
       this.booleanos.updateStateRodilla(false);
@@ -98,7 +110,11 @@ export class SegmentosComponent implements OnInit {
   }
   updateCodo(){
     if(this.toggleCodo == false){
+<<<<<<< HEAD
       this.booleanos.updateStateCodo(true)
+=======
+      this.booleanos.updateStateCodo(false)
+>>>>>>> c8e3d1341bbd7f255cc11de8fd4e6c53ca9f4fa3
     }
     else{
       this.booleanos.updateStateCodo(false)
@@ -107,7 +123,11 @@ export class SegmentosComponent implements OnInit {
   }
   updateMuneca(){
     if(this.toggleMuneca == false){
+<<<<<<< HEAD
       this.booleanos.updateStateMuneca(true)
+=======
+      this.booleanos.updateStateMuneca(false)
+>>>>>>> c8e3d1341bbd7f255cc11de8fd4e6c53ca9f4fa3
     }
     else{
       this.booleanos.updateStateMuneca(false)
@@ -116,7 +136,11 @@ export class SegmentosComponent implements OnInit {
   }
   updateDedos(){
     if(this.toggleDedos == false){
+<<<<<<< HEAD
       this.booleanos.updateStateDedos(true)
+=======
+      this.booleanos.updateStateDedos(false)
+>>>>>>> c8e3d1341bbd7f255cc11de8fd4e6c53ca9f4fa3
     }
     else{
       this.booleanos.updateStateDedos(false)
@@ -126,7 +150,11 @@ export class SegmentosComponent implements OnInit {
   }
   updatePulgar(){
     if(this.togglePulgar == false){
+<<<<<<< HEAD
       this.booleanos.updateStatePulgar(true)
+=======
+      this.booleanos.updateStatePulgar(false)
+>>>>>>> c8e3d1341bbd7f255cc11de8fd4e6c53ca9f4fa3
     }
     else{
       this.booleanos.updateStatePulgar(false)
@@ -136,7 +164,11 @@ export class SegmentosComponent implements OnInit {
   }
   updateColumnaDL(){
     if(this.toggleColumnaDL == false){
+<<<<<<< HEAD
       this.booleanos.updateStateColumnaDL(true)
+=======
+      this.booleanos.updateStateColumnaDL(false)
+>>>>>>> c8e3d1341bbd7f255cc11de8fd4e6c53ca9f4fa3
     }
     else{
       this.booleanos.updateStateColumnaDL(false)
@@ -146,13 +178,24 @@ export class SegmentosComponent implements OnInit {
   }
   updateColumnaCerv(){
     if(this.toggleColumnaCerv == false){
+<<<<<<< HEAD
       this.booleanos.updateStateColumnaCerv(true)
+=======
+      this.booleanos.updateStateColumnaCerv(false)
+>>>>>>> c8e3d1341bbd7f255cc11de8fd4e6c53ca9f4fa3
     }
     else{
       this.booleanos.updateStateColumnaCerv(false)
     }
   }
+<<<<<<< HEAD
   
+=======
+
+  
+  
+
+>>>>>>> c8e3d1341bbd7f255cc11de8fd4e6c53ca9f4fa3
   toggleTobillo:boolean ;
   toggleRodilla:boolean;
   toggleCadera:boolean;

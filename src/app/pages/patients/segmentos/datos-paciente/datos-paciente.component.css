@@ -35,10 +35,15 @@
     width: 86%!important;
 }
 
-::ng-deep .mat-form-field-flex{
+/*::ng-deep .mat-form-field-flex{
     background: white!important;
+<<<<<<< HEAD
     
 }
+=======
+    border: 1px solid #E0E0E0;
+}*/
+>>>>>>> c8e3d1341bbd7f255cc11de8fd4e6c53ca9f4fa3
 
 ::ng-deep .mat-form-field-underline{
     width:0%!important;

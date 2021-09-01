@@ -28,7 +28,7 @@ export class PatientComponent implements OnInit {
   public loadingTreatments: boolean = false;
   public texto: any[] = ["Hola"];
   mentions: any[] = [];
-  mention: any[] = [];
+  mention: any [] = [];
   patientName: any[] = [];
   postTitle: any[] = [];
   id: any;
@@ -45,7 +45,9 @@ export class PatientComponent implements OnInit {
   patients:any[] = [];
   treatment:any = {};
   interactions:any[] = [];
-  
+  patientId:any;
+  notificationLength: number = 0;
+
   constructor(public http: HttpClient, public post: MatDialog, public dialog: MatDialog, public router: Router, public dataService: DataService, public zone: NgZone, public snackBar: MatSnackBar) {
     moment.locale('es');
     if (!this.dataService.user?._id) {
@@ -119,7 +121,6 @@ export class PatientComponent implements OnInit {
     this.dataService.getData("/_design/view/_view/publications-by-patient?key=\"" + this.dataService.user._id + "\"&include_docs=true").then((posts: any) => {
       this.posts = posts.rows.sort((a: any, b: any) => { return Number(a.doc.datetime) - Number(b.doc.datetime) });
       for (let index in this.posts) {
-        console.log("post:",this.posts)
         for (let post of this.posts) {
           if (post.value.doc) {
             if (post.value.doc.startDate > moment().format("DDMMYYYY")) {
@@ -137,15 +138,12 @@ export class PatientComponent implements OnInit {
         }
       }
     }).then((a) => {
-      console.log(this.posts);
       for (let iterator of this.posts) {
         if (iterator.doc.invitation) {
-          console.log(iterator.doc.title);
           
           this.posts.unshift(this.posts.splice(this.posts.findIndex(item => item._id === iterator.value._id), 1)[0]); 
         }
       } 
-      console.log(this.posts); 
     })
   }
 
@@ -234,7 +232,6 @@ export class PatientComponent implements OnInit {
   }
 
   putPost(postId: string) {
-    console.log("postId", postId)
     let post: any = {};
     let temp: any[] = []
     var myDiv = document.getElementById('main');
@@ -265,7 +262,11 @@ export class PatientComponent implements OnInit {
   }
 
   toggleBadgeVisibility(mention: any) {
+    console.log("mentionToggle:", mention)
     this.hidden = false;
+    if(mention.value.viewed == false){
+      this.notificationLength = this.notificationLength - 1;
+    }
     mention.value.viewed = true;
     this.dataService.postData(mention.value);
   }
@@ -298,7 +299,6 @@ export class PatientComponent implements OnInit {
           })
           this.dataService.getData("/"+invitation.value.patient).then((patient:any)=>{
             this.patients.push(patient);
-            console.log("sss:", this.patients)
           })
         }
       }
@@ -306,6 +306,8 @@ export class PatientComponent implements OnInit {
   }
 
   getMentions() {
+    let temp: any[] = []
+    this.notificationLength = 0;
     this.dataService.getData("/_design/view/_view/comments-by-mention?key=\"" + this.dataService.user._id + "\"").then((mentions: any) => {
       if (mentions.rows.length > 0) {
         this.mentions = mentions.rows;
@@ -313,27 +315,37 @@ export class PatientComponent implements OnInit {
           if (mention.value.viewed) {
             this.hidden = true
           } else {
+            this.notificationLength = this.notificationLength + 1;
             this.hidden = false
           }
-          this.mention = mention;
           let datetime: any = new Date(mention.value.datetime);
           this.dateTime = Math.floor((this.currentDay - datetime) / 1000 / 60 / 60 / 24);
           this.dataService.getData("/" + mention.value.patient).then((patients: any) => {
-            this.patientName = patients.name;
+            mention.value.patient = patients.name         
           })
           this.dataService.getData("/" + mention.value.post).then((post: any) => {
             this.postTitle = post.title;
           })
+          console.log("PATIENT:", mention) 
         }
+        for(let men of this.mentions){
+          if(!men.value.viewed){
+            this.mentions.unshift(this.mentions.splice(this.mentions.findIndex(item => item.value._id === men.value._id), 1)[0]);
+          }
+        }
+       /* if (temp.includes(postId)) {
+          this.posts.unshift(this.posts.splice(this.posts.findIndex(item => item.value._id === postId), 1)[0]);
+        } else {
+          this.posts.unshift({ value: response });
+        }*/
       } else {
         this.mentions.length == 0;
       }
     });
   }
+
   acceptChallenge(invitation:any){
-    console.log("DATE:", invitation)
     this.dataService.getData("/"+invitation.value.program).then((data:any)=>{
-      console.log("data:", data)
       this.interactions = data.interactions;
       this.treatment = {entity:"treatment", state:"active", program: invitation.value.program, patient:this.dataService.user._id,startDate: new Date(), endDate: moment().format("2021-08-31T15:43:24.000Z"),interactions:data.interactions ,datetime: Date.now()}
       this.dataService.postData(this.treatment).then((result:any)=>{
@@ -341,13 +353,11 @@ export class PatientComponent implements OnInit {
       this.dataService.deleteById(invitation.value._id + "?rev=" + invitation.value._rev).then((result:any)=>{
         location.reload();
       })
-      console.log("ACCEPT;", result)
     })
     })
   }
 
   rejectChallenge(invitation:any){
-    console.log("program", invitation)
       this.dataService.deleteById(invitation.value._id + "?rev=" + invitation.value._rev).then((result:any)=>{
         this.snackBar.open("Invitación rechazada correctamente")
         location.reload();

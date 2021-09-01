@@ -10,6 +10,10 @@ import { DialogElementComponent } from './dialog-element/dialog-element.componen
 import { DialogWarningComponent } from './dialog-warning/dialog-warning.component';
 import { String, StringBuilder } from 'typescript-string-operations';
 import { CdkHeaderRowDef } from '@angular/cdk/table';
+<<<<<<< HEAD
+=======
+import { Router } from '@angular/router';
+>>>>>>> c8e3d1341bbd7f255cc11de8fd4e6c53ca9f4fa3
 
 
 
@@ -458,7 +462,11 @@ interface Pinza{
 })
 export class FormsComponent implements OnInit {
 
+<<<<<<< HEAD
   constructor(public json: ConnService, public booleanos: BooleanosService, private clipboard: Clipboard, public dialog: MatDialog) { 
+=======
+  constructor(public router: Router, public json: ConnService, public booleanos: BooleanosService, private clipboard: Clipboard, public dialog: MatDialog) { 
+>>>>>>> c8e3d1341bbd7f255cc11de8fd4e6c53ca9f4fa3
 
   }
 
@@ -497,6 +505,48 @@ export class FormsComponent implements OnInit {
       
   }
 
+<<<<<<< HEAD
+=======
+
+  numberFormControl1 = new FormControl('',[
+    Validators.required,
+    Validators.pattern("^(0|[1-9][0-9]*)$" )
+  ]);
+  numberFormControl2 = new FormControl('',[
+    Validators.required,
+    Validators.pattern("^(0|[1-9][0-9]*)$" )
+  ]);
+
+  textFormControl1 = new FormControl('',[
+    Validators.required
+  ]);
+  textFormControl2 = new FormControl('',[
+    Validators.required
+  ]);
+  textFormControl3 = new FormControl('',[
+    Validators.required
+  ]);
+  textFormControl4 = new FormControl('',[
+    Validators.required
+  ]);
+
+  selected1 = new FormControl('valid', [
+    Validators.required
+  ])
+  selected2 = new FormControl('valid', [
+    Validators.required
+  ])
+  selected3 = new FormControl('valid', [
+    Validators.required
+  ])
+  selected4 = new FormControl('valid', [
+    Validators.required
+  ])
+
+  matcher = new MyErrorStateMatcher();
+
+  suscription: Subscription;
+>>>>>>> c8e3d1341bbd7f255cc11de8fd4e6c53ca9f4fa3
 
   numberFormControl1 = new FormControl('',[
     Validators.required,
@@ -542,6 +592,7 @@ export class FormsComponent implements OnInit {
   _puntaje:number = 0;
   _sugerencia:string;
   
+<<<<<<< HEAD
   _determinante:number;
   _condicion:number;
   _ortopedia:number;
@@ -553,6 +604,23 @@ export class FormsComponent implements OnInit {
   
   sumarValores(n1:any, n2:any, n3:any, n4:any, n5:any, n6: any, n7:any){
 
+=======
+
+  _puntaje:number = 0;
+  _sugerencia:string;
+  
+  _determinante:number;
+  _condicion:number;
+  _ortopedia:number;
+  _edema:number;
+  _nivel:number;
+  _extension:number;
+  _flexion:number;
+
+  
+  sumarValores(n1:any, n2:any, n3:any, n4:any, n5:any, n6: any, n7:any){
+
+>>>>>>> c8e3d1341bbd7f255cc11de8fd4e6c53ca9f4fa3
     this._puntaje = n1.value + n2.value + n3.value + n4.value + n5.value + n6.value + n7.value;
     console.log(this._puntaje);
   
@@ -643,15 +711,29 @@ export class FormsComponent implements OnInit {
   camposVaciosConfirmar(){
    
     if(this.toggleTobillo){
+<<<<<<< HEAD
       if(this.formu.prof == '' || this.formu.antecedentes == '' || this.formu.diagnosticoCondicionSalud == '' || this.formu.edema == '' || this.formu.usoOrtopedia == '' || this.formu.nivelDolorMovilidad == '' || this.formu.promFdFpDerecha == ''  || this.formu.promFdFpIzquierda == '' || this.formu.patronMarcha == ''  ){
         this.dialog.open(DialogElementComponent)
+=======
+      if(this.formu.edema == '' || this.formu.usoOrtopedia == '' || this.formu.nivelDolorMovilidad == '' || this.formu.promFdFpDerecha == ''  || this.formu.promFdFpIzquierda == '' || this.formu.patronMarcha == ''  ){
+        this.dialog.open(DialogElementComponent)
+      }else{
+        this.router.navigateByUrl("/professional/user-view");
+>>>>>>> c8e3d1341bbd7f255cc11de8fd4e6c53ca9f4fa3
       }
       
     }
      
     if(this.toggleHombro){
+<<<<<<< HEAD
       if(this.formu4.prof == '' || this.formu4.antecedentes == '' || this.formu4.diagnosticoCondicionSalud == '' || this.formu4.lateralidad == '' || this.formu4.nivelDolorMovilidad == '' || this.formu4.rangoArt == ''  || this.formu4.apleyInferior == '' || this.formu4.apleySuperior == ''  ){
         this.dialog.open(DialogElementComponent)
+=======
+      if(this.formu4.lateralidad == '' || this.formu4.nivelDolorMovilidad == '' || this.formu4.rangoArt == ''  || this.formu4.apleyInferior == '' || this.formu4.apleySuperior == ''  ){
+        this.dialog.open(DialogElementComponent)
+      }else{
+        this.router.navigateByUrl("/professional/user-view");
+>>>>>>> c8e3d1341bbd7f255cc11de8fd4e6c53ca9f4fa3
       }
       
     }
@@ -663,6 +745,10 @@ export class FormsComponent implements OnInit {
       this.dialog.open(DialogWarningComponent)
       if(this.booleanos.boton1){
         localStorage.setItem("form1.antecedentes", this.formu.antecedentes);
+<<<<<<< HEAD
+=======
+
+>>>>>>> c8e3d1341bbd7f255cc11de8fd4e6c53ca9f4fa3
       }
       
     }
@@ -822,11 +908,14 @@ export class FormsComponent implements OnInit {
                         +"\n° JUSTIFICACIÓN: " + localStorage.getItem("jus")
                         +"\n° CONSIDERACIONES GENERALES: " + localStorage.getItem("cons")
                         +"\n° VALORACIÓN DEL RIESGO DE CAÍDAS: "  + localStorage.getItem("val")  ); */
+<<<<<<< HEAD
 
 
 
 
 
+=======
+>>>>>>> c8e3d1341bbd7f255cc11de8fd4e6c53ca9f4fa3
   }
 
   formu: FormularioTobilloPie = {

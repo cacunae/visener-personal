@@ -59,7 +59,6 @@ export class PostComponent implements OnInit {
     if (this.resizable) {
       this.compressed = true;
     }
-    console.log(this.post);
     if(this.post.value.url){
       this.url2 = this._sanitizer.bypassSecurityTrustResourceUrl(this.post.value.url.changingThisBreaksApplicationSecurity);
     }else{

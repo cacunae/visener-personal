@@ -12,7 +12,10 @@ export class DialogWarningComponent  {
 
   cancelar(){
     
+<<<<<<< HEAD
     
+=======
+>>>>>>> c8e3d1341bbd7f255cc11de8fd4e6c53ca9f4fa3
     this.booleanos.updateStateTobillo(false)
     this.booleanos.updateStateRodilla(false)
     this.booleanos.updateStateHombro(false)

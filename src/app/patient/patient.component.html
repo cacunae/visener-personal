@@ -11,11 +11,13 @@
     <button mat-icon-button routerLink="/patient/groups" routerLinkActive="true">
       <mat-icon>group</mat-icon>
     </button>
-    <button mat-button *ngIf="mentions.length==0 && invitations.length==0" [matMenuTriggerFor]="menu" (click)="getMentions()" #menuTrigger>
-      <mat-icon>notifications_none</mat-icon>
+
+    <!-- INICIO DE MENCIONES -->
+    <button mat-button *ngIf="mentions.length==0 && invitations.length==0" [matMenuTriggerFor]="menu" #menuTrigger>
+      <mat-icon matBadge="{{notificationLength}}" matBadgeColor="warn">notifications_none</mat-icon>
     </button>
-    <button mat-button *ngIf="mentions.length>0 || invitations.length>0" [matMenuTriggerFor]="menu" (click)="getMentions()" #menuTrigger>
-      <mat-icon matBadge="." [matBadgeHidden]="hidden" matBadgeColor="warn">notifications_none</mat-icon>
+    <button mat-button *ngIf="mentions.length>0 || invitations.length>0 || this.hidden" [matMenuTriggerFor]="menu" (click)="getMentions()" #menuTrigger>
+      <mat-icon matBadge="{{notificationLength}}" [matBadgeHidden]="hidden" matBadgeColor="warn">notifications_none</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
       <div>
@@ -23,7 +25,7 @@
           <div *ngIf="mentions.length>0">
             <button *ngIf="men.value.viewed" (click)="viewComment(men.value.post)" mat-menu-item
               style="font-size: 12px!important;height: 68px;"
-              (click)="toggleBadgeVisibility(men)"><strong>{{patientName}}</strong> te etiquetó en un comentario en el
+              (click)="toggleBadgeVisibility(men)"><strong>{{men.value.patient}}</strong> te etiquetó en un comentario en el
               post <strong>"{{postTitle}}"</strong>:<strong>"{{men.value.text}}"</strong><br>
               <div *ngIf="dateTime == 0"><i>HOY</i></div>
               <div *ngIf="dateTime == 1"><i>AYER</i></div>
@@ -31,7 +33,7 @@
             </button>
             <button *ngIf="!men.value.viewed" (click)="viewComment(men.value.post)" mat-menu-item
               style="background-color: #FFD628;font-size: 12px!important;height: 68px;"
-              (click)="toggleBadgeVisibility(men)"><strong>{{patientName}}</strong> te etiquetó en un comentario en el
+              (click)="toggleBadgeVisibility(men)"><strong>{{men.value.patient}}</strong> te etiquetó en un comentario en el
               post <strong>"{{postTitle}}"</strong>:<strong>"{{men.value.text}}"</strong><br>
               <div *ngIf="dateTime == 0"><i>HOY</i></div>
               <div *ngIf="dateTime == 1"><i>AYER</i></div>
@@ -60,6 +62,9 @@
         <mat-divider></mat-divider>
       </div>
     </mat-menu>
+    <!-- FIN DE MENCIONES -->
+
+
     <span class="desktop">&nbsp;{{user.name}}</span>
     <button mat-icon-button (click)="popupConfiguration()" style="margin-left: 20px; margin-right: -5px;">
       <mat-icon>account_circle</mat-icon>

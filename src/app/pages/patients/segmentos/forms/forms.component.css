@@ -3,7 +3,11 @@
     flex-direction: column;
     width:auto;
     flex-wrap: wrap;
+<<<<<<< HEAD
     height: 1155px;
+=======
+    height: 1055px;
+>>>>>>> c8e3d1341bbd7f255cc11de8fd4e6c53ca9f4fa3
 }
 
 ::ng-deep .mat-tab-body-content{
@@ -64,7 +68,10 @@
 }
 
 #containerEval{
+<<<<<<< HEAD
     position: absolute;
+=======
+>>>>>>> c8e3d1341bbd7f255cc11de8fd4e6c53ca9f4fa3
     display: block;
     bottom: 1.5px;
     height: 120px;
@@ -72,6 +79,7 @@
     margin-right: auto;
     margin-left: auto;
 }
+<<<<<<< HEAD
 
 #labelEval{
     display: block;
@@ -93,6 +101,29 @@
     margin-right: 15px;
 }
 
+=======
+
+#labelEval{
+    display: block;
+    margin-right: auto;
+    margin-left: 10px;
+}
+
+#checks{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin-top: 15px;
+
+}
+
+#btnGuardar{
+    display:block;
+    margin-left:auto;
+    margin-right: 15px;
+}
+
+>>>>>>> c8e3d1341bbd7f255cc11de8fd4e6c53ca9f4fa3
 ::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-ripple .mat-ripple-element {
     background-color: #F6A127;
 }

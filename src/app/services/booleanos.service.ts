@@ -6,8 +6,11 @@ import { Subject } from 'rxjs/internal/Subject';
   providedIn: 'root'
 })
 export class BooleanosService {
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> c8e3d1341bbd7f255cc11de8fd4e6c53ca9f4fa3
   private _boton1: Subject<boolean>;
   private _boton2: Subject<boolean>;
   private _boton3: Subject<boolean>;
@@ -102,6 +105,6 @@ export class BooleanosService {
   get boton10(): Observable<boolean>{
     return this._boton10.asObservable();
   }
-
+  
 
 }
