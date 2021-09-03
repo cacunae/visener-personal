@@ -131,6 +131,7 @@ export class User{
   name:string = "";
   username:string = "";
   password:string = "";
+  position:string = "";
   role:string = "";
   lastAccess:string = "";
   granted:boolean = false;

@@ -121,7 +121,8 @@ import { DialogElementComponent } from './pages/patients/segmentos/forms/dialog-
 import { DialogWarningComponent } from './pages/patients/segmentos/forms/dialog-warning/dialog-warning.component';
 import { UserViewComponent } from './pages/patients/segmentos/user-view/user-view.component';
 import { ResumeFormsComponent } from './pages/patients/segmentos/forms/resume-forms/resume-forms.component';
-import { PlanTerapeuticoComponent } from './pages/patients/segmentos/forms/plan-terapeutico/plan-terapeutico.component'
+import { PlanTerapeuticoComponent } from './pages/patients/segmentos/forms/plan-terapeutico/plan-terapeutico.component';
+import { DialogInfoComponent } from './pages/patients/segmentos/forms/dialog-info/dialog-info.component'
 
 @NgModule({
   declarations: [
@@ -201,7 +202,8 @@ import { PlanTerapeuticoComponent } from './pages/patients/segmentos/forms/plan-
     DialogWarningComponent,
     UserViewComponent,
     ResumeFormsComponent,
-    PlanTerapeuticoComponent
+    PlanTerapeuticoComponent,
+    DialogInfoComponent
   ],
   imports: [
     Ng2ImgMaxModule,
